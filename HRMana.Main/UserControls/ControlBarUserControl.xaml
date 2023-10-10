@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="HRMana.Main.UserControls.ControlBarUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HRMana.Main.UserControls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             FontSize="14"
+             mc:Ignorable="d" 
+             Name="ctrlBarUC"
+             DataContext="{StaticResource ctrlBarVM}">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding MoveWindowCommand}" CommandParameter="{Binding ElementName=ctrlBarUC}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <materialDesign:ColorZone Padding="10 8" Mode="Inverted">
+            <DockPanel>
+                <!--<materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
+                    <ListBox>
+                        <ListBoxItem Content="Hello World" />
+                        <ListBoxItem Content="Nice Popup" />
+                        <ListBoxItem Content="Goodbye" />
+                    </ListBox>
+                </materialDesign:PopupBox>-->
+                
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                    <!--<ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" />-->
+                    <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" Text="Phần mềm quản lý thông tin nhân sự" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                    <Button Command="{Binding MinimizeCommand}" CommandParameter="{Binding ElementName=ctrlBarUC}" Style="{StaticResource ctrlBarBtn}">
+                        <Button.Content>
+                            <materialDesign:PackIcon Kind="WindowMinimize" />
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding MaximizeCommand}" CommandParameter="{Binding ElementName=ctrlBarUC}" Style="{StaticResource ctrlBarBtn}">
+                        <Button.Content>
+                            <Grid>
+                                <materialDesign:PackIcon IsEnabled="false" Kind="WindowMaximize" />
+                                <!--<materialDesign:PackIcon IsEnabled="False" Kind="WindowRestore" />-->
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding CloseCommand}" CommandParameter="{Binding ElementName=ctrlBarUC}" Style="{StaticResource closeBtn}">
+                        <Button.Content>
+                            <materialDesign:PackIcon Kind="Close" />                            
+                        </Button.Content>
+                    </Button>
+                </StackPanel> 
+            </DockPanel>
+        </materialDesign:ColorZone>
+    </Grid>
+</UserControl>

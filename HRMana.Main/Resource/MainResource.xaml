@@ -1,0 +1,7 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:HRMana.Main.ViewModel">
+    <vm:ControlBarViewModel x:Key="ctrlBarVM"></vm:ControlBarViewModel>
+    <vm:LoginViewModel x:Key="loginVM"></vm:LoginViewModel>
+    
+</ResourceDictionary>
