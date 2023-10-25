@@ -3,5 +3,6 @@
                     xmlns:vm="clr-namespace:HRMana.Main.ViewModel">
     <vm:ControlBarViewModel x:Key="ctrlBarVM"></vm:ControlBarViewModel>
     <vm:LoginViewModel x:Key="loginVM"></vm:LoginViewModel>
+    <vm:MainViewModel x:Key="mainVM"></vm:MainViewModel>
     
 </ResourceDictionary>

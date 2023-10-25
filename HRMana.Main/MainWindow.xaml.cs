@@ -1,4 +1,6 @@
 ﻿using HRMana.Main.View.Home;
+using HRMana.Main.View.Personnel;
+using HRMana.Main.View.SystemManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +28,30 @@ namespace HRMana.Main
             InitializeComponent();
         }
 
+        private void Directional(Page page)
+        {
+            mainFrame.Navigate(page);
+        }
+
+
         private void mainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            mainFrame.Navigate(new HomePage());
+            Directional(new HomePage());
+        }
+
+        private void listPersonel_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new PersonnelPage());
+        }
+
+        private void GoHome_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new HomePage());
+        }
+
+        private void createAccUser_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new CreateAccountUserPage());
         }
     }
 }

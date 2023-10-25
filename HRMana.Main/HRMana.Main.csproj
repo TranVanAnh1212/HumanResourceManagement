@@ -90,6 +90,12 @@
     <Compile Include="View\Home\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Personnel\PersonnelPage.xaml.cs">
+      <DependentUpon>PersonnelPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SystemManagement\CreateAccountUserPage.xaml.cs">
+      <DependentUpon>CreateAccountUserPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -125,6 +131,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Personnel\PersonnelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SystemManagement\CreateAccountUserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -153,7 +167,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\Images\HinhAnhCty.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HRMana.Common\HRMana.Common.csproj">
       <Project>{be6acedb-8feb-45a1-a984-3bb13d08e37d}</Project>
