@@ -8,18 +8,115 @@
         xmlns:uc="clr-namespace:HRMana.Main.UserControls"
         mc:Ignorable="d"
         x:Name="mainWindow"
+        DataContext="{StaticResource mainVM}"
         Loaded="mainWindow_Loaded"
         Title="MainWindow" Height="750" Width="1300" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <Storyboard x:Key="MainWindowNotification">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Notification_Grid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="78"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="170"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <uc:ControlBarUserControl/>
+        <Grid Grid.Row="0">
+            <uc:ControlBarUserControl/>
+        </Grid>
 
-        <Grid Grid.Row="1">
-            <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden"></Frame>
+        <Grid Grid.Row="1" Margin="0, 10, 0, 0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <materialDesign:Card>
+                    <Menu Height="35" materialDesign:MenuAssist.TopLevelMenuItemHeight="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type materialDesign:Card}}, Path=ActualHeight}" Padding="10,0">
+                        <MenuItem Header="Hệ thống">
+                            <MenuItem Header="Về trang chủ" x:Name="GoHome_MenuItem" Click="GoHome_MenuItem_Click"/>
+                            <MenuItem Header="Người dùng" x:Name="createAccUser_MenuItem" Click="createAccUser_MenuItem_Click"/> 
+                            <MenuItem Header="Đổi mật khẩu" />
+                            <Separator/>
+
+                            <!--<MenuItem Header="Bảo mật">
+                                <MenuItem Header="Phục hồi dữ liệu"/>
+                                <MenuItem Header="Sao lưu dữ liệu"/>
+                            </MenuItem>
+                            <Separator/>-->
+
+                            <MenuItem Header="Đăng xuất" x:Name="LogOut_MenuItem" Command="{Binding LogoutCommand}" CommandParameter="mainWindow"/>
+                            <MenuItem Header="Thoát" x:Name="Exit_MenuItem" Command="{Binding ExitCommand}" CommandParameter="mainWindow"/>
+                        </MenuItem>
+
+                        <MenuItem Header="Hồ sơ">
+                            <MenuItem Header="Hồ sơ nhân viên" />
+                            <MenuItem Header="Điều động công tác" />
+                            <MenuItem Header="Hợp đồng lao động" />
+                            <MenuItem Header="Hết hạn hợp đồng" />
+                        </MenuItem>
+                        
+                        <MenuItem Header="Nhân sự">
+                            <MenuItem Header="Danh sách nhân viên" x:Name="listPersonel" Click="listPersonel_Click"/>
+                            <MenuItem Header="Thêm nhân sự mới"/>
+                        </MenuItem>
+                        
+                        <MenuItem Header="Lương">
+                            <MenuItem Header="Chấm công"/>
+                            <MenuItem Header="Tăng lương"/>
+                            <MenuItem Header="Tạm ứng"/>
+                        </MenuItem>
+                        
+                        <MenuItem Header="Cập nhật">
+                            <MenuItem Header="Chức vụ"/>
+                            <MenuItem Header="Phòng ban"/>
+                            <MenuItem Header="Trình độ"/>
+                            <MenuItem Header="Chế độ"/>
+
+                        </MenuItem>
+                        <MenuItem Header="Thống kê - báo cáo">
+                            <MenuItem Header="Danh sách lương - thưởng"/>
+                            <MenuItem Header="Danh sách nhân sự"/>
+                            <MenuItem Header="Danh sách kỉ luật"/>
+                        </MenuItem>
+                        <MenuItem Header="Trợ giúp">
+                            <MenuItem Header="Về chúng tôi"/>
+                            <MenuItem Header="Liên hệ với kĩ thuật viên"/>
+                        </MenuItem>
+                    </Menu>
+                </materialDesign:Card>
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="Notification_Grid" HorizontalAlignment="Center" Margin="0,-101,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Rectangle HorizontalAlignment="Left" Height="45" Stroke="Black" VerticalAlignment="Top" Width="335" RadiusX="8.1" RadiusY="8.1" Fill="#FF41E663"/>
+            <TextBlock HorizontalAlignment="Left" Height="23" Margin="58,11,0,0" TextWrapping="Wrap" Text="Đăng nhập thành công" VerticalAlignment="Top" Width="219"/>
+            <Button Command="{Binding HideNotifyCommand}" HorizontalAlignment="Left" Height="24" Margin="288,10,0,0" VerticalAlignment="Top" Width="35" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#DD080808" Padding="4,4,4,4">
+                <materialDesign:PackIcon Kind="Close" />
+            </Button>
+            <Image HorizontalAlignment="Left" Height="33" Margin="16,6,0,0" VerticalAlignment="Top" Width="35" Source="successIcon.png"/>
+
+
         </Grid>
     </Grid>
 </Window>
