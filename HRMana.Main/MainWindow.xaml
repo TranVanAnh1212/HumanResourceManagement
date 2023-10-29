@@ -42,15 +42,9 @@
                     <Menu Height="35" materialDesign:MenuAssist.TopLevelMenuItemHeight="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type materialDesign:Card}}, Path=ActualHeight}" Padding="10,0">
                         <MenuItem Header="Hệ thống">
                             <MenuItem Header="Về trang chủ" x:Name="GoHome_MenuItem" Click="GoHome_MenuItem_Click"/>
-                            <MenuItem Header="Người dùng" x:Name="createAccUser_MenuItem" Click="createAccUser_MenuItem_Click"/> 
+                            <MenuItem Header="Người dùng" x:Name="createAccUser_MenuItem" Click="createAccUser_MenuItem_Click"/>
                             <MenuItem Header="Đổi mật khẩu" />
                             <Separator/>
-
-                            <!--<MenuItem Header="Bảo mật">
-                                <MenuItem Header="Phục hồi dữ liệu"/>
-                                <MenuItem Header="Sao lưu dữ liệu"/>
-                            </MenuItem>
-                            <Separator/>-->
 
                             <MenuItem Header="Đăng xuất" x:Name="LogOut_MenuItem" Command="{Binding LogoutCommand}" CommandParameter="mainWindow"/>
                             <MenuItem Header="Thoát" x:Name="Exit_MenuItem" Command="{Binding ExitCommand}" CommandParameter="mainWindow"/>
@@ -58,34 +52,32 @@
 
                         <MenuItem Header="Hồ sơ">
                             <MenuItem Header="Hồ sơ nhân viên" />
-                            <MenuItem Header="Điều động công tác" />
+                            <MenuItem Header="Điều động công tác" x:Name="workingRotationItem" Click="workingRotationItem_Click" />
                             <MenuItem Header="Hợp đồng lao động" />
-                            <MenuItem Header="Hết hạn hợp đồng" />
                         </MenuItem>
-                        
+
                         <MenuItem Header="Nhân sự">
-                            <MenuItem Header="Danh sách nhân viên" x:Name="listPersonel" Click="listPersonel_Click"/>
+                            <MenuItem Header="Danh sách nhân sự" x:Name="listPersonel" Click="listPersonel_Click"/>
                             <MenuItem Header="Thêm nhân sự mới"/>
                         </MenuItem>
-                        
+
                         <MenuItem Header="Lương">
                             <MenuItem Header="Chấm công"/>
-                            <MenuItem Header="Tăng lương"/>
-                            <MenuItem Header="Tạm ứng"/>
                         </MenuItem>
-                        
+
                         <MenuItem Header="Cập nhật">
-                            <MenuItem Header="Chức vụ"/>
+                            <MenuItem Header="Chức vụ" x:Name="positionItem" Click="positionItem_Click"/>
                             <MenuItem Header="Phòng ban"/>
                             <MenuItem Header="Trình độ"/>
                             <MenuItem Header="Chế độ"/>
-
                         </MenuItem>
+
                         <MenuItem Header="Thống kê - báo cáo">
                             <MenuItem Header="Danh sách lương - thưởng"/>
                             <MenuItem Header="Danh sách nhân sự"/>
                             <MenuItem Header="Danh sách kỉ luật"/>
                         </MenuItem>
+
                         <MenuItem Header="Trợ giúp">
                             <MenuItem Header="Về chúng tôi"/>
                             <MenuItem Header="Liên hệ với kĩ thuật viên"/>
@@ -96,7 +88,12 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="183*"/>
+                </Grid.ColumnDefinitions>
+                <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3"/>
             </Grid>
         </Grid>
 

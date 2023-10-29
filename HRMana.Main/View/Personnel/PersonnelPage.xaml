@@ -94,6 +94,7 @@
                     <TextBox HorizontalAlignment="Left" Height="29.31" Margin="143.933,3.2,0,-0.51" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="35.201" TextAlignment="Center"/>
                     <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="29.31" Margin="212.933,3.2,0,-0.51" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="35.201" TextAlignment="Center"/>
                     <TextBlock HorizontalAlignment="Left" Height="24.8" Margin="184.134,7.71,0,-0.51" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="23.799" TextAlignment="Center"/>
+                    <Button Margin="731,0,22,0" x:Name="btn_AddnewPersonel" Content="Thêm mới"></Button>
                 </Grid>
             </Grid>
 

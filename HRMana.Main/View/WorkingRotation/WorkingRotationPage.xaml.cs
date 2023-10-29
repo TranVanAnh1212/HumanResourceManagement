@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HRMana.Main.View.SystemManagement
+namespace HRMana.Main.View.WorkingRotation
 {
     /// <summary>
-    /// Interaction logic for CreateAccountUserPage.xaml
+    /// Interaction logic for WorkingRotationPage.xaml
     /// </summary>
-    public partial class CreateAccountUserPage : Page
+    public partial class WorkingRotationPage : Page
     {
-        public CreateAccountUserPage()
+        public WorkingRotationPage()
         {
             InitializeComponent();
         }

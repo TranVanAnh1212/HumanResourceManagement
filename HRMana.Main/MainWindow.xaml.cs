@@ -1,6 +1,8 @@
 ﻿using HRMana.Main.View.Home;
 using HRMana.Main.View.Personnel;
+using HRMana.Main.View.Position;
 using HRMana.Main.View.SystemManagement;
+using HRMana.Main.View.WorkingRotation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +53,17 @@ namespace HRMana.Main
 
         private void createAccUser_MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Directional(new CreateAccountUserPage());
+            Directional(new AccountUserPage());
+        }
+
+        private void positionItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new PositionPage());
+        }
+
+        private void workingRotationItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new WorkingRotationPage());
         }
     }
 }

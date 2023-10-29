@@ -93,8 +93,14 @@
     <Compile Include="View\Personnel\PersonnelPage.xaml.cs">
       <DependentUpon>PersonnelPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SystemManagement\CreateAccountUserPage.xaml.cs">
-      <DependentUpon>CreateAccountUserPage.xaml</DependentUpon>
+    <Compile Include="View\Position\PositionPage.xaml.cs">
+      <DependentUpon>PositionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SystemManagement\AccountUserPage.xaml.cs">
+      <DependentUpon>AccountUserPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WorkingRotation\WorkingRotationPage.xaml.cs">
+      <DependentUpon>WorkingRotationPage.xaml</DependentUpon>
     </Compile>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
@@ -135,7 +141,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SystemManagement\CreateAccountUserPage.xaml">
+    <Page Include="View\Position\PositionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SystemManagement\AccountUserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WorkingRotation\WorkingRotationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
