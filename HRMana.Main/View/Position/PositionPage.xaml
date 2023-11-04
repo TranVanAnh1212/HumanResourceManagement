@@ -4,10 +4,19 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:local="clr-namespace:HRMana.Main.View.Position"
       mc:Ignorable="d" 
+      DataContext="{StaticResource positionVM}"
       Style="{StaticResource Sizewindow}"
+      x:Name="PositionPage_Name"
       Title="PositionPage">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadWindowCommand}" CommandParameter="{Binding ElementName=PositionPage_Name}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -45,13 +54,13 @@
 
             <Grid Grid.Column="0">
                 <Label Content="Mã chức vụ" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="40" Margin="10,31,0,0" VerticalAlignment="Top" Width="140"/>
-                <TextBox HorizontalAlignment="Left" Height="40" Margin="180,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450"/>
+                <TextBox IsReadOnly="True" Text="{Binding MaChucVu}" HorizontalAlignment="Left" Height="40" Margin="180,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" Cursor="No"/>
                 <Label Content="Tên chức vụ" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="40" Margin="10,87,0,0" VerticalAlignment="Top" Width="140"/>
-                <TextBox HorizontalAlignment="Left" Height="40" Margin="180,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450"/>
-                <Button Content="Thêm mới" HorizontalAlignment="Left" Height="35" Margin="165,166,0,0" VerticalAlignment="Top" Width="115"/>
-                <Button Content="Sửa" HorizontalAlignment="Left" Height="35" Margin="340,166,0,0" VerticalAlignment="Top" Width="115"/>
-                <Button Content="Xóa" HorizontalAlignment="Left" Height="35" Margin="165,241,0,0" VerticalAlignment="Top" Width="115"/>
-                <Button Content="Hủy" HorizontalAlignment="Left" Height="35" Margin="340,241,0,0" VerticalAlignment="Top" Width="115"/>
+                <TextBox HorizontalAlignment="Left" Text="{Binding TenChucVu}" Height="40" Margin="180,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450"/>
+                <Button Command="{Binding CreateNew_ChucVuCommand}" Content="Thêm mới" HorizontalAlignment="Left" Height="35" Margin="165,166,0,0" VerticalAlignment="Top" Width="115"/>
+                <Button Command="{Binding Update_ChucVuCommand}" Content="Sửa" HorizontalAlignment="Left" Height="35" Margin="340,166,0,0" VerticalAlignment="Top" Width="115"/>
+                <Button Command="{Binding Delete_ChucVuCommand}" Content="Xóa" HorizontalAlignment="Left" Height="35" Margin="165,241,0,0" VerticalAlignment="Top" Width="115"/>
+                <Button Command="{Binding CancelCommandCommand}" Content="Hủy" HorizontalAlignment="Left" Height="35" Margin="340,241,0,0" VerticalAlignment="Top" Width="115"/>
 
             </Grid>
 
@@ -62,38 +71,38 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <ListView Margin="25,25,25,25">
+                <ListView Margin="25,25,25,25" ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Mã chức vụ"/>
-                            <GridViewColumn Header="Tên chức vụ"/>
+                            <GridViewColumn Header="Mã chức vụ" DisplayMemberBinding="{Binding MaChucVu}"/>
+                            <GridViewColumn Header="Tên chức vụ" DisplayMemberBinding="{Binding TenChucVu}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
 
                 <Grid Grid.Row="1" Margin="3 5 3 10">
-                    <Button Margin="7,8,582,7" Width="55">
+                    <Button Margin="7,8,582,7" Width="55" Command="{Binding BackToTopCommand}">
                         <Button.Content>
                             <materialDesign:PackIcon FontSize="18" Kind="SkipBackward" />
                         </Button.Content>
                     </Button>
-                    <Button  Width="55" Margin="77,8,512,7" >
+                    <Button  Width="55" Margin="77,8,512,7" Command="{Binding ReducePageCommand}">
                         <Button.Content>
                             <materialDesign:PackIcon FontSize="18" Kind="ArrowLeftBold" />
                         </Button.Content>
                     </Button>
-                    <Button  Width="55" Margin="247,8,342,7">
+                    <Button  Width="55" Margin="247,8,342,7" Command="{Binding IncreasePageCommand}">
                         <Button.Content>
                             <materialDesign:PackIcon FontSize="18" Kind="ArrowRightBold" />
                         </Button.Content>
                     </Button>
-                    <Button  Width="55" Margin="317,8,272,7">
+                    <Button  Width="55" Margin="317,8,272,7" Command="{Binding GoToEndCommand}">
                         <Button.Content>
                             <materialDesign:PackIcon FontSize="18" Kind="SkipForward" />
                         </Button.Content>
                     </Button>
-                    <TextBox HorizontalAlignment="Left" Height="29" Margin="144,11,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="35" TextAlignment="Center"/>
-                    <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="29" Margin="198,11,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="35" TextAlignment="Center"/>
+                    <TextBox HorizontalAlignment="Left" Height="29" Margin="144,11,0,0" TextWrapping="Wrap" Text="{Binding Page}" VerticalAlignment="Top" Width="35" TextAlignment="Center"/>
+                    <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="29" Margin="198,11,0,0" TextWrapping="Wrap" Text="{Binding TotalPage}" VerticalAlignment="Top" Width="35" TextAlignment="Center"/>
                     <TextBlock HorizontalAlignment="Left" Height="25" Margin="179,13,0,0" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="19" TextAlignment="Center"/>
                 </Grid>
             </Grid>

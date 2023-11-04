@@ -5,9 +5,18 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HRMana.Main.View.SystemManagement"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
+      DataContext="{StaticResource taiKhoanVM}"
       Style="{StaticResource Sizewindow}"
       Title="AccountUserPage">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadTaiKhoanPageCommand}" 
+                                   CommandParameter="{Binding ElementName=AccountUserPage}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -39,29 +48,26 @@
 
         <Grid Grid.Row="1">
             <TextBlock HorizontalAlignment="Left" Height="25.067" Margin="92.067,36.939,0,0" TextWrapping="Wrap" Text="Tên người dùng" VerticalAlignment="Top" Width="200.8" TextAlignment="Right" FontSize="14"/>
-            <TextBox HorizontalAlignment="Left" Height="25.067" Margin="314.8,36.939,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288.8"/>
+            <TextBox Text="{Binding TenTaiKhoan}" HorizontalAlignment="Left" Height="25.067" Margin="314.8,36.939,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288.8"/>
             <TextBlock HorizontalAlignment="Left" Height="25.067" Margin="92.067,77.072,0,0" TextWrapping="Wrap" Text="Mật khẩu" VerticalAlignment="Top" Width="200.8" TextAlignment="Right" FontSize="14"/>
-            <TextBox HorizontalAlignment="Left" Height="25.067" Margin="314.8,77.072,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288.8"/>
+            <TextBox Text="{Binding MatKhau}" HorizontalAlignment="Left" Height="25.067" Margin="314.8,77.072,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288.8"/>
             <TextBlock HorizontalAlignment="Left" Height="26" Margin="87,125,0,0" TextWrapping="Wrap" Text="Quyền hạn tài khoản" VerticalAlignment="Top" Width="201" TextAlignment="Right" FontSize="14"/>
-            <ComboBox HorizontalAlignment="Left" Height="26" Margin="310,125,0,0" VerticalAlignment="Top" Width="289">
-                <ComboBoxItem Content="Quản trị viên"/>
-                <ComboBoxItem Content="Admin"/>
-                <ComboBoxItem Content="Nhân viên"/>
-            </ComboBox>
-            <Button Content="Tạo tài khoản" HorizontalAlignment="Left" Height="40" Margin="236,237,0,0" VerticalAlignment="Top" Width="148"/>
-            <Button Content="Hủy bỏ" HorizontalAlignment="Left" Height="40" Margin="455,237,0,0" VerticalAlignment="Top" Width="149"/>
-            <ListView HorizontalAlignment="Left" Height="441" Margin="671,37,0,0" VerticalAlignment="Top" Width="600">
+            <ComboBox ItemsSource="{Binding ListQuyen}" SelectedItem="{Binding SelectedQuyen}" DisplayMemberPath="tenQuyen" HorizontalAlignment="Left" Height="26" Margin="310,125,0,0" VerticalAlignment="Top" Width="289"></ComboBox>
+            <Button Content="Tạo tài khoản" Command="{Binding CreateNew_TaiKhoan}" HorizontalAlignment="Left" Height="40" Margin="236,237,0,0" VerticalAlignment="Top" Width="148"/>
+            <Button Command="{Binding CanCelCommand}" Content="Hủy bỏ" HorizontalAlignment="Left" Height="40" Margin="455,237,0,0" VerticalAlignment="Top" Width="149"/>
+            <ListView HorizontalAlignment="Left" ItemsSource="{Binding ListTaiKhoan}" SelectedItem="{Binding SelectedTaiKhoan}" Height="441" Margin="671,37,0,0" VerticalAlignment="Top" Width="600">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Mã tài khoản"/>
-                        <GridViewColumn Header="Tên tài khoản"/>
-                        <GridViewColumn Header="Quyền hạn tài khoản"/>
+                        <GridViewColumn Header="Mã tài khoản" DisplayMemberBinding="{Binding MaTaiKhoan}"/>
+                        <GridViewColumn Header="Tên tài khoản" DisplayMemberBinding="{Binding TenTaiKhoan}"/>
+                        <GridViewColumn Header="Quyền" DisplayMemberBinding="{Binding QuyenTaiKhoan}"/>
+                        <GridViewColumn Header="Trạng thái" DisplayMemberBinding="{Binding TrangThaiTaiKhoan}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button Content="Khóa tài khoản" HorizontalAlignment="Left" Height="40" Margin="236,321,0,0" VerticalAlignment="Top" Width="148"/>
-            <Button Content="Xóa tài khoản" HorizontalAlignment="Left" Height="40" Margin="456,321,0,0" VerticalAlignment="Top" Width="148"/>
-            <Button Content="Xóa tài khoản" HorizontalAlignment="Left" Height="40" Margin="456,321,0,0" VerticalAlignment="Top" Width="148"/>
+            <Button Content="Khóa tài khoản" Command="{Binding Block_TaiKhoan}" HorizontalAlignment="Left" Height="40" Margin="236,321,0,0" VerticalAlignment="Top" Width="148"/>
+            <Button Content="Xóa tài khoản" Command="{Binding Delete_TaiKhoan}" HorizontalAlignment="Left" Height="40" Margin="456,321,0,0" VerticalAlignment="Top" Width="148"/>
+            <Button Content="Mở khóa tài khoản" Command="{Binding Unblock_TaiKhoan}" HorizontalAlignment="Left" Height="40" Margin="236,401,0,0" VerticalAlignment="Top" Width="148"/>
         </Grid>
     </Grid>
 </Page>

@@ -1,4 +1,5 @@
-﻿using HRMana.Main.View.Home;
+﻿using HRMana.Common.Events;
+using HRMana.Main.View.Home;
 using HRMana.Main.View.Personnel;
 using HRMana.Main.View.Position;
 using HRMana.Main.View.SystemManagement;
@@ -14,6 +15,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -28,6 +30,23 @@ namespace HRMana.Main
         public MainWindow()
         {
             InitializeComponent();
+
+            NotificationEvent.Instance.ShowNotificationRequested += async (sender, e) =>
+            {
+                try
+                {
+                    Storyboard stb = FindResource("MainWindowNotification") as Storyboard;
+
+                    if (stb != null)
+                    {
+                        stb.Begin();
+
+                        await Task.Delay(TimeSpan.FromSeconds(3));
+
+                        stb.Stop();
+                    }
+                }catch(Exception exep) { }
+            };
         }
 
         private void Directional(Page page)

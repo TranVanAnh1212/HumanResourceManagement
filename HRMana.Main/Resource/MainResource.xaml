@@ -4,5 +4,7 @@
     <vm:ControlBarViewModel x:Key="ctrlBarVM"></vm:ControlBarViewModel>
     <vm:LoginViewModel x:Key="loginVM"></vm:LoginViewModel>
     <vm:MainViewModel x:Key="mainVM"></vm:MainViewModel>
+    <vm:TaiKhoanViewModel x:Key="taiKhoanVM"></vm:TaiKhoanViewModel>
+    <vm:PositionViewModel x:Key="positionVM"></vm:PositionViewModel>
     
 </ResourceDictionary>

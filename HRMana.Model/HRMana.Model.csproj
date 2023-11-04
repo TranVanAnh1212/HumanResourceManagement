@@ -43,6 +43,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,15 +53,116 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\BaoCaoDangNhapDAO.cs" />
+    <Compile Include="DAO\ChucVuDAO.cs" />
+    <Compile Include="DAO\DataProvider.cs" />
+    <Compile Include="DAO\LoginDAO.cs" />
+    <Compile Include="DAO\QuyenDAO.cs" />
+    <Compile Include="DAO\TaiKhoanDAO.cs" />
+    <Compile Include="EF\BaoCaoDangNhap.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ChamCong.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ChucVu.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ChuyenCongTac.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ChuyenMon.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\DangNhap_Proc_Result.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\DanToc.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\HopDong.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\HoSo.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Luong.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\NhanVien.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\PhongBan.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\QLNhanSuDBContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNhanSuDBContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\QLNhanSuDBContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\QLNhanSuDBContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNhanSuDBContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Quyen.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\sp_helpdiagrams_Result.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\sysdiagrams.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\TaiKhoan.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\TaoMoiTaiKhoan_Result.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\TonGiao.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\TrinhDo.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="EF\QLNhanSuDBContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QLNhanSuDBContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EF\QLNhanSuDBContext.edmx.diagram">
+      <DependentUpon>QLNhanSuDBContext.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="DAO\" />
-    <Folder Include="EF\" />
+    <Content Include="Database\QLNhanSu.sql" />
+    <Content Include="EF\QLNhanSuDBContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLNhanSuDBContext.edmx</DependentUpon>
+      <LastGenOutput>QLNhanSuDBContext.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EF\QLNhanSuDBContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLNhanSuDBContext.edmx</DependentUpon>
+      <LastGenOutput>QLNhanSuDBContext.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

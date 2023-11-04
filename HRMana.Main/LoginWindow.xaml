@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HRMana.Main"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:uc="clr-namespace:HRMana.Main.UserControls"
         mc:Ignorable="d"
+        x:Name="LoginWindow"
         Title="Login" Height="450" Width="750"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None" ResizeMode="NoResize"
@@ -40,11 +42,20 @@
 
 
             <Grid Grid.Column="1">
-                <TextBox x:Name="userName" HorizontalAlignment="Center" Margin="0,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Height="30"/>
                 <TextBlock Margin="0,38,0,0" TextWrapping="Wrap" Text="Đăng nhập" VerticalAlignment="Top" Height="67" FontSize="36" FontWeight="Bold" TextAlignment="Center"/>
-                <TextBlock HorizontalAlignment="Left" Height="28" Margin="50,117,0,0" TextWrapping="Wrap" Text="Tên Đăng nhập" VerticalAlignment="Top" Width="150"/>
-                <TextBlock HorizontalAlignment="Left" Height="28" Margin="50,195,0,0" TextWrapping="Wrap" Text="Mật khẩu" VerticalAlignment="Top" Width="150"/>
-                <PasswordBox HorizontalAlignment="Center" Margin="0,223,0,0" VerticalAlignment="Top" Width="300" Height="30"/>
+                
+                <TextBlock HorizontalAlignment="Left" Height="28" Margin="38,117,0,0" TextWrapping="Wrap" Text="Tên Đăng nhập" VerticalAlignment="Top" Width="150"/>
+                <TextBox x:Name="userName" HorizontalAlignment="Center" Text="{Binding UserName}" Margin="0,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Height="30"/>
+                
+                <TextBlock HorizontalAlignment="Left" Height="28" Margin="38,195,0,0" TextWrapping="Wrap" Text="Mật khẩu" VerticalAlignment="Top" Width="150"/>
+                <PasswordBox HorizontalAlignment="Center" x:Name="txt_Password" Margin="0,223,0,0" VerticalAlignment="Top" Width="300" Height="30">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PasswordChanged">
+                            <i:InvokeCommandAction Command="{Binding PasswordChangeCommand, Mode=TwoWay}" CommandParameter="{Binding ElementName=txt_Password}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </PasswordBox>
+                
                 <Button x:Name="loginBtn" Command="{Binding LoginCommand}" Content="Đăng nhập" HorizontalAlignment="Center" Height="40" Margin="0,304,0,0" VerticalAlignment="Top" Width="184"/>
 
             </Grid>
@@ -58,14 +69,12 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Grid.RenderTransform>
-            <Rectangle HorizontalAlignment="Left" Height="45" Stroke="Black" VerticalAlignment="Top" Width="335" RadiusX="8.1" RadiusY="8.1" Fill="#FF41E663"/>
-            <TextBlock HorizontalAlignment="Left" Height="23" Margin="58,11,0,0" TextWrapping="Wrap" Text="Đăng nhập thành công" VerticalAlignment="Top" Width="219"/>
+            <Rectangle HorizontalAlignment="Left" Height="45" Stroke="Black" VerticalAlignment="Top" Width="335" RadiusX="8.1" RadiusY="8.1" Fill="red"/>
+            <TextBlock HorizontalAlignment="Left" Foreground="White" Height="23" Margin="58,11,0,0" TextWrapping="Wrap" Text="Đăng nhập không thành công" VerticalAlignment="Top" Width="219"/>
             <Button Command="{Binding HideNotifyCommand}" HorizontalAlignment="Left" Height="24" Margin="288,10,0,0" VerticalAlignment="Top" Width="35" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#DD080808" Padding="4,4,4,4">
                 <materialDesign:PackIcon Kind="Close" />
             </Button>
-            <Image HorizontalAlignment="Left" Height="33" Margin="16,6,0,0" VerticalAlignment="Top" Width="35" Source="/successIcon.png"/>
-
-
+            <Image HorizontalAlignment="Left" Height="33" Margin="16,6,0,0" VerticalAlignment="Top" Width="35" Source="/Assets/Images/ErrorIcon.png" OpacityMask="#FFD14949"/>
         </Grid>
 
 

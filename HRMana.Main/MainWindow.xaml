@@ -8,6 +8,7 @@
         xmlns:uc="clr-namespace:HRMana.Main.UserControls"
         mc:Ignorable="d"
         x:Name="mainWindow"
+        FontSize="14"
         DataContext="{StaticResource mainVM}"
         Loaded="mainWindow_Loaded"
         Title="MainWindow" Height="750" Width="1300" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
@@ -97,7 +98,7 @@
             </Grid>
         </Grid>
 
-        <Grid x:Name="Notification_Grid" HorizontalAlignment="Center" Margin="0,-101,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+        <Grid x:Name="Notification_Grid" HorizontalAlignment="Center" Margin="0,-101,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="61">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -106,9 +107,13 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Grid.RenderTransform>
-            <Rectangle HorizontalAlignment="Left" Height="45" Stroke="Black" VerticalAlignment="Top" Width="335" RadiusX="8.1" RadiusY="8.1" Fill="#FF41E663"/>
-            <TextBlock HorizontalAlignment="Left" Height="23" Margin="58,11,0,0" TextWrapping="Wrap" Text="Đăng nhập thành công" VerticalAlignment="Top" Width="219"/>
-            <Button Command="{Binding HideNotifyCommand}" HorizontalAlignment="Left" Height="24" Margin="288,10,0,0" VerticalAlignment="Top" Width="35" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#DD080808" Padding="4,4,4,4">
+            <Rectangle HorizontalAlignment="Stretch" Height="59" Stroke="Black" VerticalAlignment="Center" Width="335" 
+                       RadiusX="8.1" RadiusY="8.1" Fill="{Binding Fill}"/>
+            <TextBlock Foreground="Black" FontSize="15" HorizontalAlignment="Center" 
+                       Height="22" TextWrapping="Wrap" Text="{Binding Message}" VerticalAlignment="Center" Width="218"/>
+            <Button Command="{Binding HideNotifyCommand}" HorizontalAlignment="Left" Height="24" Margin="290,0,0,0" 
+                    VerticalAlignment="Center" Width="35" Background="{x:Null}" BorderBrush="{x:Null}" 
+                    Foreground="#DD080808" Padding="4,4,4,4">
                 <materialDesign:PackIcon Kind="Close" />
             </Button>
             <Image HorizontalAlignment="Left" Height="33" Margin="16,6,0,0" VerticalAlignment="Top" Width="35" Source="successIcon.png"/>

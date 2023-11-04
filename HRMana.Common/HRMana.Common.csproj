@@ -41,8 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commons\CommonConstant.cs" />
     <Compile Include="Events\NotificationEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HRMana.Model\HRMana.Model.csproj">
+      <Project>{c2eb5b6f-90f2-4e2a-8023-33e199f2f151}</Project>
+      <Name>HRMana.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
