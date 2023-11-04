@@ -37,7 +37,7 @@
 
         </Grid>
 
-        <Grid Grid.Row="1">
+        <Grid Margin="10,69,-10,0" Grid.RowSpan="2">
             <TextBlock HorizontalAlignment="Left" Height="25.067" Margin="92.067,36.939,0,0" TextWrapping="Wrap" Text="Tên người dùng" VerticalAlignment="Top" Width="200.8" TextAlignment="Right" FontSize="14"/>
             <TextBox HorizontalAlignment="Left" Height="25.067" Margin="314.8,36.939,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288.8"/>
             <TextBlock HorizontalAlignment="Left" Height="25.067" Margin="92.067,77.072,0,0" TextWrapping="Wrap" Text="Mật khẩu" VerticalAlignment="Top" Width="200.8" TextAlignment="Right" FontSize="14"/>

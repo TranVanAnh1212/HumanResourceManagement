@@ -59,7 +59,7 @@
                         <MenuItem Header="Hồ sơ">
                             <MenuItem Header="Hồ sơ nhân viên" />
                             <MenuItem Header="Điều động công tác" />
-                            <MenuItem Header="Hợp đồng lao động" />
+                            <MenuItem Header="Hợp đồng lao động" x:Name="updateContract_MenuItem" Click="updateContract_MenuItem_Click"/>
                             <MenuItem Header="Hết hạn hợp đồng" />
                         </MenuItem>
                         
@@ -69,14 +69,14 @@
                         </MenuItem>
                         
                         <MenuItem Header="Lương">
-                            <MenuItem Header="Chấm công"/>
+                            <MenuItem Header="Chấm công" x:Name="timeKeeping_MenuItem" Click="timeKeeping_MenuItem_Click"/>
                             <MenuItem Header="Tăng lương"/>
                             <MenuItem Header="Tạm ứng"/>
                         </MenuItem>
                         
                         <MenuItem Header="Cập nhật">
                             <MenuItem Header="Chức vụ"/>
-                            <MenuItem Header="Phòng ban"/>
+                            <MenuItem Header="Phòng ban" x:Name="updateDepartment_MenuItem" Click="updateDepartment_MenuItem_Click"/>
                             <MenuItem Header="Trình độ"/>
                             <MenuItem Header="Chế độ"/>
 

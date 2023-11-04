@@ -1,6 +1,9 @@
-﻿using HRMana.Main.View.Home;
+﻿using HRMana.Main.View.Contract;
+using HRMana.Main.View.Department;
+using HRMana.Main.View.Home;
 using HRMana.Main.View.Personnel;
 using HRMana.Main.View.SystemManagement;
+using HRMana.Main.View.TimeKeeping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +55,21 @@ namespace HRMana.Main
         private void createAccUser_MenuItem_Click(object sender, RoutedEventArgs e)
         {
             Directional(new CreateAccountUserPage());
+        }
+
+        private void updateDepartment_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new DepartmentPage());
+        }
+
+        private void updateContract_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new ContractPage());
+        }
+
+        private void timeKeeping_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new TimeKeepingPage());
         }
     }
 }
