@@ -1,4 +1,6 @@
-﻿using HRMana.Main.View.Dialog;
+﻿using HRMana.Common;
+using HRMana.Common.Events;
+using HRMana.Main.View.Dialog;
 using HRMana.Main.View.Position;
 using HRMana.Model.DAO;
 using HRMana.Model.EF;
@@ -24,6 +26,8 @@ namespace HRMana.Main.ViewModel
         private int _page;
         private int _pageSize;
         private int _totalRecord;
+        private string _message;
+        private string _fill;
 
         public ICommand IncreasePageCommand { get; set; }
         public ICommand ReducePageCommand { get; set; }
@@ -46,8 +50,11 @@ namespace HRMana.Main.ViewModel
                 _SelectedPosition = value;
                 OnPropertyChanged();
 
-                MaChucVu = SelectedPosition.MaChucVu;
-                TenChucVu = SelectedPosition.TenChucVu;
+                if (_SelectedPosition != null)
+                {
+                    MaChucVu = SelectedPosition.MaChucVu;
+                    TenChucVu = SelectedPosition.TenChucVu;
+                }
             }
         }
 
@@ -57,6 +64,9 @@ namespace HRMana.Main.ViewModel
         public int TotalRecord { get => _totalRecord; set { _totalRecord = value; OnPropertyChanged(); } }
 
         public int PageSize { get => _pageSize; set { _pageSize = value; OnPropertyChanged(); } }
+
+        public string Message { get => _message; set { _message = value; OnPropertyChanged(); } }
+        public string Fill { get => _fill; set { _fill = value; OnPropertyChanged(); } }
 
         public PositionViewModel()
         {
@@ -74,7 +84,6 @@ namespace HRMana.Main.ViewModel
                 (param) =>
                 {
                     GetList_ChucVu();
-
                 }
                 );
 
@@ -143,13 +152,20 @@ namespace HRMana.Main.ViewModel
                 },
                 (param) =>
                 {
-                    var result = new ChucVuDAO().CreateNew_ChucVu(TenChucVu);
-
-                    if (result != null)
+                    if (TenChucVu == string.Empty)
                     {
-                        new MainViewModel().ShowMessage("Thêm mới chức vụ thành công.", "#FF58FF7B");
-                        EmptyTextbox();
-                        GetList_ChucVu();
+                        var result = new ChucVuDAO().CreateNew_ChucVu(TenChucVu);
+
+                        if (result != null)
+                        {
+                            ShowNotification("Thêm mới chức vụ thành công.", "#FF58FF7B");
+                            EmptyTextbox();
+                            GetList_ChucVu();
+                        }
+                        else
+                        {
+                            ShowNotification("Thêm mới chức vụ thành công.", "#FFFF5858");
+                        }
                     }
                 }
                 );
@@ -157,6 +173,9 @@ namespace HRMana.Main.ViewModel
             CancelCommandCommand = new RelayCommand<object>(
                 (param) =>
                 {
+                    if (SelectedPosition == null || TenChucVu == string.Empty)
+                        return false;
+
                     return true;
                 },
                 (param) =>
@@ -180,19 +199,19 @@ namespace HRMana.Main.ViewModel
 
                     if (true == d.ShowDialog())
                     {
-                        var result = new ChucVuDAO().Update_ChucVu(SelectedPosition.MaChucVu, SelectedPosition.TenChucVu);
+                        var result = new ChucVuDAO().Update_ChucVu(MaChucVu, TenChucVu);
 
                         if (result)
                         {
+                            ShowNotification("Cập nhật chức vụ thành công. ", "#FF58FF7B");
                             EmptyTextbox();
                             GetList_ChucVu();
                         }
                         else
                         {
-
+                            ShowNotification("Cập nhật chức vụ không thành công. ", "#FFFF5858");
                         }
                     }
-
                 }
                 );
 
@@ -214,7 +233,7 @@ namespace HRMana.Main.ViewModel
                 TotalRecord = result.Count();
                 TotalPage = (int)Math.Ceiling((double)TotalRecord / PageSize);
 
-                Positions = new ObservableCollection<PositionViewModel>(result.OrderByDescending(x => x.MaChucVu).Skip((Page - 1) * PageSize).Take(PageSize).ToList());
+                Positions = new ObservableCollection<PositionViewModel>(result.OrderBy(x => x.TenChucVu).Skip((Page - 1) * PageSize).Take(PageSize).ToList());
             }
             catch (Exception ex) { }
         }
@@ -225,5 +244,14 @@ namespace HRMana.Main.ViewModel
             MaChucVu = 0;
             TenChucVu = string.Empty;
         }
+
+        public void ShowNotification(string message, string fill)
+        {
+            Message = message;
+            Fill = fill;
+            NotificationEvent.Instance.ReqquestShowNotification();
+        }
+
+
     }
 }

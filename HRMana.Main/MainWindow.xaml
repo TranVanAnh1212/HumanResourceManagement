@@ -116,9 +116,7 @@
                     Foreground="#DD080808" Padding="4,4,4,4">
                 <materialDesign:PackIcon Kind="Close" />
             </Button>
-            <Image HorizontalAlignment="Left" Height="33" Margin="16,6,0,0" VerticalAlignment="Top" Width="35" Source="successIcon.png"/>
-
-
+            <Image HorizontalAlignment="Left" Height="33" Margin="16,6,0,0" VerticalAlignment="Top" Width="35" Source="/Assets/Images/successIcon.png"/>
         </Grid>
     </Grid>
 </Window>

@@ -30,23 +30,6 @@ namespace HRMana.Main
         public MainWindow()
         {
             InitializeComponent();
-
-            NotificationEvent.Instance.ShowNotificationRequested += async (sender, e) =>
-            {
-                try
-                {
-                    Storyboard stb = FindResource("MainWindowNotification") as Storyboard;
-
-                    if (stb != null)
-                    {
-                        stb.Begin();
-
-                        await Task.Delay(TimeSpan.FromSeconds(3));
-
-                        stb.Stop();
-                    }
-                }catch(Exception exep) { }
-            };
         }
 
         private void Directional(Page page)

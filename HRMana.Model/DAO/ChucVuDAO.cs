@@ -45,13 +45,20 @@ namespace HRMana.Model.DAO
         {
             try
             {
-                var result = DataProvider.Instance.DBContext.ChucVu.Where(x => x.maChucVu == maChucVu).SingleOrDefault();
+                if (string.IsNullOrEmpty(tenChucVu) && maChucVu == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    var result = DataProvider.Instance.DBContext.ChucVu.Where(x => x.maChucVu == maChucVu).SingleOrDefault();
 
-                result.tenChucVu = tenChucVu;
+                    result.tenChucVu = tenChucVu;
 
-                DataProvider.Instance.DBContext.SaveChanges();
+                    DataProvider.Instance.DBContext.SaveChanges();
 
-                return true;
+                    return true;
+                }
 
             }
             catch (Exception ex)

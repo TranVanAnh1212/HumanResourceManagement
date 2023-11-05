@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Commons\CommonConstant.cs" />
     <Compile Include="Events\NotificationEvent.cs" />
+    <Compile Include="Commons\FeatureHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
