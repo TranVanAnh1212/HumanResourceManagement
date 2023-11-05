@@ -12,16 +12,25 @@
         <TextBlock Text="Cập nhật phòng ban" Margin="10,10,10,9.998" FontSize="22" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Padding="0,10" HorizontalAlignment="Center" VerticalAlignment="Top"></TextBlock>
         <Grid>
             <TextBlock HorizontalAlignment="Left" Height="25" Margin="202,97,0,0" TextWrapping="Wrap" Text="Mã phòng ban" VerticalAlignment="Top" Width="96" TextAlignment="Right" FontSize="14"/>
-            <TextBox HorizontalAlignment="Left" Height="26" Margin="317,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="312"/>
+            <TextBox HorizontalAlignment="Left" Height="26" Margin="317,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="268"/>
             <TextBlock HorizontalAlignment="Left" Height="26" Margin="201,139,0,0" TextWrapping="Wrap" Text="Tên phòng ban" VerticalAlignment="Top" Width="97" TextAlignment="Right" FontSize="14"/>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="317,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="500"/>
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="317,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="439"/>
             <TextBlock HorizontalAlignment="Left" Height="26" Margin="201,180,0,0" TextWrapping="Wrap" Text="Điện thoại" VerticalAlignment="Top" Width="97" TextAlignment="Right" FontSize="14"/>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="317,181,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="289" RenderTransformOrigin="0.76,0.568"/>
-            <ListView HorizontalAlignment="Center" Height="277" Margin="0,256,0,0" VerticalAlignment="Top" Width="896">
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="317,181,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="268" RenderTransformOrigin="0.76,0.568">
+                <TextBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.001"/>
+                        <RotateTransform Angle="0.048"/>
+                        <TranslateTransform Y="-0.002"/>
+                    </TransformGroup>
+                </TextBox.RenderTransform>
+            </TextBox>
+            <ListView HorizontalAlignment="Center" Height="277" Margin="0,256,0,0" VerticalAlignment="Top" Width="800">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Mã phòng" Width="auto"/>
-                        <GridViewColumn Header="Tên phòng" Width="500"/>
+                        <GridViewColumn Header="Mã phòng" Width="170"/>
+                        <GridViewColumn Header="Tên phòng" Width="400"/>
                         <GridViewColumn Header="Số điện thoại"/>
                     </GridView>
                 </ListView.View>
