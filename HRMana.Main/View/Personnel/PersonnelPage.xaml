@@ -24,7 +24,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal">
+        <DockPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <!--Nút backward-->
                 <Button HorizontalAlignment="Left" Background="Transparent" BorderBrush="#303030"
@@ -42,9 +42,9 @@
                 </Button>
             </StackPanel>
 
-            <TextBlock Text="Danh sách nhân sự" Margin="10" FontSize="22" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Padding="0,10" Width="1179.427"/>
+            <TextBlock Text="Danh sách nhân sự" Margin="0, 6" FontSize="20" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Padding="0,5"/>
 
-        </StackPanel>
+        </DockPanel>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -66,7 +66,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <ListView Margin="10" x:Name="NhanSu_Lv" ItemsSource="{Binding DsNhanVien}" SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                <ListView Margin="10,0,10,0" x:Name="NhanSu_Lv" ItemsSource="{Binding DsNhanVien}" SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="514" VerticalAlignment="Center" >
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="#" DisplayMemberBinding="{Binding MaNhanVien}"/>
@@ -108,6 +108,12 @@
                     <TextBlock HorizontalAlignment="Left" Height="24.8" Margin="184.134,7.71,0,-0.51" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="23.799" TextAlignment="Center"/>
                     <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="29.31" Margin="212.933,3.2,0,-0.51" TextWrapping="Wrap" Text="{Binding TotalPage}" VerticalAlignment="Top" Width="35.201" TextAlignment="Center"/>
                     <Button Click="btn_AddnewPersonel_Click" Margin="731,0,22,0" x:Name="btn_AddnewPersonel" Content="Thêm mới"></Button>
+                    <Button Command="{Binding RefeshCommand}" ToolTip="Refesh" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,0,0" Height="26" Width="60" Margin="639,0,0,0">
+                        <Button.Content>
+                            <materialDesign:PackIcon Kind="Restore" />
+                        </Button.Content>
+                    </Button>
+
                 </Grid>
             </Grid>
 

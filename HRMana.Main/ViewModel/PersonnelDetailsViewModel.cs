@@ -6,8 +6,10 @@ using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -92,12 +94,6 @@ namespace HRMana.Main.ViewModel
             {
                 _gioiTinh = value;
                 OnPropertyChanged();
-
-                //if (Nam_Checked) 
-                //    GioiTinh = "Nam";
-
-                //if (Nu_Checked) 
-                //    GioiTinh = "Nữ";
             }
         }
         public string NgaySinh { get => _ngaySinh; set { _ngaySinh = value; OnPropertyChanged(); } }
@@ -254,7 +250,19 @@ namespace HRMana.Main.ViewModel
                 (param) => true,
                 (param) =>
                 {
-                    Get_NhanVien_ByMaNhanVien();
+                    Thread GetData_Thread = new Thread(async () =>
+                    {
+                        await Task.Run(() => { GetList_BacLuong(); });
+                        await Task.Run(() => { GetList_ChucVu(); });
+                        await Task.Run(() => { GetList_ChuyenMon();});
+                        await Task.Run(() => { GetList_DanToc();});
+                        await Task.Run(() => { GetList_PhongBan();});
+                        await Task.Run(() => { GetList_TonGiao();});
+                        await Task.Run(() => { GetList_TrinhDo();});
+                        await Task.Run(() => { Get_NhanVien_ByMaNhanVien();});
+                    });
+                    GetData_Thread.IsBackground = true;
+                    GetData_Thread.Start();
                 }
                 );
 
@@ -262,11 +270,7 @@ namespace HRMana.Main.ViewModel
                 (param) => { return true; },
                 (param) =>
                 {
-                    Window activeWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
-                    if (activeWindow != null)
-                    {
-                        activeWindow.Close();
-                    }
+                    CloseDetailWindow();
                 }
                 );
 
@@ -278,7 +282,16 @@ namespace HRMana.Main.ViewModel
                     dialogWindow.DialogMessage = "Bạn có chắc muốn xóa nhân viên này";
                     if (true == dialogWindow.ShowDialog())
                     {
-
+                        var result = new NhanVienDAO().Delete_NhanVien(MaNhanVien);
+                        if (result)
+                        {
+                            MessageBox.Show("Xóa nhân viên thành công.");
+                            CloseDetailWindow();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Xóa nhân viên thất bại.");
+                        }
                     }
                 }
                 );
@@ -291,23 +304,68 @@ namespace HRMana.Main.ViewModel
                     dialogWindow.DialogMessage = "Bạn có chắc muốn cập nhật thông tin nhân viên này";
                     if (true == dialogWindow.ShowDialog())
                     {
+                        GioiTinh = Nam_Checked ? "Nam" : "Nữ";
+                        GioiTinh = Nu_Checked ? "Nữ" : "Nam";
 
+                        double luongOfferParse = 0;
+                        if (LuongOffer != null)
+                        {
+                            string[] a = LuongOffer.Split('.');
+                            string b = string.Concat(a);
+                            luongOfferParse = Convert.ToInt32(b);
+                        }
+
+                        NhanVien nv = new NhanVien()
+                        {
+                            maNhanVien = MaNhanVien,
+                            tenNhanVien = HoTen,
+                            gioiTinh = GioiTinh,
+                            ngaySinh = Convert.ToDateTime(NgaySinh),
+                            noiSinh = NoiSinh,
+                            CCCD = Cccd,
+                            dienThoai = DienThoai,
+                            noiOHienTai = NoiOHienTai,
+                            queQuan = QueQuan,
+                            giaDinh = TinhTrangGiaDinh,
+                            emailCaNhan = EmailCaNhan,
+                            emailNoiBo = EmailNoiBo,
+                            coSoLamViec = CoSoLamViec,
+                            loaiHinhLamViec = LoaiHinhLamViec,
+                            luongOffer = Convert.ToDecimal(luongOfferParse),
+                            anhThe = Path.GetFileName(AnhThe),
+                            maHoSo = MaHoSo,
+                            maHopDong = MaHopDong,
+                            maChucVu = MaChucVu,
+                            maPhong = MaPhong,
+                            maTrinhDo = MaTrinhDo,
+                            maDanToc = MaDanToc,
+                            maTonGiao = MaTonGiao,
+                            maChuyenMon = MaChuyenMon,
+                        };
+
+                        var result = new NhanVienDAO().Update_NhanVien(nv);
+
+                        if (result)
+                        {
+                            MessageBox.Show("Cập nhật nhân viên thành công.");
+                            CloseDetailWindow();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Cập nhật nhân viên thất bại.");
+                        }
                     }
-                }
-                );
-
-            SaveCommand = new RelayCommand<object>(
-                (param) => { return true; },
-                (param) =>
-                {
-
                 }
                 );
         }
 
-        public void SetData(int data)
+        private void CloseDetailWindow()
         {
-            MaNhanVien = data;
+            Window activeWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+            if (activeWindow != null)
+            {
+                activeWindow.Close();
+            }
         }
 
         private void Get_NhanVien_ByMaNhanVien()
@@ -319,7 +377,8 @@ namespace HRMana.Main.ViewModel
                 if (nv != null)
                 {
                     HoTen = nv.tenNhanVien;
-                    GioiTinh = nv.gioiTinh;
+                    Nam_Checked = (nv.gioiTinh == "Nam" ? true : false);
+                    Nu_Checked = (nv.gioiTinh == "Nữ" ? true : false);
                     NgaySinh = nv.ngaySinh.ToString("dd/MM/yyyy");
                     NoiSinh = nv.noiSinh;
                     Cccd = nv.CCCD;
@@ -334,26 +393,105 @@ namespace HRMana.Main.ViewModel
                     LuongOffer = nv.luongOffer.ToString();
                     MaHoSo = nv.maHoSo;
                     MaChucVu = nv.maChucVu;
-                    TenChucVu = nv.ChucVu.tenChucVu;
+                    SelectedChucVu = ListChucVu.Where(x => x.maChucVu == nv.maChucVu).SingleOrDefault();
                     MaPhong = nv.maPhong;
-                    TenPhong = nv.PhongBan.tenPhong;
+                    SelectedPhongBan = ListPhongBan.SingleOrDefault(x => x.maPhong == nv.maPhong);
                     MaTrinhDo = nv.maTrinhDo;
-                    TenTrinhDo = nv.TrinhDo.tenTrinhDo;
+                    SelectedTrinhDo = ListTrinhDo.SingleOrDefault(x => x.maTrinhDo == nv.maTrinhDo);
                     MaDanToc = nv.maDanToc;
-                    TenDanToc = nv.DanToc.tenDanToc;
+                    SelectedDanToc = ListDanToc.SingleOrDefault(x => x.maDanToc == nv.maDanToc);
                     MaTonGiao = nv.maTonGiao;
-                    TenTonGiao = nv.TonGiao.tenTonGiao;
+                    SelectedTonGiao = ListTonGiao.SingleOrDefault(x => x.maTonGiao == nv.maTonGiao);
                     MaChuyenMon = nv.maChuyenMon;
-                    TenChuyenMon = nv.ChuyenMon.tenChuyenMon;
+                    SelectedChuyenMon = ListChuyenMon.SingleOrDefault(x => x.maChuyenMon == nv.maChuyenMon);
                     MaHopDong = nv.maHopDong;
-                    SoHopDong = nv.HopDong.soHopDong;
-                    AnhThe = AppDomain.CurrentDomain.BaseDirectory + "NhanVien_Image/" + nv.anhThe;
+                    //SoHopDong = nv.HopDong.soHopDong;
+                    AnhThe = (nv.anhThe == null ) ? 
+                        AppDomain.CurrentDomain.BaseDirectory + "NhanVien_Image/DefaultPicture.jpg" : 
+                        AppDomain.CurrentDomain.BaseDirectory + "NhanVien_Image/" + nv.anhThe; ;
                 }
             }
             else
             {
                 MessageBox.Show("Lấy thông tin nhân viên lỗi");
             }
+        }
+
+        private void GetList_BacLuong()
+        {
+            try
+            {
+                var result = new BacLuongDAO().GetList_Luong();
+
+                //DsBacLuong = new ObservableCollection<BacLuong>(result);
+            }
+            catch (Exception ex) { }
+        }
+
+        private void GetList_TrinhDo()
+        {
+            try
+            {
+                var result = new TrinhDoDAO().GetList_TrinhDo();
+
+                ListTrinhDo = new ObservableCollection<TrinhDo>(result);
+            }
+            catch (Exception ex) { }
+        }
+
+        private void GetList_ChuyenMon()
+        {
+            try
+            {
+                var result = new ChuyenMonDAO().GetListChuyenMon();
+
+                ListChuyenMon = new ObservableCollection<ChuyenMon>(result);
+            }
+            catch (Exception ex) { }
+        }
+
+        private void GetList_PhongBan()
+        {
+            try
+            {
+                var result = new PhongBanDAO().GetList_PhongBan();
+
+                ListPhongBan = new ObservableCollection<PhongBan>(result);
+            }
+            catch (Exception ex) { }
+        }
+
+        private void GetList_ChucVu()
+        {
+            try
+            {
+                var result = new ChucVuDAO().GetListChucVu();
+
+                ListChucVu = new ObservableCollection<ChucVu>(result);
+            }
+            catch (Exception ex) { }
+        }
+
+        private void GetList_DanToc()
+        {
+            try
+            {
+                var result = new DanTocDAO().GetList_DanToc();
+
+                ListDanToc = new ObservableCollection<DanToc>(result);
+            }
+            catch (Exception ex) { }
+        }
+
+        private void GetList_TonGiao()
+        {
+            try
+            {
+                var result = new TonGiaoDAO().GetList_TonGiao();
+
+                ListTonGiao = new ObservableCollection<TonGiao>(result);
+            }
+            catch (Exception ex) { }
         }
     }
 }

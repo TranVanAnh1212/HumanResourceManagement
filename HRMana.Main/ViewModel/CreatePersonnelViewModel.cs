@@ -487,7 +487,6 @@ namespace HRMana.Main.ViewModel
             AnhThe = string.Empty;
         }
 
-
         private void GetList_BacLuong()
         {
             try

@@ -7,10 +7,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace HRMana.Main.ViewModel
 {
@@ -52,6 +54,7 @@ namespace HRMana.Main.ViewModel
         public ICommand LoadWindowCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         public ICommand FilterCommand { get; set; }
+        public ICommand RefeshCommand { get; set; }
         public ICommand ShowPersonnelDetailsCommand { get; set; }
 
         public int MaNhanVien { get => _maNhanVien; set { _maNhanVien = value; OnPropertyChanged(); } }
@@ -74,8 +77,6 @@ namespace HRMana.Main.ViewModel
             set
             {
                 _selectedNhanVien = value;
-
-
                 OnPropertyChanged();
 
                 if (SelectedNhanVien != null)
@@ -88,12 +89,10 @@ namespace HRMana.Main.ViewModel
                     MaPhong = SelectedNhanVien.MaPhong;
                     TenPhong = SelectedNhanVien.TenPhong;
                     Cccd = SelectedNhanVien.Cccd;
+
+                    PersonnelDetailsWindow pd = new PersonnelDetailsWindow(SelectedNhanVien.MaNhanVien);
+                    pd.Show();
                 }
-
-                PersonnelDetailsWindow pd = new PersonnelDetailsWindow(SelectedNhanVien.MaNhanVien);
-                pd.ShowDialog();
-
-
             }
         }
 
@@ -183,11 +182,19 @@ namespace HRMana.Main.ViewModel
                 (param) => { return true; },
                 (param) =>
                 {
-                    GetList_NhanVien(MaChucVu, MaPhong, MaTrinhDo);
-                    GetList_ChucVu();
-                    GetList_PhongBan();
-                    GetList_TrinhDo();
-                    GetList_BacLuong();
+                    Thread GetData_Thread = new Thread(() =>
+                    {
+                        Application.Current.Dispatcher.Invoke(new Action(() =>
+                        {
+                            GetList_NhanVien(MaChucVu, MaPhong, MaTrinhDo);
+                            GetList_ChucVu();
+                            GetList_PhongBan();
+                            GetList_TrinhDo();
+                            GetList_BacLuong();
+                        }));
+                    });
+                    GetData_Thread.IsBackground = true;
+                    GetData_Thread.Start();
                 }
                 );
 
@@ -264,6 +271,21 @@ namespace HRMana.Main.ViewModel
                 (param) => { return true; },
                 (param) =>
                 {
+                    GetList_NhanVien(MaChucVu, MaPhong, MaTrinhDo);
+                }
+                );
+
+            RefeshCommand = new RelayCommand<object>(
+                (param) => true,
+                (param) =>
+                {
+                    SelectedNhanVien = null;
+                    SelectedChucVu = null;
+                    SelectedPhongBan = null;
+                    SelectedTrinhDo = null;
+                    MaPhong = 0;
+                    MaChucVu = 0;
+                    MaTrinhDo = 0;
                     GetList_NhanVien(MaChucVu, MaPhong, MaTrinhDo);
                 }
                 );

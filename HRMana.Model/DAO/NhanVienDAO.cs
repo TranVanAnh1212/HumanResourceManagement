@@ -66,5 +66,76 @@ namespace HRMana.Model.DAO
                 return -1;
             }
         }
+
+        public bool Delete_NhanVien (int id)
+        {
+            try
+            {
+                var nv = DataProvider.Instance.DBContext.NhanVien.Where(x => x.maNhanVien == id).FirstOrDefault();
+
+                if (nv != null)
+                {
+                    DataProvider.Instance.DBContext.NhanVien.Remove(nv);
+                    DataProvider.Instance.DBContext.SaveChanges();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }catch(Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool Update_NhanVien(NhanVien nv)
+        {
+            try
+            {
+                var nhanvien = DataProvider.Instance.DBContext.NhanVien.Where(x => x.maNhanVien == nv.maNhanVien).FirstOrDefault();
+
+                if (nhanvien != null)
+                {
+                    nhanvien.tenNhanVien = nv.tenNhanVien;
+                    nhanvien.gioiTinh = nv.gioiTinh;
+                    nhanvien.ngaySinh = nv.ngaySinh;
+                    nhanvien.noiSinh = nv.noiSinh;
+                    nhanvien.CCCD = nv.CCCD;
+                    nhanvien.dienThoai = nv.dienThoai;
+                    nhanvien.noiOHienTai = nv.noiOHienTai;
+                    nhanvien.queQuan = nv.queQuan;
+                    nhanvien.giaDinh = nv.giaDinh;
+                    nhanvien.emailCaNhan = nv.emailCaNhan;
+                    nhanvien.emailNoiBo = nv.emailNoiBo;
+                    nhanvien.coSoLamViec = nv.coSoLamViec;
+                    nhanvien.loaiHinhLamViec = nv.loaiHinhLamViec;
+                    nhanvien.luongOffer = nv.luongOffer;
+                    nhanvien.maHopDong = nv.maHopDong;
+                    nhanvien.maHoSo = nv.maHoSo;
+                    nhanvien.maChucVu = nv.maChucVu;
+                    nhanvien.maPhong = nv.maPhong;
+                    nhanvien.maDanToc = nv.maDanToc;
+                    nhanvien.maTonGiao = nv.maTonGiao;
+                    nhanvien.maTrinhDo = nv.maTrinhDo;
+                    nhanvien.maChuyenMon = nv.maChuyenMon;
+                    nhanvien.anhThe = nv.anhThe;
+
+                    DataProvider.Instance.DBContext.SaveChanges();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

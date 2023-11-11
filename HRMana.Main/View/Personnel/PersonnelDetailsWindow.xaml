@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:HRMana.Main.View.Personnel"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"      
         mc:Ignorable="d"
-        Title="PersonnelDetailsWindow" Height="600" Width="1200">
+        Title="PersonnelDetailsWindow" Height="600" Width="1215">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadWindowCommand}" CommandParameter="{Binding ElementName=personnelDetails}"/>
@@ -31,10 +31,11 @@
             <Border BorderBrush="Black" BorderThickness="2" Height="170" HorizontalAlignment="Left" Margin="25,16,0,0" Width="137" VerticalAlignment="Top">
                 <Image Source="{Binding AnhThe}" HorizontalAlignment="Left" Height="167" VerticalAlignment="Top" Width="135" Stretch="Fill"/>
             </Border>
+
             <Button Content="Cập nhật" Command="{Binding Update_NhanVienCommand}" HorizontalAlignment="Left" Margin="356,481,0,0" VerticalAlignment="Top" Height="35" Width="94"/>
-            <Button Content="Xóa" Command="{Binding Delete_NhanVienCommand}" HorizontalAlignment="Left" Margin="722,481,0,0" VerticalAlignment="Top" Height="35" Width="94"/>
-            <Button Content="Thoát" Command="{Binding ExitCommand}" HorizontalAlignment="Left" Margin="925,481,0,0" VerticalAlignment="Top" Height="35" Width="94"/>
-            <Button Content="Lưu" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="535,481,0,0" VerticalAlignment="Top" Height="35" Width="94"/>
+            <Button Content="Xóa" Command="{Binding Delete_NhanVienCommand}" HorizontalAlignment="Left" Margin="562,481,0,0" VerticalAlignment="Top" Height="35" Width="94"/>
+            <Button Content="Thoát" Command="{Binding ExitCommand}" HorizontalAlignment="Left" Margin="765,481,0,0" VerticalAlignment="Top" Height="35" Width="94"/>
+
             <GroupBox Margin="210,16,10,330">
                 <Grid>
                     <TextBlock HorizontalAlignment="Left" Margin="0,3,0,0" TextWrapping="Wrap" Text="Giới tính" VerticalAlignment="Top"/>
@@ -43,44 +44,44 @@
                     <TextBlock HorizontalAlignment="Left" Margin="236,64,0,0" TextWrapping="Wrap" Text="Quê quán" VerticalAlignment="Top"/>
                     <TextBox Text="{Binding QueQuan}" HorizontalAlignment="Left" Margin="311,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
                     <TextBlock HorizontalAlignment="Left" Margin="-1,58,0,0" TextWrapping="Wrap" Text="Ngày sinh" VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding NgaySinh}" HorizontalAlignment="Left" Margin="74,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="111"/>
+                    <TextBox Text="{Binding NgaySinh}"    HorizontalAlignment="Left" Margin="74,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="111"/>
                     <TextBlock HorizontalAlignment="Left" Margin="502,119,0,0" TextWrapping="Wrap" Text="Nơi sinh" VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding NoiSinh}" HorizontalAlignment="Left" Margin="566,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275" Height="33"/>
+                    <TextBox Text="{Binding NoiSinh}"    HorizontalAlignment="Left" Margin="566,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275" Height="33"/>
                     <TextBlock HorizontalAlignment="Left" Margin="234,10,0,0" TextWrapping="Wrap" Text="Nơi ở hiện tại" VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding NoiOHienTai}" HorizontalAlignment="Left" Margin="331,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276"/>
+                    <TextBox Text="{Binding NoiOHienTai}"    HorizontalAlignment="Left" Margin="331,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276"/>
                     <TextBlock HorizontalAlignment="Left" Margin="0,119,0,0" TextWrapping="Wrap" Text="Điện thoại" VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding DienThoai}" HorizontalAlignment="Left" Margin="74,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
+                    <TextBox Text="{Binding DienThoai}"    HorizontalAlignment="Left" Margin="74,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
                     <TextBlock HorizontalAlignment="Left" Margin="253,120,0,0" TextWrapping="Wrap" Text="Tôn giáo" VerticalAlignment="Top"/>
-                    <ComboBox ItemsSource="{Binding ListTonGiao}" DisplayMemberPath="tenTonGiao" SelectedItem="{Binding SelectedTonGiao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="311,110,0,0" VerticalAlignment="Top" Width="151"/>
+                    <ComboBox ItemsSource="{Binding ListTonGiao}"    DisplayMemberPath="tenTonGiao" SelectedItem="{Binding SelectedTonGiao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="311,110,0,0" VerticalAlignment="Top" Width="151"/>
                     <TextBlock HorizontalAlignment="Left" Margin="667,59,0,0" TextWrapping="Wrap" Text="Dân tộc" VerticalAlignment="Top"/>
-                    <ComboBox ItemsSource="{Binding ListDanToc}" DisplayMemberPath="tenDanToc" SelectedItem="{Binding SelectedDanToc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="725,54,0,0" VerticalAlignment="Top" Width="140"/>
+                    <ComboBox ItemsSource="{Binding ListDanToc}"    DisplayMemberPath="tenDanToc" SelectedItem="{Binding SelectedDanToc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="725,54,0,0" VerticalAlignment="Top" Width="140"/>
                     <TextBlock HorizontalAlignment="Left" Margin="664,11,0,0" TextWrapping="Wrap" Text="CCCD" VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding Cccd}" HorizontalAlignment="Left" Margin="711,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168"/>
+                    <TextBox Text="{Binding Cccd}"    HorizontalAlignment="Left" Margin="711,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168"/>
 
                 </Grid>
             </GroupBox>
             <GroupBox Margin="210,226,10,88">
                 <Grid>
                     <TextBlock HorizontalAlignment="Left" Margin="0,10,0,0" TextWrapping="Wrap" Text="Email cá nhân" VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding EmailCaNhan}" HorizontalAlignment="Left" Margin="101,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                    <TextBox Text="{Binding EmailCaNhan}"    HorizontalAlignment="Left" Margin="101,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
                     <TextBlock HorizontalAlignment="Left" Margin="331,7,0,0" TextWrapping="Wrap" Text="Email nội bộ" VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding EmailNoiBo}" HorizontalAlignment="Left" Margin="426,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                    <TextBox Text="{Binding EmailNoiBo}"    HorizontalAlignment="Left" Margin="426,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
                     <TextBlock HorizontalAlignment="Left" Margin="682,8,0,0" TextWrapping="Wrap" Text="Trình độ học vấn" VerticalAlignment="Top"/>
-                    <ComboBox ItemsSource="{Binding ListTrinhDo}" DisplayMemberPath="tenTrinhDo" SelectedItem="{Binding SelectedTrinhDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="802,1,0,0" VerticalAlignment="Top" Width="152" RenderTransformOrigin="0.5,0.5"/>
+                    <ComboBox IsEditable="True" ItemsSource="{Binding ListTrinhDo}"    DisplayMemberPath="tenTrinhDo" SelectedItem="{Binding SelectedTrinhDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="802,1,0,0" VerticalAlignment="Top" Width="152"/>
                     <TextBlock HorizontalAlignment="Left" Margin="1,56,0,0" TextWrapping="Wrap" Text="Chức vụ" VerticalAlignment="Top"/>
-                    <ComboBox ItemsSource="{Binding ListChucVu}" DisplayMemberPath="tenChucVu" SelectedItem="{Binding SelectedChucVu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="101,47,0,0" VerticalAlignment="Top" Width="165"/>
+                    <ComboBox IsEditable="True" ItemsSource="{Binding ListChucVu}"    DisplayMemberPath="tenChucVu" SelectedItem="{Binding SelectedChucVu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="101,47,0,0" VerticalAlignment="Top" Width="165"/>
                     <TextBlock HorizontalAlignment="Left" Margin="0,102,0,0" TextWrapping="Wrap" Text="Phòng ban" VerticalAlignment="Top"/>
-                    <ComboBox ItemsSource="{Binding ListPhongBan}" DisplayMemberPath="tenPhong" SelectedItem="{Binding SelectedPhongBan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="101,92,0,0" Width="200" VerticalAlignment="Top"/>
+                    <ComboBox IsEditable="True" ItemsSource="{Binding ListPhongBan}"    DisplayMemberPath="tenPhong" SelectedItem="{Binding SelectedPhongBan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="101,92,0,0" Width="200" VerticalAlignment="Top"/>
                     <TextBlock HorizontalAlignment="Left" Margin="326,56,0,0" TextWrapping="Wrap" Text="Cơ sở làm việc" VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding CoSoLamViec}" HorizontalAlignment="Left" Margin="446,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236"/>
+                    <TextBox Text="{Binding CoSoLamViec}"    HorizontalAlignment="Left" Margin="446,47,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236"/>
                     <TextBlock HorizontalAlignment="Left" Margin="331,99,0,0" TextWrapping="Wrap" Text="Loại hình làm việc" VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding LoaiHinhLamViec}" HorizontalAlignment="Left" Margin="451,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180"/>
+                    <TextBox Text="{Binding LoaiHinhLamViec}"    HorizontalAlignment="Left" Margin="451,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180"/>
                     <TextBlock HorizontalAlignment="Left" Margin="0,151,0,0" TextWrapping="Wrap" Text="Mã hồ sơ" VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding MaHoSo}" HorizontalAlignment="Left" Margin="101,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                    <TextBox Text="{Binding MaHoSo}"    HorizontalAlignment="Left" Margin="101,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
                     <TextBlock HorizontalAlignment="Left" Margin="330,151,0,0" TextWrapping="Wrap" Text="Mã hợp đồng" VerticalAlignment="Top"/>
-                    <TextBox Text="{Binding MaHopDong}" HorizontalAlignment="Left" Margin="431,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                    <TextBox Text="{Binding MaHopDong}"    HorizontalAlignment="Left" Margin="431,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
                     <TextBlock HorizontalAlignment="Left" Margin="666,99,0,0" TextWrapping="Wrap" Text="Chuyên môn" VerticalAlignment="Top"/>
-                    <ComboBox ItemsSource="{Binding ListChuyenMon}" DisplayMemberPath="tenChuyenMon" SelectedItem="{Binding SelectedChuyenMon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="786,92,0,0" VerticalAlignment="Top" Width="168" RenderTransformOrigin="0.5,0.5"/>
+                    <ComboBox IsEditable="True" ItemsSource="{Binding ListChuyenMon}"    DisplayMemberPath="tenChuyenMon" SelectedItem="{Binding SelectedChuyenMon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="786,92,0,0" VerticalAlignment="Top" Width="168" RenderTransformOrigin="0.5,0.5"/>
                     <TextBlock HorizontalAlignment="Left" Margin="669,151,0,0" TextWrapping="Wrap" Text="Lương Offer" VerticalAlignment="Top"/>
                     <TextBox Text="{Binding LuongOffer}" x:Name="txt_LuongOffer" TextChanged="txt_LuongOffer_TextChanged" HorizontalAlignment="Left" Margin="770,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
                     <!--<TextBlock HorizontalAlignment="Left" Margin="666,197,0,0" TextWrapping="Wrap" Text="Bậc lương" VerticalAlignment="Top"/>
