@@ -45,12 +45,8 @@ create table BaoCaoDangNhap
 	idDangNhap		int		identity(1,1)	primary key not null,
 	maTaiKhoan		int		not null,
 	tgDangNhap		DateTime	not null,
-	tgDangXuat		DateTime	not null
+	tgDangXuat		DateTime	null
 )
-go
-
-ALTER TABLE BaoCaoDangNhap
-ALTER COLUMN tgDangNhap DateTime NULL
 go
 
 select * from BaoCaoDangNhap
@@ -67,16 +63,6 @@ go
 select * from ChucVu
 go
 
--- bảng lương
-create table Luong
-(
-	bacLuong	int		identity(1,1)	primary key not null,
-	luongCoBan	decimal		not null
-)
-
-select * from Luong
-go
-
 -- bảng quyền
 create table Quyen
 (
@@ -87,8 +73,6 @@ go
 
 select * from Quyen
 go
-
-delete from Quyen where maQuyen = 3
 
 -- bảng phòng ban
 create table PhongBan
@@ -136,8 +120,13 @@ create table HoSo
 )
 go
 
+insert into HoSo values 
+(N'Đủ', N'Đủ',N'Đủ',N'Đủ',N'Đủ',N'Đủ',N'Hoàn tất', N'Qua thẻ ngân hàng', '231312312', 'VietComBank', N'Chưa kết hôn', '23132131', '3123313', '12-06-2022', '', ''),
+(N'Đủ', N'Đủ',N'Đủ',N'Còn thiếu',N'Đủ',N'Đủ',N'Hoàn tất', N'Qua thẻ ngân hàng', '231312312', 'VietComBank', N'Chưa kết hôn', '23132131', '3123313', '12-06-2022', '', '')
+go
 select * from HoSo
 go
+
 
 -- bảng chuyển công tác
 create table ChuyenCongTac
@@ -188,7 +177,7 @@ create table ChamCong
 (
 	maChamCong		int identity(1, 1) primary key not null,
 	maNhanVien		int	foreign key (maNhanVien) references NhanVien(maNhanVien) not null,
-	bacLuong		int foreign key(bacLuong) references Luong(bacLuong) not null,
+	heSoLuong		numeric foreign key(heSoLuong) references BacLuong(heSoLuong) not null,
 	SoNgayCong		int,
 	ungTruocLuong	decimal,
 	conLai			decimal,
@@ -204,6 +193,20 @@ go
 select* from ChamCong
 go
 
+-- bảng lương
+create table BacLuong
+(
+	heSoLuong	numeric		primary key	not null,
+	luongCoBan	decimal		not null
+)
+
+select * from BacLuong
+go
+
+--Drop table ChamCong
+--drop table BacLuong
+
+
 -- bảng hợp đồng
 create table HopDong
 (
@@ -211,25 +214,29 @@ create table HopDong
 	soHopDong	varchar(50)	not null,
 	ngayKyHD	datetime,
 	ngayKetThucHD datetime,
-	loaiHopDong nvarchar(10),
+	loaiHopDong nvarchar(255),
 	thoiHanHD	nvarchar(100),
 	tinhTrangChuKi nvarchar(50),
 )
 go
 
-select * from HopDong
+insert into HopDong values 
+(N'32131sd', '12-06-2022', '12-06-2027', N'Có thời hạn', N'5 năm', N'Đã ký'),
+(N'32ed1sd', '12-06-2023', '12-06-2027', N'không thời hạn', N'', N'Đã ký')
+go
+select * from HopDong 
 go
 
 -- bảng nhân viên
 create table NhanVien
 (
 	maNhanVien	int identity(1,1) primary key not null,
-	tenNhanVien nvarchar(255) not null,
+	tenNhanVien nvarchar(255)	not null,
 	gioiTinh	nvarchar(10)	not null,
 	ngaySinh	Date	not null,
 	noiSinh		nvarchar(255)	not null,
-	CCCD		char(100) not null,
-	dienThoai	char(11)	not null,
+	CCCD		char(100)		not null,
+	dienThoai	char(11)		not null,
 	noiOHienTai nvarchar(255)	not null,
 	queQuan		nvarchar(255)	not null,
 	giaDinh		nvarchar(255)	,
@@ -238,8 +245,6 @@ create table NhanVien
 	coSoLamViec nvarchar(255)	not null,
 	loaiHinhLamViec nvarchar(255),
 	luongOffer	decimal,
-	truongHoc	nvarchar(255),
-	chuyenNganh nvarchar(255),
 	maHoSo		int	foreign key (maHoSo) references HoSo(maHoSo) not null,
 	maTrinhDo	int	foreign key (maTrinhDo) references TrinhDo(maTrinhDo) not null,
 	maTonGiao	int	foreign key (maTonGiao) references TonGiao(maTonGiao) not null,
@@ -250,6 +255,29 @@ create table NhanVien
 	maPhong		int	foreign key (maPhong) references PhongBan(maPhong) not null,
 )
 go
+
+alter table NhanVien
+drop column chuyenNganh
+
+insert into NhanVien values
+(N'Trần Văn Anh', N'Nam', '12-06-2003', N'Định Tân - Yên Định - Thanh Hóa', '3133542342', '0334237519', N'250 Tây Tự - Phường Tây Tựu - Quận bắc Từ Liêm - Hà Nội',  N'Định Tân - Yên Định - Thanh Hóa', N'Chưa lập gia đình', 'anh@gmail.com', 'work@gmail.com', N'Hà Nội', 'fulltime', 12000000, '', '', 1, 3, 8, 2, 1, 6, 3, 6)
+go
+
+insert into NhanVien values
+(N'Nguyễn Việt Anh', N'Nam', '12-06-2003', N'Hà Nội', '3133542342', '0334237519', N'Nhổn City',  N'Hà Nội', N'Chưa lập gia đình', 'anh@gmail.com', 'work@gmail.com', N'Hà Nội', 'fulltime', 15000000, '', '', 1, 3, 8, 2, 1, 6, 2, 6)
+go
+
+insert into NhanVien values
+(N'Đặng Thọ Chiến', N'Nam', '12-06-2023', N'Hà Nội', '3133542342', '0334237519', N'Nhổn City',  N'Hà Nội', N'Chưa lập gia đình', 'anh@gmail.com', 'work@gmail.com', N'Hà Nội', 'fulltime', 10000000, '', '', 1, 3, 8, 2, 1, 6, 2, 6)
+go
+
+insert into NhanVien values
+(N'Dư Ngọc Ánh', N'Nam', '12-06-2123', N'Hà Nội', '3133542342', '0334237519', N'Nhổn City',  N'Hà Nội', N'Chưa lập gia đình', 'anh@gmail.com', 'work@gmail.com', N'Hà Nội', 'fulltime', 9000000, '', '', 1, 3, 8, 2, 1, 6, 2, 6)
+go
+
+UPDATE NhanVien
+SET anhThe = '/Assets/NhanVien_Image/AnhThe.jpg'
+WHERE maNhanVien = 8;
 
 --ALTER TABLE NhanVien
 --DROP CONSTRAINT FK__NhanVien__maTaiK__6B24EA82;
@@ -262,6 +290,15 @@ go
 
 
 -- insert data
+insert into ChuyenMon values 
+(N'Quản lý nhân sự'),
+(N'Kĩ thuật viên'),
+(N'Sale'),
+(N'CSKH')
+go
+select * from ChuyenMon
+go
+
 insert into DanToc values 
 (N'Kinh'),
 (N'Kinh'),
@@ -335,6 +372,17 @@ go
 select * from Quyen
 go
 
+insert into BacLuong values
+(1, 3000000),
+(2, 5000000),
+(3, 6000000),
+(4, 8000000),
+(5, 10000000),
+(6, 15000000)
+go
+select * from BacLuong
+go
+
 -- store procherduce
 create proc DangNhap_Proc
 @tenTaiKhoan varchar(255), @matKhau varchar(255)
@@ -346,6 +394,7 @@ end
 exec DangNhap_Proc 'TranVanAnh', 'staff'
 go
 
+---
 -- Tạo một tài khoản 
 create PROCEDURE [dbo].[TaoMoiTaiKhoan]
 (
@@ -385,6 +434,8 @@ Begin
 end
 go
 
+--- 
+
 create proc [dbo].[LayDanhSach_ChucVu]
 as
 begin
@@ -405,7 +456,100 @@ begin
 end
 go
 
+--- 
+create proc [dbo].[LayDanhSach_NhanVien]
+as
+begin
+	select * from NhanVien
+end
+go
+
+exec [dbo].[LayDanhSach_NhanVien]
+go
+
+---
+
+create proc [dbo].[LayDanhSach_PhongBan]
+as
+begin
+	select * from PhongBan
+end
+go
+
+exec [dbo].[LayDanhSach_PhongBan]
+go
+
+---
+
+create proc [dbo].[LayDanhSach_TrinhDo]
+as
+begin
+	select * from TrinhDo
+end
+go
+
+exec [dbo].[LayDanhSach_TrinhDo]
+go
+
+---
+
+create proc [dbo].[LayDanhSach_BacLuong]
+as
+begin
+	select * from BacLuong
+end
+go
+
+exec [dbo].[LayDanhSach_BacLuong]
+go
+
+---
+
+create proc [dbo].[LayDanhSach_DanToc]
+as
+begin
+	select * from DanToc
+end
+go
+
+exec [dbo].[LayDanhSach_DanToc]
+go
+
+---
+
+create proc [dbo].[LayDanhSach_TonGiao]
+as
+begin
+	select * from TonGiao
+end
+go
+
+exec [dbo].[LayDanhSach_TonGiao]
+go
+
+---
+
+
+create proc [dbo].[LayDanhSach_ChuyenMon]
+as
+begin
+	select * from ChuyenMon
+end
+go
+
+exec [dbo].[LayDanhSach_ChuyenMon]
+go
+
+---
 
 select * from TaiKhoan
 select * from BaoCaoDangNhap
+select * from NhanVien
+select * from HopDong
+select * from DanToc
+select * from HoSo
+
+update NhanVien
+set anhThe = '4b4db64d-57d6-41d8-b61d-ac23752d3857.jpg'
+where maNhanVien = 15
 

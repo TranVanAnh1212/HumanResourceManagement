@@ -16,7 +16,7 @@ namespace HRMana.Model.EF
     {
         public int maChamCong { get; set; }
         public int maNhanVien { get; set; }
-        public int bacLuong { get; set; }
+        public decimal heSoLuong { get; set; }
         public Nullable<int> SoNgayCong { get; set; }
         public Nullable<decimal> ungTruocLuong { get; set; }
         public Nullable<decimal> conLai { get; set; }
@@ -27,7 +27,7 @@ namespace HRMana.Model.EF
         public Nullable<decimal> luongTangCa { get; set; }
         public Nullable<decimal> phuCapCongViec { get; set; }
     
-        public virtual Luong Luong { get; set; }
+        public virtual BacLuong BacLuong { get; set; }
         public virtual NhanVien NhanVien { get; set; }
     }
 }

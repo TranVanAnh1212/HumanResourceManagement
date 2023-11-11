@@ -49,7 +49,7 @@ namespace HRMana.Main.ViewModel
                         {
                             CommonConstant.baoCaoDN.tgDangXuat = DateTime.Now;
 
-                            new BaoCaoDangNhapDAO().Create_BaoCaoDangNhap(CommonConstant.baoCaoDN.maTaiKhoan, CommonConstant.baoCaoDN.tgDangNhap, CommonConstant.baoCaoDN.tgDangXuat);
+                            new BaoCaoDangNhapDAO().Create_BaoCaoDangNhap(CommonConstant.baoCaoDN.maTaiKhoan, CommonConstant.baoCaoDN.tgDangNhap, Convert.ToDateTime(CommonConstant.baoCaoDN.tgDangXuat));
 
                             CommonConstant.baoCaoDN = null;
                         }
@@ -72,7 +72,7 @@ namespace HRMana.Main.ViewModel
                         {
                             CommonConstant.baoCaoDN.tgDangXuat = DateTime.Now;
 
-                            new BaoCaoDangNhapDAO().Create_BaoCaoDangNhap(CommonConstant.baoCaoDN.maTaiKhoan, CommonConstant.baoCaoDN.tgDangNhap, CommonConstant.baoCaoDN.tgDangXuat);
+                            new BaoCaoDangNhapDAO().Create_BaoCaoDangNhap(CommonConstant.baoCaoDN.maTaiKhoan, CommonConstant.baoCaoDN.tgDangNhap, Convert.ToDateTime(CommonConstant.baoCaoDN.tgDangXuat));
 
                             CommonConstant.baoCaoDN = null;
                         }

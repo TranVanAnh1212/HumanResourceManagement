@@ -84,6 +84,9 @@
       <DependentUpon>ControlBarUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\CreatePersonnelViewModel.cs" />
+    <Compile Include="ViewModel\PersonnelDetailsViewModel.cs" />
+    <Compile Include="ViewModel\PersonnelViewModel.cs" />
     <Compile Include="ViewModel\PositionViewModel.cs" />
     <Compile Include="ViewModel\ControlBarViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
@@ -94,6 +97,15 @@
     </Compile>
     <Compile Include="View\Home\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Personnel\CreateNewPersonnelPage.xaml.cs">
+      <DependentUpon>CreateNewPersonnelPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Personnel\PersonnelDetailsPage.xaml.cs">
+      <DependentUpon>PersonnelDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Personnel\PersonnelDetailsWindow.xaml.cs">
+      <DependentUpon>PersonnelDetailsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Personnel\PersonnelPage.xaml.cs">
       <DependentUpon>PersonnelPage.xaml</DependentUpon>
@@ -143,6 +155,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Home\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Personnel\CreateNewPersonnelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Personnel\PersonnelDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Personnel\PersonnelDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,6 +238,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\ErrorIcon.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\NhanVien_Image\AnhThe.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

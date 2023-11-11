@@ -30,9 +30,23 @@ namespace HRMana.Main
         public MainWindow()
         {
             InitializeComponent();
+
+            NotificationEvent.Instance.ShowPageRequested += Instance_ShowPageRequested;
         }
 
-        private void Directional(Page page)
+        private void Instance_ShowPageRequested(object sender, EventArgs e)
+        {
+            try
+            {
+                Directional(new CreateNewPersonnelPage());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void Directional(Page page)
         {
             mainFrame.Navigate(page);
         }
@@ -66,6 +80,12 @@ namespace HRMana.Main
         private void workingRotationItem_Click(object sender, RoutedEventArgs e)
         {
             Directional(new WorkingRotationPage());
+        }
+
+        private void createPersonnel_item_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new CreateNewPersonnelPage());
+
         }
     }
 }

@@ -34,12 +34,12 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
-                    <Button Command="{Binding MinimizeCommand}" CommandParameter="{Binding ElementName=ctrlBarUC}" Style="{StaticResource ctrlBarBtn}">
+                    <Button Command="{Binding MinimizeCommand}" ToolTip="Minimize" CommandParameter="{Binding ElementName=ctrlBarUC}" Style="{StaticResource ctrlBarBtn}">
                         <Button.Content>
                             <materialDesign:PackIcon Kind="WindowMinimize" />
                         </Button.Content>
                     </Button>
-                    <Button Command="{Binding MaximizeCommand}" CommandParameter="{Binding ElementName=ctrlBarUC}" Style="{StaticResource ctrlBarBtn}">
+                    <Button ToolTip="Maximize" Command="{Binding MaximizeCommand}" CommandParameter="{Binding ElementName=ctrlBarUC}" Style="{StaticResource ctrlBarBtn}">
                         <Button.Content>
                             <Grid>
                                 <materialDesign:PackIcon IsEnabled="false" Kind="WindowMaximize" />
@@ -47,7 +47,7 @@
                             </Grid>
                         </Button.Content>
                     </Button>
-                    <Button Command="{Binding CloseCommand}" CommandParameter="{Binding ElementName=ctrlBarUC}" Style="{StaticResource closeBtn}">
+                    <Button ToolTip="Close" Command="{Binding CloseCommand}" CommandParameter="{Binding ElementName=ctrlBarUC}" Style="{StaticResource closeBtn}">
                         <Button.Content>
                             <materialDesign:PackIcon Kind="Close" />                            
                         </Button.Content>

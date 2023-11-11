@@ -17,6 +17,6 @@ namespace HRMana.Model.EF
         public int idDangNhap { get; set; }
         public int maTaiKhoan { get; set; }
         public System.DateTime tgDangNhap { get; set; }
-        public System.DateTime tgDangXuat { get; set; }
+        public Nullable<System.DateTime> tgDangXuat { get; set; }
     }
 }

@@ -5,8 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:HRMana.Main.View.Home"
-      mc:Ignorable="d" 
-      Style="{StaticResource Sizewindow}"
+      mc:Ignorable="d"
       Title="HomePage">    
 
     <Grid IsHitTestVisible="False">

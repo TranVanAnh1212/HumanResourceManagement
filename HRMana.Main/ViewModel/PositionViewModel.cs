@@ -1,4 +1,5 @@
 ﻿using HRMana.Common;
+using HRMana.Common.Commons;
 using HRMana.Common.Events;
 using HRMana.Main.View.Dialog;
 using HRMana.Main.View.Position;
@@ -28,6 +29,7 @@ namespace HRMana.Main.ViewModel
         private int _totalRecord;
         private string _message;
         private string _fill;
+        private bool isEnable;
 
         public ICommand IncreasePageCommand { get; set; }
         public ICommand ReducePageCommand { get; set; }
@@ -68,6 +70,8 @@ namespace HRMana.Main.ViewModel
         public string Message { get => _message; set { _message = value; OnPropertyChanged(); } }
         public string Fill { get => _fill; set { _fill = value; OnPropertyChanged(); } }
 
+        public bool IsEnable { get => isEnable; set { isEnable = value; OnPropertyChanged(); } }
+
         public PositionViewModel()
         {
             Initialized();
@@ -84,6 +88,7 @@ namespace HRMana.Main.ViewModel
                 (param) =>
                 {
                     GetList_ChucVu();
+                    CheckPermissions();
                 }
                 );
 
@@ -152,20 +157,17 @@ namespace HRMana.Main.ViewModel
                 },
                 (param) =>
                 {
-                    if (TenChucVu == string.Empty)
-                    {
-                        var result = new ChucVuDAO().CreateNew_ChucVu(TenChucVu);
+                    var result = new ChucVuDAO().CreateNew_ChucVu(TenChucVu);
 
-                        if (result != null)
-                        {
-                            ShowNotification("Thêm mới chức vụ thành công.", "#FF58FF7B");
-                            EmptyTextbox();
-                            GetList_ChucVu();
-                        }
-                        else
-                        {
-                            ShowNotification("Thêm mới chức vụ thành công.", "#FFFF5858");
-                        }
+                    if (result != null)
+                    {
+                        ShowNotification("Thêm mới chức vụ thành công.", "#FF58FF7B");
+                        EmptyTextbox();
+                        GetList_ChucVu();
+                    }
+                    else
+                    {
+                        ShowNotification("Thêm mới chức vụ không thành công.", "#FFFF5858");
                     }
                 }
                 );
@@ -215,13 +217,44 @@ namespace HRMana.Main.ViewModel
                 }
                 );
 
+            Delete_ChucVuCommand = new RelayCommand<object>(
+                (param) =>
+                {
+                    if (SelectedPosition == null)
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
+                (param) =>
+                {
+                    DialogWindow d = new DialogWindow();
+                    d.DialogMessage = "Bạn có chắc muốn xóa";
+                    d.Owner = Window.GetWindow(new PositionPage());
+
+                    if (true == d.ShowDialog())
+                    {
+                        var result = new ChucVuDAO().Delete_ChucVu(MaChucVu);
+                        if (result)
+                        {
+                            ShowNotification("Xóa chức vụ thành công. ", "#FF58FF7B");
+                            EmptyTextbox();
+                            GetList_ChucVu();
+                        }
+                        else
+                        {
+                            ShowNotification("Xóa chức vụ không thành công. ", "#FFFF5858");
+                        }
+                    }
+                }
+                );
         }
 
         private void GetList_ChucVu()
         {
             try
             {
-                //var result = (IEnumerable<ChucVu>)new ChucVuDAO().GetListChucVu();
                 var db = DataProvider.Instance.DBContext;
                 var result = from cv in db.ChucVu
                              select new PositionViewModel()
@@ -245,13 +278,18 @@ namespace HRMana.Main.ViewModel
             TenChucVu = string.Empty;
         }
 
-        public void ShowNotification(string message, string fill)
+        private void ShowNotification(string message, string fill)
         {
             Message = message;
             Fill = fill;
             NotificationEvent.Instance.ReqquestShowNotification();
         }
 
+        // Ktra quyền của tài khoản đang đăng nhập
+        private void CheckPermissions()
+        {
+
+        }
 
     }
 }

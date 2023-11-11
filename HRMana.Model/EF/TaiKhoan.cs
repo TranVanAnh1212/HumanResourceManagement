@@ -18,7 +18,7 @@ namespace HRMana.Model.EF
         public string tenTaiKhoan { get; set; }
         public string matKhau { get; set; }
         public int maQuyen { get; set; }
-        public bool trangThai { get; set; }
+        public Nullable<bool> trangThai { get; set; }
     
         public virtual Quyen Quyen { get; set; }
     }

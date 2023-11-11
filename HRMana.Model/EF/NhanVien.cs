@@ -36,8 +36,6 @@ namespace HRMana.Model.EF
         public string coSoLamViec { get; set; }
         public string loaiHinhLamViec { get; set; }
         public Nullable<decimal> luongOffer { get; set; }
-        public string truongHoc { get; set; }
-        public string chuyenNganh { get; set; }
         public int maHoSo { get; set; }
         public int maTrinhDo { get; set; }
         public int maTonGiao { get; set; }
@@ -46,6 +44,7 @@ namespace HRMana.Model.EF
         public int maChucVu { get; set; }
         public int maHopDong { get; set; }
         public int maPhong { get; set; }
+        public string anhThe { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChamCong> ChamCong { get; set; }

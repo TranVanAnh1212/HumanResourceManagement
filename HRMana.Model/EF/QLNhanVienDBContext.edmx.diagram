@@ -4,25 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5df0da1e40c04660b53495e7ac9b2572" Name="Diagram1" ZoomLevel="88">
+      <Diagram DiagramId="9de310d31cd444faa6121bcf1c91380d" Name="Diagram1">
+        <EntityTypeShape EntityType="QLNhanSuModel.BacLuong" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNhanSuModel.BaoCaoDangNhap" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNhanSuModel.ChamCong" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNhanSuModel.ChucVu" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNhanSuModel.ChuyenCongTac" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhanSuModel.ChamCong" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhanSuModel.ChucVu" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhanSuModel.ChuyenCongTac" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNhanSuModel.ChuyenMon" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNhanSuModel.DanToc" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNhanSuModel.HopDong" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhanSuModel.DanToc" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhanSuModel.HopDong" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNhanSuModel.HoSo" Width="1.5" PointX="0.75" PointY="15.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNhanSuModel.Luong" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNhanSuModel.NhanVien" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNhanSuModel.PhongBan" Width="1.5" PointX="0.75" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhanSuModel.PhongBan" Width="1.5" PointX="0.75" PointY="20.5" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNhanSuModel.Quyen" Width="1.5" PointX="7.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNhanSuModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNhanSuModel.TaiKhoan" Width="1.5" PointX="10" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="QLNhanSuModel.TonGiao" Width="1.5" PointX="0.75" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLNhanSuModel.TonGiao" Width="1.5" PointX="0.75" PointY="23.125" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNhanSuModel.TrinhDo" Width="1.5" PointX="0.75" PointY="25.5" IsExpanded="true" />
-        <AssociationConnector Association="QLNhanSuModel.FK__ChamCong__bacLuo__73BA3083" ManuallyRouted="false" />
-        <AssociationConnector Association="QLNhanSuModel.FK__ChamCong__maNhan__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhanSuModel.FK__ChamCong__heSoLu__6CD828CA" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhanSuModel.FK__ChamCong__maNhan__6BE40491" ManuallyRouted="false" />
         <AssociationConnector Association="QLNhanSuModel.FK__NhanVien__maChuc__693CA210" ManuallyRouted="false" />
         <AssociationConnector Association="QLNhanSuModel.FK__NhanVien__maChuy__6754599E" ManuallyRouted="false" />
         <AssociationConnector Association="QLNhanSuModel.FK__NhanVien__maDanT__68487DD7" ManuallyRouted="false" />

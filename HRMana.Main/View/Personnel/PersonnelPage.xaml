@@ -4,10 +4,19 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HRMana.Main.View.Personnel"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
+      x:Name="personnelPage"
+      DataContext="{StaticResource personnelVM}"
       Style="{StaticResource Sizewindow}"
       Title="PersonnelPage">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadWindowCommand}" CommandParameter="{Binding ElementName=personnelPage}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -47,7 +56,6 @@
                     <RadioButton Content="Tất cả" IsChecked="True" Margin="0,6,0,0" VerticalAlignment="Top"/>
                     <RadioButton Content="Phòng ban" Margin="0,6,0,0" VerticalAlignment="Top"/>
                     <RadioButton Content="Trình độ" Margin="0,6,0,0" />
-                    <RadioButton Content="Hệ số lương" Margin="0,6,0,0"/>
                     <RadioButton Content="Chức vụ" Margin="0,6,0,0"/>
                 </StackPanel>
             </GroupBox>
@@ -58,73 +66,62 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <ListView Margin="10" x:Name="NhanSu_Lv">
+                <ListView Margin="10" x:Name="NhanSu_Lv" ItemsSource="{Binding DsNhanVien}" SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding ID}" Header="#" />
-                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" />
-                            <GridViewColumn DisplayMemberBinding="{Binding Age}" Header="Age" />
-                            <GridViewColumn DisplayMemberBinding="{Binding Address}" Header="Address" />
-                            <GridViewColumn DisplayMemberBinding="{Binding Department}" Header="Department" />
+                            <GridViewColumn Header="#" DisplayMemberBinding="{Binding MaNhanVien}"/>
+                            <GridViewColumn Header="Tên" DisplayMemberBinding="{Binding HoTen}"/>
+                            <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding GioiTinh}"/>
+                            <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding TenChucVu}"/>
+                            <GridViewColumn Header="Phòng" DisplayMemberBinding="{Binding TenPhong}"/>
                         </GridView>
                     </ListView.View>
+                    <!--<i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding ShowPersonnelDetailsCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=ListView}}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>-->
                 </ListView>
 
                 <Grid Grid.Row="1" Margin="3 5 3 10">
-                    <Button Margin="0,0,806.667,0" Width="55">
+                    <Button Command="{Binding BackToStartCommand}" Margin="0,0,806.667,0" Width="55">
                         <Button.Content>
                             <materialDesign:PackIcon FontSize="18" Kind="SkipBackward" />
                         </Button.Content>
                     </Button>
-                    <Button Margin="70.933,0.51,737.867,-0.51" Width="55" >
+                    <Button Command="{Binding ReducePageCommand}" Margin="70.933,0.51,737.867,-0.51" Width="55" >
                         <Button.Content>
                             <materialDesign:PackIcon FontSize="18" Kind="ArrowLeftBold" />
                         </Button.Content>
                     </Button>
-                    <Button Margin="268.032,0.51,537.634,-0.51" Width="55">
+                    <Button Command="{Binding IncreasePageCommand}" Margin="268.032,0.51,537.634,-0.51" Width="55">
                         <Button.Content>
                             <materialDesign:PackIcon FontSize="18" Kind="ArrowRightBold" />
                         </Button.Content>
                     </Button>
-                    <Button Margin="346.032,0.51,459.634,-0.51" Width="55">
+                    <Button Command="{Binding GoToEndCommand}" Margin="346.032,0.51,459.634,-0.51" Width="55">
                         <Button.Content>
                             <materialDesign:PackIcon FontSize="18" Kind="SkipForward" />
                         </Button.Content>
                     </Button>
-                    <TextBox HorizontalAlignment="Left" Height="29.31" Margin="143.933,3.2,0,-0.51" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="35.201" TextAlignment="Center"/>
-                    <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="29.31" Margin="212.933,3.2,0,-0.51" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="35.201" TextAlignment="Center"/>
+                    <TextBox HorizontalAlignment="Left" Height="29.31" Margin="143.933,3.2,0,-0.51" TextWrapping="Wrap" Text="{Binding Page}" VerticalAlignment="Top" Width="35.201" TextAlignment="Center"/>
                     <TextBlock HorizontalAlignment="Left" Height="24.8" Margin="184.134,7.71,0,-0.51" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="23.799" TextAlignment="Center"/>
-                    <Button Margin="731,0,22,0" x:Name="btn_AddnewPersonel" Content="Thêm mới"></Button>
+                    <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="29.31" Margin="212.933,3.2,0,-0.51" TextWrapping="Wrap" Text="{Binding TotalPage}" VerticalAlignment="Top" Width="35.201" TextAlignment="Center"/>
+                    <Button Click="btn_AddnewPersonel_Click" Margin="731,0,22,0" x:Name="btn_AddnewPersonel" Content="Thêm mới"></Button>
                 </Grid>
             </Grid>
 
             <TextBlock HorizontalAlignment="Left" Height="23" Margin="26,225,0,0" TextWrapping="Wrap" Text="Phòng ban:" VerticalAlignment="Top" Width="350"/>
-            <ComboBox HorizontalAlignment="Left" Height="33" Margin="25,248,0,0" VerticalAlignment="Top" Width="351">
-                <ComboBoxItem Tag="HR" Content="Nhân sự"/>
-                <ComboBoxItem Tag="FN" Content="Kế toán"/>
-                <ComboBoxItem Tag="IT" Content="CNTT"/>
+            <ComboBox ItemsSource="{Binding DsPhongBan}" SelectedItem="{Binding SelectedPhongBan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="tenPhong" HorizontalAlignment="Left" Height="33" Margin="25,248,0,0" VerticalAlignment="Top" Width="351">
             </ComboBox>
             <TextBlock HorizontalAlignment="Left" Height="24" Margin="26,294,0,0" TextWrapping="Wrap" Text="Chức vụ:" VerticalAlignment="Top" Width="350"/>
-            <ComboBox HorizontalAlignment="Left" Height="32" Margin="25,318,0,0" VerticalAlignment="Top" Width="351">
-                <ComboBoxItem Tag="HR" Content="Giám đóc"/>
-                <ComboBoxItem Tag="FN" Content="Trợ lý"/>
-                <ComboBoxItem Tag="IT" Content="Trưởng phòng"/>
+            <ComboBox ItemsSource="{Binding DsChucVu}" SelectedItem="{Binding SelectedChucVu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="tenChucVu" HorizontalAlignment="Left" Height="32" Margin="25,318,0,0" VerticalAlignment="Top" Width="351">
             </ComboBox>
-            <TextBlock HorizontalAlignment="Left" Height="24" Margin="26,366,0,0" TextWrapping="Wrap" Text="Hệ số lương:" VerticalAlignment="Top" Width="351"/>
-            <ComboBox HorizontalAlignment="Left" Height="32" Margin="26,390,0,0" VerticalAlignment="Top" Width="351">
-                <ComboBoxItem Tag="HR" Content="2"/>
-                <ComboBoxItem Tag="FN" Content="3"/>
-                <ComboBoxItem Tag="IT" Content="4"/>
+            <TextBlock HorizontalAlignment="Left" Height="24" Margin="26,372,0,0" TextWrapping="Wrap" Text="trình độ:" VerticalAlignment="Top" Width="351"/>
+            <ComboBox ItemsSource="{Binding DsTrinhDo}" SelectedItem="{Binding SelectedTrinhDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="tenTrinhDo" HorizontalAlignment="Left" Height="32" Margin="26,396,0,0" VerticalAlignment="Top" Width="351">
             </ComboBox>
-            <TextBlock HorizontalAlignment="Left" Height="24" Margin="26,437,0,0" TextWrapping="Wrap" Text="trình độ:" VerticalAlignment="Top" Width="351"/>
-            <ComboBox HorizontalAlignment="Left" Height="32" Margin="26,461,0,0" VerticalAlignment="Top" Width="351">
-                <ComboBoxItem Tag="HR" Content="Cao đẳng"/>
-                <ComboBoxItem Tag="FN" Content="Đại học"/>
-                <ComboBoxItem Tag="IT" Content="Trung cấp nghề"/>
-                <ComboBoxItem Tag="IT" Content="12/12"/>
-            </ComboBox>
-            <Button Content="Lọc" HorizontalAlignment="Left" Height="35" Margin="40,516,0,0" VerticalAlignment="Top" Width="100"/>
-            <Button Content="Hủy bỏ" HorizontalAlignment="Left" Height="35" Margin="245,516,0,0" VerticalAlignment="Top" Width="100"/>
+            <Button Content="Lọc" Command="{Binding FilterCommand}" HorizontalAlignment="Left" Height="35" Margin="40,516,0,0" VerticalAlignment="Top" Width="100"/>
+            <Button Content="Hủy bỏ" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Height="35" Margin="245,516,0,0" VerticalAlignment="Top" Width="100"/>
         </Grid>
     </Grid>
 </Page>

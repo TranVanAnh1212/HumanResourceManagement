@@ -12,15 +12,15 @@ namespace HRMana.Model.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Luong
+    public partial class BacLuong
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Luong()
+        public BacLuong()
         {
             this.ChamCong = new HashSet<ChamCong>();
         }
     
-        public int bacLuong { get; set; }
+        public decimal heSoLuong { get; set; }
         public decimal luongCoBan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

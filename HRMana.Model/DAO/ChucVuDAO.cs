@@ -11,13 +11,13 @@ namespace HRMana.Model.DAO
     {
         public List<ChucVu> GetListChucVu()
         {
-            List<ChucVu> chucVu = new List<ChucVu>();
+            List<ChucVu> chucVu = null;
 
             try
             {
-                var result = DataProvider.Instance.DBContext.Database.SqlQuery<ChucVu>("exec [dbo].[LayDanhSach_ChucVu]");
+                var result = DataProvider.Instance.DBContext.Database.SqlQuery<ChucVu>("exec [dbo].[LayDanhSach_ChucVu]").ToList();
 
-                chucVu = result.ToList();
+                chucVu = result;
             }
             catch (Exception ex)
             {
@@ -29,7 +29,7 @@ namespace HRMana.Model.DAO
 
         public ChucVu CreateNew_ChucVu(string tenChucVu)
         {
-            var cv = new ChucVu();
+            ChucVu cv = null;
 
             if (!string.IsNullOrEmpty(tenChucVu))
             {
@@ -62,6 +62,30 @@ namespace HRMana.Model.DAO
 
             }
             catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool Delete_ChucVu(int maChucBu)
+        {
+            try
+            {
+                if (maChucBu == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    var cv = DataProvider.Instance.DBContext.ChucVu.Where(x => x.maChucVu == maChucBu).SingleOrDefault();
+
+                    DataProvider.Instance.DBContext.ChucVu.Remove(cv);
+                    DataProvider.Instance.DBContext.SaveChanges();
+
+                    return true;
+                    
+                }
+            }catch (Exception ex)
             {
                 return false;
             }

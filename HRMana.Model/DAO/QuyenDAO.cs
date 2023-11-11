@@ -12,7 +12,17 @@ namespace HRMana.Model.DAO
     {
         public List<Quyen> GetListQuyen()
         {
-            var listQuyen = DataProvider.Instance.DBContext.Quyen.ToList();
+            var listQuyen = new List<Quyen>();
+
+            try
+            {
+                listQuyen = DataProvider.Instance.DBContext.Quyen.ToList();
+            }
+            catch (Exception ex) 
+            {
+                return listQuyen;
+            }
+
             return listQuyen;
         }
     }

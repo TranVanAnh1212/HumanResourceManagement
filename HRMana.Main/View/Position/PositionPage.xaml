@@ -8,6 +8,7 @@
       xmlns:local="clr-namespace:HRMana.Main.View.Position"
       mc:Ignorable="d" 
       DataContext="{StaticResource positionVM}"
+      
       Style="{StaticResource Sizewindow}"
       x:Name="PositionPage_Name"
       Title="PositionPage">
@@ -20,7 +21,7 @@
 
     <Page.Resources>
         <Storyboard x:Key="PositionPageNotification">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Notification_Grid">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Notification_Grid_PositionPage">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="78"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="170"/>
             </DoubleAnimationUsingKeyFrames>
@@ -33,7 +34,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Grid x:Name="Notification_Grid" Panel.ZIndex="10" HorizontalAlignment="Center" Margin="0,-161,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="61">
+        <Grid x:Name="Notification_Grid_PositionPage" Panel.ZIndex="10" HorizontalAlignment="Center" Margin="0,-161,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="61">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -71,7 +72,7 @@
                 </Button>
             </StackPanel>
 
-            <TextBlock Text="Chức vụ" Margin="10,10,10,9.998" FontSize="22" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Padding="0,10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Text="Quản lý chức vụ" Margin="10,10,10,9.998" FontSize="22" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Padding="0,10" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
         </Grid>
 
@@ -83,9 +84,9 @@
 
             <Grid Grid.Column="0">
                 <Label Content="Mã chức vụ" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="40" Margin="10,31,0,0" VerticalAlignment="Top" Width="140"/>
-                <TextBox IsReadOnly="True" Text="{Binding MaChucVu}" HorizontalAlignment="Left" Height="40" Margin="180,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" Cursor="No"/>
+                <TextBox IsReadOnly="True" Text="{Binding MaChucVu, Mode=TwoWay}" HorizontalAlignment="Left" Height="40" Margin="180,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" Cursor="No"/>
                 <Label Content="Tên chức vụ" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="40" Margin="10,87,0,0" VerticalAlignment="Top" Width="140"/>
-                <TextBox HorizontalAlignment="Left" Text="{Binding TenChucVu}" Height="40" Margin="180,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450"/>
+                <TextBox HorizontalAlignment="Left" Text="{Binding TenChucVu, Mode=TwoWay}" Height="40" Margin="180,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450"/>
                 <Button Command="{Binding CreateNew_ChucVuCommand}" Content="Thêm mới" HorizontalAlignment="Left" Height="35" Margin="165,166,0,0" VerticalAlignment="Top" Width="115"/>
                 <Button Command="{Binding Update_ChucVuCommand}" Content="Sửa" HorizontalAlignment="Left" Height="35" Margin="340,166,0,0" VerticalAlignment="Top" Width="115"/>
                 <Button Command="{Binding Delete_ChucVuCommand}" Content="Xóa" HorizontalAlignment="Left" Height="35" Margin="165,241,0,0" VerticalAlignment="Top" Width="115"/>
