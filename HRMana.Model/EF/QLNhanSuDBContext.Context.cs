@@ -16,7 +16,7 @@ namespace HRMana.Model.EF
     public partial class QLNhanSuEntities : DbContext
     {
         public QLNhanSuEntities()
-            : base("metadata=res://*/EF.QLNhanVienDBContext.csdl|res://*/EF.QLNhanVienDBContext.ssdl|res://*/EF.QLNhanVienDBContext.msl;provider=System.Data.SqlClient;provider connection string=\"data source=.\\sqlexpress;initial catalog=QLNhanSu;persist security info=True;user id=sa;password=12062003;multipleactiveresultsets=True;application name=EntityFramework\"")
+            : base("metadata=res://*/EF.QLNhanSuDBContext.csdl|res://*/EF.QLNhanSuDBContext.ssdl|res://*/EF.QLNhanSuDBContext.msl;provider=System.Data.SqlClient;provider connection string=\"data source=.\\sqlexpress;initial catalog=QLNhanSu;persist security info=True;user id=sa;password=12062003;multipleactiveresultsets=True;application name=EntityFramework\"")
         {
         }
     
@@ -30,6 +30,7 @@ namespace HRMana.Model.EF
         public virtual DbSet<ChamCong> ChamCong { get; set; }
         public virtual DbSet<ChucVu> ChucVu { get; set; }
         public virtual DbSet<ChuyenCongTac> ChuyenCongTac { get; set; }
+        public virtual DbSet<ChuyenCongTac_NhanVien> ChuyenCongTac_NhanVien { get; set; }
         public virtual DbSet<ChuyenMon> ChuyenMon { get; set; }
         public virtual DbSet<DanToc> DanToc { get; set; }
         public virtual DbSet<HopDong> HopDong { get; set; }

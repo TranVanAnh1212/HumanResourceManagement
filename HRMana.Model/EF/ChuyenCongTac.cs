@@ -17,17 +17,14 @@ namespace HRMana.Model.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ChuyenCongTac()
         {
-            this.NhanVien = new HashSet<NhanVien>();
+            this.ChuyenCongTac_NhanVien = new HashSet<ChuyenCongTac_NhanVien>();
         }
     
-        public int soQuyetDinh { get; set; }
+        public string soQuyetDinh { get; set; }
         public Nullable<System.DateTime> ngayQuyetDinh { get; set; }
-        public string chucVuCu { get; set; }
-        public string phongBanCu { get; set; }
-        public string chucVuMoi { get; set; }
-        public string phongBanMoi { get; set; }
+        public Nullable<System.DateTime> thoiGianThiHanh { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NhanVien> NhanVien { get; set; }
+        public virtual ICollection<ChuyenCongTac_NhanVien> ChuyenCongTac_NhanVien { get; set; }
     }
 }

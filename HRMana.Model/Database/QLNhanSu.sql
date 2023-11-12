@@ -131,31 +131,48 @@ go
 -- bảng chuyển công tác
 create table ChuyenCongTac
 (
-	soQuyetDinh		int primary key not null,
+	soQuyetDinh		varchar(100) primary key not null,
 	ngayQuyetDinh	date,
-	chucVuCu		nvarchar(255),
-	phongBanCu		nvarchar(255),
-	chucVuMoi		nvarchar(255),
-	phongBanMoi		nvarchar(255),
+	thoiGianThiHanh dateTime,
 )
 go
 
+
+insert into ChuyenCongTac values
+('NQ345NAH678', '2023-10-20', '2023-11-20'),
+('NQ3438TF970', '2023-11-21', '2023-11-26')
+
+--drop table ChuyenCongTac
 select * from ChuyenCongTac
 go
 
 -- bảng chuyển công tác nhân viên
 create table ChuyenCongTac_NhanVien
 (
-	soQuyetDinh		int		not null,
-	maNhanVien		int		not null,
+	soQuyetDinh		varchar(100)	foreign key (soQuyetDinh) references ChuyenCongTac(soQuyetDinh)		not null,
+	maNhanVien		int		foreign key (maNhanVien) references NhanVien(maNhanVien)	not null,
+	chucVuCu		int,
+	phongBanCu		int,
+	chucVuMoi		int foreign key(chucVuMoi) references ChucVu(maChucVu),
+	phongBanMoi		int foreign key(phongBanMoi) references PhongBan(maPhong),
 	primary key (soQuyetDinh, maNhanVien),
-	foreign key (soQuyetDinh) references ChuyenCongTac(soQuyetDinh),
-	foreign key (maNhanVien) references NhanVien(maNhanVien)
 )
 go
 
+insert into ChuyenCongTac_NhanVien values
+('NQ345NAH678', 5, 6, 6, 1, 6),
+('NQ3438TF970', 6, 6, 6, 10, 6)
+
 select * from ChuyenCongTac_NhanVien
-go
+inner join PhongBan on maPhong = phongBanCu
+inner join NhanVien on NhanVien.maNhanVien = ChuyenCongTac_NhanVien.maNhanVien
+
+
+--drop table ChuyenCongTac_NhanVien
+select * from ChuyenCongTac_NhanVien
+select * from NhanVien
+select * from ChucVu
+select * from PhongBan
 
 -- bảng tài khoản
 create table TaiKhoan

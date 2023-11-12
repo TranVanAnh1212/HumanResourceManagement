@@ -6,6 +6,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:local="clr-namespace:HRMana.Main.View.Position"
+      xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       mc:Ignorable="d" 
       DataContext="{StaticResource positionVM}"
       
@@ -54,27 +55,7 @@
             <Image HorizontalAlignment="Left" Height="33" Margin="16,6,0,0" VerticalAlignment="Top" Width="35" Source="/Assets/Images/successIcon.png"/>
         </Grid>
 
-        <Grid>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                <!--Nút backward-->
-                <Button HorizontalAlignment="Left" Background="Transparent" BorderBrush="#303030"
-                        VerticalAlignment="Top" Margin="10 0 0 0" Height="25" Width="25"
-                        Command="{x:Static NavigationCommands.BrowseBack}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" ToolTip="Back">
-                    <materialDesign:PackIcon Kind="KeyboardArrowLeft" Height="20" Width="20" />
-                </Button>
-
-                <!--Nút forward-->
-                <Button HorizontalAlignment="Left" Background="Transparent" BorderBrush="#303030"
-                        VerticalAlignment="Top" Height="25" Width="25" Margin="20,0,0,0"
-                        Command="{x:Static NavigationCommands.BrowseForward}"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" ToolTip="Forward">
-                    <materialDesign:PackIcon Kind="KeyboardArrowRight" Height="20" Width="20" />
-                </Button>
-            </StackPanel>
-
-            <TextBlock Text="Quản lý chức vụ" Margin="10,10,10,9.998" FontSize="22" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Padding="0,10" HorizontalAlignment="Center" VerticalAlignment="Center" />
-
-        </Grid>
+        <uc:LableTopUserControl Title="DANH MỤC CHỨC VỤ"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>

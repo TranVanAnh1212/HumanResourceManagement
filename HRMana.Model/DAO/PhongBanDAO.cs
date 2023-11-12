@@ -23,7 +23,25 @@ namespace HRMana.Model.DAO
             }
 
             return phongBans;
+        }
 
+        public PhongBan Get_PhongBan_By_MaPhongBan(int id)
+        {
+            try
+            {
+                if (id > 0)
+                {
+                    return DataProvider.Instance.DBContext.PhongBan.FirstOrDefault(x => x.maPhong ==  id);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }

@@ -6,9 +6,9 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:HRMana.Main.View.Home"
       mc:Ignorable="d"
-      Title="HomePage">    
+      Title="HomePage">
 
     <Grid IsHitTestVisible="False">
-        <Image Source="/Assets/Images/HinhAnhCty.jpg" />
+        <Image Source="/Assets/Images/HinhAnhCty.jpg" Stretch="Fill" />
     </Grid>
 </Page>

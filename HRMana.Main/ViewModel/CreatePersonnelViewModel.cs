@@ -487,17 +487,6 @@ namespace HRMana.Main.ViewModel
             AnhThe = string.Empty;
         }
 
-        private void GetList_BacLuong()
-        {
-            try
-            {
-                var result = new BacLuongDAO().GetList_Luong();
-
-                //DsBacLuong = new ObservableCollection<BacLuong>(result);
-            }
-            catch (Exception ex) { }
-        }
-
         private void GetList_TrinhDo()
         {
             try

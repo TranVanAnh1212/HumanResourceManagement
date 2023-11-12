@@ -15,7 +15,7 @@ namespace HRMana.Model.DAO
 
             try
             {
-                var result = DataProvider.Instance.DBContext.Database.SqlQuery<NhanVien>("exec [dbo].[LayDanhSach_NhanVien]");
+                var result = DataProvider.Instance.DBContext.NhanVien.ToList();
 
                 if (result.Count() > 0)
                 {

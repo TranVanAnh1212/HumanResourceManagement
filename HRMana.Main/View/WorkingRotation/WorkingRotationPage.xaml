@@ -5,9 +5,19 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HRMana.Main.View.WorkingRotation"      
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       mc:Ignorable="d" 
+      DataContext="{StaticResource workingRotationVM}"
       Style="{StaticResource Sizewindow}"
+      x:Name="workingRotationPage"
       Title="WorkingRotationPage">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadWindowCommand}" CommandParameter="{Binding ElementName=workingRotationPage}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -15,41 +25,21 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                <!--Nút backward-->
-                <Button HorizontalAlignment="Left" Background="Transparent" BorderBrush="#303030"
-                        VerticalAlignment="Top" Margin="10 0 0 0" Height="25" Width="25"
-                        Command="{x:Static NavigationCommands.BrowseBack}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" ToolTip="Back">
-                    <materialDesign:PackIcon Kind="KeyboardArrowLeft" Height="20" Width="20" />
-                </Button>
+        <uc:LableTopUserControl Title="LUÂN CHUYỂN CÔNG TÁC"/>
 
-                <!--Nút forward-->
-                <Button HorizontalAlignment="Left" Background="Transparent" BorderBrush="#303030"
-                        VerticalAlignment="Top" Height="25" Width="25" Margin="20,0,0,0"
-                        Command="{x:Static NavigationCommands.BrowseForward}"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" ToolTip="Forward">
-                    <materialDesign:PackIcon Kind="KeyboardArrowRight" Height="20" Width="20" />
-                </Button>
-            </StackPanel>
-
-            <TextBlock Text="Luân chuyển công tác" Margin="10,10,10,9.998" FontSize="22" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Padding="0,10" HorizontalAlignment="Center" VerticalAlignment="Center" />
-
-        </Grid>
-
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="0, 5, 0, 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2.5*"/>
             </Grid.ColumnDefinitions>
 
             <Grid>
-                <GroupBox Margin="2,0,2,0" Header="Danh sách nhân viên">
-                    <ListView>
+                <GroupBox Margin="2,0,2,3" Header="Danh sách nhân viên">
+                    <ListView ItemsSource="{Binding DsNhanVien}" SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Mã nhân viên"/>
-                                <GridViewColumn Header="Tên nhân viên"/>
+                                <GridViewColumn Header="Mã nhân viên" DisplayMemberBinding="{Binding maNhanVien}"/>
+                                <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding tenNhanVien}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -57,53 +47,78 @@
             </Grid>
 
             <Grid Grid.Column="1">
-                <GroupBox Header="Thông tin" Margin="5,5,195,437">
-                    <Grid Margin="0,2,0,2">
-                        <TextBlock HorizontalAlignment="Left" Margin="17,10,0,0" TextWrapping="Wrap" Text="Số QĐ" VerticalAlignment="Top" Width="72" TextAlignment="Right"/>
-                        <TextBox HorizontalAlignment="Left" Margin="134,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155" Height="25"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="17,50,0,0" TextWrapping="Wrap" Text="Mã nhân viên" VerticalAlignment="Top" TextAlignment="Right"/>
-                        <TextBox IsReadOnly="True" HorizontalAlignment="Left" Margin="134,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155" Height="25"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="336,11,0,0" TextWrapping="Wrap" Text="Ngày QĐ" VerticalAlignment="Top" Width="85" TextAlignment="Right"/>
-                        <DatePicker HorizontalAlignment="Left" Margin="426,5,0,0" VerticalAlignment="Top" Width="155" Height="25"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="336,51,0,0" TextWrapping="Wrap" Text="Tên nhân viên" VerticalAlignment="Top" TextAlignment="Right"/>
-                        <TextBox IsReadOnly="True" HorizontalAlignment="Left" Margin="426,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155" Height="25"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
 
-                    </Grid>
-                </GroupBox>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                <GroupBox Margin="5,164,195,276" Header="Điều động">
-                    <Grid Margin="2">
-                        <TextBlock HorizontalAlignment="Left" Margin="17,10,0,0" TextWrapping="Wrap" Text="Chức vụ cũ" VerticalAlignment="Top" Width="72" TextAlignment="Right"/>
-                        <TextBox HorizontalAlignment="Left" Margin="123,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Height="25"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="23,50,0,0" TextWrapping="Wrap" Text="Chức vụ mới" VerticalAlignment="Top" TextAlignment="Right"/>
-                        <TextBox HorizontalAlignment="Left" Margin="123,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Height="25"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="306,10,0,0" TextWrapping="Wrap" Text="Phòng ban cũ" VerticalAlignment="Top" Width="114" TextAlignment="Right"/>
-                        <TextBox TextWrapping="Wrap" HorizontalAlignment="Left" Margin="431,5,0,0" VerticalAlignment="Top" Width="155" Height="25"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="306,50,0,0" TextWrapping="Wrap" Text="Phòng ban mới" VerticalAlignment="Top" TextAlignment="Right" Width="114"/>
-                        <TextBox HorizontalAlignment="Left" Margin="431,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155" Height="25"/>
+                    <StackPanel Grid.Column="0">
+                        <GroupBox Header="Thông tin" Margin="5, 0, 5, 5" Height="137">
+                            <Grid Margin="0,2,0,2">
+                                <TextBlock HorizontalAlignment="Left" Margin="10,7,0,0" TextWrapping="Wrap" Text="Số QĐ" VerticalAlignment="Top" TextAlignment="Right"/>
+                                <TextBox Text="{Binding SoQuyetDinh}" HorizontalAlignment="Left" Margin="63,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="177" Height="25"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="10,50,0,0" TextWrapping="Wrap" Text="Mã nhân viên" VerticalAlignment="Top" TextAlignment="Right"/>
+                                <TextBox Text="{Binding MaNhanVien}" IsReadOnly="True" HorizontalAlignment="Left" Margin="113,44,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155" Height="25"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="260,7,0,0" TextWrapping="Wrap" Text="Ngày QĐ" VerticalAlignment="Top" TextAlignment="Right"/>
+                                <DatePicker SelectedDate="{Binding NgayQuyetDinh}" HorizontalAlignment="Left" Margin="332,4,0,0" VerticalAlignment="Top" Width="137" Height="25"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="293,50,0,0" TextWrapping="Wrap" Text="Tên nhân viên" VerticalAlignment="Top" TextAlignment="Right"/>
+                                <TextBox Text="{Binding HoTen}" IsReadOnly="True" HorizontalAlignment="Left" Margin="403,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="197" Height="30"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="505,7,0,0" TextWrapping="Wrap" Text="thời gian thi hành" VerticalAlignment="Top" TextAlignment="Right"/>
+                                <DatePicker SelectedDate="{Binding ThoiGianThiHanh}" HorizontalAlignment="Left" Margin="634,4,0,0" VerticalAlignment="Top" Width="133" Height="25"/>
+                            </Grid>
+                        </GroupBox>
 
-                    </Grid>
+                        <GroupBox Margin="5,15,5,5" Header="Điều động" Height="147">
+                            <Grid Margin="2">
+                                <TextBlock HorizontalAlignment="Left" Margin="7,5,0,0" TextWrapping="Wrap" Text="Chức vụ cũ" VerticalAlignment="Top" Width="72" TextAlignment="Right"/>
+                                <ComboBox ItemsSource="{Binding DsChucVu}" DisplayMemberPath="tenChucVu" SelectedItem="{Binding SelectedChucVuCu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="93,0,0,0" VerticalAlignment="Top" Width="258" Height="30"/>
+                                <TextBlock HorizontalAlignment="Left" IsEnabled="True" Margin="2,50,0,0" TextWrapping="Wrap" Text="Chức vụ mới" VerticalAlignment="Top" TextAlignment="Right"/>
+                                <ComboBox  ItemsSource="{Binding DsChucVu}" DisplayMemberPath="tenChucVu" SelectedItem="{Binding SelectedChucVuMoi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Margin="93,45,0,0" IsEditable="True" VerticalAlignment="Top" Width="258" Height="30"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="375,10,0,0" TextWrapping="Wrap" Text="Phòng ban cũ" VerticalAlignment="Top" Width="114" TextAlignment="Right"/>
+                                <ComboBox  ItemsSource="{Binding DsPhongBan}" DisplayMemberPath="tenPhong" SelectedItem="{Binding SelectedPhongBanCu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  IsEditable="True" HorizontalAlignment="Left" Margin="500,5,0,0" VerticalAlignment="Top" Width="258" Height="30"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="375,50,0,0" TextWrapping="Wrap" Text="Phòng ban mới" VerticalAlignment="Top" TextAlignment="Right" Width="114"/>
+                                <ComboBox  ItemsSource="{Binding DsPhongBan}" DisplayMemberPath="tenPhong" SelectedItem="{Binding SelectedPhongBanMoi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="500,45,0,0" IsEditable="True" VerticalAlignment="Top" Width="258" Height="30"/>
 
-                </GroupBox>
+                            </Grid>
+                        </GroupBox>
+                    </StackPanel>
 
-                <ListView Margin="2,305,2,2">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Số QĐ"/>
-                            <GridViewColumn Header="Ngày QĐ"/>
-                            <GridViewColumn Header="Mã NV"/>
-                            <GridViewColumn Header="Tên NV"/>
-                            <GridViewColumn Header="Chức vụ cũ"/>
-                            <GridViewColumn Header="Phòng ban cũ"/>
-                            <GridViewColumn Header="Chức vụ mới"/>
-                            <GridViewColumn Header="Phòng ban mới"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-                <Button Content="Thêm" HorizontalAlignment="Left" Height="45" Margin="717,10,0,0" VerticalAlignment="Top" Width="104"/>
-                <Button Content="Xóa" HorizontalAlignment="Left" Height="45" Margin="717,136,0,0" VerticalAlignment="Top" Width="104"/>
-                <Button Content="Sửa" HorizontalAlignment="Left" Height="45" Margin="717,74,0,0" VerticalAlignment="Top" Width="104"/>
-                <Button Content="Hủy" HorizontalAlignment="Left" Height="45" Margin="717,206,0,0" VerticalAlignment="Top" Width="104"/>
+                    <StackPanel Grid.Column="1" Margin="10">
+                        <Button Content="Thêm" Command="{Binding Create_DieuDongCongtacCommand}" HorizontalAlignment="Left" Height="45" Margin="5,15,0,0" VerticalAlignment="Top" Width="104"/>
+                        <Button Content="Xóa" Command="{Binding Delete_DieuDongCongtacCommand}" HorizontalAlignment="Left" Height="45" Margin="5,15,0,0" VerticalAlignment="Top" Width="104"/>
+                        <Button Content="Sửa" Command="{Binding Update_DieuDongCongtacCommand}" HorizontalAlignment="Left" Height="45" Margin="5,15,0,0" VerticalAlignment="Top" Width="104"/>
+                        <Button Content="Hủy" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Height="45" Margin="5,15,0,0" VerticalAlignment="Top" Width="104"/>
+                    </StackPanel>
+
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <GroupBox Margin="5" Header="Danh sách điều động">
+                        <ListView Margin="2" ItemsSource="{Binding DsDieuDongCongTac}" SelectedItem="{Binding SelectedDieuDongCongTac, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Số QĐ" DisplayMemberBinding="{Binding SoQuyetDinh}"/>
+                                    <GridViewColumn Header="Ngày QĐ" DisplayMemberBinding="{Binding NgayQuyetDinh, StringFormat={}{0:dd/MM/yyyy}}"/>
+                                    <GridViewColumn Header="Thời gian thi hành" DisplayMemberBinding="{Binding ThoiGianThiHanh, StringFormat={}{0:dd/MM/yyyy}}"/>
+                                    <GridViewColumn Header="Mã NV" DisplayMemberBinding="{Binding MaNhanVien}"/>
+                                    <GridViewColumn Header="Tên NV" DisplayMemberBinding="{Binding HoTen}"/>
+                                    <GridViewColumn Header="Chức vụ cũ" DisplayMemberBinding="{Binding TenChucVuCu}"/>
+                                    <GridViewColumn Header="Phòng ban cũ" DisplayMemberBinding="{Binding TenPhongCu}"/>
+                                    <GridViewColumn Header="Chức vụ mới" DisplayMemberBinding="{Binding TenChucVuMoi}"/>
+                                    <GridViewColumn Header="Phòng ban mới" DisplayMemberBinding="{Binding TenPhongMoi}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
+                </Grid>
+
+
             </Grid>
         </Grid>
     </Grid>

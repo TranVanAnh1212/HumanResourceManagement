@@ -27,6 +27,19 @@ namespace HRMana.Model.DAO
             return chucVu;
         }
 
+        public ChucVu Get_ChucVu_By_MaChucVu(int id)
+        {
+            try
+            {
+                if (id > 0)
+                {
+                    return DataProvider.Instance.DBContext.ChucVu.FirstOrDefault(x => x.maChucVu == id);
+                }
+                else { return null; }
+            }
+            catch { return null; }
+        }
+
         public ChucVu CreateNew_ChucVu(string tenChucVu)
         {
             ChucVu cv = null;

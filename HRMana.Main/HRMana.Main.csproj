@@ -83,6 +83,9 @@
     <Compile Include="UserControls\ControlBarUserControl.xaml.cs">
       <DependentUpon>ControlBarUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\LableTopUserControl.xaml.cs">
+      <DependentUpon>LableTopUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\CreatePersonnelViewModel.cs" />
     <Compile Include="ViewModel\PersonnelDetailsViewModel.cs" />
@@ -92,6 +95,7 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\TaiKhoanViewModel.cs" />
+    <Compile Include="ViewModel\WorkingRotationViewModel.cs" />
     <Compile Include="View\Dialog\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
@@ -100,9 +104,6 @@
     </Compile>
     <Compile Include="View\Personnel\CreateNewPersonnelPage.xaml.cs">
       <DependentUpon>CreateNewPersonnelPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Personnel\PersonnelDetailsPage.xaml.cs">
-      <DependentUpon>PersonnelDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Personnel\PersonnelDetailsWindow.xaml.cs">
       <DependentUpon>PersonnelDetailsWindow.xaml</DependentUpon>
@@ -150,6 +151,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\LableTopUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Dialog\DialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -159,10 +164,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Personnel\CreateNewPersonnelPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Personnel\PersonnelDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -239,7 +240,9 @@
   <ItemGroup>
     <Resource Include="Assets\Images\ErrorIcon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\Images\borderb.PNG" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\NhanVien_Image\AnhThe.jpg" />
   </ItemGroup>

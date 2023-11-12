@@ -18,7 +18,7 @@ namespace HRMana.Model.EF
         public NhanVien()
         {
             this.ChamCong = new HashSet<ChamCong>();
-            this.ChuyenCongTac = new HashSet<ChuyenCongTac>();
+            this.ChuyenCongTac_NhanVien = new HashSet<ChuyenCongTac_NhanVien>();
         }
     
         public int maNhanVien { get; set; }
@@ -49,6 +49,8 @@ namespace HRMana.Model.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChamCong> ChamCong { get; set; }
         public virtual ChucVu ChucVu { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChuyenCongTac_NhanVien> ChuyenCongTac_NhanVien { get; set; }
         public virtual ChuyenMon ChuyenMon { get; set; }
         public virtual DanToc DanToc { get; set; }
         public virtual HopDong HopDong { get; set; }
@@ -56,7 +58,5 @@ namespace HRMana.Model.EF
         public virtual PhongBan PhongBan { get; set; }
         public virtual TonGiao TonGiao { get; set; }
         public virtual TrinhDo TrinhDo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChuyenCongTac> ChuyenCongTac { get; set; }
     }
 }
