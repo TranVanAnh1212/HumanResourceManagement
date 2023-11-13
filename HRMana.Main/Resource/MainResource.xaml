@@ -10,5 +10,6 @@
     <vm:PersonnelDetailsViewModel x:Key="personnelDetailVM"></vm:PersonnelDetailsViewModel>
     <vm:CreatePersonnelViewModel x:Key="createPersonnelVM"></vm:CreatePersonnelViewModel>
     <vm:WorkingRotationViewModel x:Key="workingRotationVM"></vm:WorkingRotationViewModel>
+    <vm:DepartmentViewModel x:Key="departmentVM"></vm:DepartmentViewModel>
     
 </ResourceDictionary>

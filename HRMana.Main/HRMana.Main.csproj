@@ -88,6 +88,7 @@
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\CreatePersonnelViewModel.cs" />
+    <Compile Include="ViewModel\DepartmentViewModel.cs" />
     <Compile Include="ViewModel\PersonnelDetailsViewModel.cs" />
     <Compile Include="ViewModel\PersonnelViewModel.cs" />
     <Compile Include="ViewModel\PositionViewModel.cs" />
