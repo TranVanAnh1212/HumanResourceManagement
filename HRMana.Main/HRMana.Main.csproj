@@ -94,10 +94,18 @@
     <Compile Include="ViewModel\ControlBarViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+<<<<<<< HEAD
     <Compile Include="ViewModel\TaiKhoanViewModel.cs" />
     <Compile Include="ViewModel\WorkingRotationViewModel.cs" />
     <Compile Include="View\Dialog\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
+=======
+    <Compile Include="View\Contract\ContractPage.xaml.cs">
+      <DependentUpon>ContractPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Department\DepartmentPage.xaml.cs">
+      <DependentUpon>DepartmentPage.xaml</DependentUpon>
+>>>>>>> Nguyen-Viet-Anh
     </Compile>
     <Compile Include="View\Home\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -119,6 +127,9 @@
     </Compile>
     <Compile Include="View\WorkingRotation\WorkingRotationPage.xaml.cs">
       <DependentUpon>WorkingRotationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TimeKeeping\TimeKeepingPage.xaml.cs">
+      <DependentUpon>TimeKeepingPage.xaml</DependentUpon>
     </Compile>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
@@ -151,11 +162,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+<<<<<<< HEAD
     <Page Include="UserControls\LableTopUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Dialog\DialogWindow.xaml">
+=======
+    <Page Include="View\Contract\ContractPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Department\DepartmentPage.xaml">
+>>>>>>> Nguyen-Viet-Anh
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -184,6 +203,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\WorkingRotation\WorkingRotationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TimeKeeping\TimeKeepingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

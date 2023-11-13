@@ -53,8 +53,14 @@
 
                         <MenuItem Header="Hồ sơ">
                             <MenuItem Header="Hồ sơ nhân viên" />
+<<<<<<< HEAD
                             <MenuItem Header="Điều động công tác" x:Name="workingRotationItem" Click="workingRotationItem_Click" />
                             <MenuItem Header="Hợp đồng lao động" />
+=======
+                            <MenuItem Header="Điều động công tác" />
+                            <MenuItem Header="Hợp đồng lao động" x:Name="updateContract_MenuItem" Click="updateContract_MenuItem_Click"/>
+                            <MenuItem Header="Hết hạn hợp đồng" />
+>>>>>>> Nguyen-Viet-Anh
                         </MenuItem>
 
                         <MenuItem Header="Nhân sự">
@@ -63,12 +69,23 @@
                         </MenuItem>
 
                         <MenuItem Header="Lương">
+<<<<<<< HEAD
                             <MenuItem Header="Chấm công"/>
+=======
+                            <MenuItem Header="Chấm công" x:Name="timeKeeping_MenuItem" Click="timeKeeping_MenuItem_Click"/>
+                            <MenuItem Header="Tăng lương"/>
+                            <MenuItem Header="Tạm ứng"/>
+>>>>>>> Nguyen-Viet-Anh
                         </MenuItem>
 
                         <MenuItem Header="Cập nhật">
+<<<<<<< HEAD
                             <MenuItem Header="Chức vụ" x:Name="positionItem" Click="positionItem_Click"/>
                             <MenuItem Header="Phòng ban"/>
+=======
+                            <MenuItem Header="Chức vụ"/>
+                            <MenuItem Header="Phòng ban" x:Name="updateDepartment_MenuItem" Click="updateDepartment_MenuItem_Click"/>
+>>>>>>> Nguyen-Viet-Anh
                             <MenuItem Header="Trình độ"/>
                             <MenuItem Header="Chế độ"/>
                         </MenuItem>

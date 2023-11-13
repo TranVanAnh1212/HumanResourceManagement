@@ -11,6 +11,7 @@
     <Grid>
         <TextBlock Text="Cập nhật hợp đồng" Margin="10,10,10,9.998" FontSize="22" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Padding="0,10" HorizontalAlignment="Center" VerticalAlignment="Top"></TextBlock>
         <Grid>
+<<<<<<< HEAD
             <TextBlock HorizontalAlignment="Left" Height="25" Margin="202,97,0,0" TextWrapping="Wrap" Text="Mã phòng ban" VerticalAlignment="Top" Width="96" TextAlignment="Right" FontSize="14"/>
             <TextBox HorizontalAlignment="Left" Height="26" Margin="317,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="312"/>
             <TextBlock HorizontalAlignment="Left" Height="26" Margin="201,139,0,0" TextWrapping="Wrap" Text="Tên phòng ban" VerticalAlignment="Top" Width="97" TextAlignment="Right" FontSize="14"/>
@@ -27,6 +28,42 @@
             <Button Content="Sửa" HorizontalAlignment="Left" Margin="436,569,0,49" Width="100"></Button>
             <Button Content="Xóa" HorizontalAlignment="Center" Margin="0,569,0,49" Width="100"></Button>
             <Button Content="Hủy" HorizontalAlignment="Left" Margin="780,569,0,49" Width="100"></Button>
+=======
+            <TextBlock HorizontalAlignment="Left" Height="25" Margin="160,96,0,0" TextWrapping="Wrap" Text="Mã hợp đồng" VerticalAlignment="Top" Width="85" TextAlignment="Right" FontSize="14"/>
+            <TextBox HorizontalAlignment="Left" Height="26" Margin="276,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284"/>
+            <TextBlock HorizontalAlignment="Left" Height="26" Margin="159,139,0,0" TextWrapping="Wrap" Text="Tên hợp đồng" VerticalAlignment="Top" Width="87" TextAlignment="Right" FontSize="14"/>
+            <TextBox HorizontalAlignment="Left" Height="25" Margin="276,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284"/>
+            <TextBlock Text="Ngày ký hợp đồng" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="159,183,0,0"></TextBlock>
+            <DatePicker HorizontalAlignment="Left" Margin="339,183,0,0" VerticalAlignment="Top" Width="104"/>
+            <TextBlock Text="Ngày kết thúc hợp đồng" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="159,234,0,0"></TextBlock>
+            <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" Margin="339,230,0,0" Width="105"></DatePicker>
+            <TextBlock Text="Loại hợp đồng" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="696,100,0,0"></TextBlock>
+            <TextBox Width="283" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="830,93,0,0"></TextBox>
+            <TextBlock Text="Tình trạng chữ ký" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="696,143,0,0"></TextBlock>
+            <TextBox VerticalAlignment="Top" HorizontalAlignment="Left" Width="283" Margin="830,137,0,0"></TextBox>
+            <TextBlock Text="Thời hạn hợp đồng" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="696,187,0,0"></TextBlock>
+            <DatePicker Width="104" Margin="830,183,370,0" VerticalAlignment="Top"></DatePicker>
+            
+            <ListView HorizontalAlignment="Center" Height="277" Margin="0,291,0,0" VerticalAlignment="Top" Width="989">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Mã hợp đồng" Width="145"/>
+                        <GridViewColumn Header="Tên hợp đồng" Width="200"/>
+                        <GridViewColumn Header="Loại" Width="130"/>
+                        <GridViewColumn Header="Ngày ký" Width="auto"/>
+                        <GridViewColumn Header="Ngày kết thúc" Width="auto"/>
+                        <GridViewColumn Header="Thời hạn" Width="auto"/>
+                        <GridViewColumn Header="Tình trạng" Width="200"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button Content="Thêm" HorizontalAlignment="Left" Margin="250,591,0,27" Width="100"></Button>
+            <Button Content="Sửa" HorizontalAlignment="Left" Margin="437,591,0,27" Width="100"></Button>
+            <Button Content="Xóa" HorizontalAlignment="Center" Margin="0,591,0,27" Width="100"></Button>
+            <Button Content="Hủy" HorizontalAlignment="Left" Margin="780,591,0,27" Width="100"></Button>
+            <Button Content="Thoát" HorizontalAlignment="Left" Margin="950,591,0,27" Width="100"></Button>
+
+>>>>>>> Nguyen-Viet-Anh
         </Grid>
     </Grid>
 </Page>

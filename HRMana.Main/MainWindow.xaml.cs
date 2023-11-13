@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 ﻿using HRMana.Common.Events;
+=======
+﻿using HRMana.Main.View.Contract;
+using HRMana.Main.View.Department;
+>>>>>>> Nguyen-Viet-Anh
 using HRMana.Main.View.Home;
 using HRMana.Main.View.Personnel;
 using HRMana.Main.View.Position;
 using HRMana.Main.View.SystemManagement;
+<<<<<<< HEAD
 using HRMana.Main.View.WorkingRotation;
+=======
+using HRMana.Main.View.TimeKeeping;
+>>>>>>> Nguyen-Viet-Anh
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,6 +95,21 @@ namespace HRMana.Main
         {
             Directional(new CreateNewPersonnelPage());
 
+        }
+
+        private void updateDepartment_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new DepartmentPage());
+        }
+
+        private void updateContract_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new ContractPage());
+        }
+
+        private void timeKeeping_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new TimeKeepingPage());
         }
     }
 }
