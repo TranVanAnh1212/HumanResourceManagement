@@ -126,17 +126,14 @@ namespace HRMana.Main.ViewModel
                 (param) =>
                 {
 
-                    if (string.IsNullOrEmpty(TenTaiKhoan) || string.IsNullOrEmpty(MatKhau) || SelectedQuyen == null)
+                    if (string.IsNullOrEmpty(TenTaiKhoan) || string.IsNullOrEmpty(MatKhau) || SelectedQuyen != null)
                         return false;
                     else
                         return true;
                 },
                 (param) =>
                 {
-                    string pass_base64_encode = StringHelper.Base64Encode(MatKhau);
-                    string pass_md5_hash = StringHelper.MD5Hash(pass_base64_encode);
-
-                    var result = new TaiKhoanDAO().Create_TaiKhoan(TenTaiKhoan, pass_md5_hash, MaQuyen, true);
+                    var result = new TaiKhoanDAO().Create_TaiKhoan(TenTaiKhoan, MatKhau, MaQuyen, true);
 
                     if (result != null)
                     {

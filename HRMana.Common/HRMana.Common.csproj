@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commons\CommonConstant.cs" />
-    <Compile Include="Commons\StringHelper.cs" />
     <Compile Include="Events\NotificationEvent.cs" />
     <Compile Include="Commons\FeatureHelper.cs" />
     <Compile Include="Events\RegisterEvent.cs" />

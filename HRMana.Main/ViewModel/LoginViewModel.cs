@@ -38,10 +38,7 @@ namespace HRMana.Main.ViewModel
                 (p) => { return true; },
                 (p) =>
                 {
-                    string pass_base64_encode = StringHelper.Base64Encode(Password);
-                    string pass_md5_hash = StringHelper.MD5Hash(pass_base64_encode);
-
-                    var checkLogin = new LoginDAO().CheckLogin(UserName, pass_md5_hash);
+                    var checkLogin = new LoginDAO().CheckLogin(UserName, Password);
 
                     if (checkLogin != null)
                     {

@@ -43,12 +43,7 @@ namespace HRMana.Main.ViewModel
         private int _page;
         private int _pageSize;
         private int _totalRecord;
-        private string _TNV_Search;
 
-        public ICommand IncreasePageCommand { get; set; }
-        public ICommand ReducePageCommand { get; set; }
-        public ICommand BackToStartCommand { get; set; }
-        public ICommand GoToEndCommand { get; set; }
         public ICommand LoadWindowCommand { get; set; }
         public ICommand Create_DieuDongCongtacCommand { get; set; }
         public ICommand Update_DieuDongCongtacCommand { get; set; }
@@ -178,26 +173,6 @@ namespace HRMana.Main.ViewModel
             }
         }
 
-        public string TNV_Search
-        {
-            get => _TNV_Search;
-            set
-            {
-                _TNV_Search = value;
-                OnPropertyChanged();
-
-                if (string.IsNullOrEmpty(value))
-                {
-                    GetList_NhanVien();
-                }
-                else
-                {
-                    GetList_NhanVien(value);
-                }
-            }
-
-        }
-
         public WorkingRotationViewModel()
         {
             Initialized();
@@ -207,67 +182,9 @@ namespace HRMana.Main.ViewModel
         {
             Page = 1;
             TotalPage = 1;
-            PageSize = 1;
+            PageSize = 20;
             NgayQuyetDinh = DateTime.Now;
             ThoiGianThiHanh = DateTime.Now;
-
-            IncreasePageCommand = new RelayCommand<object>(
-                (param) =>
-                {
-                    if (Page == TotalPage) return false;
-
-                    return true;
-                },
-                (param) =>
-                {
-                    if (Page < TotalPage)
-                    {
-                        Page += 1;
-                        GetList_ChuyenCongTac_NhanVien();
-                    }
-                }
-                );
-
-            ReducePageCommand = new RelayCommand<Object>(
-                (param) =>
-                {
-                    if (Page == 1) return false;
-
-                    return true;
-                },
-                (param) =>
-                {
-                    if (Page > 1)
-                    {
-                        Page -= 1;
-                        GetList_ChuyenCongTac_NhanVien();
-                    }
-                }
-                );
-
-            BackToStartCommand = new RelayCommand<object>(
-                (param) =>
-                {
-                    return true;
-                },
-                (param) =>
-                {
-                    Page = 1;
-                    GetList_ChuyenCongTac_NhanVien();
-                }
-                );
-
-            GoToEndCommand = new RelayCommand<object>(
-                (param) =>
-                {
-                    return true;
-                },
-                (param) =>
-                {
-                    Page = TotalPage;
-                    GetList_ChuyenCongTac_NhanVien();
-                }
-                );
 
             LoadWindowCommand = new RelayCommand<Page>(
                 (param) => { return true; },
@@ -351,7 +268,7 @@ namespace HRMana.Main.ViewModel
             try
             {
                 var result_cct_nv = new ChuyenCongTac_NhanVienDAO().Delete_ChuyenCongTacNhanVien(SelectedDieuDongCongTac.SoQuyetDinh, SelectedDieuDongCongTac.MaNhanVien);
-
+                
                 if (result_cct_nv)
                 {
                     var result_cct = new ChuyenCongTacDAO().Delete_ChuyenCongTac(SelectedDieuDongCongTac.SoQuyetDinh);
@@ -541,20 +458,6 @@ namespace HRMana.Main.ViewModel
             try
             {
                 var result = new NhanVienDAO().GetList_NhanVien();
-
-                DsNhanVien = new ObservableCollection<NhanVien>(result.OrderBy(x => x.tenNhanVien));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Có lỗi xảy ra, {ex.Message}");
-            }
-        }
-
-        private void GetList_NhanVien(string tnv)
-        {
-            try
-            {
-                var result = new NhanVienDAO().GetList_NhanVien(tnv);
 
                 DsNhanVien = new ObservableCollection<NhanVien>(result.OrderBy(x => x.tenNhanVien));
             }

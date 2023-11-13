@@ -29,26 +29,6 @@ namespace HRMana.Model.DAO
             return nv;
         }
 
-        public List<NhanVien> GetList_NhanVien(string tnv)
-        {
-            List<NhanVien> nv = new List<NhanVien>();
-
-            try
-            {
-                var result = DataProvider.Instance.DBContext.NhanVien.Where(x => x.tenNhanVien.Contains(tnv)).ToList();
-
-                if (result.Count() > 0)
-                {
-                    nv = result;
-                }
-            }
-            catch (Exception ex)
-            {
-                return nv;
-            }
-            return nv;
-        }
-
         public NhanVien Get_NhanVien_By_MaNhanVien(int maNhanVien)
         {
             NhanVien nv = null;

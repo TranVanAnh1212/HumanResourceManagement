@@ -33,7 +33,7 @@ namespace HRMana.Main.ViewModel
 
         public ICommand IncreasePageCommand { get; set; }
         public ICommand ReducePageCommand { get; set; }
-        public ICommand BackToStartCommand { get; set; }
+        public ICommand BackToTopCommand { get; set; }
         public ICommand GoToEndCommand { get; set; }
         public ICommand LoadWindowCommand { get; set; }
         public ICommand CreateNew_ChucVuCommand { get; set; }
@@ -126,7 +126,7 @@ namespace HRMana.Main.ViewModel
                 }
                 );
 
-            BackToStartCommand = new RelayCommand<object>(
+            BackToTopCommand = new RelayCommand<object>(
                 (param) =>
                 {
                     return true;
