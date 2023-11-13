@@ -13,13 +13,6 @@ namespace HRMana.Common
 {
     public static class FeatureHelper
     {
-        public static void ShowNotification(ref string targetMessage, ref string targetFill, string message, string fill)
-        {
-            targetMessage = message;
-            targetFill = fill;
-            NotificationEvent.Instance.ReqquestShowNotification();
-        }
-
         public static string ChooseImage()
         {
             string pathImage = "";
