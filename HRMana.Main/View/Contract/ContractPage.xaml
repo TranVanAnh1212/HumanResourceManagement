@@ -3,30 +3,69 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:uc="clr-namespace:HRMana.Main.UserControls"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:local="clr-namespace:HRMana.Main.View.Contract"
       mc:Ignorable="d" 
       Style="{StaticResource Sizewindow}"
       Title="ContractPage">
 
     <Grid>
-        <TextBlock Text="Cập nhật hợp đồng" Margin="10,10,10,9.998" FontSize="22" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Padding="0,10" HorizontalAlignment="Center" VerticalAlignment="Top"></TextBlock>
-        <Grid>
-            <TextBlock HorizontalAlignment="Left" Height="25" Margin="202,97,0,0" TextWrapping="Wrap" Text="Mã phòng ban" VerticalAlignment="Top" Width="96" TextAlignment="Right" FontSize="14"/>
-            <TextBox HorizontalAlignment="Left" Height="26" Margin="317,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="312"/>
-            <TextBlock HorizontalAlignment="Left" Height="26" Margin="201,139,0,0" TextWrapping="Wrap" Text="Tên phòng ban" VerticalAlignment="Top" Width="97" TextAlignment="Right" FontSize="14"/>
-            <TextBox HorizontalAlignment="Left" Height="25" Margin="317,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="500"/>
-            <ListView HorizontalAlignment="Center" Height="277" Margin="0,256,0,0" VerticalAlignment="Top" Width="896">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Mã hợp đồng" Width="200"/>
-                        <GridViewColumn Header="Tên hợp đồng" Width="auto"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <Button Content="Thêm" HorizontalAlignment="Left" Margin="250,569,0,49" Width="100"></Button>
-            <Button Content="Sửa" HorizontalAlignment="Left" Margin="436,569,0,49" Width="100"></Button>
-            <Button Content="Xóa" HorizontalAlignment="Center" Margin="0,569,0,49" Width="100"></Button>
-            <Button Content="Hủy" HorizontalAlignment="Left" Margin="780,569,0,49" Width="100"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <uc:LableTopUserControl Title="HỢP ĐỒNG LAO ĐỘNG"/>
+
+        <Grid Grid.Row="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <TextBlock HorizontalAlignment="Left" Height="25" Margin="138,30,0,0" TextWrapping="Wrap" Text="Mã hợp đồng" VerticalAlignment="Top" Width="85" TextAlignment="Right" FontSize="14"/>
+                <TextBox HorizontalAlignment="Left" Height="26" Margin="254,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284"/>
+                <TextBlock HorizontalAlignment="Left" Height="26" Margin="138,74,0,0" TextWrapping="Wrap" Text="Tên hợp đồng" VerticalAlignment="Top" Width="87" TextAlignment="Right" FontSize="14"/>
+                <TextBox HorizontalAlignment="Left" Height="25" Margin="254,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284"/>
+                <TextBlock Text="Ngày ký hợp đồng" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="138,118,0,0"></TextBlock>
+                <DatePicker HorizontalAlignment="Left" Margin="317,117,0,0" VerticalAlignment="Top" Width="104"/>
+                <TextBlock Text="Ngày kết thúc hợp đồng" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="138,168,0,0"></TextBlock>
+                <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" Margin="317,164,0,0" Width="105"></DatePicker>
+                <TextBlock Text="Loại hợp đồng" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="674,34,0,0"></TextBlock>
+                <TextBox Width="283" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="809,27,0,0"></TextBox>
+                <TextBlock Text="Tình trạng chữ ký" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="674,78,0,0"></TextBlock>
+                <TextBox VerticalAlignment="Top" HorizontalAlignment="Left" Width="283" Margin="809,71,0,0"></TextBox>
+                <TextBlock Text="Thời hạn hợp đồng" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="674,122,0,0"></TextBlock>
+                <DatePicker Width="104" Margin="808,117,388,0" VerticalAlignment="Top"></DatePicker>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <ListView HorizontalAlignment="Center" Height="277" VerticalAlignment="Top" Width="989">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Mã hợp đồng"/>
+                            <GridViewColumn Header="Tên hợp đồng" />
+                            <GridViewColumn Header="Loại" />
+                            <GridViewColumn Header="Ngày ký" />
+                            <GridViewColumn Header="Ngày kết thúc" />
+                            <GridViewColumn Header="Thời hạn" />
+                            <GridViewColumn Header="Tình trạng" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="5">
+                <Button Content="Thêm" HorizontalAlignment="Left" Width="100" Margin="320,0,0,0"></Button>
+                <Button Content="Sửa" HorizontalAlignment="Left" Width="100" Margin="502,0,0,0"></Button>
+                <Button Content="Xóa" HorizontalAlignment="Center"  Width="100" Margin="835,0,355,0"></Button>
+                <Button Content="Hủy" HorizontalAlignment="Left" Width="100" Margin="674,0,0,0"></Button>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

@@ -97,6 +97,12 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\TaiKhoanViewModel.cs" />
     <Compile Include="ViewModel\WorkingRotationViewModel.cs" />
+    <Compile Include="View\Contract\ContractPage.xaml.cs">
+      <DependentUpon>ContractPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Department\DepartmentPage.xaml.cs">
+      <DependentUpon>DepartmentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Dialog\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
@@ -117,6 +123,9 @@
     </Compile>
     <Compile Include="View\SystemManagement\AccountUserPage.xaml.cs">
       <DependentUpon>AccountUserPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TimeKeeping\TimeKeepingPage.xaml.cs">
+      <DependentUpon>TimeKeepingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WorkingRotation\WorkingRotationPage.xaml.cs">
       <DependentUpon>WorkingRotationPage.xaml</DependentUpon>
@@ -156,6 +165,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Contract\ContractPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Department\DepartmentPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\Dialog\DialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -183,6 +200,10 @@
     <Page Include="View\SystemManagement\AccountUserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TimeKeeping\TimeKeepingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\WorkingRotation\WorkingRotationPage.xaml">
       <SubType>Designer</SubType>

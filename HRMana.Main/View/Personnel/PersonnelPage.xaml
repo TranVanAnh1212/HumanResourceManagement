@@ -10,7 +10,6 @@
       mc:Ignorable="d" 
       x:Name="personnelPage"
       DataContext="{StaticResource personnelVM}"
-      Style="{StaticResource Sizewindow}"
       Title="PersonnelPage">
 
     <i:Interaction.Triggers>
@@ -39,7 +38,7 @@
                 </Style>
             </Grid.Resources>
 
-            <GroupBox Header="Thống kê theo" HorizontalAlignment="Left" Height="566" Margin="26,10,0,0" VerticalAlignment="Top" Width="372">
+            <GroupBox Header="Thống kê theo" HorizontalAlignment="Left" Height="549" Margin="26,27,0,0" VerticalAlignment="Top" Width="372">
                 <StackPanel Style="{StaticResource stackPanelStyle}">
                     <StackPanel Style="{StaticResource stackPanelStyle}">
                         <TextBlock Height="23" TextWrapping="Wrap" Text="Phòng ban:" Width="350"/>

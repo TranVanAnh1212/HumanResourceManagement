@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace HRMana.Common.Commons
@@ -26,6 +27,13 @@ namespace HRMana.Common.Commons
                 hash.Append(bytes[i].ToString("x2"));
             }
             return hash.ToString();
+        }
+
+        public static bool IsPhoneNumber(string text)
+        {
+            // Sử dụng biểu thức chính quy để kiểm tra xem chỉ có chữ số và ký tự '+' hay không
+            Regex regex = new Regex("[^0-9+]");
+            return !regex.IsMatch(text);
         }
     }
 }

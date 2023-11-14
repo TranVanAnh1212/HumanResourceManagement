@@ -1,13 +1,299 @@
-﻿using System;
+﻿using HRMana.Model.DAO;
+using HRMana.Model.EF;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace HRMana.Main.ViewModel
 {
     public class DepartmentViewModel : BaseViewModel
     {
+        private int _maPhong;
+        private string _tenPhong;
+        private string _sdt;
+        private int _totalPage;
+        private int _page;
+        private int _pageSize;
+        private int _totalRecord;
+        private ObservableCollection<PhongBan> _dsPhongBan;
+        private PhongBan _selectedPhongBan;
 
+        public ICommand IncreasePageCommand { get; set; }
+        public ICommand ReducePageCommand { get; set; }
+        public ICommand BackToStartCommand { get; set; }
+        public ICommand GoToEndCommand { get; set; }
+        public ICommand LoadWindowCommand { get; set; }
+        public ICommand Create_PhongBanCommand { get; set; }
+        public ICommand Update_PhongBanCommand { get; set; }
+        public ICommand Delete_PhongBanCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
+
+        public int TotalPage { get => _totalPage; set { _totalPage = value; OnPropertyChanged(); } }
+        public int Page { get => _page; set { _page = value; OnPropertyChanged(); } }
+        public int PageSize { get => _pageSize; set { _pageSize = value; OnPropertyChanged(); } }
+        public int TotalRecord { get => _totalRecord; set { _totalRecord = value; OnPropertyChanged(); } }
+        public ObservableCollection<PhongBan> DsPhongBan { get => _dsPhongBan; set { _dsPhongBan = value; OnPropertyChanged(); } }
+        public PhongBan SelectedPhongBan
+        {
+            get => _selectedPhongBan;
+            set
+            {
+                _selectedPhongBan = value;
+                OnPropertyChanged();
+
+                if (SelectedPhongBan != null)
+                {
+                    MaPhong = SelectedPhongBan.maPhong;
+                    TenPhong = SelectedPhongBan.tenPhong.Trim();
+                    Sdt = SelectedPhongBan.dienThoai.Trim();
+                }
+            }
+        }
+
+        public int MaPhong { get => _maPhong; set { _maPhong = value; OnPropertyChanged(); } }
+        public string TenPhong { get => _tenPhong; set { _tenPhong = value; OnPropertyChanged(); } }
+        public string Sdt { get => _sdt; set { _sdt = value; OnPropertyChanged(); } }
+
+        public DepartmentViewModel()
+        {
+            Initialized();
+        }
+
+        private void Initialized()
+        {
+            Page = 1;
+            TotalPage = 1;
+            PageSize = 10;
+
+            IncreasePageCommand = new RelayCommand<object>(
+                (param) =>
+                {
+                    if (Page == TotalPage) return false;
+
+                    return true;
+                },
+                (param) =>
+                {
+                    if (Page < TotalPage)
+                    {
+                        Page += 1;
+                        GetList_PhongBan();
+                    }
+                }
+                );
+
+            ReducePageCommand = new RelayCommand<Object>(
+                (param) =>
+                {
+                    if (Page == 1) return false;
+
+                    return true;
+                },
+                (param) =>
+                {
+                    if (Page > 1)
+                    {
+                        Page -= 1;
+                        GetList_PhongBan();
+                    }
+                }
+                );
+
+            BackToStartCommand = new RelayCommand<object>(
+                (param) =>
+                {
+                    return true;
+                },
+                (param) =>
+                {
+                    Page = 1;
+                    GetList_PhongBan();
+                }
+                );
+
+            GoToEndCommand = new RelayCommand<object>(
+                (param) =>
+                {
+                    return true;
+                },
+                (param) =>
+                {
+                    Page = TotalPage;
+                    GetList_PhongBan();
+                }
+                );
+
+            LoadWindowCommand = new RelayCommand<Page>(
+                (param) => { return true; },
+                (param) =>
+                {
+                    Thread GetData_Thread = new Thread(() =>
+                    {
+                        Application.Current.Dispatcher.Invoke(new Action(() =>
+                        {
+                            GetList_PhongBan();
+                        }));
+                    });
+                    GetData_Thread.IsBackground = true;
+                    GetData_Thread.Start();
+                }
+                );
+
+            Create_PhongBanCommand = new RelayCommand<object>(
+                (param) =>
+                {
+                    if (string.IsNullOrEmpty(TenPhong) || SelectedPhongBan != null)
+                        return false;
+
+                    return true;
+                },
+                (param) =>
+                {
+                    try
+                    {
+                        var pb = new PhongBan()
+                        {
+                            tenPhong = TenPhong.Trim(),
+                            dienThoai = Sdt.Trim()
+                        };
+
+                        var result = new PhongBanDAO().CreateNew_PhongBan(pb);
+
+                        if (result > 0)
+                        {
+                            MessageBox.Show("Thêm mới phòng ban thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                            EmptyField();
+                            GetList_PhongBan();
+                        }
+                        else if (result == 0)
+                        {
+                            MessageBox.Show("Phòng ban rỗng.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Có lỗi xảy ra khi thêm phòng ban mới vào máy chủ.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                }
+                );
+
+            Update_PhongBanCommand = new RelayCommand<object>(
+                (param) =>
+                {
+                    if (SelectedPhongBan == null)
+                        return false;
+
+                    return true;
+                },
+                (param) =>
+                {
+                    try
+                    {
+
+                        var result = new PhongBanDAO().Update_PhongBan(MaPhong, TenPhong.Trim(), Sdt.Trim());
+
+                        if (result)
+                        {
+                            MessageBox.Show("Cập nhật phòng ban thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                            EmptyField();
+                            GetList_PhongBan();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Có lỗi xảy ra khi cập nhật ở máy chủ.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                );
+
+            Delete_PhongBanCommand = new RelayCommand<object>(
+                (param) =>
+                {
+                    if (SelectedPhongBan == null)
+                        return false;
+
+                    return true;
+                },
+                (param) =>
+                {
+                    try
+                    {
+                        var pb = new PhongBan()
+                        {
+                            maPhong = MaPhong,
+                            tenPhong = TenPhong.Trim(),
+                            dienThoai = Sdt.Trim()
+                        };
+
+                        var result = new PhongBanDAO().Delete_PhongBan(pb);
+
+                        if (result)
+                        {
+                            MessageBox.Show("Xóa phòng ban thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                            EmptyField();
+                            GetList_PhongBan();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Có lỗi xảy ra khi xóa ở máy chủ.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                );
+
+            CancelCommand = new RelayCommand<object>(
+                (param) =>
+                {
+                    return true;
+                },
+                (param) =>
+                {
+                    EmptyField();
+                }
+                );
+        }
+
+        private void EmptyField()
+        {
+            SelectedPhongBan = null;
+            MaPhong = 0;
+            TenPhong = string.Empty;
+            Sdt = string.Empty;
+        }
+
+        private void GetList_PhongBan()
+        {
+            try
+            {
+                var result = new PhongBanDAO().GetList_PhongBan();
+
+                TotalRecord = result.Count();
+                TotalPage = (int)Math.Ceiling((double)TotalRecord / PageSize);
+
+                DsPhongBan = new ObservableCollection<PhongBan>(result.OrderBy(x => x.tenPhong).Skip((Page - 1) * PageSize).Take(PageSize));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Có lỗi khi lấy dữ liệu", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

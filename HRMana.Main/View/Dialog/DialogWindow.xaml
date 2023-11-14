@@ -9,7 +9,7 @@
         FontSize="15"
         Background="Transparent"
         Title="DialogWindow" Height="200" Width="400" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Window_MouseLeftButtonDown">
-    <Border CornerRadius="10" BorderThickness="1">
+    <Border CornerRadius="3" BorderThickness="1">
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
@@ -19,17 +19,16 @@
         </Border.BorderBrush>
 
         <Grid>
-            <Rectangle HorizontalAlignment="Center" Height="198" Stroke="Black" VerticalAlignment="Center" Width="398" RadiusX="10" RadiusY="10" Fill="#FFBEBEBE"/>
-            <Rectangle HorizontalAlignment="Center" Height="39" Stroke="Black" VerticalAlignment="Top" Width="398" RadiusX="10" RadiusY="10" Fill="#FF3C3C3C"/>
+            <Rectangle HorizontalAlignment="Center" Height="198" Stroke="#00030303" VerticalAlignment="Center" Width="398" RadiusX="3" RadiusY="3" Fill="White"/>
+            <Rectangle HorizontalAlignment="Center" Height="39" Stroke="Black" VerticalAlignment="Top" Width="398" RadiusX="3" RadiusY="3" Fill="#FF3C3C3C"/>
             <TextBlock Foreground="White" Height="22" Margin="82,10,82,0" TextWrapping="Wrap" Text="Thông báo" VerticalAlignment="Top" Width="234" TextAlignment="Center"/>
             <Button Click="btn_Comfirm_Click" x:Name="btn_Comfirm" Content="Xác nhận" HorizontalAlignment="Left" Height="35" Margin="59,134,0,0" VerticalAlignment="Top" Width="105"/>
             <Button Click="btn_Cancel_Click" x:Name="btn_Cancel" Content="Hủy" HorizontalAlignment="Left" Height="35" Margin="234,134,0,0" VerticalAlignment="Top" Width="105"/>
-            <TextBlock x:Name="txtb_DialogMessage" Height="45" Margin="92,69,92,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="215" TextAlignment="Center"/>
+            <TextBlock x:Name="txtb_DialogMessage" Height="40" HorizontalAlignment="Center" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" TextAlignment="Center" Margin="0,59,0,0"/>
             <Button x:Name="btn_CloseDialog" Click="btn_CloseDialog_Click" Cursor="Hand" HorizontalAlignment="Left" Height="25" Margin="344,7,0,0" VerticalAlignment="Top" Width="30" Padding="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}">
                 <materialDesign:PackIcon Kind="CloseBoxOutline" />
             </Button>
 
         </Grid>
-
     </Border>
 </Window>

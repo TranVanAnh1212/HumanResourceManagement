@@ -1,24 +1,15 @@
 ﻿using HRMana.Common.Events;
+using HRMana.Main.View.Contract;
+using HRMana.Main.View.Department;
 using HRMana.Main.View.Home;
 using HRMana.Main.View.Personnel;
 using HRMana.Main.View.Position;
 using HRMana.Main.View.SystemManagement;
+using HRMana.Main.View.TimeKeeping;
 using HRMana.Main.View.WorkingRotation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace HRMana.Main
 {
@@ -85,6 +76,23 @@ namespace HRMana.Main
         private void createPersonnel_item_Click(object sender, RoutedEventArgs e)
         {
             Directional(new CreateNewPersonnelPage());
+
+        }
+
+        private void TimeKeeping_Item_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new TimeKeepingPage());
+        }
+
+        private void department_Item_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new DepartmentPage());
+
+        }
+
+        private void contract_Item_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new ContractPage());
 
         }
     }

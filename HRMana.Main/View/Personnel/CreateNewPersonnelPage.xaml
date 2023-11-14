@@ -8,7 +8,6 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       mc:Ignorable="d" 
-      Style="{StaticResource Sizewindow}"
       DataContext="{StaticResource createPersonnelVM}"
       Background="White"
       x:Name="createPersonnelPage"
