@@ -1,9 +1,14 @@
 ﻿using HRMana.Common.Events;
 using HRMana.Main.View.Contract;
 using HRMana.Main.View.Department;
+using HRMana.Main.View.Expertise;
 using HRMana.Main.View.Home;
+using HRMana.Main.View.People;
 using HRMana.Main.View.Personnel;
 using HRMana.Main.View.Position;
+using HRMana.Main.View.Qualification;
+using HRMana.Main.View.Religion;
+using HRMana.Main.View.Salary;
 using HRMana.Main.View.SystemManagement;
 using HRMana.Main.View.TimeKeeping;
 using HRMana.Main.View.WorkingRotation;
@@ -94,6 +99,31 @@ namespace HRMana.Main
         {
             Directional(new ContractPage());
 
+        }
+
+        private void qualificationItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new QualificationPage());
+        }
+
+        private void expertiseItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new ExpertisePage());
+        }
+
+        private void peopleItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new PeoplePage());
+        }
+
+        private void religionItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new ReligionPage());
+        }
+
+        private void salaryItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new SalaryPage());
         }
     }
 }

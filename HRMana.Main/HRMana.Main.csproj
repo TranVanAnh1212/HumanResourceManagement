@@ -108,8 +108,14 @@
     <Compile Include="View\Dialog\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Expertise\ExpertisePage.xaml.cs">
+      <DependentUpon>ExpertisePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Home\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\People\PeoplePage.xaml.cs">
+      <DependentUpon>PeoplePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Personnel\CreateNewPersonnelPage.xaml.cs">
       <DependentUpon>CreateNewPersonnelPage.xaml</DependentUpon>
@@ -122,6 +128,15 @@
     </Compile>
     <Compile Include="View\Position\PositionPage.xaml.cs">
       <DependentUpon>PositionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Qualification\QualificationPage.xaml.cs">
+      <DependentUpon>QualificationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Religion\ReligionPage.xaml.cs">
+      <DependentUpon>ReligionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Salary\SalaryPage.xaml.cs">
+      <DependentUpon>SalaryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SystemManagement\AccountUserPage.xaml.cs">
       <DependentUpon>AccountUserPage.xaml</DependentUpon>
@@ -179,7 +194,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Expertise\ExpertisePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Home\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\People\PeoplePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -196,6 +219,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Position\PositionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Qualification\QualificationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Religion\ReligionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Salary\SalaryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

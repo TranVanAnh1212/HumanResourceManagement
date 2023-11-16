@@ -64,6 +64,8 @@
 
                         <MenuItem Header="Lương">
                             <MenuItem Header="Chấm công" x:Name="TimeKeeping_Item" Click="TimeKeeping_Item_Click"/>
+                            <MenuItem Header="Cập nhật bậc lương" x:Name="salaryItem" Click="salaryItem_Click"/>
+
                         </MenuItem>
 
                         <MenuItem Header="Danh mục">
@@ -71,6 +73,9 @@
                             <MenuItem Header="Danh mục phòng ban" x:Name="department_Item" Click="department_Item_Click"/>
                             <MenuItem Header="Danh mục trình độ"/>
                             <MenuItem Header="Danh mục chế độ"/>
+                            <MenuItem Header="Danh mục chuyên môn" x:Name="expertiseItem" Click="expertiseItem_Click"/>
+                            <MenuItem Header="Danh mục dân tộc" x:Name="peopleItem" Click="peopleItem_Click"/>
+                            <MenuItem Header="Danh mục tôn giáo" x:Name="religionItem" Click="religionItem_Click"/>
                         </MenuItem>
 
                         <MenuItem Header="Thống kê - báo cáo">
