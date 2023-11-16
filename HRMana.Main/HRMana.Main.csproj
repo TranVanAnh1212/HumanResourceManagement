@@ -87,6 +87,7 @@
       <DependentUpon>LableTopUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ContractViewModel.cs" />
     <Compile Include="ViewModel\CreatePersonnelViewModel.cs" />
     <Compile Include="ViewModel\DepartmentViewModel.cs" />
     <Compile Include="ViewModel\PersonnelDetailsViewModel.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\TaiKhoanViewModel.cs" />
+    <Compile Include="ViewModel\TimeKeepingViewModel.cs" />
     <Compile Include="ViewModel\WorkingRotationViewModel.cs" />
     <Compile Include="View\Contract\ContractPage.xaml.cs">
       <DependentUpon>ContractPage.xaml</DependentUpon>

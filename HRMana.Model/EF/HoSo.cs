@@ -14,12 +14,6 @@ namespace HRMana.Model.EF
     
     public partial class HoSo
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HoSo()
-        {
-            this.NhanVien = new HashSet<NhanVien>();
-        }
-    
         public int maHoSo { get; set; }
         public string soYeuLyLich { get; set; }
         public string giayKhaiSinh { get; set; }
@@ -37,8 +31,5 @@ namespace HRMana.Model.EF
         public Nullable<System.DateTime> ngayBatDauLamViec { get; set; }
         public string kinhNghiemLamViec { get; set; }
         public Nullable<System.DateTime> thoiGian { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NhanVien> NhanVien { get; set; }
     }
 }

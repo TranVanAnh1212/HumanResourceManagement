@@ -66,17 +66,16 @@
                             <MenuItem Header="Chấm công" x:Name="TimeKeeping_Item" Click="TimeKeeping_Item_Click"/>
                         </MenuItem>
 
-                        <MenuItem Header="Cập nhật">
-                            <MenuItem Header="Chức vụ" x:Name="positionItem" Click="positionItem_Click"/>
-                            <MenuItem Header="Phòng ban" x:Name="department_Item" Click="department_Item_Click"/>
-                            <MenuItem Header="Trình độ"/>
-                            <MenuItem Header="Chế độ"/>
+                        <MenuItem Header="Danh mục">
+                            <MenuItem Header="Danh mục chức vụ" x:Name="positionItem" Click="positionItem_Click"/>
+                            <MenuItem Header="Danh mục phòng ban" x:Name="department_Item" Click="department_Item_Click"/>
+                            <MenuItem Header="Danh mục trình độ"/>
+                            <MenuItem Header="Danh mục chế độ"/>
                         </MenuItem>
 
                         <MenuItem Header="Thống kê - báo cáo">
                             <MenuItem Header="Danh sách lương - thưởng"/>
                             <MenuItem Header="Danh sách nhân sự"/>
-                            <MenuItem Header="Danh sách kỉ luật"/>
                         </MenuItem>
 
                         <MenuItem Header="Trợ giúp">

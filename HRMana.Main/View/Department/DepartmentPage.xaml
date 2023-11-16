@@ -63,7 +63,7 @@
                 </Grid.RowDefinitions>
 
                 <ListView ItemsSource="{Binding DsPhongBan}" SelectedItem="{Binding SelectedPhongBan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                          Margin="50, 10, 50, 10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                          Margin="50, 10, 50, 10" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Mã phòng" Width="50" DisplayMemberBinding="{Binding maPhong}"/>

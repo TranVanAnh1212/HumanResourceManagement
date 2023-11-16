@@ -12,21 +12,19 @@ namespace HRMana.Model.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Quyen
+    public partial class Chitiet_Quyen
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Quyen()
+        public Chitiet_Quyen()
         {
             this.ChiTietQuyen_Quyen = new HashSet<ChiTietQuyen_Quyen>();
-            this.TaiKhoan = new HashSet<TaiKhoan>();
         }
     
-        public int maQuyen { get; set; }
-        public string tenQuyen { get; set; }
+        public int maChitietQuyen { get; set; }
+        public string tenhanhDong { get; set; }
+        public string mahanhDong { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietQuyen_Quyen> ChiTietQuyen_Quyen { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TaiKhoan> TaiKhoan { get; set; }
     }
 }

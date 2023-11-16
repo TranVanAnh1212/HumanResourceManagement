@@ -35,5 +35,18 @@ namespace HRMana.Common.Commons
             Regex regex = new Regex("[^0-9+]");
             return !regex.IsMatch(text);
         }
+
+        public static decimal ConvertSalary(string text)
+        {
+            decimal salaryConvert = 0;
+            if (!string.IsNullOrEmpty(text))
+            {
+                string[] a = text.Split('.');
+                string b = string.Concat(a);
+                salaryConvert = Convert.ToInt32(b);
+            }
+
+            return salaryConvert;
+        }
     }
 }

@@ -2,95 +2,108 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       xmlns:local="clr-namespace:HRMana.Main.View.TimeKeeping"
       mc:Ignorable="d" 
       Style="{StaticResource Sizewindow}"
+      DataContext="{StaticResource timKeepingVM}"
+      FontSize="14"
+      x:Name="timeKeepingPage"
+      Background="White"
       Title="TimeKeepingPage">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadWindowCommand}" CommandParameter="{Binding ElementName=timeKeepingPage}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid>
-        <TextBlock Text="Chấm công - Lương" Margin="10,10,10,9.998" FontSize="22" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Padding="0,10" HorizontalAlignment="Center" VerticalAlignment="Top"></TextBlock>
-        <Grid Margin="0,60,780,0">
-            <TextBlock FontWeight="Bold" Text="Danh sách nhân viên" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10,0,160,0"/>
-            <TextBlock Text="Phòng ban" FontSize="14" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="19,37,0,0"></TextBlock>
-            <ComboBox Margin="118,30,122,0" VerticalAlignment="Top" Height="33">
-                <ComboBoxItem Tag="HR" Content="Nhân sự"/>
-                <ComboBoxItem Tag="FN" Content="Kế toán"/>
-                <ComboBoxItem Tag="IT" Content="CNTT"/>
-            </ComboBox>
-            <ListView Margin="20,80,20,10" FontSize="13" >
-                <ListView.View >
-                    <GridView>
-                        <GridViewColumn Header="Mã NV" Width="130"/>
-                        <GridViewColumn Header="Tên NV" Width="200" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </Grid>
-        <Grid Margin="520,60,0,0">
-            <Grid Margin="0,0,0,490">
-                <TextBlock FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Thông tin" Margin="10,0,0,0" FontSize="14"></TextBlock>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Mã nhân viên" Margin="21,24,0,0" ></TextBlock>
-                <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="178" Margin="142,22,0,0"></TextBox>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="369,24,0,0" RenderTransformOrigin="0.572,1.096"><Run Text="Tên nhân viên"/><LineBreak/><Run/></TextBlock>
-                <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="235" Margin="502,22,0,0"></TextBox>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Lương cơ bản" Margin="21,61,0,0"></TextBlock>
-                <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="178" Margin="142,62,0,0"/>
-            </Grid>
-            <Grid Margin="0,100,0,343">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="86*"/>
-                    <ColumnDefinition Width="109*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Chấm công" Margin="10,0,0,0" FontSize="14" Height="19" Width="74"/>
-                <TextBlock Text="Bậc lương" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" RenderTransformOrigin="0.556,0.668" Height="19" Width="62"></TextBlock>
-                <TextBlock Text="Số ngày công" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,108,0,0" RenderTransformOrigin="0.317,0.737" Height="19" Width="84"/>
-                <ComboBox Margin="142,20,96,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="77" Margin="142,104,0,0"/>
-                <TextBlock Text="Số giờ tăng ca" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,19,0,0" RenderTransformOrigin="0.556,0.668" Grid.Column="1" Height="19" Width="88"/>
-                <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="77" Margin="157,16,0,0" Grid.Column="1"/>
-                <TextBlock Text="Số ngày nghỉ phép" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" RenderTransformOrigin="0.556,0.668" Height="19" Width="116"/>
-                <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="76" Margin="142,0,0,0"/>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="24,0,0,0" RenderTransformOrigin="0.556,0.668" Grid.Column="1" Text="Số ngày ngừng việc" Height="19" Width="122"/>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,109,0,0" RenderTransformOrigin="0.556,0.668" Grid.Column="1" Text="Phụ cấp khác" Height="19" Width="82"/>
-                <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="76" Margin="157,0,0,0" Grid.Column="1"/>
-                <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="166" Margin="157,105,0,0" Grid.Column="1"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-            </Grid>
-            <Grid Margin="0,252,0,230">
-                <TextBlock Text="Bảng lương" FontWeight="Bold" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" ></TextBlock>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,19,0,0"><Run Text="Lương tăng ca"/><LineBreak/><Run/></TextBlock>
-                <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="186" Margin="142,15,0,0"></TextBox>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Ứng trước" Margin="370,20,0,0"/>
-                <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="162" Margin="502,15,0,0"/>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Phụ cấp CV" Margin="20,64,0,0"/>
-                <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="186" Margin="142,60,0,0"/>
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Còn lại" Margin="370,68,0,0"/>
-                <TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="162" Margin="502,60,0,0"/>
+        <uc:LableTopUserControl Title="Chấm công - Lương"/>
 
-            </Grid>
-            <Grid Margin="0,360,0,70">
-                <ListView FontSize="11" Height="170" VerticalAlignment="Top">
-                    <ListView.View>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid>
+
+                <TextBox  materialDesign:HintAssist.Hint="Tìm kiếm theo tên nhân viên" FontSize="14"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Tnv_Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="22,10,23,540" />
+
+                <ListView Margin="10,87,10,10" ItemsSource="{Binding DsNhanVien}" SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.View >
                         <GridView>
-                            <GridViewColumn Header="Mã NV" Width="auto"></GridViewColumn>
-                            <GridViewColumn Header="Tên NV" Width="160"></GridViewColumn>
-                            <GridViewColumn Header="Bậc lương" Width="120"></GridViewColumn>
-                            <GridViewColumn Header="Lương tăng ca" Width="135"></GridViewColumn>
-                            <GridViewColumn Header="Ứng trước" Width="130"></GridViewColumn>
-                            <GridViewColumn Header="Còn lại" Width="300"></GridViewColumn>
+                            <GridViewColumn Header="Mã NV" DisplayMemberBinding="{Binding maNhanVien}"/>
+                            <GridViewColumn Header="Tên NV" DisplayMemberBinding="{Binding tenNhanVien}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
-
             </Grid>
-            <Button Content="Chấm công" HorizontalAlignment="Left" Margin="20,541,0,17" Width="105"></Button>
-            <Button Content="Sửa" HorizontalAlignment="Left" Margin="182,541,0,17" Width="100"/>
-            <Button Content="Xóa" HorizontalAlignment="Center" Margin="0,541,0,17" Width="100"/>
-            <Button Content="hủy" HorizontalAlignment="Left" Margin="499,541,0,17" Width="100"/>
-            <Button Content="Thoát" HorizontalAlignment="Left" Margin="657,541,0,17" Width="100"/>
+            <Grid Grid.Column="1">
 
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
+                <GroupBox Margin="10" Header="Thông tin">
+                    <Grid Margin="10">
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Mã nhân viên" Margin="2,0,0,0" ></TextBlock>
+                        <TextBox Text="{Binding MaNhanVien}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="178" Margin="106,0,0,0"></TextBox>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="316,5,0,0" RenderTransformOrigin="0.572,1.096" Height="26"><Run Text="Tên nhân viên"/><LineBreak/><Run/></TextBlock>
+                        <TextBox Text="{Binding TenNhanVien}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="416,0,0,0"></TextBox>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Lương cơ bản" Margin="314,66,0,0"></TextBlock>
+                        <TextBox Text="{Binding LuongCoBan}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="166" Margin="416,62,0,0"/>
+                        <TextBlock Text="Bậc lương" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,53,0,0" RenderTransformOrigin="0.556,0.668" Height="19" Width="62"/>
+                        <ComboBox ItemsSource="{Binding DsBacLuong}" DisplayMemberPath="heSoLuong" SelectedItem="{Binding SelectedBacLuong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="96,52,633,0" VerticalAlignment="Top"/>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Margin="10" Grid.Row="1" Header="Chấm công">
+                    <Grid Margin="10">
+                        <TextBlock Text="Số ngày công" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,7,0,0" RenderTransformOrigin="0.317,0.737" Height="19" Width="84"/>
+                        <TextBox Text="{Binding SoNgayCong}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="117" Margin="104,3,0,0"/>
+                        <TextBlock Text="Số ngày tăng ca" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1,57,0,0" RenderTransformOrigin="0.556,0.668" Height="19" Width="124"/>
+                        <TextBox Text="{Binding SoNgayTangCa}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="106" Margin="130,53,0,0"/>
+                        <TextBlock Text="Số ngày nghỉ phép" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="284,6,0,0" RenderTransformOrigin="0.556,0.668" Height="19" Width="116"/>
+                        <TextBox Text="{Binding SoNghiPhep}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="96" Margin="428,3,0,0"/>
+
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Margin="10" Grid.Row="2" Header="Bảng lương">
+                    <Grid Margin="10">
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,4,0,0" Height="24"><Run Text="Lương tăng ca"/><LineBreak/><Run/></TextBlock>
+                        <TextBox Text="{Binding LuongTangCa}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="186" Margin="115,0,0,0"></TextBox>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Đã ứng trước" Margin="449,11,0,0"/>
+                        <TextBox Text="{Binding UngTruoc}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="162" Margin="546,2,0,0"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Phụ cấp CV" Margin="3,53,0,0"/>
+                        <TextBox Text="{Binding PhuCapCongViec}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="186" Margin="115,49,0,0"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Còn lại" Margin="483,58,0,0"/>
+                        <TextBox Text="{Binding ConLai}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="162" Margin="546,50,0,0"/>
+
+                    </Grid>
+                </GroupBox>
+
+                <Grid Margin="15" Grid.Row="3">
+                    <Button Command="{Binding Create_ChamCongCommand}" Content="Thêm chấm công" HorizontalAlignment="Left"  Width="170" Margin="20,0,0,0" ></Button>
+                    <Button Command="{Binding CancelCommand}" Content="Hủy" HorizontalAlignment="Left"  Width="120" Margin="730,0,0,0" />
+                    <Button Command="{Binding Delete_ChamCongCommand}" Content="Xóa" HorizontalAlignment="Left"  Width="120" Margin="505,0,0,0" />
+                    <Button Command="{Binding Update_ChamCongCommand}" Content="Cập nhật" HorizontalAlignment="Left"  Width="120" Margin="280,0,0,0" />
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

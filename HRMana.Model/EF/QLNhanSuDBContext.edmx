@@ -32,11 +32,26 @@
           <Property Name="ungTruocLuong" Type="decimal" Precision="18" Scale="0" />
           <Property Name="conLai" Type="decimal" Precision="18" Scale="0" />
           <Property Name="nghiPhep" Type="int" />
-          <Property Name="ngungViec" Type="int" />
           <Property Name="soNgayTangCa" Type="int" />
-          <Property Name="phuCapKhac" Type="ntext" />
           <Property Name="luongTangCa" Type="decimal" Precision="18" Scale="0" />
           <Property Name="phuCapCongViec" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Chitiet_Quyen">
+          <Key>
+            <PropertyRef Name="maChitietQuyen" />
+          </Key>
+          <Property Name="maChitietQuyen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tenhanhDong" Type="nvarchar" MaxLength="100" />
+          <Property Name="mahanhDong" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ChiTietQuyen_Quyen">
+          <Key>
+            <PropertyRef Name="maQuyen" />
+            <PropertyRef Name="maChitietQuyen" />
+          </Key>
+          <Property Name="maQuyen" Type="int" Nullable="false" />
+          <Property Name="maChitietQuyen" Type="int" Nullable="false" />
+          <Property Name="moTa" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="ChucVu">
           <Key>
@@ -215,6 +230,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ChiTietQu__maChi__589C25F3">
+          <End Role="Chitiet_Quyen" Type="Self.Chitiet_Quyen" Multiplicity="1" />
+          <End Role="ChiTietQuyen_Quyen" Type="Self.ChiTietQuyen_Quyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chitiet_Quyen">
+              <PropertyRef Name="maChitietQuyen" />
+            </Principal>
+            <Dependent Role="ChiTietQuyen_Quyen">
+              <PropertyRef Name="maChitietQuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChiTietQu__maQuy__57A801BA">
+          <End Role="Quyen" Type="Self.Quyen" Multiplicity="1" />
+          <End Role="ChiTietQuyen_Quyen" Type="Self.ChiTietQuyen_Quyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quyen">
+              <PropertyRef Name="maQuyen" />
+            </Principal>
+            <Dependent Role="ChiTietQuyen_Quyen">
+              <PropertyRef Name="maQuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ChuyenCon__chucV__4A4E069C">
           <End Role="ChucVu" Type="Self.ChucVu" Multiplicity="0..1" />
           <End Role="ChuyenCongTac_NhanVien" Type="Self.ChuyenCongTac_NhanVien" Multiplicity="*" />
@@ -299,30 +338,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NhanVien__maHopD__6A30C649">
-          <End Role="HopDong" Type="Self.HopDong" Multiplicity="1" />
-          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HopDong">
-              <PropertyRef Name="maHopDong" />
-            </Principal>
-            <Dependent Role="NhanVien">
-              <PropertyRef Name="maHopDong" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__NhanVien__maHoSo__6477ECF3">
-          <End Role="HoSo" Type="Self.HoSo" Multiplicity="1" />
-          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HoSo">
-              <PropertyRef Name="maHoSo" />
-            </Principal>
-            <Dependent Role="NhanVien">
-              <PropertyRef Name="maHoSo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__NhanVien__maPhon__6C190EBB">
           <End Role="PhongBan" Type="Self.PhongBan" Multiplicity="1" />
           <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
@@ -375,6 +390,8 @@
           <EntitySet Name="BacLuong" EntityType="Self.BacLuong" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BaoCaoDangNhap" EntityType="Self.BaoCaoDangNhap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChamCong" EntityType="Self.ChamCong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chitiet_Quyen" EntityType="Self.Chitiet_Quyen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChiTietQuyen_Quyen" EntityType="Self.ChiTietQuyen_Quyen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChucVu" EntityType="Self.ChucVu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChuyenCongTac" EntityType="Self.ChuyenCongTac" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChuyenCongTac_NhanVien" EntityType="Self.ChuyenCongTac_NhanVien" Schema="dbo" store:Type="Tables" />
@@ -396,6 +413,14 @@
           <AssociationSet Name="FK__ChamCong__maNhan__6BE40491" Association="Self.FK__ChamCong__maNhan__6BE40491">
             <End Role="NhanVien" EntitySet="NhanVien" />
             <End Role="ChamCong" EntitySet="ChamCong" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChiTietQu__maChi__589C25F3" Association="Self.FK__ChiTietQu__maChi__589C25F3">
+            <End Role="Chitiet_Quyen" EntitySet="Chitiet_Quyen" />
+            <End Role="ChiTietQuyen_Quyen" EntitySet="ChiTietQuyen_Quyen" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChiTietQu__maQuy__57A801BA" Association="Self.FK__ChiTietQu__maQuy__57A801BA">
+            <End Role="Quyen" EntitySet="Quyen" />
+            <End Role="ChiTietQuyen_Quyen" EntitySet="ChiTietQuyen_Quyen" />
           </AssociationSet>
           <AssociationSet Name="FK__ChuyenCon__chucV__4A4E069C" Association="Self.FK__ChuyenCon__chucV__4A4E069C">
             <End Role="ChucVu" EntitySet="ChucVu" />
@@ -423,14 +448,6 @@
           </AssociationSet>
           <AssociationSet Name="FK__NhanVien__maDanT__68487DD7" Association="Self.FK__NhanVien__maDanT__68487DD7">
             <End Role="DanToc" EntitySet="DanToc" />
-            <End Role="NhanVien" EntitySet="NhanVien" />
-          </AssociationSet>
-          <AssociationSet Name="FK__NhanVien__maHopD__6A30C649" Association="Self.FK__NhanVien__maHopD__6A30C649">
-            <End Role="HopDong" EntitySet="HopDong" />
-            <End Role="NhanVien" EntitySet="NhanVien" />
-          </AssociationSet>
-          <AssociationSet Name="FK__NhanVien__maHoSo__6477ECF3" Association="Self.FK__NhanVien__maHoSo__6477ECF3">
-            <End Role="HoSo" EntitySet="HoSo" />
             <End Role="NhanVien" EntitySet="NhanVien" />
           </AssociationSet>
           <AssociationSet Name="FK__NhanVien__maPhon__6C190EBB" Association="Self.FK__NhanVien__maPhon__6C190EBB">
@@ -483,13 +500,31 @@
           <Property Name="ungTruocLuong" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="conLai" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="nghiPhep" Type="Int32" />
-          <Property Name="ngungViec" Type="Int32" />
           <Property Name="soNgayTangCa" Type="Int32" />
-          <Property Name="phuCapKhac" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="luongTangCa" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="phuCapCongViec" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="BacLuong" Relationship="Self.FK__ChamCong__heSoLu__6CD828CA" FromRole="ChamCong" ToRole="BacLuong" />
           <NavigationProperty Name="NhanVien" Relationship="Self.FK__ChamCong__maNhan__6BE40491" FromRole="ChamCong" ToRole="NhanVien" />
+        </EntityType>
+        <EntityType Name="Chitiet_Quyen">
+          <Key>
+            <PropertyRef Name="maChitietQuyen" />
+          </Key>
+          <Property Name="maChitietQuyen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tenhanhDong" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="mahanhDong" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ChiTietQuyen_Quyen" Relationship="Self.FK__ChiTietQu__maChi__589C25F3" FromRole="Chitiet_Quyen" ToRole="ChiTietQuyen_Quyen" />
+        </EntityType>
+        <EntityType Name="ChiTietQuyen_Quyen">
+          <Key>
+            <PropertyRef Name="maQuyen" />
+            <PropertyRef Name="maChitietQuyen" />
+          </Key>
+          <Property Name="maQuyen" Type="Int32" Nullable="false" />
+          <Property Name="maChitietQuyen" Type="Int32" Nullable="false" />
+          <Property Name="moTa" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Chitiet_Quyen" Relationship="Self.FK__ChiTietQu__maChi__589C25F3" FromRole="ChiTietQuyen_Quyen" ToRole="Chitiet_Quyen" />
+          <NavigationProperty Name="Quyen" Relationship="Self.FK__ChiTietQu__maQuy__57A801BA" FromRole="ChiTietQuyen_Quyen" ToRole="Quyen" />
         </EntityType>
         <EntityType Name="ChucVu">
           <Key>
@@ -552,7 +587,6 @@
           <Property Name="loaiHopDong" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="thoiHanHD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="tinhTrangChuKi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="NhanVien" Relationship="Self.FK__NhanVien__maHopD__6A30C649" FromRole="HopDong" ToRole="NhanVien" />
         </EntityType>
         <EntityType Name="HoSo">
           <Key>
@@ -575,7 +609,6 @@
           <Property Name="ngayBatDauLamViec" Type="DateTime" Precision="0" />
           <Property Name="kinhNghiemLamViec" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="thoiGian" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="NhanVien" Relationship="Self.FK__NhanVien__maHoSo__6477ECF3" FromRole="HoSo" ToRole="NhanVien" />
         </EntityType>
         <EntityType Name="NhanVien">
           <Key>
@@ -610,8 +643,6 @@
           <NavigationProperty Name="ChuyenCongTac_NhanVien" Relationship="Self.FK__ChuyenCon__maNha__4959E263" FromRole="NhanVien" ToRole="ChuyenCongTac_NhanVien" />
           <NavigationProperty Name="ChuyenMon" Relationship="Self.FK__NhanVien__maChuy__6754599E" FromRole="NhanVien" ToRole="ChuyenMon" />
           <NavigationProperty Name="DanToc" Relationship="Self.FK__NhanVien__maDanT__68487DD7" FromRole="NhanVien" ToRole="DanToc" />
-          <NavigationProperty Name="HopDong" Relationship="Self.FK__NhanVien__maHopD__6A30C649" FromRole="NhanVien" ToRole="HopDong" />
-          <NavigationProperty Name="HoSo" Relationship="Self.FK__NhanVien__maHoSo__6477ECF3" FromRole="NhanVien" ToRole="HoSo" />
           <NavigationProperty Name="PhongBan" Relationship="Self.FK__NhanVien__maPhon__6C190EBB" FromRole="NhanVien" ToRole="PhongBan" />
           <NavigationProperty Name="TonGiao" Relationship="Self.FK__NhanVien__maTonG__66603565" FromRole="NhanVien" ToRole="TonGiao" />
           <NavigationProperty Name="TrinhDo" Relationship="Self.FK__NhanVien__maTrin__656C112C" FromRole="NhanVien" ToRole="TrinhDo" />
@@ -632,6 +663,7 @@
           </Key>
           <Property Name="maQuyen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tenQuyen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ChiTietQuyen_Quyen" Relationship="Self.FK__ChiTietQu__maQuy__57A801BA" FromRole="Quyen" ToRole="ChiTietQuyen_Quyen" />
           <NavigationProperty Name="TaiKhoan" Relationship="Self.FK__TaiKhoan__maQuye__5FB337D6" FromRole="Quyen" ToRole="TaiKhoan" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -695,6 +727,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ChiTietQu__maChi__589C25F3">
+          <End Role="Chitiet_Quyen" Type="Self.Chitiet_Quyen" Multiplicity="1" />
+          <End Role="ChiTietQuyen_Quyen" Type="Self.ChiTietQuyen_Quyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chitiet_Quyen">
+              <PropertyRef Name="maChitietQuyen" />
+            </Principal>
+            <Dependent Role="ChiTietQuyen_Quyen">
+              <PropertyRef Name="maChitietQuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChiTietQu__maQuy__57A801BA">
+          <End Role="Quyen" Type="Self.Quyen" Multiplicity="1" />
+          <End Role="ChiTietQuyen_Quyen" Type="Self.ChiTietQuyen_Quyen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quyen">
+              <PropertyRef Name="maQuyen" />
+            </Principal>
+            <Dependent Role="ChiTietQuyen_Quyen">
+              <PropertyRef Name="maQuyen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ChuyenCon__chucV__4A4E069C">
           <End Role="ChucVu" Type="Self.ChucVu" Multiplicity="0..1" />
           <End Role="ChuyenCongTac_NhanVien" Type="Self.ChuyenCongTac_NhanVien" Multiplicity="*" />
@@ -779,30 +835,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NhanVien__maHopD__6A30C649">
-          <End Role="HopDong" Type="Self.HopDong" Multiplicity="1" />
-          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HopDong">
-              <PropertyRef Name="maHopDong" />
-            </Principal>
-            <Dependent Role="NhanVien">
-              <PropertyRef Name="maHopDong" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__NhanVien__maHoSo__6477ECF3">
-          <End Role="HoSo" Type="Self.HoSo" Multiplicity="1" />
-          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HoSo">
-              <PropertyRef Name="maHoSo" />
-            </Principal>
-            <Dependent Role="NhanVien">
-              <PropertyRef Name="maHoSo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__NhanVien__maPhon__6C190EBB">
           <End Role="PhongBan" Type="Self.PhongBan" Multiplicity="1" />
           <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
@@ -855,6 +887,8 @@
           <EntitySet Name="BacLuong" EntityType="Self.BacLuong" />
           <EntitySet Name="BaoCaoDangNhap" EntityType="Self.BaoCaoDangNhap" />
           <EntitySet Name="ChamCong" EntityType="Self.ChamCong" />
+          <EntitySet Name="Chitiet_Quyen" EntityType="Self.Chitiet_Quyen" />
+          <EntitySet Name="ChiTietQuyen_Quyen" EntityType="Self.ChiTietQuyen_Quyen" />
           <EntitySet Name="ChucVu" EntityType="Self.ChucVu" />
           <EntitySet Name="ChuyenCongTac" EntityType="Self.ChuyenCongTac" />
           <EntitySet Name="ChuyenCongTac_NhanVien" EntityType="Self.ChuyenCongTac_NhanVien" />
@@ -876,6 +910,14 @@
           <AssociationSet Name="FK__ChamCong__maNhan__6BE40491" Association="Self.FK__ChamCong__maNhan__6BE40491">
             <End Role="NhanVien" EntitySet="NhanVien" />
             <End Role="ChamCong" EntitySet="ChamCong" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChiTietQu__maChi__589C25F3" Association="Self.FK__ChiTietQu__maChi__589C25F3">
+            <End Role="Chitiet_Quyen" EntitySet="Chitiet_Quyen" />
+            <End Role="ChiTietQuyen_Quyen" EntitySet="ChiTietQuyen_Quyen" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChiTietQu__maQuy__57A801BA" Association="Self.FK__ChiTietQu__maQuy__57A801BA">
+            <End Role="Quyen" EntitySet="Quyen" />
+            <End Role="ChiTietQuyen_Quyen" EntitySet="ChiTietQuyen_Quyen" />
           </AssociationSet>
           <AssociationSet Name="FK__ChuyenCon__chucV__4A4E069C" Association="Self.FK__ChuyenCon__chucV__4A4E069C">
             <End Role="ChucVu" EntitySet="ChucVu" />
@@ -903,14 +945,6 @@
           </AssociationSet>
           <AssociationSet Name="FK__NhanVien__maDanT__68487DD7" Association="Self.FK__NhanVien__maDanT__68487DD7">
             <End Role="DanToc" EntitySet="DanToc" />
-            <End Role="NhanVien" EntitySet="NhanVien" />
-          </AssociationSet>
-          <AssociationSet Name="FK__NhanVien__maHopD__6A30C649" Association="Self.FK__NhanVien__maHopD__6A30C649">
-            <End Role="HopDong" EntitySet="HopDong" />
-            <End Role="NhanVien" EntitySet="NhanVien" />
-          </AssociationSet>
-          <AssociationSet Name="FK__NhanVien__maHoSo__6477ECF3" Association="Self.FK__NhanVien__maHoSo__6477ECF3">
-            <End Role="HoSo" EntitySet="HoSo" />
             <End Role="NhanVien" EntitySet="NhanVien" />
           </AssociationSet>
           <AssociationSet Name="FK__NhanVien__maPhon__6C190EBB" Association="Self.FK__NhanVien__maPhon__6C190EBB">
@@ -964,11 +998,27 @@
                 <ScalarProperty Name="ungTruocLuong" ColumnName="ungTruocLuong" />
                 <ScalarProperty Name="conLai" ColumnName="conLai" />
                 <ScalarProperty Name="nghiPhep" ColumnName="nghiPhep" />
-                <ScalarProperty Name="ngungViec" ColumnName="ngungViec" />
                 <ScalarProperty Name="soNgayTangCa" ColumnName="soNgayTangCa" />
-                <ScalarProperty Name="phuCapKhac" ColumnName="phuCapKhac" />
                 <ScalarProperty Name="luongTangCa" ColumnName="luongTangCa" />
                 <ScalarProperty Name="phuCapCongViec" ColumnName="phuCapCongViec" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chitiet_Quyen">
+            <EntityTypeMapping TypeName="QLNhanSuModel.Chitiet_Quyen">
+              <MappingFragment StoreEntitySet="Chitiet_Quyen">
+                <ScalarProperty Name="maChitietQuyen" ColumnName="maChitietQuyen" />
+                <ScalarProperty Name="tenhanhDong" ColumnName="tenhanhDong" />
+                <ScalarProperty Name="mahanhDong" ColumnName="mahanhDong" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChiTietQuyen_Quyen">
+            <EntityTypeMapping TypeName="QLNhanSuModel.ChiTietQuyen_Quyen">
+              <MappingFragment StoreEntitySet="ChiTietQuyen_Quyen">
+                <ScalarProperty Name="maQuyen" ColumnName="maQuyen" />
+                <ScalarProperty Name="maChitietQuyen" ColumnName="maChitietQuyen" />
+                <ScalarProperty Name="moTa" ColumnName="moTa" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

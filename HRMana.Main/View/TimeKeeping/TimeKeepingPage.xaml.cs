@@ -25,19 +25,17 @@ namespace HRMana.Main.View.TimeKeeping
             InitializeComponent();
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Format_Salary_TextChanged(object sender, TextChangedEventArgs e)
         {
+            TextBox tb = sender as TextBox;
 
-        }
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void ListView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-
+            if (tb.Text.Length > 0)
+            {
+                double value = 0;
+                double.TryParse(tb.Text, out value);
+                tb.Text = value.ToString("N0");
+                tb.CaretIndex = tb.Text.Length;
+            }
         }
     }
 }

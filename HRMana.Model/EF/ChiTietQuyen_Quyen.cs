@@ -12,14 +12,13 @@ namespace HRMana.Model.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class HopDong
+    public partial class ChiTietQuyen_Quyen
     {
-        public int maHopDong { get; set; }
-        public string soHopDong { get; set; }
-        public Nullable<System.DateTime> ngayKyHD { get; set; }
-        public Nullable<System.DateTime> ngayKetThucHD { get; set; }
-        public string loaiHopDong { get; set; }
-        public string thoiHanHD { get; set; }
-        public string tinhTrangChuKi { get; set; }
+        public int maQuyen { get; set; }
+        public int maChitietQuyen { get; set; }
+        public string moTa { get; set; }
+    
+        public virtual Chitiet_Quyen Chitiet_Quyen { get; set; }
+        public virtual Quyen Quyen { get; set; }
     }
 }

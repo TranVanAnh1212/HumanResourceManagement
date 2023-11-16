@@ -56,12 +56,14 @@
   <ItemGroup>
     <Compile Include="DAO\BacLuongDAO.cs" />
     <Compile Include="DAO\BaoCaoDangNhapDAO.cs" />
+    <Compile Include="DAO\ChamCongDAO.cs" />
     <Compile Include="DAO\ChucVuDAO.cs" />
     <Compile Include="DAO\ChuyenCongTacDAO.cs" />
     <Compile Include="DAO\ChuyenCongTac_NhanVienDAO.cs" />
     <Compile Include="DAO\ChuyenMonDAO.cs" />
     <Compile Include="DAO\DanTocDAO.cs" />
     <Compile Include="DAO\DataProvider.cs" />
+    <Compile Include="DAO\HopDongDAO.cs" />
     <Compile Include="DAO\LoginDAO.cs" />
     <Compile Include="DAO\NhanVienDAO.cs" />
     <Compile Include="DAO\PhongBanDAO.cs" />
@@ -76,6 +78,12 @@
       <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ChamCong.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ChiTietQuyen_Quyen.cs">
+      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Chitiet_Quyen.cs">
       <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ChucVu.cs">

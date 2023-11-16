@@ -72,7 +72,53 @@ create table Quyen
 go
 
 select * from Quyen
+select * from Chitiet_Quyen
 go
+
+create table ChiTietQuyen_Quyen 
+(
+	maQuyen int not null foreign key(maQuyen) references Quyen(maQuyen),
+	maChitietQuyen int not null foreign key(maChitietQuyen) references Chitiet_Quyen(maChitietQuyen),
+	moTa	nvarchar(255),
+	primary key (maQuyen, maChitietQuyen)
+)
+
+insert into ChiTietQuyen_Quyen values 
+( 1, 1, N'Quyền được thêm mới'),
+( 1, 2, N'Quyền được xoa'),
+( 1, 3, N'Quyền được chỉnh sửa'),
+( 1, 4, N'Quyền được xem'),
+( 1, 5, N'Quyền quản lý người dùng'),
+( 2, 1, N'Quyền được thêm mới'),
+( 2, 4, N'Quyền được xem')
+
+select * from ChiTietQuyen_Quyen
+
+create table Chitiet_Quyen
+(
+	maChitietQuyen	int		identity(1,1) primary key not null,
+	tenhanhDong		nvarchar(100),
+	mahanhDong		varchar(100),
+)
+
+--SELECT CONSTRAINT_NAME
+--FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+--WHERE TABLE_NAME = 'Chitiet_Quyen' AND COLUMN_NAME = 'maQuyen';
+
+--alter table Chitiet_Quyen
+--drop constraint FK__Chitiet_Q__maQuy__54CB950F
+
+--alter table ChiTiet_Quyen
+--drop column maQuyen
+
+insert into ChiTiet_Quyen values
+(N'Thêm', 'ADD'),
+(N'Xóa', 'DEL'),
+(N'Sửa', 'EDIT'),
+(N'Xem', 'VIEW'),
+(N'Quản lý người dùng', 'MUSER')
+
+select * from Chitiet_Quyen
 
 -- bảng phòng ban
 create table PhongBan
@@ -199,13 +245,14 @@ create table ChamCong
 	ungTruocLuong	decimal,
 	conLai			decimal,
 	nghiPhep		int,
-	ngungViec		int,
 	soNgayTangCa	int,
-	phuCapKhac		ntext,
 	luongTangCa		decimal,
 	phuCapCongViec	decimal,
 )
 go
+
+alter table ChamCong
+drop column ngungViec
 
 select* from ChamCong
 go
@@ -262,19 +309,29 @@ create table NhanVien
 	coSoLamViec nvarchar(255)	not null,
 	loaiHinhLamViec nvarchar(255),
 	luongOffer	decimal,
-	maHoSo		int	foreign key (maHoSo) references HoSo(maHoSo) not null,
+	maHoSo		int,
 	maTrinhDo	int	foreign key (maTrinhDo) references TrinhDo(maTrinhDo) not null,
 	maTonGiao	int	foreign key (maTonGiao) references TonGiao(maTonGiao) not null,
 	maChuyenMon int	foreign key (maChuyenMon) references ChuyenMon(maChuyenMon) not null,
 	maDanToc	int	foreign key (maDanToc) references DanToc(maDanToc) not null,
 	maChucVu	int	foreign key (maChucVu) references ChucVu(maChucVu) not null,
-	maHopDong	int	foreign key (maHopDong) references HopDong(maHopDong) not null,
+	maHopDong	int,
 	maPhong		int	foreign key (maPhong) references PhongBan(maPhong) not null,
 )
 go
 
+SELECT CONSTRAINT_NAME
+FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'NhanVien' AND COLUMN_NAME = 'maHoSo';
+
 alter table NhanVien
 drop column chuyenNganh
+
+alter table NhanVien
+drop constraint FK__NhanVien__maHopD__6A30C649
+
+alter table NhanVien
+drop constraint FK__NhanVien__maHoSo__6477ECF3
 
 insert into NhanVien values
 (N'Trần Văn Anh', N'Nam', '12-06-2003', N'Định Tân - Yên Định - Thanh Hóa', '3133542342', '0334237519', N'250 Tây Tự - Phường Tây Tựu - Quận bắc Từ Liêm - Hà Nội',  N'Định Tân - Yên Định - Thanh Hóa', N'Chưa lập gia đình', 'anh@gmail.com', 'work@gmail.com', N'Hà Nội', 'fulltime', 12000000, '', '', 1, 3, 8, 2, 1, 6, 3, 6)

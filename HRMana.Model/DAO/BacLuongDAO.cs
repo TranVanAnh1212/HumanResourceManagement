@@ -11,20 +11,16 @@ namespace HRMana.Model.DAO
     {
         public List<BacLuong> GetList_Luong()
         {
-            List<BacLuong> luong = null;
+            List<BacLuong> luong = new List<BacLuong>();
 
             try
             {
-                var result = DataProvider.Instance.DBContext.Database.SqlQuery<BacLuong>("exec [dbo].[LayDanhSach_BacLuong]");
-
-                luong = result.ToList();
+                return luong = DataProvider.Instance.DBContext.BacLuong.ToList();
             }
             catch (Exception ex)
             {
                 return luong;
             }
-
-            return luong;
         }
     }
 }

@@ -32,5 +32,28 @@ namespace HRMana.Model.DAO
 
             return taiKhoan;
         }
+
+        public TaiKhoan Get_TaiKhoan_By_MaTK(int maTK)
+        {
+            TaiKhoan taiKhoan = null;
+
+            if (maTK <= 0)
+            {
+                return taiKhoan;
+            }
+            else
+            {
+                var result = DataProvider.Instance.DBContext.TaiKhoan.Where(x => x.maTaiKhoan == maTK);
+
+                if (result.Count() > 0)
+                {
+                    taiKhoan = result.FirstOrDefault();
+                    return taiKhoan;
+                }
+
+            }
+
+            return taiKhoan;
+        }
     }
 }

@@ -9,8 +9,6 @@
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       mc:Ignorable="d" 
       DataContext="{StaticResource positionVM}"
-      
-      Style="{StaticResource Sizewindow}"
       x:Name="PositionPage_Name"
       Title="PositionPage">
 
@@ -92,29 +90,42 @@
                 </ListView>
 
                 <Grid Grid.Row="1" Margin="3 5 3 10">
-                    <Button Margin="7,8,582,7" Width="55" Command="{Binding BackToTopCommand}">
-                        <Button.Content>
-                            <materialDesign:PackIcon FontSize="18" Kind="SkipBackward" />
-                        </Button.Content>
-                    </Button>
-                    <Button  Width="55" Margin="77,8,512,7" Command="{Binding ReducePageCommand}">
-                        <Button.Content>
-                            <materialDesign:PackIcon FontSize="18" Kind="ArrowLeftBold" />
-                        </Button.Content>
-                    </Button>
-                    <Button  Width="55" Margin="247,8,342,7" Command="{Binding IncreasePageCommand}">
-                        <Button.Content>
-                            <materialDesign:PackIcon FontSize="18" Kind="ArrowRightBold" />
-                        </Button.Content>
-                    </Button>
-                    <Button  Width="55" Margin="317,8,272,7" Command="{Binding GoToEndCommand}">
-                        <Button.Content>
-                            <materialDesign:PackIcon FontSize="18" Kind="SkipForward" />
-                        </Button.Content>
-                    </Button>
-                    <TextBox HorizontalAlignment="Left" Height="29" Margin="144,11,0,0" TextWrapping="Wrap" Text="{Binding Page}" VerticalAlignment="Top" Width="35" TextAlignment="Center"/>
-                    <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="29" Margin="198,11,0,0" TextWrapping="Wrap" Text="{Binding TotalPage}" VerticalAlignment="Top" Width="35" TextAlignment="Center"/>
-                    <TextBlock HorizontalAlignment="Left" Height="25" Margin="179,13,0,0" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="19" TextAlignment="Center"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                        <Button Margin="5, 5, 20, 5" Command="{Binding BackToStartCommand}" Width="55">
+                            <Button.Content>
+                                <materialDesign:PackIcon FontSize="18" Kind="SkipBackward" />
+                            </Button.Content>
+                        </Button>
+                        <Button Margin="5, 5, 20, 5" Command="{Binding ReducePageCommand}" Width="55" >
+                            <Button.Content>
+                                <materialDesign:PackIcon FontSize="18" Kind="ArrowLeftBold" />
+                            </Button.Content>
+                        </Button>
+
+                        <StackPanel Margin="5, 5, 20, 5" Orientation="Horizontal" >
+                            <TextBox HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="{Binding Page}" VerticalAlignment="Top" Width="36" TextAlignment="Center"/>
+                            <TextBlock Height="24"  TextWrapping="Wrap" Text="/" Width="24" TextAlignment="Center"/>
+                            <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="30" TextWrapping="Wrap" Text="{Binding TotalPage}" VerticalAlignment="Top" Width="36" TextAlignment="Center"/>
+                        </StackPanel>
+
+                        <Button Margin="5, 5, 20, 5" Command="{Binding IncreasePageCommand}" Width="55">
+                            <Button.Content>
+                                <materialDesign:PackIcon FontSize="18" Kind="ArrowRightBold" />
+                            </Button.Content>
+                        </Button>
+                        <Button Margin="5, 5, 20, 5" Command="{Binding GoToEndCommand}" Width="55">
+                            <Button.Content>
+                                <materialDesign:PackIcon FontSize="18" Kind="SkipForward" />
+                            </Button.Content>
+                        </Button>
+
+                    </StackPanel>
                 </Grid>
             </Grid>
 

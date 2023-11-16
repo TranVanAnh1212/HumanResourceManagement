@@ -3,12 +3,20 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:local="clr-namespace:HRMana.Main.View.Contract"
       mc:Ignorable="d" 
-      Style="{StaticResource Sizewindow}"
+      DataContext="{StaticResource contractVM}"
+      x:Name="contractPage"
       Title="ContractPage">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadWindowCommand}" CommandParameter="{Binding ElementName=contractPage}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -27,33 +35,50 @@
             </Grid.RowDefinitions>
 
             <Grid>
-                <TextBlock HorizontalAlignment="Left" Height="25" Margin="138,30,0,0" TextWrapping="Wrap" Text="Mã hợp đồng" VerticalAlignment="Top" Width="85" TextAlignment="Right" FontSize="14"/>
-                <TextBox HorizontalAlignment="Left" Height="26" Margin="254,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284"/>
-                <TextBlock HorizontalAlignment="Left" Height="26" Margin="138,74,0,0" TextWrapping="Wrap" Text="Tên hợp đồng" VerticalAlignment="Top" Width="87" TextAlignment="Right" FontSize="14"/>
-                <TextBox HorizontalAlignment="Left" Height="25" Margin="254,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284"/>
-                <TextBlock Text="Ngày ký hợp đồng" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="138,118,0,0"></TextBlock>
-                <DatePicker HorizontalAlignment="Left" Margin="317,117,0,0" VerticalAlignment="Top" Width="104"/>
-                <TextBlock Text="Ngày kết thúc hợp đồng" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="138,168,0,0"></TextBlock>
-                <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" Margin="317,164,0,0" Width="105"></DatePicker>
-                <TextBlock Text="Loại hợp đồng" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="674,34,0,0"></TextBlock>
-                <TextBox Width="283" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="809,27,0,0"></TextBox>
-                <TextBlock Text="Tình trạng chữ ký" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="674,78,0,0"></TextBlock>
-                <TextBox VerticalAlignment="Top" HorizontalAlignment="Left" Width="283" Margin="809,71,0,0"></TextBox>
-                <TextBlock Text="Thời hạn hợp đồng" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="674,122,0,0"></TextBlock>
-                <DatePicker Width="104" Margin="808,117,388,0" VerticalAlignment="Top"></DatePicker>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid>
+                    <TextBlock HorizontalAlignment="Left" Height="25" Margin="138,30,0,0" TextWrapping="Wrap" Text="Mã hợp đồng" VerticalAlignment="Top" Width="85" TextAlignment="Right" FontSize="14"/>
+                    <TextBox Text="{Binding MaHopDong}" IsReadOnly="True" HorizontalAlignment="Left" Height="26" Margin="254,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284"/>
+                    <TextBlock HorizontalAlignment="Left" Height="26" Margin="138,74,0,0" TextWrapping="Wrap" Text="Số hợp đồng" VerticalAlignment="Top" Width="87" TextAlignment="Right" FontSize="14"/>
+                    <TextBox Text="{Binding SoHopDong}" HorizontalAlignment="Left" Height="25" Margin="254,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284"/>
+                    <TextBlock Text="Ngày ký hợp đồng" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="138,118,0,0"></TextBlock>
+                    <DatePicker SelectedDate="{Binding NgayKyHopDong}" HorizontalAlignment="Left" Margin="317,117,0,0" VerticalAlignment="Top" Width="219"/>
+                    <TextBlock Text="Ngày kết thúc hợp đồng" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="138,168,0,0"></TextBlock>
+                    <DatePicker SelectedDate="{Binding NgayKetThucHopDong}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="317,164,0,0" Width="221"></DatePicker>
+                    <TextBlock Text="Loại hợp đồng" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="674,34,0,0"></TextBlock>
+                    <TextBox Text="{Binding LoaiHopDong}" TextChanged="UpperCaseFirstChar" Width="283" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="809,27,0,0"></TextBox>
+                    <TextBlock Text="Tình trạng chữ ký" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="674,78,0,0"></TextBlock>
+                    <TextBox Text="{Binding TinhTrangChuKy}" TextChanged="UpperCaseFirstChar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="283" Margin="809,71,0,0"></TextBox>
+                    <TextBlock Text="Thời hạn hợp đồng" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="674,118,0,0"></TextBlock>
+                    <TextBox Text="{Binding ThoiHanHopDong}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="283" Margin="809,114,0,0"/>
+
+                </Grid>
+
+                <StackPanel Margin="10" Grid.Column="1">
+                    <Button Command="{Binding Create_HopDongCommand}" Margin="15"  Content="Thêm" HorizontalAlignment="Left" Width="100" ></Button>
+                    <Button Command="{Binding Update_HopDongCommand}" Margin="15" Content="Sửa" HorizontalAlignment="Left" Width="100" ></Button>
+                    <Button Command="{Binding Delete_HopDongCommand}" Margin="15" Content="Xóa" HorizontalAlignment="Center"  Width="100" ></Button>
+                    <Button Command="{Binding CancelCommand}" Margin="15" Content="Hủy" HorizontalAlignment="Left" Width="100" ></Button>
+                </StackPanel>
             </Grid>
 
             <Grid Grid.Row="1">
-                <ListView HorizontalAlignment="Center" Height="277" VerticalAlignment="Top" Width="989">
+                <ListView ItemsSource="{Binding DsHopDong}" HorizontalContentAlignment="Stretch"
+                          SelectedItem="{Binding SelectedHopDong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          HorizontalAlignment="Center">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Mã hợp đồng"/>
-                            <GridViewColumn Header="Tên hợp đồng" />
-                            <GridViewColumn Header="Loại" />
-                            <GridViewColumn Header="Ngày ký" />
-                            <GridViewColumn Header="Ngày kết thúc" />
-                            <GridViewColumn Header="Thời hạn" />
-                            <GridViewColumn Header="Tình trạng" />
+                            <GridViewColumn Header="Mã hợp đồng" DisplayMemberBinding="{Binding maHopDong}"/>
+                            <GridViewColumn Header="Số hợp đồng" DisplayMemberBinding="{Binding soHopDong}"/>
+                            <GridViewColumn Header="Loại hợp đồng" DisplayMemberBinding="{Binding loaiHopDong}"/>
+                            <GridViewColumn Header="Ngày ký" DisplayMemberBinding="{Binding ngayKyHD, StringFormat={}{0:dd/MM/yyyy}}"/>
+                            <GridViewColumn Header="Ngày kết thúc" DisplayMemberBinding="{Binding ngayKetThucHD, StringFormat={}{0:dd/MM/yyyy}}"/>
+                            <GridViewColumn Header="Tình trạng chữ ký" DisplayMemberBinding="{Binding tinhTrangChuKi}"/>
+                            <GridViewColumn Header="Thời hạn hợp đồng" DisplayMemberBinding="{Binding thoiHanHD}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -61,10 +86,42 @@
             </Grid>
 
             <Grid Grid.Row="2" Margin="5">
-                <Button Content="Thêm" HorizontalAlignment="Left" Width="100" Margin="320,0,0,0"></Button>
-                <Button Content="Sửa" HorizontalAlignment="Left" Width="100" Margin="502,0,0,0"></Button>
-                <Button Content="Xóa" HorizontalAlignment="Center"  Width="100" Margin="835,0,355,0"></Button>
-                <Button Content="Hủy" HorizontalAlignment="Left" Width="100" Margin="674,0,0,0"></Button>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <Button Margin="5, 5, 20, 5" Command="{Binding BackToStartCommand}" Width="55">
+                        <Button.Content>
+                            <materialDesign:PackIcon FontSize="18" Kind="SkipBackward" />
+                        </Button.Content>
+                    </Button>
+                    <Button Margin="5, 5, 20, 5" Command="{Binding ReducePageCommand}" Width="55" >
+                        <Button.Content>
+                            <materialDesign:PackIcon FontSize="18" Kind="ArrowLeftBold" />
+                        </Button.Content>
+                    </Button>
+
+                    <StackPanel Margin="5, 5, 20, 5" Orientation="Horizontal" >
+                        <TextBox HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="{Binding Page}" VerticalAlignment="Top" Width="36" TextAlignment="Center"/>
+                        <TextBlock Height="24"  TextWrapping="Wrap" Text="/" Width="24" TextAlignment="Center"/>
+                        <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="30" TextWrapping="Wrap" Text="{Binding TotalPage}" VerticalAlignment="Top" Width="36" TextAlignment="Center"/>
+                    </StackPanel>
+
+                    <Button Margin="5, 5, 20, 5" Command="{Binding IncreasePageCommand}" Width="55">
+                        <Button.Content>
+                            <materialDesign:PackIcon FontSize="18" Kind="ArrowRightBold" />
+                        </Button.Content>
+                    </Button>
+                    <Button Margin="5, 5, 20, 5" Command="{Binding GoToEndCommand}" Width="55">
+                        <Button.Content>
+                            <materialDesign:PackIcon FontSize="18" Kind="SkipForward" />
+                        </Button.Content>
+                    </Button>
+
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>

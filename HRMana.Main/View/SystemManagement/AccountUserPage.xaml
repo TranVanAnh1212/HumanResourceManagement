@@ -9,7 +9,6 @@
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       mc:Ignorable="d" 
       DataContext="{StaticResource taiKhoanVM}"
-      Style="{StaticResource Sizewindow}"
       Title="AccountUserPage">
 
     <i:Interaction.Triggers>

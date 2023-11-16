@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HRMana.Model.DAO
 {
@@ -56,6 +54,22 @@ namespace HRMana.Model.DAO
             try
             {
                 nv = DataProvider.Instance.DBContext.NhanVien.SingleOrDefault(x => x.maNhanVien == maNhanVien);
+            }
+            catch (Exception ex)
+            {
+                return nv = null;
+            }
+
+            return nv;
+        }
+
+        public NhanVien Get_NhanVien_By_MaHopDong(int maHopDong)
+        {
+            NhanVien nv = null;
+
+            try
+            {
+                nv = DataProvider.Instance.DBContext.NhanVien.SingleOrDefault(x => x.maHopDong == maHopDong);
             }
             catch (Exception ex)
             {

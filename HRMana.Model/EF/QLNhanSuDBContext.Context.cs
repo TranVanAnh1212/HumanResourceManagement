@@ -28,6 +28,8 @@ namespace HRMana.Model.EF
         public virtual DbSet<BacLuong> BacLuong { get; set; }
         public virtual DbSet<BaoCaoDangNhap> BaoCaoDangNhap { get; set; }
         public virtual DbSet<ChamCong> ChamCong { get; set; }
+        public virtual DbSet<Chitiet_Quyen> Chitiet_Quyen { get; set; }
+        public virtual DbSet<ChiTietQuyen_Quyen> ChiTietQuyen_Quyen { get; set; }
         public virtual DbSet<ChucVu> ChucVu { get; set; }
         public virtual DbSet<ChuyenCongTac> ChuyenCongTac { get; set; }
         public virtual DbSet<ChuyenCongTac_NhanVien> ChuyenCongTac_NhanVien { get; set; }

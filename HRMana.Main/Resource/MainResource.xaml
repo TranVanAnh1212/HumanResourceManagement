@@ -11,5 +11,7 @@
     <vm:CreatePersonnelViewModel x:Key="createPersonnelVM"></vm:CreatePersonnelViewModel>
     <vm:WorkingRotationViewModel x:Key="workingRotationVM"></vm:WorkingRotationViewModel>
     <vm:DepartmentViewModel x:Key="departmentVM"></vm:DepartmentViewModel>
+    <vm:ContractViewModel x:Key="contractVM"></vm:ContractViewModel>
+    <vm:TimeKeepingViewModel x:Key="timKeepingVM"></vm:TimeKeepingViewModel>
     
 </ResourceDictionary>

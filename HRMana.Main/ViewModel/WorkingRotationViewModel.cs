@@ -30,9 +30,9 @@ namespace HRMana.Main.ViewModel
         private int _maPhongMoi;
         private string _tenPhongMoi;
         private ObservableCollection<NhanVien> _dsNhanVien;
+        private NhanVien _selectedNhanVien;
         private ObservableCollection<WorkingRotationViewModel> _dsDieuDongCongTac;
         private WorkingRotationViewModel _selectedDieuDongCongTac;
-        private NhanVien _selectedNhanVien;
         private ObservableCollection<ChucVu> _dsChucVu;
         private ObservableCollection<PhongBan> _dsPhongBan;
         private ChucVu _selectedChucVuCu;

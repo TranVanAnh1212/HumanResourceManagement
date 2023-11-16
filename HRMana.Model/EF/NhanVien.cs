@@ -53,8 +53,6 @@ namespace HRMana.Model.EF
         public virtual ICollection<ChuyenCongTac_NhanVien> ChuyenCongTac_NhanVien { get; set; }
         public virtual ChuyenMon ChuyenMon { get; set; }
         public virtual DanToc DanToc { get; set; }
-        public virtual HopDong HopDong { get; set; }
-        public virtual HoSo HoSo { get; set; }
         public virtual PhongBan PhongBan { get; set; }
         public virtual TonGiao TonGiao { get; set; }
         public virtual TrinhDo TrinhDo { get; set; }
