@@ -69,7 +69,10 @@
                         <MenuItem Header="Cập nhật">
                             <MenuItem Header="Chức vụ" x:Name="positionItem" Click="positionItem_Click"/>
                             <MenuItem Header="Phòng ban" x:Name="department_Item" Click="department_Item_Click"/>
-                            <MenuItem Header="Trình độ"/>
+                            <MenuItem Header="Trình độ" x:Name="qualificationItem" Click="qualificationItem_Click"/>
+                            <MenuItem Header="Chuyên môn" x:Name="expertiseItem" Click="expertiseItem_Click"/>
+                            <MenuItem Header="Dân tộc" x:Name="peopleItem" Click="peopleItem_Click"/>
+                            <MenuItem Header="Tôn giáo" x:Name="religionItem" Click="religionItem_Click"/>
                             <MenuItem Header="Chế độ"/>
                         </MenuItem>
 
