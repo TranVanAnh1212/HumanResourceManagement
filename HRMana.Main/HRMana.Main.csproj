@@ -96,7 +96,7 @@
     <Compile Include="ViewModel\ControlBarViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\TaiKhoanViewModel.cs" />
+    <Compile Include="ViewModel\AccountViewModel.cs" />
     <Compile Include="ViewModel\TimeKeepingViewModel.cs" />
     <Compile Include="ViewModel\WorkingRotationViewModel.cs" />
     <Compile Include="View\Contract\ContractPage.xaml.cs">

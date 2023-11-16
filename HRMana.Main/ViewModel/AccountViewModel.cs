@@ -16,7 +16,7 @@ using System.Windows.Input;
 
 namespace HRMana.Main.ViewModel
 {
-    internal class TaiKhoanViewModel : BaseViewModel
+    internal class AccountViewModel : BaseViewModel
     {
         private string _message;
         private string _fill;
@@ -27,10 +27,10 @@ namespace HRMana.Main.ViewModel
         private string _trangThaiTaiKhoan;
         private string _quyenTaiKhoan;
         private int _maQuyen;
-        private ObservableCollection<TaiKhoanViewModel> _listTaiKhoan;
+        private ObservableCollection<AccountViewModel> _listTaiKhoan;
         private ObservableCollection<Quyen> _listQuyen;
         private Quyen _selectedQuyen;
-        private TaiKhoanViewModel _selectedTaiKhoan;
+        private AccountViewModel _selectedTaiKhoan;
 
         public ICommand LoadTaiKhoanPageCommand { get; set; }
         public ICommand CanCelCommand { get; set; }
@@ -44,7 +44,7 @@ namespace HRMana.Main.ViewModel
         public string TrangThaiTaiKhoan { get => _trangThaiTaiKhoan; set { _trangThaiTaiKhoan = value; OnPropertyChanged(); } }
         public string QuyenTaiKhoan { get => _quyenTaiKhoan; set { _quyenTaiKhoan = value; OnPropertyChanged(); } }
         public int MaQuyen { get => _maQuyen; set { _maQuyen = value; } }
-        public ObservableCollection<TaiKhoanViewModel> ListTaiKhoan { get => _listTaiKhoan; set { _listTaiKhoan = value; OnPropertyChanged(); } }
+        public ObservableCollection<AccountViewModel> ListTaiKhoan { get => _listTaiKhoan; set { _listTaiKhoan = value; OnPropertyChanged(); } }
         public ObservableCollection<Quyen> ListQuyen { get => _listQuyen; set { _listQuyen = value; OnPropertyChanged(); } }
 
         public Quyen SelectedQuyen
@@ -66,7 +66,7 @@ namespace HRMana.Main.ViewModel
             }
         }
 
-        public TaiKhoanViewModel SelectedTaiKhoan
+        public AccountViewModel SelectedTaiKhoan
         {
             get => _selectedTaiKhoan;
             set
@@ -91,7 +91,7 @@ namespace HRMana.Main.ViewModel
 
         public string Fill { get => _fill; set { _fill = value; OnPropertyChanged(); } }
 
-        public TaiKhoanViewModel()
+        public AccountViewModel()
         {
             Initialize();
         }
@@ -262,7 +262,7 @@ namespace HRMana.Main.ViewModel
             var db = DataProvider.Instance.DBContext;
 
             var query = from taiKhoan in db.TaiKhoan
-                        select new TaiKhoanViewModel()
+                        select new AccountViewModel()
                         {
                             MaTaiKhoan = taiKhoan.maTaiKhoan,
                             TenTaiKhoan = taiKhoan.tenTaiKhoan,
@@ -274,7 +274,7 @@ namespace HRMana.Main.ViewModel
 
             var result = query.ToList();
 
-            ListTaiKhoan = new ObservableCollection<TaiKhoanViewModel>(result);
+            ListTaiKhoan = new ObservableCollection<AccountViewModel>(result);
         }
 
         private void EmptyTextbox()
