@@ -64,6 +64,8 @@
 
                         <MenuItem Header="Lương">
                             <MenuItem Header="Chấm công" x:Name="TimeKeeping_Item" Click="TimeKeeping_Item_Click"/>
+                            <MenuItem Header="Cập nhật bậc lương" x:Name="salaryItem" Click="salaryItem_Click"/>
+
                         </MenuItem>
 
                         <MenuItem Header="Cập nhật">

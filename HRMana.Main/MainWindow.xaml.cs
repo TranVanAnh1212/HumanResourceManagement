@@ -8,6 +8,7 @@ using HRMana.Main.View.Personnel;
 using HRMana.Main.View.Position;
 using HRMana.Main.View.Qualification;
 using HRMana.Main.View.Religion;
+using HRMana.Main.View.Salary;
 using HRMana.Main.View.SystemManagement;
 using HRMana.Main.View.TimeKeeping;
 using HRMana.Main.View.WorkingRotation;
@@ -118,6 +119,11 @@ namespace HRMana.Main
         private void religionItem_Click(object sender, RoutedEventArgs e)
         {
             Directional(new ReligionPage());
+        }
+
+        private void salaryItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new SalaryPage());
         }
     }
 }

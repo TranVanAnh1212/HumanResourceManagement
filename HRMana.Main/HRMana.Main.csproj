@@ -133,6 +133,9 @@
     <Compile Include="View\Religion\ReligionPage.xaml.cs">
       <DependentUpon>ReligionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Salary\SalaryPage.xaml.cs">
+      <DependentUpon>SalaryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SystemManagement\AccountUserPage.xaml.cs">
       <DependentUpon>AccountUserPage.xaml</DependentUpon>
     </Compile>
@@ -222,6 +225,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Religion\ReligionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Salary\SalaryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
