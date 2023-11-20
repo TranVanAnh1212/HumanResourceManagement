@@ -42,6 +42,17 @@ namespace HRMana.Model.DAO
 
         }
 
+        public IEnumerable<ChamCong> GetList_ChamCong()
+        {
+            try
+            {
+                return DataProvider.Instance.DBContext.ChamCong.ToList();
+            }
+            catch
+            {
+                return Enumerable.Empty<ChamCong>();
+            }
+        }
 
         public int Create_ChamCong(ChamCong cc)
         {

@@ -54,10 +54,11 @@ namespace HRMana.Main.ViewModel
                     // Ktra tài khoản
                     var checkLogin = new LoginDAO().CheckLogin(UserName, pass_md5_hash);
 
-                    if (checkLogin.maTaiKhoan > 0)
+                    if (checkLogin != null)
                     {
                         //Thêm vào biến cục bộ
                         CommonConstant.taiKhoanDN = new LoginDAO().Get_TaiKhoan_By_MaTK(checkLogin.maTaiKhoan);
+                        CommonConstant.DsQuyenCuaTKDN = CommonConstant.taiKhoanDN.Quyen.ChiTietQuyen_Quyen.ToList();
                                                 
                         // Thêm báo cáo đăng nhập
                         BaoCaoDangNhap bcdn = new BaoCaoDangNhap
@@ -71,7 +72,7 @@ namespace HRMana.Main.ViewModel
                         var window = Application.Current.MainWindow;
                         window.Hide();
                         MainWindow mainWindow = new MainWindow();
-                        mainWindow.Show();
+                        mainWindow.ShowDialog();
                     }
                     else
                     {

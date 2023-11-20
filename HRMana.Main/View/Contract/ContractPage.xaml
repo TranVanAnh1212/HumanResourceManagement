@@ -59,9 +59,9 @@
                 </Grid>
 
                 <StackPanel Margin="10" Grid.Column="1">
-                    <Button Command="{Binding Create_HopDongCommand}" Margin="15"  Content="Thêm" HorizontalAlignment="Left" Width="100" ></Button>
-                    <Button Command="{Binding Update_HopDongCommand}" Margin="15" Content="Sửa" HorizontalAlignment="Left" Width="100" ></Button>
-                    <Button Command="{Binding Delete_HopDongCommand}" Margin="15" Content="Xóa" HorizontalAlignment="Center"  Width="100" ></Button>
+                    <Button Visibility="{Binding Permission_ADD}" Command="{Binding Create_HopDongCommand}" Margin="15"  Content="Thêm" HorizontalAlignment="Left" Width="100" ></Button>
+                    <Button Visibility="{Binding Permission_EDIT}" Command="{Binding Update_HopDongCommand}" Margin="15" Content="Sửa" HorizontalAlignment="Left" Width="100" ></Button>
+                    <Button Visibility="{Binding Permission_DEL}" Command="{Binding Delete_HopDongCommand}" Margin="15" Content="Xóa" HorizontalAlignment="Center"  Width="100" ></Button>
                     <Button Command="{Binding CancelCommand}" Margin="15" Content="Hủy" HorizontalAlignment="Left" Width="100" ></Button>
                 </StackPanel>
             </Grid>
@@ -88,7 +88,7 @@
             <Grid Grid.Row="2" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 

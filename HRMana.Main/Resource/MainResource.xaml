@@ -13,5 +13,13 @@
     <vm:DepartmentViewModel x:Key="departmentVM"></vm:DepartmentViewModel>
     <vm:ContractViewModel x:Key="contractVM"></vm:ContractViewModel>
     <vm:TimeKeepingViewModel x:Key="timKeepingVM"></vm:TimeKeepingViewModel>
-    
+    <vm:ExpertiseViewModel x:Key="expertiseVM"></vm:ExpertiseViewModel>
+    <vm:PeopleViewModel x:Key="peopleVM"></vm:PeopleViewModel>
+    <vm:QualificationViewModel x:Key="quantificationVM"></vm:QualificationViewModel>
+    <vm:ReligionViewModel x:Key="religionViewModel"></vm:ReligionViewModel>
+    <vm:SalaryViewModel x:Key="salaryVM"></vm:SalaryViewModel>
+    <vm:SearchViewModel x:Key="searchVM"></vm:SearchViewModel>
+    <vm:ChangePasswordViewModel x:Key="changePassVM"></vm:ChangePasswordViewModel>
+    <vm:ProfileEmployeeViewModel x:Key="profileVM"></vm:ProfileEmployeeViewModel>
+    <vm:ReportViewModel x:Key="reportVM"></vm:ReportViewModel>
 </ResourceDictionary>

@@ -9,6 +9,18 @@ namespace HRMana.Model.DAO
 {
     public class BaoCaoDangNhapDAO
     {
+        public IEnumerable<BaoCaoDangNhap> GetList_BaoCaoDangNhap()
+        {
+            try
+            {
+                return DataProvider.Instance.DBContext.BaoCaoDangNhap.ToList();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public void Create_BaoCaoDangNhap(int maTaiKhoan, DateTime tgDangNhap, DateTime tgDangXuat)
         {
             try

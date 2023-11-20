@@ -20,6 +20,10 @@ namespace HRMana.Main.ViewModel
     {
         private string _message;
         private string _fill;
+        private string _permission_ADD;
+        private string _permission_VIEW;
+        private string _permission_EDIT;
+        private string _permission_DEL;
 
         private int _maTaiKhoan;
         private string _tenTaiKhoan;
@@ -91,6 +95,11 @@ namespace HRMana.Main.ViewModel
 
         public string Fill { get => _fill; set { _fill = value; OnPropertyChanged(); } }
 
+        public string Permission_ADD { get => _permission_ADD; set { _permission_ADD = value; OnPropertyChanged(); } }
+        public string Permission_VIEW { get => _permission_VIEW; set { _permission_VIEW = value; OnPropertyChanged(); }}
+        public string Permission_EDIT { get => _permission_EDIT; set { _permission_EDIT = value; OnPropertyChanged(); }}
+        public string Permission_DEL { get => _permission_DEL; set { _permission_DEL = value; OnPropertyChanged(); }}
+
         public AccountViewModel()
         {
             Initialize();
@@ -105,6 +114,29 @@ namespace HRMana.Main.ViewModel
                 (param) =>
                 {
                     GetListTaiKhoan();
+
+                    // Xét quyền của tài khoản
+                    var permissions = new Dictionary<string, string>
+                            {
+                                { "VIEW", CommonConstant.Visibility_Visible },
+                                { "ADD", CommonConstant.Visibility_Collapsed },
+                                { "EDIT", CommonConstant.Visibility_Collapsed },
+                                { "DEL", CommonConstant.Visibility_Collapsed },
+                            };
+                    var checkPermission = CommonConstant.DsQuyenCuaTKDN;
+                    foreach (var i in checkPermission)
+                    {
+                        if (permissions.ContainsKey(i.Chitiet_Quyen.mahanhDong))
+                        {
+                            permissions[i.Chitiet_Quyen.mahanhDong] = CommonConstant.Visibility_Visible;
+                        }
+                    }
+
+                    // Gán giá trị từ dictionary vào các biến
+                    Permission_ADD = permissions["ADD"];
+                    Permission_EDIT = permissions["EDIT"];
+                    Permission_DEL = permissions["DEL"];
+                    Permission_VIEW = permissions["VIEW"];
                 }
                 );
 

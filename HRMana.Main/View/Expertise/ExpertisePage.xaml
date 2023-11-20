@@ -5,63 +5,102 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HRMana.Main.View.Expertise"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:uc="clr-namespace:HRMana.Main.UserControls"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
-      Style="{StaticResource Sizewindow}"
+      x:Name="expertisePage"
+      DataContext="{StaticResource expertiseVM}"
       Title="ExpertisePage">
 
-    <Grid>
-        <TextBlock Text="Chuyên môn" Margin="10,10,10,9.998" FontSize="22" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Padding="0,10" HorizontalAlignment="Center" VerticalAlignment="Top"></TextBlock>
-        <Grid>
-            <TextBlock Text="Mã chuyên môn" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="92,0,0,549"></TextBlock>
-            <TextBlock Text="Chuyên môn" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="92,0,0,497"></TextBlock>
-            <TextBox Width="336" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="207,0,0,540"></TextBox>
-            <TextBox Width="336" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="207,0,0,488"/>
-            <ListView Margin="634,82,34,69">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Mã chuyên môn" Width="200"></GridViewColumn>
-                        <GridViewColumn Header="Chuyên môn"></GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <Button Content="Thêm" Width="100" Margin="170,220,1030,398"/>
-            <Button Content="Sửa" Width="100" Margin="341,220,859,398"/>
-            <Button Content="Xóa" Width="100" Margin="170,287,1030,331"/>
-            <Button Content="Hủy" Width="100" Margin="341,287,859,331"/>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadWindowCommand}" CommandParameter="{Binding ElementName=expertisePage}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
-            <Grid Margin="654,591,0,10" RenderTransformOrigin="0.5,0.5">
-                <Grid.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="0.004"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Grid.RenderTransform>
-                <Button Margin="7,8,582,7" Width="55" Command="{Binding BackToTopCommand}">
-                    <Button.Content>
-                        <materialDesign:PackIcon FontSize="18" Kind="SkipBackward" />
-                    </Button.Content>
-                </Button>
-                <Button  Width="55" Margin="77,8,512,7" Command="{Binding ReducePageCommand}">
-                    <Button.Content>
-                        <materialDesign:PackIcon FontSize="18" Kind="ArrowLeftBold" />
-                    </Button.Content>
-                </Button>
-                <Button  Width="55" Margin="247,8,342,7" Command="{Binding IncreasePageCommand}">
-                    <Button.Content>
-                        <materialDesign:PackIcon FontSize="18" Kind="ArrowRightBold" />
-                    </Button.Content>
-                </Button>
-                <Button  Width="55" Margin="317,8,272,7" Command="{Binding GoToEndCommand}">
-                    <Button.Content>
-                        <materialDesign:PackIcon FontSize="18" Kind="SkipForward" />
-                    </Button.Content>
-                </Button>
-                <TextBox HorizontalAlignment="Left" Height="29" Margin="144,11,0,0" TextWrapping="Wrap" Text="{Binding Page}" VerticalAlignment="Top" Width="35" TextAlignment="Center"/>
-                <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="29" Margin="198,11,0,0" TextWrapping="Wrap" Text="{Binding TotalPage}" VerticalAlignment="Top" Width="35" TextAlignment="Center"/>
-                <TextBlock HorizontalAlignment="Left" Height="25" Margin="179,13,0,0" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="19" TextAlignment="Center"/>
-            </Grid>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <uc:LableTopUserControl Title="Danh mục chuyên môn"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Header="Thông tin" Margin="10">
+                <Grid>
+                    <TextBlock Text="Mã chuyên môn" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="100,0,0,448"></TextBlock>
+                    <TextBox Text="{Binding MaChuyenMon}" IsReadOnly="True" Width="336" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="215,0,0,443"></TextBox>
+                    <TextBlock Text="Chuyên môn" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="121,0,0,396"></TextBlock>
+                    <TextBox TextChanged="UpperCaseFirstChar" Text="{Binding TenChuyenMon}" Width="336" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="215,0,0,391"/>
+                    <Button Visibility="{Binding Permission_ADD}" Command="{Binding Create_ChuyenMonCommand}" Content="Thêm mới" HorizontalAlignment="Left" Margin="160,247,0,0" VerticalAlignment="Top" Width="106"/>
+                    <Button Command="{Binding CancelCommand}" Content="Hủy" HorizontalAlignment="Left" Margin="330,247,0,0" VerticalAlignment="Top" Width="106"/>
+                    <Button Visibility="{Binding Permission_DEL}" Command="{Binding Delete_ChuyenMonCommand}" Content="Xóa" HorizontalAlignment="Left" Margin="330,325,0,0" VerticalAlignment="Top" Width="106"/>
+                    <Button Visibility="{Binding Permission_EDIT}" Command="{Binding Update_ChuyenMonCommand}" Content="Sửa" HorizontalAlignment="Left" Margin="160,325,0,0" VerticalAlignment="Top" Width="106"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Danh sách chuyên môn" Margin="10" Grid.Column="1">
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <ListView ItemsSource="{Binding DsChuyenMon}" SelectedItem="{Binding SelectedChuyenMon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Mã chuyên môn" DisplayMemberBinding="{Binding maChuyenMon}" Width="100"></GridViewColumn>
+                                <GridViewColumn Header="Chuyên môn" DisplayMemberBinding="{Binding tenChuyenMon}" Width="400"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <Grid Grid.Row="1" Margin="3 5 3 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="1">
+                            <Button Margin="5, 5, 20, 5" Command="{Binding BackToStartCommand}" Width="55">
+                                <Button.Content>
+                                    <materialDesign:PackIcon FontSize="18" Kind="SkipBackward" />
+                                </Button.Content>
+                            </Button>
+                            <Button Margin="5, 5, 20, 5" Command="{Binding ReducePageCommand}" Width="55" >
+                                <Button.Content>
+                                    <materialDesign:PackIcon FontSize="18" Kind="ArrowLeftBold" />
+                                </Button.Content>
+                            </Button>
+
+                            <StackPanel Margin="5, 5, 20, 5" Orientation="Horizontal" >
+                                <TextBox HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="{Binding Page}" VerticalAlignment="Top" Width="36" TextAlignment="Center"/>
+                                <TextBlock Height="24"  TextWrapping="Wrap" Text="/" Width="24" TextAlignment="Center"/>
+                                <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="30" TextWrapping="Wrap" Text="{Binding TotalPage}" VerticalAlignment="Top" Width="36" TextAlignment="Center"/>
+                            </StackPanel>
+
+                            <Button Margin="5, 5, 20, 5" Command="{Binding IncreasePageCommand}" Width="55">
+                                <Button.Content>
+                                    <materialDesign:PackIcon FontSize="18" Kind="ArrowRightBold" />
+                                </Button.Content>
+                            </Button>
+                            <Button Margin="5, 5, 20, 5" Command="{Binding GoToEndCommand}" Width="55">
+                                <Button.Content>
+                                    <materialDesign:PackIcon FontSize="18" Kind="SkipForward" />
+                                </Button.Content>
+                            </Button>
+
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </GroupBox>
         </Grid>
     </Grid>
 </Page>

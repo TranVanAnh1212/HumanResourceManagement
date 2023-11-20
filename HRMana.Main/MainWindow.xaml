@@ -5,13 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HRMana.Main"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:uc="clr-namespace:HRMana.Main.UserControls"
         mc:Ignorable="d"
         x:Name="mainWindow"
         FontSize="14"
         DataContext="{StaticResource mainVM}"
         Loaded="mainWindow_Loaded"
+        
         Title="MainWindow" Height="750" Width="1300" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+
     <!--<Window.Resources>
         <Storyboard x:Key="MainWindowNotification">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Notification_Grid">
@@ -20,6 +23,13 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>-->
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadWindowCommand}" 
+                               CommandParameter="{Binding ElementName=mainWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -43,8 +53,8 @@
                     <Menu Height="35" materialDesign:MenuAssist.TopLevelMenuItemHeight="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type materialDesign:Card}}, Path=ActualHeight}" Padding="10,0">
                         <MenuItem Header="Hệ thống">
                             <MenuItem Header="Về trang chủ" x:Name="GoHome_MenuItem" Click="GoHome_MenuItem_Click"/>
-                            <MenuItem Header="Người dùng" x:Name="createAccUser_MenuItem" Click="createAccUser_MenuItem_Click"/>
-                            <MenuItem Header="Đổi mật khẩu" />
+                            <MenuItem Header="Tài khoản người dùng" Visibility="{Binding Permission_MUSER}" x:Name="createAccUser_MenuItem" Click="createAccUser_MenuItem_Click"/>
+                            <MenuItem Header="Đổi mật khẩu" x:Name="changedPassword_Item" Click="changedPassword_Item_Click"/>
                             <Separator/>
 
                             <MenuItem Header="Đăng xuất" x:Name="LogOut_MenuItem" Command="{Binding LogoutCommand}" CommandParameter="mainWindow"/>
@@ -52,36 +62,38 @@
                         </MenuItem>
 
                         <MenuItem Header="Hồ sơ">
-                            <MenuItem Header="Hồ sơ nhân viên" />
+                            <MenuItem Header="Hồ sơ nhân viên" x:Name="profile_Item" Click="profile_Item_Click"/>
                             <MenuItem Header="Điều động công tác" x:Name="workingRotationItem" Click="workingRotationItem_Click" />
                             <MenuItem Header="Hợp đồng lao động" x:Name="contract_Item" Click="contract_Item_Click"/>
                         </MenuItem>
 
                         <MenuItem Header="Nhân sự">
                             <MenuItem Header="Danh sách nhân sự" x:Name="listPersonel" Click="listPersonel_Click"/>
-                            <MenuItem Header="Thêm nhân sự mới" x:Name="createPersonnel_item" Click="createPersonnel_item_Click"/>
+                            <MenuItem Header="Thêm nhân sự mới" Visibility="{Binding Permission_ADD}" x:Name="createPersonnel_item" Click="createPersonnel_item_Click"/>
                         </MenuItem>
 
                         <MenuItem Header="Lương">
                             <MenuItem Header="Chấm công" x:Name="TimeKeeping_Item" Click="TimeKeeping_Item_Click"/>
-                            <MenuItem Header="Cập nhật bậc lương" x:Name="salaryItem" Click="salaryItem_Click"/>
+                            <MenuItem Header="Danh mục bậc lương" x:Name="salaryItem" Click="salaryItem_Click"/>
 
                         </MenuItem>
 
                         <MenuItem Header="Danh mục">
                             <MenuItem Header="Danh mục chức vụ" x:Name="positionItem" Click="positionItem_Click"/>
                             <MenuItem Header="Danh mục phòng ban" x:Name="department_Item" Click="department_Item_Click"/>
-                            <MenuItem Header="Danh mục trình độ"/>
-                            <MenuItem Header="Danh mục chế độ"/>
+                            <MenuItem Header="Danh mục trình độ" x:Name="qualification_Item" Click="quantification_Item_Click"/>
+                            <!--<MenuItem Header="Danh mục chế độ"/>-->
                             <MenuItem Header="Danh mục chuyên môn" x:Name="expertiseItem" Click="expertiseItem_Click"/>
                             <MenuItem Header="Danh mục dân tộc" x:Name="peopleItem" Click="peopleItem_Click"/>
                             <MenuItem Header="Danh mục tôn giáo" x:Name="religionItem" Click="religionItem_Click"/>
                         </MenuItem>
 
                         <MenuItem Header="Thống kê - báo cáo">
-                            <MenuItem Header="Danh sách lương - thưởng"/>
-                            <MenuItem Header="Danh sách nhân sự"/>
+                            <MenuItem Header="Xuất báo cáo" x:Name="exportReport_Item" Click="ExportReport_Item_Click"/>
+                            
                         </MenuItem>
+
+                        <MenuItem Header="Tìm kiếm" x:Name="search_Item" Click="search_Item_Click"/>
 
                         <MenuItem Header="Trợ giúp">
                             <MenuItem Header="Về chúng tôi"/>

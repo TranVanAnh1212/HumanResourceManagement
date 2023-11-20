@@ -114,7 +114,7 @@
                     <TextBox HorizontalAlignment="Left" Height="29.31" Margin="143.933,3.2,0,-0.51" TextWrapping="Wrap" Text="{Binding Page}" VerticalAlignment="Top" Width="35.201" TextAlignment="Center"/>
                     <TextBlock HorizontalAlignment="Left" Height="24.8" Margin="184.134,7.71,0,-0.51" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="23.799" TextAlignment="Center"/>
                     <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="29.31" Margin="212.933,3.2,0,-0.51" TextWrapping="Wrap" Text="{Binding TotalPage}" VerticalAlignment="Top" Width="35.201" TextAlignment="Center"/>
-                    <Button Click="btn_AddnewPersonel_Click" Margin="731,0,22,0" x:Name="btn_AddnewPersonel" Content="Thêm mới"></Button>
+                    <Button Visibility="{Binding Permission_ADD}" Click="btn_AddnewPersonel_Click" Margin="731,0,22,0" x:Name="btn_AddnewPersonel" Content="Thêm mới"></Button>
                     <Button Command="{Binding RefeshCommand}" ToolTip="Refesh" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,0,0" Height="26" Width="60" Margin="639,0,0,0">
                         <Button.Content>
                             <materialDesign:PackIcon Kind="Restore" />

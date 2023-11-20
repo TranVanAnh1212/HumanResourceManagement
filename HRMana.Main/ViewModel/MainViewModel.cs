@@ -16,11 +16,18 @@ namespace HRMana.Main.ViewModel
     {
         private string _message;
         private string _fill;
+        private string _permission_MUSER;
+        private string _permission_ADD;
 
         public ICommand ExitCommand { get; set; }
         public ICommand LogoutCommand { get; set; }
+        public ICommand LoadWindowCommand { get; set; }
         public string Message { get => _message; set { _message = value; OnPropertyChanged(); } }
         public string Fill { get => _fill; set { _fill = value; OnPropertyChanged(); } }
+
+        public string Permission_MUSER { get => _permission_MUSER; set { _permission_MUSER = value; OnPropertyChanged(); } }
+
+        public string Permission_ADD { get => _permission_ADD; set { _permission_ADD = value; OnPropertyChanged(); } }
 
         public MainViewModel()
         {
@@ -36,7 +43,34 @@ namespace HRMana.Main.ViewModel
 
         private void Initialize()
         {
-            ExitCommand = new RelayCommand<Object>(
+            LoadWindowCommand = new RelayCommand<Object>(
+                (param) => { return true; },
+                (param) =>
+                {
+                    var permisstionRules = new Dictionary<string, string>()
+                    {
+                        {"ADD", CommonConstant.Visibility_Visible },
+                        {"EDIT", CommonConstant.Visibility_Collapsed },
+                        {"VIEW", CommonConstant.Visibility_Collapsed },
+                        {"DEL", CommonConstant.Visibility_Collapsed },
+                        {"MUSER", CommonConstant.Visibility_Collapsed },
+                    };
+
+                    var checkPermission = CommonConstant.DsQuyenCuaTKDN;
+
+                    foreach (var i in checkPermission)
+                    {
+                        if (permisstionRules.ContainsKey(i.Chitiet_Quyen.mahanhDong))
+                        {
+                            permisstionRules[i.Chitiet_Quyen.mahanhDong] = CommonConstant.Visibility_Visible;
+                        }
+                    }
+
+                    Permission_ADD = permisstionRules["ADD"];
+                    Permission_MUSER = permisstionRules["MUSER"];
+                });
+
+                    ExitCommand = new RelayCommand<Object>(
                 (p) => { return true; },
                 (p) =>
                 {

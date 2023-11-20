@@ -6,9 +6,12 @@ using HRMana.Main.View.Home;
 using HRMana.Main.View.People;
 using HRMana.Main.View.Personnel;
 using HRMana.Main.View.Position;
+using HRMana.Main.View.Profile;
 using HRMana.Main.View.Qualification;
 using HRMana.Main.View.Religion;
+using HRMana.Main.View.Report;
 using HRMana.Main.View.Salary;
+using HRMana.Main.View.Search;
 using HRMana.Main.View.SystemManagement;
 using HRMana.Main.View.TimeKeeping;
 using HRMana.Main.View.WorkingRotation;
@@ -124,6 +127,34 @@ namespace HRMana.Main
         private void salaryItem_Click(object sender, RoutedEventArgs e)
         {
             Directional(new SalaryPage());
+        }
+
+        private void quantification_Item_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new QualificationPage());
+
+        }
+
+        private void search_Item_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new SearchPage());
+
+        }
+
+        private void changedPassword_Item_Click(object sender, RoutedEventArgs e)
+        {
+            var changePassWindow = new ChangedPasswordWindow();
+            changePassWindow.ShowDialog();
+        }
+
+        private void profile_Item_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new ProfileEmployeePage());
+        }
+
+        private void ExportReport_Item_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new ReportPage());
         }
     }
 }

@@ -30,6 +30,10 @@ namespace HRMana.Main.ViewModel
         private string _message;
         private string _fill;
         private bool isEnable;
+        private string _permission_ADD;
+        private string _permission_VIEW;
+        private string _permission_EDIT;
+        private string _permission_DEL;
 
         public ICommand IncreasePageCommand { get; set; }
         public ICommand ReducePageCommand { get; set; }
@@ -40,6 +44,12 @@ namespace HRMana.Main.ViewModel
         public ICommand Update_ChucVuCommand { get; set; }
         public ICommand Delete_ChucVuCommand { get; set; }
         public ICommand CancelCommandCommand { get; set; }
+
+        public string Permission_ADD { get => _permission_ADD; set { _permission_ADD = value; OnPropertyChanged(); } }
+        public string Permission_VIEW { get => _permission_VIEW; set { _permission_VIEW = value; OnPropertyChanged(); } }
+        public string Permission_EDIT { get => _permission_EDIT; set { _permission_EDIT = value; OnPropertyChanged(); } }
+        public string Permission_DEL { get => _permission_DEL; set { _permission_DEL = value; OnPropertyChanged(); } }
+
 
         public int MaChucVu { get => _maChucVu; set { _maChucVu = value; OnPropertyChanged(); } }
         public string TenChucVu { get => _tenChucVu; set { _tenChucVu = value; OnPropertyChanged(); } }
@@ -88,7 +98,29 @@ namespace HRMana.Main.ViewModel
                 (param) =>
                 {
                     GetList_ChucVu();
-                    CheckPermissions();
+
+                    // Xét quyền của tài khoản
+                    var permissions = new Dictionary<string, string>
+                            {
+                                { "VIEW", CommonConstant.Visibility_Visible },
+                                { "ADD", CommonConstant.Visibility_Collapsed },
+                                { "EDIT", CommonConstant.Visibility_Collapsed },
+                                { "DEL", CommonConstant.Visibility_Collapsed },
+                            };
+                    var checkPermission = CommonConstant.DsQuyenCuaTKDN;
+                    foreach (var i in checkPermission)
+                    {
+                        if (permissions.ContainsKey(i.Chitiet_Quyen.mahanhDong))
+                        {
+                            permissions[i.Chitiet_Quyen.mahanhDong] = CommonConstant.Visibility_Visible;
+                        }
+                    }
+
+                    // Gán giá trị từ dictionary vào các biến
+                    Permission_ADD = permissions["ADD"];
+                    Permission_EDIT = permissions["EDIT"];
+                    Permission_DEL = permissions["DEL"];
+                    Permission_VIEW = permissions["VIEW"];
                 }
                 );
 
@@ -196,7 +228,7 @@ namespace HRMana.Main.ViewModel
                 (param) =>
                 {
                     DialogWindow d = new DialogWindow();
-                    d.DialogMessage = "Bạn có chắc muốn sửa chức vụ.";
+                    d.DialogMessage = "Bạn có chắc muốn sửa chức vụ?";
                     d.Owner = Window.GetWindow(new PositionPage());
 
                     if (true == d.ShowDialog())
@@ -230,21 +262,30 @@ namespace HRMana.Main.ViewModel
                 (param) =>
                 {
                     DialogWindow d = new DialogWindow();
-                    d.DialogMessage = "Bạn có chắc muốn xóa";
+                    d.DialogMessage = "Bạn có chắc muốn xóa?";
                     d.Owner = Window.GetWindow(new PositionPage());
 
                     if (true == d.ShowDialog())
                     {
-                        var result = new ChucVuDAO().Delete_ChucVu(MaChucVu);
-                        if (result)
+                        var nv_cv_Contrain = new ChucVuDAO().GetList_NhanVien_By_MaChucVu(MaChucVu);
+
+                        if (nv_cv_Contrain.Count <= 0)
                         {
-                            ShowNotification("Xóa chức vụ thành công. ", "#FF58FF7B");
-                            EmptyTextbox();
-                            GetList_ChucVu();
+                            var result = new ChucVuDAO().Delete_ChucVu(MaChucVu);
+                            if (result)
+                            {
+                                ShowNotification("Xóa chức vụ thành công. ", "#FF58FF7B");
+                                EmptyTextbox();
+                                GetList_ChucVu();
+                            }
+                            else
+                            {
+                                ShowNotification("Xóa chức vụ không thành công. ", "#FFFF5858");
+                            }
                         }
                         else
                         {
-                            ShowNotification("Xóa chức vụ không thành công. ", "#FFFF5858");
+                            MessageBox.Show("Có nhân viên thuộc chức vụ này, \n Yêu cầu đảm bảo các nhân viên không thuộc chức vụ này.", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                         }
                     }
                 }
@@ -283,12 +324,6 @@ namespace HRMana.Main.ViewModel
             Message = message;
             Fill = fill;
             NotificationEvent.Instance.ReqquestShowNotification();
-        }
-
-        // Ktra quyền của tài khoản đang đăng nhập
-        private void CheckPermissions()
-        {
-
         }
 
     }

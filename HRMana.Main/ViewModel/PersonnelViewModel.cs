@@ -1,4 +1,5 @@
-﻿using HRMana.Common.Events;
+﻿using HRMana.Common.Commons;
+using HRMana.Common.Events;
 using HRMana.Main.View.Personnel;
 using HRMana.Model.DAO;
 using HRMana.Model.EF;
@@ -46,6 +47,7 @@ namespace HRMana.Main.ViewModel
         private PhongBan _selectedPhongBan;
         private TrinhDo _selectedTrinhDo;
         private BacLuong _selectedBacLuong;
+        private string _permission_ADD;
 
         public ICommand IncreasePageCommand { get; set; }
         public ICommand ReducePageCommand { get; set; }
@@ -165,6 +167,8 @@ namespace HRMana.Main.ViewModel
             }
         }
 
+        public string Permission_ADD { get => _permission_ADD; set { _permission_ADD = value; OnPropertyChanged(); } }
+
         #endregion
 
         public PersonnelViewModel()
@@ -191,6 +195,20 @@ namespace HRMana.Main.ViewModel
                             GetList_PhongBan();
                             GetList_TrinhDo();
                             GetList_BacLuong();
+
+                            var checkPermission = CommonConstant.DsQuyenCuaTKDN;
+
+                            foreach (var i in checkPermission)
+                            {
+                                if (i.Chitiet_Quyen.mahanhDong.Equals("ADD"))
+                                {
+                                    Permission_ADD = CommonConstant.Visibility_Visible;
+                                }
+                                else
+                                {
+                                    Permission_ADD = CommonConstant.Visibility_Hidden;
+                                }
+                            }
                         }));
                     });
                     GetData_Thread.IsBackground = true;

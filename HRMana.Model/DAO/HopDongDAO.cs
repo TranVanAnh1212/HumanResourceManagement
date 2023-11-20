@@ -46,6 +46,18 @@ namespace HRMana.Model.DAO
             }
         }
 
+        public HopDong Get_HopDong_By_MaHopDong(int maHopDong)
+        {
+            try
+            {
+                return DataProvider.Instance.DBContext.HopDong.FirstOrDefault(x => x.maHopDong == maHopDong);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public bool Update_HopDong(HopDong hd)
         {
             try

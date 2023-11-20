@@ -9,22 +9,17 @@ namespace HRMana.Model.DAO
     {
         public List<NhanVien> GetList_NhanVien()
         {
-            List<NhanVien> nv = null;
+            List<NhanVien> nv = new List<NhanVien>();
 
             try
             {
-                var result = DataProvider.Instance.DBContext.NhanVien.ToList();
+                return nv = DataProvider.Instance.DBContext.NhanVien.ToList();
 
-                if (result.Count() > 0)
-                {
-                    nv = result.ToList();
-                }
             }
             catch (Exception ex)
             {
                 return nv;
             }
-            return nv;
         }
 
         public List<NhanVien> GetList_NhanVien(string tnv)
@@ -63,6 +58,30 @@ namespace HRMana.Model.DAO
             return nv;
         }
 
+        public bool Update_MaHoSo(NhanVien nv)
+        {
+            try
+            {
+                var nhanvien = DataProvider.Instance.DBContext.NhanVien.Where(x => x.maNhanVien == nv.maNhanVien).FirstOrDefault();
+
+                if (nhanvien != null)
+                {                    
+                    nhanvien.maHoSo = nv.maHoSo;
+
+                    DataProvider.Instance.DBContext.SaveChanges();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public NhanVien Get_NhanVien_By_MaHopDong(int maHopDong)
         {
             NhanVien nv = null;

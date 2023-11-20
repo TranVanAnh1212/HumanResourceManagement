@@ -27,6 +27,26 @@ namespace HRMana.Model.DAO
             return chucVu;
         }
 
+        public List<NhanVien> GetList_NhanVien_By_MaChucVu(int mcv)
+        {
+            List<NhanVien> list = new List<NhanVien>();
+            try
+            {
+                if (mcv > 0)
+                {
+                    return list = DataProvider.Instance.DBContext.ChucVu.FirstOrDefault(x => x.maChucVu == mcv).NhanVien.ToList();
+                }
+                else
+                {
+                    return list;
+                }
+            }
+            catch
+            {
+                return list;
+            }
+        }
+
         public ChucVu Get_ChucVu_By_MaChucVu(int id)
         {
             try

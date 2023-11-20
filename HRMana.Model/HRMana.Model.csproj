@@ -65,6 +65,7 @@
     <Compile Include="DAO\DanTocDAO.cs" />
     <Compile Include="DAO\DataProvider.cs" />
     <Compile Include="DAO\HopDongDAO.cs" />
+    <Compile Include="DAO\HoSoDAO.cs" />
     <Compile Include="DAO\LoginDAO.cs" />
     <Compile Include="DAO\NhanVienDAO.cs" />
     <Compile Include="DAO\PhongBanDAO.cs" />
@@ -73,102 +74,105 @@
     <Compile Include="DAO\TonGiaoDAO.cs" />
     <Compile Include="DAO\TrinhDoDAO.cs" />
     <Compile Include="EF\BacLuong.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\BaoCaoDangNhap.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ChamCong.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ChiTietQuyen_Quyen.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Chitiet_Quyen.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ChucVu.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ChuyenCongTac.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ChuyenCongTac_NhanVien.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ChuyenMon.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\DanToc.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\HopDong.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\HoSo.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\NhanVien.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\PhongBan.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\QLNhanSuDBContext.Context.cs">
+    <Compile Include="EF\QLNhanVienDBContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>QLNhanSuDBContext.Context.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\QLNhanSuDBContext.cs">
+    <Compile Include="EF\QLNhanVienDBContext.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\QLNhanSuDBContext.Designer.cs">
+    <Compile Include="EF\QLNhanVienDBContext.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>QLNhanSuDBContext.edmx</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.edmx</DependentUpon>
     </Compile>
     <Compile Include="EF\Quyen.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\sysdiagrams.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\TaiKhoan.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\TonGiao.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\TrinhDo.cs">
-      <DependentUpon>QLNhanSuDBContext.tt</DependentUpon>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BaoCaoChamCong_prtModel.cs" />
+    <Compile Include="Models\BaoCaoDangNhap_rptModel.cs" />
+    <Compile Include="Models\BaoCaoDsNhanVien_rptModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="EF\QLNhanSuDBContext.edmx">
+    <EntityDeploy Include="EF\QLNhanVienDBContext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QLNhanSuDBContext.Designer.cs</LastGenOutput>
+      <LastGenOutput>QLNhanVienDBContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="EF\QLNhanSuDBContext.edmx.diagram">
-      <DependentUpon>QLNhanSuDBContext.edmx</DependentUpon>
+    <None Include="EF\QLNhanVienDBContext.edmx.diagram">
+      <DependentUpon>QLNhanVienDBContext.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Content Include="Database\QLNhanSu.sql" />
-    <Content Include="EF\QLNhanSuDBContext.Context.tt">
+    <Content Include="EF\QLNhanVienDBContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QLNhanSuDBContext.edmx</DependentUpon>
-      <LastGenOutput>QLNhanSuDBContext.Context.cs</LastGenOutput>
+      <DependentUpon>QLNhanVienDBContext.edmx</DependentUpon>
+      <LastGenOutput>QLNhanVienDBContext.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="EF\QLNhanSuDBContext.tt">
+    <Content Include="EF\QLNhanVienDBContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QLNhanSuDBContext.edmx</DependentUpon>
-      <LastGenOutput>QLNhanSuDBContext.cs</LastGenOutput>
+      <DependentUpon>QLNhanVienDBContext.edmx</DependentUpon>
+      <LastGenOutput>QLNhanVienDBContext.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

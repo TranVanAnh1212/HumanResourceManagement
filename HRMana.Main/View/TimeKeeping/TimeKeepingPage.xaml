@@ -92,16 +92,16 @@
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Phụ cấp CV" Margin="3,53,0,0"/>
                         <TextBox Text="{Binding PhuCapCongViec}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="186" Margin="115,49,0,0"/>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Còn lại" Margin="483,58,0,0"/>
-                        <TextBox Text="{Binding ConLai}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="162" Margin="546,50,0,0"/>
+                        <TextBox Text="{Binding ConLai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="162" Margin="546,50,0,0"/>
 
                     </Grid>
                 </GroupBox>
 
                 <Grid Margin="15" Grid.Row="3">
-                    <Button Command="{Binding Create_ChamCongCommand}" Content="Thêm chấm công" HorizontalAlignment="Left"  Width="170" Margin="20,0,0,0" ></Button>
+                    <Button Visibility="{Binding Permission_ADD}" Command="{Binding Create_ChamCongCommand}" Content="Thêm chấm công" HorizontalAlignment="Left"  Width="170" Margin="20,0,0,0" ></Button>
                     <Button Command="{Binding CancelCommand}" Content="Hủy" HorizontalAlignment="Left"  Width="120" Margin="730,0,0,0" />
-                    <Button Command="{Binding Delete_ChamCongCommand}" Content="Xóa" HorizontalAlignment="Left"  Width="120" Margin="505,0,0,0" />
-                    <Button Command="{Binding Update_ChamCongCommand}" Content="Cập nhật" HorizontalAlignment="Left"  Width="120" Margin="280,0,0,0" />
+                    <Button Visibility="{Binding Permission_DEL}" Command="{Binding Delete_ChamCongCommand}" Content="Xóa" HorizontalAlignment="Left"  Width="120" Margin="505,0,0,0" />
+                    <Button Visibility="{Binding Permission_EDIT}" Command="{Binding Update_ChamCongCommand}" Content="Cập nhật" HorizontalAlignment="Left"  Width="120" Margin="280,0,0,0" />
                 </Grid>
             </Grid>
         </Grid>

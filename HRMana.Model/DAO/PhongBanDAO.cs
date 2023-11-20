@@ -45,6 +45,26 @@ namespace HRMana.Model.DAO
             }
         }
 
+        public List<NhanVien> GetList_NhanVien_By_MaPhongBan(int mpb)
+        {
+            List<NhanVien> list = new List<NhanVien>();
+            try
+            {
+                if (mpb > 0)
+                {
+                    return list = DataProvider.Instance.DBContext.PhongBan.FirstOrDefault(x => x.maPhong == mpb).NhanVien.ToList();
+                }
+                else
+                {
+                    return list;
+                }
+            }
+            catch
+            {
+                return list;
+            }
+        }
+
         public int CreateNew_PhongBan(PhongBan p)
         {
             try
@@ -89,13 +109,13 @@ namespace HRMana.Model.DAO
             }
         }
 
-        public bool Delete_PhongBan(PhongBan p)
+        public bool Delete_PhongBan(int mpb)
         {
             try
             {
-                if (p != null)
+                if (mpb > 0)
                 {
-                    var result = DataProvider.Instance.DBContext.PhongBan.FirstOrDefault(x => x.maPhong == p.maPhong);
+                    var result = DataProvider.Instance.DBContext.PhongBan.FirstOrDefault(x => x.maPhong == mpb);
                     DataProvider.Instance.DBContext.PhongBan.Remove(result);
                     DataProvider.Instance.DBContext.SaveChanges();
 

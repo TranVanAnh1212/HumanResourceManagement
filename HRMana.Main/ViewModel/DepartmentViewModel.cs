@@ -1,4 +1,6 @@
-﻿using HRMana.Model.DAO;
+﻿using HRMana.Common.Commons;
+using HRMana.Main.View.Dialog;
+using HRMana.Model.DAO;
 using HRMana.Model.EF;
 using System;
 using System.Collections.Generic;
@@ -22,6 +24,10 @@ namespace HRMana.Main.ViewModel
         private int _totalRecord;
         private ObservableCollection<PhongBan> _dsPhongBan;
         private PhongBan _selectedPhongBan;
+        private string _permission_ADD;
+        private string _permission_VIEW;
+        private string _permission_EDIT;
+        private string _permission_DEL;
 
         public ICommand IncreasePageCommand { get; set; }
         public ICommand ReducePageCommand { get; set; }
@@ -32,6 +38,11 @@ namespace HRMana.Main.ViewModel
         public ICommand Update_PhongBanCommand { get; set; }
         public ICommand Delete_PhongBanCommand { get; set; }
         public ICommand CancelCommand { get; set; }
+
+        public string Permission_ADD { get => _permission_ADD; set { _permission_ADD = value; OnPropertyChanged(); } }
+        public string Permission_VIEW { get => _permission_VIEW; set { _permission_VIEW = value; OnPropertyChanged(); } }
+        public string Permission_EDIT { get => _permission_EDIT; set { _permission_EDIT = value; OnPropertyChanged(); } }
+        public string Permission_DEL { get => _permission_DEL; set { _permission_DEL = value; OnPropertyChanged(); } }
 
         public int TotalPage { get => _totalPage; set { _totalPage = value; OnPropertyChanged(); } }
         public int Page { get => _page; set { _page = value; OnPropertyChanged(); } }
@@ -137,6 +148,29 @@ namespace HRMana.Main.ViewModel
                         Application.Current.Dispatcher.Invoke(new Action(() =>
                         {
                             GetList_PhongBan();
+
+                            // Xét quyền của tài khoản
+                            var permissions = new Dictionary<string, string>
+                            {
+                                { "VIEW", CommonConstant.Visibility_Visible },
+                                { "ADD", CommonConstant.Visibility_Collapsed },
+                                { "EDIT", CommonConstant.Visibility_Collapsed },
+                                { "DEL", CommonConstant.Visibility_Collapsed },
+                            };
+                            var checkPermission = CommonConstant.DsQuyenCuaTKDN;
+                            foreach (var i in checkPermission)
+                            {
+                                if (permissions.ContainsKey(i.Chitiet_Quyen.mahanhDong))
+                                {
+                                    permissions[i.Chitiet_Quyen.mahanhDong] = CommonConstant.Visibility_Visible;
+                                }
+                            }
+
+                            // Gán giá trị từ dictionary vào các biến
+                            Permission_ADD = permissions["ADD"];
+                            Permission_EDIT = permissions["EDIT"];
+                            Permission_DEL = permissions["DEL"];
+                            Permission_VIEW = permissions["VIEW"];
                         }));
                     });
                     GetData_Thread.IsBackground = true;
@@ -197,25 +231,31 @@ namespace HRMana.Main.ViewModel
                 },
                 (param) =>
                 {
-                    try
-                    {
+                    DialogWindow d = new DialogWindow();
+                    d.DialogMessage = "Bạn có chắc muốn cập nhật?";
 
-                        var result = new PhongBanDAO().Update_PhongBan(MaPhong, TenPhong.Trim(), Sdt.Trim());
-
-                        if (result)
-                        {
-                            MessageBox.Show("Cập nhật phòng ban thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                            EmptyField();
-                            GetList_PhongBan();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Có lỗi xảy ra khi cập nhật ở máy chủ.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                    catch
+                    if (true == d.ShowDialog())
                     {
-                        MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        try
+                        {
+
+                            var result = new PhongBanDAO().Update_PhongBan(MaPhong, TenPhong.Trim(), Sdt.Trim());
+
+                            if (result)
+                            {
+                                MessageBox.Show("Cập nhật phòng ban thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                                EmptyField();
+                                GetList_PhongBan();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Có lỗi xảy ra khi cập nhật ở máy chủ.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                 }
                 );
@@ -230,31 +270,40 @@ namespace HRMana.Main.ViewModel
                 },
                 (param) =>
                 {
-                    try
-                    {
-                        var pb = new PhongBan()
-                        {
-                            maPhong = MaPhong,
-                            tenPhong = TenPhong.Trim(),
-                            dienThoai = Sdt.Trim()
-                        };
+                    DialogWindow d = new DialogWindow();
+                    d.DialogMessage = "Bạn có chắc muốn xóa?";
 
-                        var result = new PhongBanDAO().Delete_PhongBan(pb);
-
-                        if (result)
-                        {
-                            MessageBox.Show("Xóa phòng ban thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                            EmptyField();
-                            GetList_PhongBan();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Có lỗi xảy ra khi xóa ở máy chủ.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                    catch
+                    if (true == d.ShowDialog())
                     {
-                        MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        try
+                        {
+                            var pb_nv_Constrain = new PhongBanDAO().GetList_NhanVien_By_MaPhongBan(MaPhong);
+
+                            if (pb_nv_Constrain.Count <= 0)
+                            {
+                                var result = new PhongBanDAO().Delete_PhongBan(MaPhong);
+
+                                if (result)
+                                {
+                                    MessageBox.Show("Xóa phòng ban thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    EmptyField();
+                                    GetList_PhongBan();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Có lỗi xảy ra khi xóa ở máy chủ.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Có nhân viên thuộc phòng ban này, \n Yêu cầu đảm bảo các nhân viên không thuộc phòng ban này.", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                            }
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                 }
                 );

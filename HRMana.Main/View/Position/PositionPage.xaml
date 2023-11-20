@@ -66,9 +66,9 @@
                 <TextBox IsReadOnly="True" Text="{Binding MaChucVu, Mode=TwoWay}" HorizontalAlignment="Left" Height="40" Margin="180,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" Cursor="No"/>
                 <Label Content="Tên chức vụ" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="40" Margin="10,87,0,0" VerticalAlignment="Top" Width="140"/>
                 <TextBox HorizontalAlignment="Left" Text="{Binding TenChucVu, Mode=TwoWay}" Height="40" Margin="180,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450"/>
-                <Button Command="{Binding CreateNew_ChucVuCommand}" Content="Thêm mới" HorizontalAlignment="Left" Height="35" Margin="165,166,0,0" VerticalAlignment="Top" Width="115"/>
-                <Button Command="{Binding Update_ChucVuCommand}" Content="Sửa" HorizontalAlignment="Left" Height="35" Margin="340,166,0,0" VerticalAlignment="Top" Width="115"/>
-                <Button Command="{Binding Delete_ChucVuCommand}" Content="Xóa" HorizontalAlignment="Left" Height="35" Margin="165,241,0,0" VerticalAlignment="Top" Width="115"/>
+                <Button Visibility="{Binding Permission_ADD}" Command="{Binding CreateNew_ChucVuCommand}" Content="Thêm mới" HorizontalAlignment="Left" Height="35" Margin="165,166,0,0" VerticalAlignment="Top" Width="115"/>
+                <Button Visibility="{Binding Permission_EDIT}" Command="{Binding Update_ChucVuCommand}" Content="Sửa" HorizontalAlignment="Left" Height="35" Margin="340,166,0,0" VerticalAlignment="Top" Width="115"/>
+                <Button Visibility="{Binding Permission_DEL}" Command="{Binding Delete_ChucVuCommand}" Content="Xóa" HorizontalAlignment="Left" Height="35" Margin="165,241,0,0" VerticalAlignment="Top" Width="115"/>
                 <Button Command="{Binding CancelCommandCommand}" Content="Hủy" HorizontalAlignment="Left" Height="35" Margin="340,241,0,0" VerticalAlignment="Top" Width="115"/>
 
             </Grid>

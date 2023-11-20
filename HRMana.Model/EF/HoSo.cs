@@ -25,11 +25,7 @@ namespace HRMana.Model.EF
         public string hinhThucThanhToanLuong { get; set; }
         public string soTkNganHang { get; set; }
         public string nganHang { get; set; }
-        public string tinhTrangHonNhan { get; set; }
         public string maSoThue { get; set; }
         public string maSoBHXH { get; set; }
-        public Nullable<System.DateTime> ngayBatDauLamViec { get; set; }
-        public string kinhNghiemLamViec { get; set; }
-        public Nullable<System.DateTime> thoiGian { get; set; }
     }
 }

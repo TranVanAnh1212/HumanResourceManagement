@@ -1,4 +1,6 @@
-﻿using HRMana.Main.View.Personnel;
+﻿using HRMana.Common.Commons;
+using HRMana.Main.View.Dialog;
+using HRMana.Main.View.Personnel;
 using HRMana.Model.DAO;
 using HRMana.Model.EF;
 using System;
@@ -44,6 +46,10 @@ namespace HRMana.Main.ViewModel
         private int _pageSize;
         private int _totalRecord;
         private string _TNV_Search;
+        private string _permission_ADD;
+        private string _permission_VIEW;
+        private string _permission_EDIT;
+        private string _permission_DEL;
 
         public ICommand IncreasePageCommand { get; set; }
         public ICommand ReducePageCommand { get; set; }
@@ -54,6 +60,12 @@ namespace HRMana.Main.ViewModel
         public ICommand Update_DieuDongCongtacCommand { get; set; }
         public ICommand Delete_DieuDongCongtacCommand { get; set; }
         public ICommand CancelCommand { get; set; }
+
+        public string Permission_ADD { get => _permission_ADD; set { _permission_ADD = value; OnPropertyChanged(); } }
+        public string Permission_VIEW { get => _permission_VIEW; set { _permission_VIEW = value; OnPropertyChanged(); } }
+        public string Permission_EDIT { get => _permission_EDIT; set { _permission_EDIT = value; OnPropertyChanged(); } }
+        public string Permission_DEL { get => _permission_DEL; set { _permission_DEL = value; OnPropertyChanged(); } }
+
 
         public int MaNhanVien { get => _maNhanVien; set { _maNhanVien = value; OnPropertyChanged(); } }
         public string HoTen { get => _hoTen; set { _hoTen = value; OnPropertyChanged(); } }
@@ -281,6 +293,29 @@ namespace HRMana.Main.ViewModel
                             GetList_ChucVu();
                             GetList_PhongBan();
                             GetList_ChuyenCongTac_NhanVien();
+
+                            // Xét quyền của tài khoản
+                            var permissions = new Dictionary<string, string>
+                            {
+                                { "VIEW", CommonConstant.Visibility_Visible },
+                                { "ADD", CommonConstant.Visibility_Collapsed },
+                                { "EDIT", CommonConstant.Visibility_Collapsed },
+                                { "DEL", CommonConstant.Visibility_Collapsed },
+                            };
+                            var checkPermission = CommonConstant.DsQuyenCuaTKDN;
+                            foreach (var i in checkPermission)
+                            {
+                                if (permissions.ContainsKey(i.Chitiet_Quyen.mahanhDong))
+                                {
+                                    permissions[i.Chitiet_Quyen.mahanhDong] = CommonConstant.Visibility_Visible;
+                                }
+                            }
+
+                            // Gán giá trị từ dictionary vào các biến
+                            Permission_ADD = permissions["ADD"];
+                            Permission_EDIT = permissions["EDIT"];
+                            Permission_DEL = permissions["DEL"];
+                            Permission_VIEW = permissions["VIEW"];
                         }));
                     });
                     GetData_Thread.IsBackground = true;
@@ -348,109 +383,121 @@ namespace HRMana.Main.ViewModel
 
         private void Delete_DieuDongCongtac()
         {
-            try
+            DialogWindow d = new DialogWindow();
+            d.DialogMessage = "Bạn có chắc muốn xóa?";
+
+            if (true == d.ShowDialog())
             {
-                var result_cct_nv = new ChuyenCongTac_NhanVienDAO().Delete_ChuyenCongTacNhanVien(SelectedDieuDongCongTac.SoQuyetDinh, SelectedDieuDongCongTac.MaNhanVien);
-
-                if (result_cct_nv)
+                try
                 {
-                    var result_cct = new ChuyenCongTacDAO().Delete_ChuyenCongTac(SelectedDieuDongCongTac.SoQuyetDinh);
+                    var result_cct_nv = new ChuyenCongTac_NhanVienDAO().Delete_ChuyenCongTacNhanVien(SelectedDieuDongCongTac.SoQuyetDinh, SelectedDieuDongCongTac.MaNhanVien);
 
-                    if (result_cct)
+                    if (result_cct_nv)
+                    {
+                        var result_cct = new ChuyenCongTacDAO().Delete_ChuyenCongTac(SelectedDieuDongCongTac.SoQuyetDinh);
+
+                        if (result_cct)
+                        {
+
+                            var nv = new NhanVienDAO().Get_NhanVien_By_MaNhanVien(MaNhanVien);
+                            nv.maChucVu = SelectedDieuDongCongTac.MaChucVuCu;
+                            nv.maPhong = SelectedDieuDongCongTac.MaPhongCu;
+
+                            var result_nv = new NhanVienDAO().Update_NhanVien(nv);
+
+                            if (result_nv)
+                            {
+                                MessageBox.Show($"Xóa chuyển công tác nhân viên \"{HoTen}\" thành công");
+                                GetList_ChuyenCongTac_NhanVien();
+                                GetList_NhanVien();
+                                EmptyField();
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Xóa chuyển công tác nhân viên \"{HoTen}\" không thành công");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Xóa chuyển công tác nhân viên \"{HoTen}\" không thành công");
+
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Xóa chuyển công tác nhân viên \"{HoTen}\" không thành công");
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void Update_DieuDongCongtac()
+        {
+            DialogWindow d = new DialogWindow();
+            d.DialogMessage = "Bạn có chắc muốn cập nhật?";
+
+            if (true == d.ShowDialog())
+            {
+                try
+                {
+                    var cct = new ChuyenCongTac()
+                    {
+                        soQuyetDinh = SoQuyetDinh,
+                        ngayQuyetDinh = NgayQuyetDinh,
+                        thoiGianThiHanh = ThoiGianThiHanh,
+                    };
+
+                    var cct_nv = new ChuyenCongTac_NhanVien()
+                    {
+                        soQuyetDinh = SoQuyetDinh,
+                        maNhanVien = MaNhanVien,
+                        chucVuCu = MaChucVuCu,
+                        chucVuMoi = MaChucVuMoi,
+                        phongBanCu = MaPhongCu,
+                        phongBanMoi = MaPhongMoi,
+                    };
+
+                    var result_cct = new ChuyenCongTacDAO().Update_ChuyenCongtac(cct);
+                    var result_cct_nv = new ChuyenCongTac_NhanVienDAO().Update_ChuyenCongTacNhanVien(cct_nv);
+
+                    if (result_cct && result_cct_nv)
                     {
 
                         var nv = new NhanVienDAO().Get_NhanVien_By_MaNhanVien(MaNhanVien);
-                        nv.maChucVu = SelectedDieuDongCongTac.MaChucVuCu;
-                        nv.maPhong = SelectedDieuDongCongTac.MaPhongCu;
+                        nv.maChucVu = MaChucVuMoi;
+                        nv.maPhong = MaPhongMoi;
 
                         var result_nv = new NhanVienDAO().Update_NhanVien(nv);
 
                         if (result_nv)
                         {
-                            MessageBox.Show($"Xóa chuyển công tác nhân viên \"{HoTen}\" thành công");
+                            MessageBox.Show($"Sửa đổi chuyển công tác nhân viên \"{HoTen}\" thành công");
                             GetList_ChuyenCongTac_NhanVien();
                             GetList_NhanVien();
                             EmptyField();
                         }
                         else
                         {
-                            MessageBox.Show($"Xóa chuyển công tác nhân viên \"{HoTen}\" không thành công");
+                            MessageBox.Show($"Sửa đổi chuyển công tác nhân viên \"{HoTen}\" không thành công");
                         }
                     }
                     else
                     {
-                        MessageBox.Show($"Xóa chuyển công tác nhân viên \"{HoTen}\" không thành công");
-
-                    }
-                }
-                else
-                {
-                    MessageBox.Show($"Xóa chuyển công tác nhân viên \"{HoTen}\" không thành công");
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void Update_DieuDongCongtac()
-        {
-            try
-            {
-                var cct = new ChuyenCongTac()
-                {
-                    soQuyetDinh = SoQuyetDinh,
-                    ngayQuyetDinh = NgayQuyetDinh,
-                    thoiGianThiHanh = ThoiGianThiHanh,
-                };
-
-                var cct_nv = new ChuyenCongTac_NhanVien()
-                {
-                    soQuyetDinh = SoQuyetDinh,
-                    maNhanVien = MaNhanVien,
-                    chucVuCu = MaChucVuCu,
-                    chucVuMoi = MaChucVuMoi,
-                    phongBanCu = MaPhongCu,
-                    phongBanMoi = MaPhongMoi,
-                };
-
-                var result_cct = new ChuyenCongTacDAO().Update_ChuyenCongtac(cct);
-                var result_cct_nv = new ChuyenCongTac_NhanVienDAO().Update_ChuyenCongTacNhanVien(cct_nv);
-
-                if (result_cct && result_cct_nv)
-                {
-
-                    var nv = new NhanVienDAO().Get_NhanVien_By_MaNhanVien(MaNhanVien);
-                    nv.maChucVu = MaChucVuMoi;
-                    nv.maPhong = MaPhongMoi;
-
-                    var result_nv = new NhanVienDAO().Update_NhanVien(nv);
-
-                    if (result_nv)
-                    {
-                        MessageBox.Show($"Sửa đổi chuyển công tác nhân viên \"{HoTen}\" thành công");
-                        GetList_ChuyenCongTac_NhanVien();
-                        GetList_NhanVien();
-                        EmptyField();
-                    }
-                    else
-                    {
                         MessageBox.Show($"Sửa đổi chuyển công tác nhân viên \"{HoTen}\" không thành công");
+
                     }
+
+
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show($"Sửa đổi chuyển công tác nhân viên \"{HoTen}\" không thành công");
-
+                    MessageBox.Show(ex.Message);
                 }
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
         }
 

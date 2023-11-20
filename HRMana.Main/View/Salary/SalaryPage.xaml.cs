@@ -24,5 +24,18 @@ namespace HRMana.Main.View.Salary
         {
             InitializeComponent();
         }
+
+        private void Format_Salary_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+
+            if (tb.Text.Length > 0)
+            {
+                double value = 0;
+                double.TryParse(tb.Text, out value);
+                tb.Text = value.ToString("N0");
+                tb.CaretIndex = tb.Text.Length;
+            }
+        }
     }
 }

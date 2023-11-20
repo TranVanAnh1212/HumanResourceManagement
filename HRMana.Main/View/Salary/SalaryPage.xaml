@@ -5,63 +5,105 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HRMana.Main.View.Salary"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:uc="clr-namespace:HRMana.Main.UserControls"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       Style="{StaticResource Sizewindow}"
+      DataContext="{StaticResource salaryVM}"
+      Name="salaryPage"
       Title="SalaryPage">
 
-    <Grid>
-        <TextBlock Text="Lương" Margin="10,10,10,9.998" FontSize="22" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Padding="0,10" HorizontalAlignment="Center" VerticalAlignment="Top"></TextBlock>
-        <Grid>
-            <TextBlock Text="Bậc lương" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="92,0,0,549"></TextBlock>
-            <TextBlock Text="Lương cơ bản" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="92,0,0,497"></TextBlock>
-            <TextBox Width="336" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="207,0,0,540"></TextBox>
-            <TextBox Width="336" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="207,0,0,488"/>
-            <ListView Margin="634,82,34,69">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Bậc lương" Width="200"></GridViewColumn>
-                        <GridViewColumn Header="Lương cơ bản" Width="400"></GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <Button Content="Thêm" Width="100" Margin="170,220,1030,398"/>
-            <Button Content="Sửa" Width="100" Margin="341,220,859,398"/>
-            <Button Content="Xóa" Width="100" Margin="170,287,1030,331"/>
-            <Button Content="Hủy" Width="100" Margin="341,287,859,331"/>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadWindowCommand}" CommandParameter="{Binding ElementName=salaryPage}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
-            <Grid Margin="654,591,0,10" RenderTransformOrigin="0.5,0.5">
-                <Grid.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="0.004"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Grid.RenderTransform>
-                <Button Margin="7,8,582,7" Width="55" Command="{Binding BackToTopCommand}">
-                    <Button.Content>
-                        <materialDesign:PackIcon FontSize="18" Kind="SkipBackward" />
-                    </Button.Content>
-                </Button>
-                <Button  Width="55" Margin="77,8,512,7" Command="{Binding ReducePageCommand}">
-                    <Button.Content>
-                        <materialDesign:PackIcon FontSize="18" Kind="ArrowLeftBold" />
-                    </Button.Content>
-                </Button>
-                <Button  Width="55" Margin="247,8,342,7" Command="{Binding IncreasePageCommand}">
-                    <Button.Content>
-                        <materialDesign:PackIcon FontSize="18" Kind="ArrowRightBold" />
-                    </Button.Content>
-                </Button>
-                <Button  Width="55" Margin="317,8,272,7" Command="{Binding GoToEndCommand}">
-                    <Button.Content>
-                        <materialDesign:PackIcon FontSize="18" Kind="SkipForward" />
-                    </Button.Content>
-                </Button>
-                <TextBox HorizontalAlignment="Left" Height="29" Margin="144,11,0,0" TextWrapping="Wrap" Text="{Binding Page}" VerticalAlignment="Top" Width="35" TextAlignment="Center"/>
-                <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="29" Margin="198,11,0,0" TextWrapping="Wrap" Text="{Binding TotalPage}" VerticalAlignment="Top" Width="35" TextAlignment="Center"/>
-                <TextBlock HorizontalAlignment="Left" Height="25" Margin="179,13,0,0" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="19" TextAlignment="Center"/>
-            </Grid>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <uc:LableTopUserControl Title="Danh mục bậc lương"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Header="Thông tin" Margin="10">
+                <Grid>
+                    <TextBlock Text="Bậc lương" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="115,82,0,0"></TextBlock>
+                    <TextBox Width="336" Text="{Binding HeSoLuong}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="230,82,0,0"></TextBox>
+                    <TextBlock Text="Lương cơ bản" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="115,141,0,0"></TextBlock>
+                    <TextBox Width="336" Text="{Binding LuongCoBan}" TextChanged="Format_Salary_TextChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="230,141,0,0"/>
+                    <Button Command="{Binding Create_BacLuongCommand}" Content="Thêm mới" HorizontalAlignment="Left" Margin="146,230,0,0" VerticalAlignment="Top" Width="100"/>
+                    <Button Command="{Binding CancelCommand}" Content="Hủy" HorizontalAlignment="Left" Margin="331,230,0,0" VerticalAlignment="Top" Width="100"/>
+                    <Button Command="{Binding Update_BacLuongCommand}" Content="Cập nhật" HorizontalAlignment="Left" Margin="146,305,0,0" VerticalAlignment="Top" Width="100"/>
+                    <Button Command="{Binding Delete_BacLuongCommand}" Content="Xóa" HorizontalAlignment="Left" Margin="331,305,0,0" VerticalAlignment="Top" Width="100"/>
+
+
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Danh sách bậc lương" Margin="10" Grid.Column="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ListView ItemsSource="{Binding DsBacLuong}" SelectedItem="{Binding SelectedBacLuong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Bậc lương" DisplayMemberBinding="{Binding heSoLuong}" Width="200"></GridViewColumn>
+                                <GridViewColumn Header="Lương cơ bản" DisplayMemberBinding="{Binding luongCoBan, StringFormat={}{0:N0}, ConverterCulture='vi-VN'}" Width="400"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <Grid Grid.Row="1" Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="1">
+                            <Button Margin="5, 5, 20, 5" Command="{Binding BackToStartCommand}" Width="55">
+                                <Button.Content>
+                                    <materialDesign:PackIcon FontSize="18" Kind="SkipBackward" />
+                                </Button.Content>
+                            </Button>
+                            <Button Margin="5, 5, 20, 5" Command="{Binding ReducePageCommand}" Width="55" >
+                                <Button.Content>
+                                    <materialDesign:PackIcon FontSize="18" Kind="ArrowLeftBold" />
+                                </Button.Content>
+                            </Button>
+
+                            <StackPanel Margin="5, 5, 20, 5" Orientation="Horizontal" >
+                                <TextBox HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" Text="{Binding Page}" VerticalAlignment="Top" Width="36" TextAlignment="Center"/>
+                                <TextBlock Height="24"  TextWrapping="Wrap" Text="/" Width="24" TextAlignment="Center"/>
+                                <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="30" TextWrapping="Wrap" Text="{Binding TotalPage}" VerticalAlignment="Top" Width="36" TextAlignment="Center"/>
+                            </StackPanel>
+
+                            <Button Margin="5, 5, 20, 5" Command="{Binding IncreasePageCommand}" Width="55">
+                                <Button.Content>
+                                    <materialDesign:PackIcon FontSize="18" Kind="ArrowRightBold" />
+                                </Button.Content>
+                            </Button>
+                            <Button Margin="5, 5, 20, 5" Command="{Binding GoToEndCommand}" Width="55">
+                                <Button.Content>
+                                    <materialDesign:PackIcon FontSize="18" Kind="SkipForward" />
+                                </Button.Content>
+                            </Button>
+
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </GroupBox>
         </Grid>
+
     </Grid>
 </Page>

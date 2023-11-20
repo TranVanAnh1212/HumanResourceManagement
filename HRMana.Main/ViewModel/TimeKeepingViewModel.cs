@@ -1,4 +1,5 @@
 ﻿using HRMana.Common.Commons;
+using HRMana.Main.View.Dialog;
 using HRMana.Model.DAO;
 using HRMana.Model.EF;
 using System;
@@ -33,12 +34,22 @@ namespace HRMana.Main.ViewModel
         private ObservableCollection<NhanVien> _dsNhanVien;
         private NhanVien _selectedNhanVien;
         private string _tnv_Search;
+        private string _permission_ADD;
+        private string _permission_VIEW;
+        private string _permission_EDIT;
+        private string _permission_DEL;
 
         public ICommand LoadWindowCommand { get; set; }
         public ICommand Create_ChamCongCommand { get; set; }
         public ICommand Update_ChamCongCommand { get; set; }
         public ICommand Delete_ChamCongCommand { get; set; }
         public ICommand CancelCommand { get; set; }
+
+        public string Permission_ADD { get => _permission_ADD; set { _permission_ADD = value; OnPropertyChanged(); } }
+        public string Permission_VIEW { get => _permission_VIEW; set { _permission_VIEW = value; OnPropertyChanged(); } }
+        public string Permission_EDIT { get => _permission_EDIT; set { _permission_EDIT = value; OnPropertyChanged(); } }
+        public string Permission_DEL { get => _permission_DEL; set { _permission_DEL = value; OnPropertyChanged(); } }
+
 
         public ObservableCollection<NhanVien> DsNhanVien { get => _dsNhanVien; set { _dsNhanVien = value; OnPropertyChanged(); } }
         public NhanVien SelectedNhanVien
@@ -65,7 +76,24 @@ namespace HRMana.Main.ViewModel
         public decimal HeSoLuong { get => _heSoLuong; set { _heSoLuong = value; OnPropertyChanged(); } }
         public string LuongCoBan { get => _luongCoBan; set { _luongCoBan = value; OnPropertyChanged(); } }
         public int SoNgayCong { get => _soNgayCong; set { _soNgayCong = value; OnPropertyChanged(); } }
-        public string UngTruoc { get => _ungTruoc; set { _ungTruoc = value; OnPropertyChanged(); } }
+        public string UngTruoc
+        {
+            get => _ungTruoc;
+            set
+            {
+                _ungTruoc = value;
+                OnPropertyChanged();
+
+                if (!string.IsNullOrEmpty(value))
+                {
+                    var lcb = StringHelper.ConvertSalary(LuongCoBan);
+                    var ut = StringHelper.ConvertSalary(value);
+                    var cl = lcb - ut;
+
+                    ConLai = cl.ToString();
+                }
+            }
+        }
         public string ConLai { get => _conLai; set { _conLai = value; OnPropertyChanged(); } }
         public int SoNghiPhep { get => _soNghiPhep; set { _soNghiPhep = value; OnPropertyChanged(); } }
         public int SoNgayTangCa { get => _soNgayTangCa; set { _soNgayTangCa = value; OnPropertyChanged(); } }
@@ -126,6 +154,29 @@ namespace HRMana.Main.ViewModel
                         {
                             GetList_NhanVien();
                             GetList_BacLuong();
+
+                            // Xét quyền của tài khoản
+                            var permissions = new Dictionary<string, string>
+                            {
+                                { "VIEW", CommonConstant.Visibility_Visible },
+                                { "ADD", CommonConstant.Visibility_Collapsed },
+                                { "EDIT", CommonConstant.Visibility_Collapsed },
+                                { "DEL", CommonConstant.Visibility_Collapsed },
+                            };
+                            var checkPermission = CommonConstant.DsQuyenCuaTKDN;
+                            foreach (var i in checkPermission)
+                            {
+                                if (permissions.ContainsKey(i.Chitiet_Quyen.mahanhDong))
+                                {
+                                    permissions[i.Chitiet_Quyen.mahanhDong] = CommonConstant.Visibility_Visible;
+                                }
+                            }
+
+                            // Gán giá trị từ dictionary vào các biến
+                            Permission_ADD = permissions["ADD"];
+                            Permission_EDIT = permissions["EDIT"];
+                            Permission_DEL = permissions["DEL"];
+                            Permission_VIEW = permissions["VIEW"];
                         }));
                     });
                     GetData_Thread.IsBackground = true;
@@ -195,61 +246,73 @@ namespace HRMana.Main.ViewModel
 
         private void Delete_ChamCong()
         {
-            try
-            {
-                var result = new ChamCongDAO().Delete_ChamCong(MaChamCong);
+            DialogWindow d = new DialogWindow();
+            d.DialogMessage = "Bạn có chắc muốn xóa?";
 
-                if (result)
+            if (true == d.ShowDialog())
+            {
+                try
                 {
-                    MessageBox.Show("Xóa chấm công thành công!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Information);
-                    EmptyField();
+                    var result = new ChamCongDAO().Delete_ChamCong(MaChamCong);
+
+                    if (result)
+                    {
+                        MessageBox.Show("Xóa chấm công thành công!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        EmptyField();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Đã xảy ra lỗi!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
-                else
+                catch
                 {
                     MessageBox.Show("Đã xảy ra lỗi!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Đã xảy ra lỗi!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
 
+                }
             }
         }
 
         private void Update_ChamCong()
         {
-            try
+            DialogWindow d = new DialogWindow();
+            d.DialogMessage = "Bạn có chắc muốn cập nhật?";
+
+            if (true == d.ShowDialog())
             {
-                var cc = new ChamCong()
+                try
                 {
-                    maChamCong = MaChamCong,
-                    maNhanVien = MaNhanVien,
-                    heSoLuong = SelectedBacLuong.heSoLuong,
-                    SoNgayCong = SoNgayCong,
-                    soNgayTangCa = SoNgayTangCa,
-                    ungTruocLuong = StringHelper.ConvertSalary(UngTruoc),
-                    conLai = StringHelper.ConvertSalary(ConLai),
-                    nghiPhep = SoNghiPhep,
-                    luongTangCa = StringHelper.ConvertSalary(LuongTangCa),
-                    phuCapCongViec = StringHelper.ConvertSalary(PhuCapCongViec),
-                };
+                    var cc = new ChamCong()
+                    {
+                        maChamCong = MaChamCong,
+                        maNhanVien = MaNhanVien,
+                        heSoLuong = SelectedBacLuong.heSoLuong,
+                        SoNgayCong = SoNgayCong,
+                        soNgayTangCa = SoNgayTangCa,
+                        ungTruocLuong = StringHelper.ConvertSalary(UngTruoc),
+                        conLai = StringHelper.ConvertSalary(ConLai),
+                        nghiPhep = SoNghiPhep,
+                        luongTangCa = StringHelper.ConvertSalary(LuongTangCa),
+                        phuCapCongViec = StringHelper.ConvertSalary(PhuCapCongViec),
+                    };
 
-                var result = new ChamCongDAO().Update_ChamCong(cc);
+                    var result = new ChamCongDAO().Update_ChamCong(cc);
 
-                if (result)
-                {
-                    MessageBox.Show("Cập nhật chấm công thành công!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Information);
-                    EmptyField();
+                    if (result)
+                    {
+                        MessageBox.Show("Cập nhật chấm công thành công!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        EmptyField();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Đã xảy ra lỗi!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
-                else
+                catch
                 {
                     MessageBox.Show("Đã xảy ra lỗi!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Đã xảy ra lỗi!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
 
+                }
             }
         }
 

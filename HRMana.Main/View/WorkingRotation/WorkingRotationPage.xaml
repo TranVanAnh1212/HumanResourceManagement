@@ -95,9 +95,9 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Margin="10">
-                        <Button Content="Thêm" Command="{Binding Create_DieuDongCongtacCommand}" HorizontalAlignment="Left" Height="45" Margin="5,15,0,0" VerticalAlignment="Top" Width="104"/>
-                        <Button Content="Xóa" Command="{Binding Delete_DieuDongCongtacCommand}" HorizontalAlignment="Left" Height="45" Margin="5,15,0,0" VerticalAlignment="Top" Width="104"/>
-                        <Button Content="Sửa" Command="{Binding Update_DieuDongCongtacCommand}" HorizontalAlignment="Left" Height="45" Margin="5,15,0,0" VerticalAlignment="Top" Width="104"/>
+                        <Button Visibility="{Binding Permission_ADD}" Content="Thêm" Command="{Binding Create_DieuDongCongtacCommand}" HorizontalAlignment="Left" Height="45" Margin="5,15,0,0" VerticalAlignment="Top" Width="104"/>
+                        <Button Visibility="{Binding Permission_DEL}" Content="Xóa" Command="{Binding Delete_DieuDongCongtacCommand}" HorizontalAlignment="Left" Height="45" Margin="5,15,0,0" VerticalAlignment="Top" Width="104"/>
+                        <Button Visibility="{Binding Permission_EDIT}"  Content="Sửa" Command="{Binding Update_DieuDongCongtacCommand}" HorizontalAlignment="Left" Height="45" Margin="5,15,0,0" VerticalAlignment="Top" Width="104"/>
                         <Button Content="Hủy" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Height="45" Margin="5,15,0,0" VerticalAlignment="Top" Width="104"/>
                     </StackPanel>
 

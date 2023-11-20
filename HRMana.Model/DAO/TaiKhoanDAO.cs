@@ -22,6 +22,36 @@ namespace HRMana.Model.DAO
             return listTaiKhoan;
         }
 
+        public TaiKhoan Get_TaiKhoan_By_MaTaiKhoan(int mtk)
+        {
+            return DataProvider.Instance.DBContext.TaiKhoan.FirstOrDefault(x => x.maTaiKhoan == mtk);
+        }
+
+        public bool ChangePassword (TaiKhoan tk)
+        {
+            try
+            {
+                if (tk != null)
+                {
+                    var result = DataProvider.Instance.DBContext.TaiKhoan.FirstOrDefault(x => x.maTaiKhoan == tk.maTaiKhoan);
+
+                    if (result != null)
+                    {
+                        result.matKhau = tk.matKhau;
+                        DataProvider.Instance.DBContext.SaveChanges();
+
+                        return true;
+                    }
+                    else return false;
+                }
+                else return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public TaiKhoan Create_TaiKhoan(string tenTaiKhoan, string matKhau, int maQuyen, bool trangThai)
         {
             var taiKhoan = new TaiKhoan();

@@ -6,6 +6,78 @@ go
 use QLNhanSu
 go
 
+-- bảng quyền
+create table Quyen
+(
+	maQuyen		int		identity(1,1)	 primary key not null,
+	tenQuyen	nvarchar(100)	not null
+)
+go
+
+select * from Quyen
+select * from Chitiet_Quyen
+select * from ChitietQuyen_Quyen
+go
+
+create table ChiTietQuyen_Quyen 
+(
+	maQuyen int not null foreign key(maQuyen) references Quyen(maQuyen),
+	maChitietQuyen int not null foreign key(maChitietQuyen) references Chitiet_Quyen(maChitietQuyen),
+	moTa	nvarchar(255),
+	primary key (maQuyen, maChitietQuyen)
+)
+
+insert into ChiTietQuyen_Quyen values 
+( 1, 1, N'Quyền được thêm mới'),
+( 1, 2, N'Quyền được xoa'),
+( 1, 3, N'Quyền được chỉnh sửa'),
+( 1, 4, N'Quyền được xem'),
+( 1, 5, N'Quyền quản lý người dùng'),
+( 2, 1, N'Quyền được thêm mới'),
+( 2, 4, N'Quyền được xem')
+
+select * from ChiTietQuyen_Quyen
+select * from TaiKhoan
+
+create table Chitiet_Quyen
+(
+	maChitietQuyen	int		identity(1,1) primary key not null,
+	tenhanhDong		nvarchar(100),
+	mahanhDong		varchar(100),
+)
+
+--SELECT CONSTRAINT_NAME
+--FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+--WHERE TABLE_NAME = 'Chitiet_Quyen' AND COLUMN_NAME = 'maQuyen';
+
+--alter table Chitiet_Quyen
+--drop constraint FK__Chitiet_Q__maQuy__54CB950F
+
+--alter table ChiTiet_Quyen
+--drop column maQuyen
+
+insert into ChiTiet_Quyen values
+(N'Thêm', 'ADD'),
+(N'Xóa', 'DEL'),
+(N'Sửa', 'EDIT'),
+(N'Xem', 'VIEW'),
+(N'Quản lý người dùng', 'MUSER')
+
+select * from Chitiet_Quyen
+
+-- bảng tài khoản
+create table TaiKhoan
+(
+	maTaiKhoan	int		identity(1,1) primary key not null,
+	tenTaiKhoan	varchar(255) not null,
+	matKhau		varchar(255) not null,
+	maQuyen		int		foreign key (maQuyen) references Quyen(maQuyen) not null,
+	trangThai	bit not null,
+)
+go
+
+select * from TaiKhoan
+go
 
 CREATE TABLE TonGiao
 (
@@ -13,6 +85,9 @@ CREATE TABLE TonGiao
 	tenTonGiao	nvarchar(255)		not null
 )
 go
+
+delete from TonGiao
+where maTonGiao = 17
 
 select * from TonGiao
 go
@@ -63,63 +138,6 @@ go
 select * from ChucVu
 go
 
--- bảng quyền
-create table Quyen
-(
-	maQuyen		int		identity(1,1)	 primary key not null,
-	tenQuyen	nvarchar(100)	not null
-)
-go
-
-select * from Quyen
-select * from Chitiet_Quyen
-go
-
-create table ChiTietQuyen_Quyen 
-(
-	maQuyen int not null foreign key(maQuyen) references Quyen(maQuyen),
-	maChitietQuyen int not null foreign key(maChitietQuyen) references Chitiet_Quyen(maChitietQuyen),
-	moTa	nvarchar(255),
-	primary key (maQuyen, maChitietQuyen)
-)
-
-insert into ChiTietQuyen_Quyen values 
-( 1, 1, N'Quyền được thêm mới'),
-( 1, 2, N'Quyền được xoa'),
-( 1, 3, N'Quyền được chỉnh sửa'),
-( 1, 4, N'Quyền được xem'),
-( 1, 5, N'Quyền quản lý người dùng'),
-( 2, 1, N'Quyền được thêm mới'),
-( 2, 4, N'Quyền được xem')
-
-select * from ChiTietQuyen_Quyen
-
-create table Chitiet_Quyen
-(
-	maChitietQuyen	int		identity(1,1) primary key not null,
-	tenhanhDong		nvarchar(100),
-	mahanhDong		varchar(100),
-)
-
---SELECT CONSTRAINT_NAME
---FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
---WHERE TABLE_NAME = 'Chitiet_Quyen' AND COLUMN_NAME = 'maQuyen';
-
---alter table Chitiet_Quyen
---drop constraint FK__Chitiet_Q__maQuy__54CB950F
-
---alter table ChiTiet_Quyen
---drop column maQuyen
-
-insert into ChiTiet_Quyen values
-(N'Thêm', 'ADD'),
-(N'Xóa', 'DEL'),
-(N'Sửa', 'EDIT'),
-(N'Xem', 'VIEW'),
-(N'Quản lý người dùng', 'MUSER')
-
-select * from Chitiet_Quyen
-
 -- bảng phòng ban
 create table PhongBan
 (
@@ -157,21 +175,22 @@ create table HoSo
 	hinhThucThanhToanLuong nvarchar(100)  not null,
 	soTkNganHang	varchar(50)  not null,
 	nganHang		nvarchar(100)  not null,
-	tinhTrangHonNhan nvarchar(100)  not null,
 	maSoThue		char(100)  not null,
 	maSoBHXH		char(100)  not null,
-	ngayBatDauLamViec Date,
-	kinhNghiemLamViec ntext,
-	thoiGian		Date,
 )
 go
 
+alter table HoSo
+drop column ngayBatDauLamViec
+
 insert into HoSo values 
-(N'Đủ', N'Đủ',N'Đủ',N'Đủ',N'Đủ',N'Đủ',N'Hoàn tất', N'Qua thẻ ngân hàng', '231312312', 'VietComBank', N'Chưa kết hôn', '23132131', '3123313', '12-06-2022', '', ''),
-(N'Đủ', N'Đủ',N'Đủ',N'Còn thiếu',N'Đủ',N'Đủ',N'Hoàn tất', N'Qua thẻ ngân hàng', '231312312', 'VietComBank', N'Chưa kết hôn', '23132131', '3123313', '12-06-2022', '', '')
+(N'Đủ', N'Đủ',N'Đủ',N'Đủ',N'Đủ',N'Đủ',N'Hoàn tất', N'Qua thẻ ngân hàng', '231312312', 'VietComBank', '23132131', '3123313', '12-06-2022'),
+(N'Đủ', N'Đủ',N'Đủ',N'Còn thiếu',N'Đủ',N'Đủ',N'Hoàn tất', N'Qua thẻ ngân hàng', '231312312', 'VietComBank', '23132131', '3123313', '12-06-2022')
 go
 select * from HoSo
 go
+
+select * from NhanVien
 
 
 -- bảng chuyển công tác
@@ -220,27 +239,12 @@ select * from NhanVien
 select * from ChucVu
 select * from PhongBan
 
--- bảng tài khoản
-create table TaiKhoan
-(
-	maTaiKhoan	int		identity(1,1) primary key not null,
-	tenTaiKhoan	varchar(255) not null,
-	matKhau		varchar(255) not null,
-	maQuyen		int		foreign key (maQuyen) references Quyen(maQuyen) not null,
-	trangThai	bit not null,
-)
-go
-
-select * from TaiKhoan
-go
-
-
 -- bảng chấm công
 create table ChamCong
 (
 	maChamCong		int identity(1, 1) primary key not null,
 	maNhanVien		int	foreign key (maNhanVien) references NhanVien(maNhanVien) not null,
-	heSoLuong		numeric foreign key(heSoLuong) references BacLuong(heSoLuong) not null,
+	heSoLuong		DECIMAL(5, 2) foreign key(heSoLuong) references BacLuong(heSoLuong) not null,
 	SoNgayCong		int,
 	ungTruocLuong	decimal,
 	conLai			decimal,
@@ -260,12 +264,22 @@ go
 -- bảng lương
 create table BacLuong
 (
-	heSoLuong	numeric		primary key	not null,
+	heSoLuong	DECIMAL(5, 2)		primary key	not null,
 	luongCoBan	decimal		not null
 )
 
+INSERT INTO BacLuong VALUES 
+(2.2, 4500000),
+(2.4, 5500000),
+(2.6, 7500000),
+(2.8, 10500000),
+(2.9, 12000000),
+(3.0, 15000000),
+(3.4, 20000000)
+
 select * from BacLuong
 go
+
 
 --Drop table ChamCong
 --drop table BacLuong

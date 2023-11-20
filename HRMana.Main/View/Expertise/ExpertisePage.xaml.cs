@@ -24,5 +24,17 @@ namespace HRMana.Main.View.Expertise
         {
             InitializeComponent();
         }
+
+        private void UpperCaseFirstChar(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            string value = textBox.Text;
+
+            if (!string.IsNullOrEmpty(value))
+            {
+                textBox.Text = char.ToUpper(value[0]) + value.Substring(1);
+                textBox.CaretIndex = textBox.Text.Length;
+            }
+        }
     }
 }
