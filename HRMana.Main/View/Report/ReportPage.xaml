@@ -1,0 +1,240 @@
+﻿<Page x:Class="HRMana.Main.View.Report.ReportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HRMana.Main.View.Report"
+      xmlns:uc="clr-namespace:HRMana.Main.UserControls"
+      mc:Ignorable="d" 
+      Style="{StaticResource Sizewindow}"
+      DataContext="{StaticResource reportVM}"
+      Title="ReportPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <uc:LableTopUserControl Title="Báo cáo"/>
+
+        <materialDesign:Card Grid.Row="1">
+            <TabControl materialDesign:NavigationRailAssist.ShowSelectionBackground="True"
+                SnapsToDevicePixels="True"
+                Style="{StaticResource MaterialDesignNavigationRailTabControl}"
+                TabStripPlacement="Left">
+                <TabItem Width="130">
+                    <TabItem.Header>
+                        <StackPanel Width="auto" Height="auto">
+                            <materialDesign:PackIcon Width="24" Height="24" HorizontalAlignment="Center" Kind="ClockOutline" />
+                            <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Text="Báo cáo đăng nhập" TextAlignment="Center" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid Margin="16">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel>
+                            <TextBlock Text="Cộng hòa xã hội chủ nghĩa Việt Nam" FontSize="24" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock Text="Độc lập - tự do - hạnh phúc" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock Text="------------------" FontSize="30" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock FontSize="20" FontWeight="DemiBold" Padding="0, 0, 100, 0" TextAlignment="Right">
+                                <Run Text="...,"/>
+                                <Run Text="Ngày"/>
+                                <Run Text="{Binding NgayBC}"/>
+                                <Run Text="Tháng"/>
+                                <Run Text="{Binding ThangBC}"/>
+                                <Run Text="Năm"/>
+                                <Run Text="{Binding NamBC}"/>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <Grid Grid.Row="1">
+
+                            <Label Content="Tên nhân viên" HorizontalAlignment="Left" Margin="47,101,0,0" VerticalAlignment="Top"/>
+                            <TextBox Text="{Binding TenNV}" HorizontalAlignment="Left" Margin="159,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+                            <Label Content="Chức vụ" HorizontalAlignment="Left" Margin="432,100,0,0" VerticalAlignment="Top"/>
+                            <TextBox Text="{Binding ChucVu}" HorizontalAlignment="Left" Margin="495,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+                            <Label Content="Phòng ban" HorizontalAlignment="Left" Margin="766,101,0,0" VerticalAlignment="Top"/>
+                            <TextBox Text="{Binding PhongBan}" HorizontalAlignment="Left" Margin="859,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+                            <DatePicker SelectedDate="{Binding FromDate}" HorizontalAlignment="Left" Margin="190,220,0,0" VerticalAlignment="Top" Width="170"/>
+                            <Label Content="Xuất báo cáo" FontWeight="Bold" HorizontalAlignment="Left" Margin="44,186,0,0" VerticalAlignment="Top" Width="106"/>
+                            <Label Content="Thời gian từ" HorizontalAlignment="Left" Margin="77,221,0,0" VerticalAlignment="Top"/>
+                            <DatePicker SelectedDate="{Binding ToDate}" HorizontalAlignment="Left" Margin="461,220,0,0" VerticalAlignment="Top" Width="170"/>
+                            <Label Content="Đến" HorizontalAlignment="Left" Margin="398,221,0,0" VerticalAlignment="Top"/>
+                            <TextBlock FontSize="33" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,28,0,0" TextWrapping="Wrap" Text="Báo cáo tài khoản đăng nhập" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="47,149,0,0" TextWrapping="Wrap" Text="Thời gian thực hiện" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="185,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
+                                <Run Text="Tháng"/>
+                                <Run Text="{Binding ThangBC}"/>
+                                <Run Text="Năm"/>
+                                <Run Text="{Binding NamBC}"/>
+                            </TextBlock>
+                        </Grid>
+
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="2">
+                            <Button Command="{Binding Export_BaoCaoDangNhap_ReportWord}" Margin="10" HorizontalAlignment="Left">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Width="30" Height="20"  Kind="MicrosoftExcel" />
+                                        <TextBlock Text="Xuất báo cáo bản excel"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{Binding Export_BaoCaoDangNhap_ReportExcel}" Margin="10" HorizontalAlignment="Left">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Width="30" Height="20"  Kind="MicrosoftExcel" />
+                                        <TextBlock Text="Xuất báo cáo bản excel"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Width="130">
+                    <TabItem.Header>
+                        <StackPanel Width="auto" Height="auto">
+                            <materialDesign:PackIcon Width="24" Height="24" HorizontalAlignment="Center" Kind="AccountGroup" />
+                            <TextBlock Margin="5, 0, 5, 0" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" Text="Báo cáo danh sách nhân viên" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid Margin="16">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel>
+                            <TextBlock Text="Cộng hòa xã hội chủ nghĩa Việt Nam" FontSize="24" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock Text="Độc lập - tự do - hạnh phúc" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock Text="------------------" FontSize="30" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock FontSize="20" FontWeight="DemiBold" Padding="0, 0, 100, 0" TextAlignment="Right">
+                                    <Run Text="...,"/>
+                                    <Run Text="Ngày"/>
+                                    <Run Text="{Binding NgayBC}"/>
+                                    <Run Text="Tháng"/>
+                                    <Run Text="{Binding ThangBC}"/>
+                                    <Run Text="Năm"/>
+                                    <Run Text="{Binding NamBC}"/>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <Grid Grid.Row="1">
+
+                            <Label Content="Tên nhân viên" HorizontalAlignment="Left" Margin="47,101,0,0" VerticalAlignment="Top"/>
+                            <TextBox Text="{Binding TenNV}" HorizontalAlignment="Left" Margin="159,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+                            <Label Content="Chức vụ" HorizontalAlignment="Left" Margin="432,100,0,0" VerticalAlignment="Top"/>
+                            <TextBox Text="{Binding ChucVu}" HorizontalAlignment="Left" Margin="495,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+                            <Label Content="Phòng ban" HorizontalAlignment="Left" Margin="766,101,0,0" VerticalAlignment="Top"/>
+                            <TextBox Text="{Binding PhongBan}" HorizontalAlignment="Left" Margin="859,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+                            <TextBlock FontSize="33" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,28,0,0" TextWrapping="Wrap" Text="Báo cáo danh sách nhân viên" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="47,149,0,0" TextWrapping="Wrap" Text="Thời gian thực hiện" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="185,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
+                                    <Run Text="Tháng"/>
+                                    <Run Text="{Binding ThangBC}"/>
+                                    <Run Text="Năm"/>
+                                    <Run Text="{Binding NamBC}"/>
+                            </TextBlock>
+                        </Grid>
+
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="2">
+                            <Button Command="{Binding Export_DsNhanVien_ReportWord}" Margin="10" HorizontalAlignment="Left">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Width="30" Height="20" Kind="FileWordBox" />
+                                        <TextBlock Text="Xuất báo cáo bản word" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{Binding Export_DsNhanVien_ReportExcel}" Margin="10" HorizontalAlignment="Left">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Width="30" Height="20"  Kind="MicrosoftExcel" />
+                                        <TextBlock Text="Xuất báo cáo bản excel"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Width="130">
+                    <TabItem.Header>
+                        <StackPanel Width="auto" Height="auto">
+                            <materialDesign:PackIcon HorizontalAlignment="Center" Width="24" Height="24" Kind="NotebookEdit" />
+                            <TextBlock  Margin="5, 0, 5, 0" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Text="Báo cáo chấm công" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid Margin="16">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel>
+                            <TextBlock Text="Cộng hòa xã hội chủ nghĩa Việt Nam" FontSize="24" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock Text="Độc lập - tự do - hạnh phúc" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock Text="------------------" FontSize="30" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock FontSize="20" FontWeight="DemiBold" Padding="0, 0, 100, 0" TextAlignment="Right">
+                <Run Text="...,"/>
+                <Run Text="Ngày"/>
+                <Run Text="{Binding NgayBC}"/>
+                <Run Text="Tháng"/>
+                <Run Text="{Binding ThangBC}"/>
+                <Run Text="Năm"/>
+                <Run Text="{Binding NamBC}"/>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <Grid Grid.Row="1">
+
+                            <Label Content="Tên nhân viên" HorizontalAlignment="Left" Margin="47,101,0,0" VerticalAlignment="Top"/>
+                            <TextBox Text="{Binding TenNV}" HorizontalAlignment="Left" Margin="159,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+                            <Label Content="Chức vụ" HorizontalAlignment="Left" Margin="432,100,0,0" VerticalAlignment="Top"/>
+                            <TextBox Text="{Binding ChucVu}" HorizontalAlignment="Left" Margin="495,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+                            <Label Content="Phòng ban" HorizontalAlignment="Left" Margin="766,101,0,0" VerticalAlignment="Top"/>
+                            <TextBox Text="{Binding PhongBan}" HorizontalAlignment="Left" Margin="859,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+                            <TextBlock FontSize="33" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,28,0,0" TextWrapping="Wrap" Text="Báo cáo chấm công" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="47,149,0,0" TextWrapping="Wrap" Text="Thời gian thực hiện" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="185,149,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
+                                    <Run Text="Tháng"/>
+                                    <Run Text="{Binding ThangBC}"/>
+                                    <Run Text="Năm"/>
+                                    <Run Text="{Binding NamBC}"/>
+                            </TextBlock>
+                        </Grid>
+
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="2">
+                            <Button Command="{Binding Export_ChamCong_ReportWord}" Margin="10" HorizontalAlignment="Left">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Width="30" Height="20" Kind="FileWordBox" />
+                                        <TextBlock Text="Xuất báo cáo bản word" TextWrapping="Wrap" VerticalAlignment="Stretch"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                            <Button Command="{Binding Export_ChamCong_ReportExcel}" Margin="10" HorizontalAlignment="Left">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Width="30" Height="20"  Kind="MicrosoftExcel" />
+                                        <TextBlock Text="Xuất báo cáo bản excel"/>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+            </TabControl>
+        </materialDesign:Card>
+    </Grid>
+</Page>

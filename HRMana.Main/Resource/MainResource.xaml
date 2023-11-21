@@ -4,5 +4,22 @@
     <vm:ControlBarViewModel x:Key="ctrlBarVM"></vm:ControlBarViewModel>
     <vm:LoginViewModel x:Key="loginVM"></vm:LoginViewModel>
     <vm:MainViewModel x:Key="mainVM"></vm:MainViewModel>
-    
+    <vm:AccountViewModel x:Key="taiKhoanVM"></vm:AccountViewModel>
+    <vm:PositionViewModel x:Key="positionVM"></vm:PositionViewModel>
+    <vm:PersonnelViewModel x:Key="personnelVM"></vm:PersonnelViewModel>
+    <vm:PersonnelDetailsViewModel x:Key="personnelDetailVM"></vm:PersonnelDetailsViewModel>
+    <vm:CreatePersonnelViewModel x:Key="createPersonnelVM"></vm:CreatePersonnelViewModel>
+    <vm:WorkingRotationViewModel x:Key="workingRotationVM"></vm:WorkingRotationViewModel>
+    <vm:DepartmentViewModel x:Key="departmentVM"></vm:DepartmentViewModel>
+    <vm:ContractViewModel x:Key="contractVM"></vm:ContractViewModel>
+    <vm:TimeKeepingViewModel x:Key="timKeepingVM"></vm:TimeKeepingViewModel>
+    <vm:ExpertiseViewModel x:Key="expertiseVM"></vm:ExpertiseViewModel>
+    <vm:PeopleViewModel x:Key="peopleVM"></vm:PeopleViewModel>
+    <vm:QualificationViewModel x:Key="quantificationVM"></vm:QualificationViewModel>
+    <vm:ReligionViewModel x:Key="religionViewModel"></vm:ReligionViewModel>
+    <vm:SalaryViewModel x:Key="salaryVM"></vm:SalaryViewModel>
+    <vm:SearchViewModel x:Key="searchVM"></vm:SearchViewModel>
+    <vm:ChangePasswordViewModel x:Key="changePassVM"></vm:ChangePasswordViewModel>
+    <vm:ProfileEmployeeViewModel x:Key="profileVM"></vm:ProfileEmployeeViewModel>
+    <vm:ReportViewModel x:Key="reportVM"></vm:ReportViewModel>
 </ResourceDictionary>

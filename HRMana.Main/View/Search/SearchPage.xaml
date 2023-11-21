@@ -1,0 +1,77 @@
+﻿<Page x:Class="HRMana.Main.View.Search.SearchPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:uc="clr-namespace:HRMana.Main.UserControls"
+      xmlns:local="clr-namespace:HRMana.Main.View.Search"
+      mc:Ignorable="d" 
+      Name="searchPage"
+      DataContext="{StaticResource searchVM}"
+      Title="SearchPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <uc:LableTopUserControl Title="TÌM KIẾM NHÂN VIÊN"/>
+
+        <!--hien thi thong tin can nhan vien can tim-->
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <TextBox Text="{Binding MaNhanVien}" HorizontalAlignment="Left" Margin="282,36,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="268" Height="28"/>
+                <TextBox Text="{Binding HoTen}" TextChanged="UpperCaseFirstChar" HorizontalAlignment="Left" Margin="282,82,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="268"  Height="28"/>
+                <TextBlock Text="Họ và tên" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="185,91,0,0"/>
+                <TextBlock Text="Mã nhân viên" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="161,41,0,0"/>
+                <Button Command="{Binding SearchCommand}" x:Name="btn_Search" CommandParameter="{Binding ElementName=btn_Search}" Width="120" Margin="430,147,100,10" VerticalAlignment="Top">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Magnify" />
+                            <TextBlock Text="Tìm kiếm"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </Grid>
+
+            <Grid Grid.Column="1" >
+                <TextBox Text="{Binding QueQuan}" TextChanged="UpperCaseFirstChar" HorizontalAlignment="Left" Margin="122,32,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="268"/>
+                <TextBlock Text="Quê quán" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="23,36,0,0"/>
+                <Button Command="{Binding CancelCommand}" Margin="65,147,455,0" VerticalAlignment="Top" Width="120" >
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="CloseThick" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                            <TextBlock Text="Hủy"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="10" >
+            <ListView ItemsSource="{Binding DsSearchResult}" SelectedItem="{Binding SelectedSearchResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Mã NV" DisplayMemberBinding="{Binding MaNhanVien}"/>
+                        <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding HoTen}"/>
+                        <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding NgaySinh, StringFormat={}{0: dd/MM/yyyy}}"/>
+                        <GridViewColumn Header="Giới tinh" DisplayMemberBinding="{Binding GioiTinh}"/>
+                        <GridViewColumn Header="Số CMND" DisplayMemberBinding="{Binding SoCCCD}"/>
+                        <GridViewColumn Header="Quê quán" DisplayMemberBinding="{Binding QueQuan}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+
+        </Grid>
+    </Grid>
+</Page>

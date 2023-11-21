@@ -21,6 +21,8 @@ namespace HRMana.Main
     /// </summary>
     public partial class Login : Window
     {
+        public string MessageSnackbar { get => txtbl_MessageSnackbar.Text; set => txtbl_MessageSnackbar.Text = value; }
+
         public Login()
         {
             InitializeComponent();

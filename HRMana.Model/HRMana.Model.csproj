@@ -40,9 +40,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,15 +54,129 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\BacLuongDAO.cs" />
+    <Compile Include="DAO\BaoCaoDangNhapDAO.cs" />
+    <Compile Include="DAO\ChamCongDAO.cs" />
+    <Compile Include="DAO\ChiTietQuyenDAO.cs" />
+    <Compile Include="DAO\ChucVuDAO.cs" />
+    <Compile Include="DAO\ChuyenCongTacDAO.cs" />
+    <Compile Include="DAO\ChuyenCongTac_NhanVienDAO.cs" />
+    <Compile Include="DAO\ChuyenMonDAO.cs" />
+    <Compile Include="DAO\DanTocDAO.cs" />
+    <Compile Include="DAO\DataProvider.cs" />
+    <Compile Include="DAO\HopDongDAO.cs" />
+    <Compile Include="DAO\HoSoDAO.cs" />
+    <Compile Include="DAO\LoginDAO.cs" />
+    <Compile Include="DAO\NhanVienDAO.cs" />
+    <Compile Include="DAO\PhongBanDAO.cs" />
+    <Compile Include="DAO\QuyenDAO.cs" />
+    <Compile Include="DAO\TaiKhoanDAO.cs" />
+    <Compile Include="DAO\TonGiaoDAO.cs" />
+    <Compile Include="DAO\TrinhDoDAO.cs" />
+    <Compile Include="EF\BacLuong.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\BaoCaoDangNhap.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ChamCong.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ChiTietQuyen_Quyen.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Chitiet_Quyen.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ChucVu.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ChuyenCongTac.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ChuyenCongTac_NhanVien.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ChuyenMon.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\DanToc.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\HopDong.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\HoSo.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\NhanVien.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\PhongBan.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\QLNhanVienDBContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNhanVienDBContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\QLNhanVienDBContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\QLNhanVienDBContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLNhanVienDBContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Quyen.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\sysdiagrams.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\TaiKhoan.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\TonGiao.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\TrinhDo.cs">
+      <DependentUpon>QLNhanVienDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BaoCaoChamCong_prtModel.cs" />
+    <Compile Include="Models\BaoCaoDangNhap_rptModel.cs" />
+    <Compile Include="Models\BaoCaoDsNhanVien_rptModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="EF\QLNhanVienDBContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QLNhanVienDBContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EF\QLNhanVienDBContext.edmx.diagram">
+      <DependentUpon>QLNhanVienDBContext.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="DAO\" />
-    <Folder Include="EF\" />
+    <Content Include="Database\QLNhanSu.sql" />
+    <Content Include="EF\QLNhanVienDBContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLNhanVienDBContext.edmx</DependentUpon>
+      <LastGenOutput>QLNhanVienDBContext.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EF\QLNhanVienDBContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLNhanVienDBContext.edmx</DependentUpon>
+      <LastGenOutput>QLNhanVienDBContext.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

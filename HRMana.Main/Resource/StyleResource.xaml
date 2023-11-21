@@ -1,5 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="winBorderColor1">#6D2FFF</Color>
+    <Color x:Key="winBorderColor2">#FB539B</Color>
+    <Color x:Key="winBorderColor3">#836EFB</Color>
+    
     <Style x:Key="Sizewindow" TargetType="Page">
         <Setter Property="Height" Value="650"/>
         <Setter Property="Width" Value="1300"/>

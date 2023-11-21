@@ -14,7 +14,6 @@ namespace HRMana.Common.Events
 
         // Show notify
         public event EventHandler<EventArgs> ShowNotificationRequested;
-
         public void ReqquestShowNotification ()
         {
             ShowNotificationRequested?.Invoke(this, EventArgs.Empty);
@@ -22,10 +21,15 @@ namespace HRMana.Common.Events
 
         // Hide notify
         public event EventHandler<EventArgs> HideNotificationRequested;
-
         public void ReqquestHideNotification()
         {
             ShowNotificationRequested?.Invoke(this, EventArgs.Empty);
+        }
+
+        public event EventHandler<EventArgs> ShowPageRequested;
+        public void RequestShowPage()
+        {
+            ShowPageRequested?.Invoke(this, EventArgs.Empty);
         }
     }
 }

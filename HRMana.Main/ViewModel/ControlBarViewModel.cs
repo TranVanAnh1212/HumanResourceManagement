@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HRMana.Common.Commons;
+using HRMana.Model.DAO;
+using HRMana.Model.EF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,6 +36,18 @@ namespace HRMana.Main.ViewModel
 
                     if (isWindow != null)
                     {
+                        if (CommonConstant.baoCaoDN != null)
+                        {
+                            CommonConstant.baoCaoDN.tgDangXuat = DateTime.Now;
+
+                            var bcdn = new BaoCaoDangNhap();
+                            bcdn = CommonConstant.baoCaoDN;
+
+                            new BaoCaoDangNhapDAO().Create_BaoCaoDangNhap(bcdn);
+
+                            CommonConstant.baoCaoDN = null;
+                        }
+
                         Application.Current.Shutdown();
                     }
                 }

@@ -5,11 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:HRMana.Main.View.Home"
-      mc:Ignorable="d" 
-      Style="{StaticResource Sizewindow}"
-      Title="HomePage">    
+      mc:Ignorable="d"
+      Title="HomePage">
 
     <Grid IsHitTestVisible="False">
-        <Image Source="/Assets/Images/HinhAnhCty.jpg" />
+        <Image Source="/Assets/Images/HinhAnhCty.jpg" Stretch="Fill" />
     </Grid>
 </Page>
