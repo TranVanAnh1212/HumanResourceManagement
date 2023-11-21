@@ -59,7 +59,14 @@
             <Border BorderBrush="Black" BorderThickness="2" Height="241" HorizontalAlignment="Left" Margin="25,16,0,0" Width="215" VerticalAlignment="Top">
                 <Image Source="{Binding AnhThe}" HorizontalAlignment="Left" Height="233" VerticalAlignment="Top" Width="208" Stretch="Fill"/>
             </Border>
-            <Button Content="Thêm ảnh" Command="{Binding ChooseImageCommand}" HorizontalAlignment="Left" Margin="25,259,0,0" VerticalAlignment="Top" Width="215" Height="36"/>
+            <Button Command="{Binding ChooseImageCommand}" HorizontalAlignment="Left" Margin="25,259,0,0" VerticalAlignment="Top" Width="215" Height="36">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ImagePlusOutline" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                        <TextBlock Text="Thêm ảnh"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
             <GroupBox Margin="260,16,25,375">
                 <Grid>
                     <TextBlock HorizontalAlignment="Left" Margin="366,11,0,0" TextWrapping="Wrap" Text="Giới tính" VerticalAlignment="Top"/>
@@ -115,8 +122,22 @@
 
                 </Grid>
             </GroupBox>
-            <Button Content="Thêm mới" Command="{Binding CreateNewCommand}" HorizontalAlignment="Left" Margin="565,539,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.266,0.773" Width="160" Height="40"/>
-            <Button Content="Hủy" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="805,539,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.266,0.773" Width="160" Height="40"/>
+            <Button Command="{Binding CreateNewCommand}" HorizontalAlignment="Left" Margin="565,539,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.266,0.773" Width="160" Height="40">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Plus" />
+                        <TextBlock Text="Thêm mới"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="805,539,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.266,0.773" Width="160" Height="40">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="CloseThick" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                        <TextBlock Text="Hủy"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
         </Grid>
     </Grid>
 </Page>

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       xmlns:local="clr-namespace:HRMana.Main.View.Search"
       mc:Ignorable="d" 
@@ -18,7 +19,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <uc:LableTopUserControl Title="Tìm kiếm nhân viên"/>
+        <uc:LableTopUserControl Title="TÌM KIẾM NHÂN VIÊN"/>
 
         <!--hien thi thong tin can nhan vien can tim-->
         <Grid Grid.Row="1" Margin="10">
@@ -31,13 +32,27 @@
                 <TextBox Text="{Binding HoTen}" TextChanged="UpperCaseFirstChar" HorizontalAlignment="Left" Margin="282,82,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="268"  Height="28"/>
                 <TextBlock Text="Họ và tên" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="185,91,0,0"/>
                 <TextBlock Text="Mã nhân viên" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="161,41,0,0"/>
-                <Button Command="{Binding SearchCommand}" x:Name="btn_Search" CommandParameter="{Binding ElementName=btn_Search}" Width="120" Content="Tìm kiếm" Margin="430,147,100,10" VerticalAlignment="Top" />
+                <Button Command="{Binding SearchCommand}" x:Name="btn_Search" CommandParameter="{Binding ElementName=btn_Search}" Width="120" Margin="430,147,100,10" VerticalAlignment="Top">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Magnify" />
+                            <TextBlock Text="Tìm kiếm"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </Grid>
 
             <Grid Grid.Column="1" >
                 <TextBox Text="{Binding QueQuan}" TextChanged="UpperCaseFirstChar" HorizontalAlignment="Left" Margin="122,32,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="268"/>
                 <TextBlock Text="Quê quán" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="23,36,0,0"/>
-                <Button Command="{Binding CancelCommand}" Content="Hủy bỏ" Margin="65,147,455,0" VerticalAlignment="Top" Width="120" />
+                <Button Command="{Binding CancelCommand}" Margin="65,147,455,0" VerticalAlignment="Top" Width="120" >
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="CloseThick" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                            <TextBlock Text="Hủy"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
 
             </Grid>
         </Grid>

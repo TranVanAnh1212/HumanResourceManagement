@@ -33,8 +33,22 @@
             <TextBox Text="{Binding MatKhau}" HorizontalAlignment="Left" Height="25.067" Margin="314.8,77.072,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288.8"/>
             <TextBlock HorizontalAlignment="Left" Height="26" Margin="87,125,0,0" TextWrapping="Wrap" Text="Quyền hạn tài khoản" VerticalAlignment="Top" Width="201" TextAlignment="Right" FontSize="14"/>
             <ComboBox ItemsSource="{Binding ListQuyen}" SelectedItem="{Binding SelectedQuyen}" DisplayMemberPath="tenQuyen" HorizontalAlignment="Left" Height="26" Margin="310,125,0,0" VerticalAlignment="Top" Width="289"></ComboBox>
-            <Button Visibility="{Binding Permission_ADD}" Content="Tạo tài khoản" Command="{Binding CreateNew_TaiKhoan}" HorizontalAlignment="Left" Height="40" Margin="236,321,0,0" VerticalAlignment="Top" Width="148"/>
-            <Button Command="{Binding CanCelCommand}" Content="Hủy bỏ" HorizontalAlignment="Left" Height="40" Margin="459,321,0,0" VerticalAlignment="Top" Width="149"/>
+            <Button Visibility="{Binding Permission_ADD}" Command="{Binding CreateNew_TaiKhoan}" HorizontalAlignment="Left" Height="40" Margin="236,321,0,0" VerticalAlignment="Top" Width="160">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Plus" />
+                        <TextBlock Text="Tạo tài khoản"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding CanCelCommand}" HorizontalAlignment="Left" Height="40" Margin="459,321,0,0" VerticalAlignment="Top" Width="180">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="CloseThick" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                        <TextBlock Text="Hủy"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
             <ListView HorizontalAlignment="Left" ItemsSource="{Binding ListTaiKhoan}" SelectedItem="{Binding SelectedTaiKhoan}" Height="441" Margin="671,37,0,0" VerticalAlignment="Top" Width="600">
                 <ListView.View>
                     <GridView>
@@ -45,9 +59,30 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button Content="Khóa tài khoản" Command="{Binding Block_TaiKhoan}" HorizontalAlignment="Left" Height="40" Margin="236,237,0,0" VerticalAlignment="Top" Width="148"/>
-            <Button Visibility="{Binding Permission_DEL}" Content="Xóa tài khoản" Command="{Binding Delete_TaiKhoan}" HorizontalAlignment="Left" Height="40" Margin="236,397,0,0" VerticalAlignment="Top" Width="148"/>
-            <Button Content="Mở khóa tài khoản" Command="{Binding Unblock_TaiKhoan}" HorizontalAlignment="Left" Height="40" Margin="459,237,0,0" VerticalAlignment="Top" Width="148"/>
+            <Button Command="{Binding Block_TaiKhoan}" HorizontalAlignment="Left" Height="40" Margin="236,237,0,0" VerticalAlignment="Top" Width="160">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Lock" Width="20" Height="20" Margin="0, 0, 5, 0" />
+                        <TextBlock Text="Khóa tài khoản"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Visibility="{Binding Permission_DEL}" Command="{Binding Delete_TaiKhoan}" HorizontalAlignment="Left" Height="40" Margin="236,397,0,0" VerticalAlignment="Top" Width="160">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="TrashCan" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                        <TextBlock Text="Xóa tài khoản"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding Unblock_TaiKhoan}" HorizontalAlignment="Left" Height="40" Margin="459,237,0,0" VerticalAlignment="Top" Width="180">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="LockOpenVariant" />
+                        <TextBlock Text="Mở khóa tài khoản"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
         </Grid>
     </Grid>
 </Page>

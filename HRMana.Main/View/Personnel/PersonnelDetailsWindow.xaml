@@ -37,9 +37,30 @@
                 <Image Source="{Binding AnhThe}" HorizontalAlignment="Left" Height="167" VerticalAlignment="Top" Width="135" Stretch="Fill"/>
             </Border>
 
-            <Button Content="Cập nhật" Command="{Binding Update_NhanVienCommand}" HorizontalAlignment="Left" Margin="356,481,0,0" VerticalAlignment="Top" Height="35" Width="94"/>
-            <Button Content="Xóa" Command="{Binding Delete_NhanVienCommand}" HorizontalAlignment="Left" Margin="562,481,0,0" VerticalAlignment="Top" Height="35" Width="94"/>
-            <Button Content="Thoát" Command="{Binding ExitCommand}" HorizontalAlignment="Left" Margin="765,481,0,0" VerticalAlignment="Top" Height="35" Width="94"/>
+            <Button Command="{Binding Update_NhanVienCommand}" HorizontalAlignment="Left" Margin="356,481,0,0" VerticalAlignment="Top" Height="35" Width="125">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Width="20" Height="20" Kind="Pencil" Margin="0, 0, 5, 0"/>
+                        <TextBlock Text="Cập nhật"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding Delete_NhanVienCommand}" HorizontalAlignment="Left" Margin="562,481,0,0" VerticalAlignment="Top" Height="35" Width="125">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="TrashCan" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                        <TextBlock Text="Xóa"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding ExitCommand}" HorizontalAlignment="Left" Margin="765,481,0,0" VerticalAlignment="Top" Height="35" Width="125">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="CloseThick" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                        <TextBlock Text="Thoát"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
 
             <GroupBox Margin="210,16,10,330">
                 <Grid>
@@ -94,7 +115,14 @@
 
                 </Grid>
             </GroupBox>
-            <Button Content="Thêm ảnh" Command="{Binding ChooseImageCommand}" HorizontalAlignment="Left" Margin="25,188,0,0" VerticalAlignment="Top" Width="137" Height="33"/>
+            <Button Command="{Binding ChooseImageCommand}" HorizontalAlignment="Left" Margin="25,188,0,0" VerticalAlignment="Top" Width="137" Height="33">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="ImagePlusOutline" />
+                        <TextBlock Text="Thêm ảnh"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
         </Grid>
     </Grid>
 </Window>

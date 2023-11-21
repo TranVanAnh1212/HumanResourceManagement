@@ -60,8 +60,22 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Button Content="Lọc" Command="{Binding FilterCommand}" Height="35" Width="100"/>
-                        <Button Grid.Column="1" Content="Hủy bỏ" Command="{Binding CancelCommand}" Height="35" Width="100"/>
+                        <Button Command="{Binding FilterCommand}" Height="35" Width="100">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Filter" />
+                                    <TextBlock Text="Lọc"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Grid.Column="1" Command="{Binding CancelCommand}" Height="35" Width="100">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="CloseThick" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                                    <TextBlock Text="Hủy"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
                     </Grid>
 
                 </StackPanel>
@@ -114,7 +128,14 @@
                     <TextBox HorizontalAlignment="Left" Height="29.31" Margin="143.933,3.2,0,-0.51" TextWrapping="Wrap" Text="{Binding Page}" VerticalAlignment="Top" Width="35.201" TextAlignment="Center"/>
                     <TextBlock HorizontalAlignment="Left" Height="24.8" Margin="184.134,7.71,0,-0.51" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="23.799" TextAlignment="Center"/>
                     <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="29.31" Margin="212.933,3.2,0,-0.51" TextWrapping="Wrap" Text="{Binding TotalPage}" VerticalAlignment="Top" Width="35.201" TextAlignment="Center"/>
-                    <Button Visibility="{Binding Permission_ADD}" Click="btn_AddnewPersonel_Click" Margin="731,0,22,0" x:Name="btn_AddnewPersonel" Content="Thêm mới"></Button>
+                    <Button Visibility="{Binding Permission_ADD}" Click="btn_AddnewPersonel_Click" Margin="731,0,22,0" x:Name="btn_AddnewPersonel">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Plus" />
+                                <TextBlock Text="Thêm mới"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
                     <Button Command="{Binding RefeshCommand}" ToolTip="Refesh" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,0,0" Height="26" Width="60" Margin="639,0,0,0">
                         <Button.Content>
                             <materialDesign:PackIcon Kind="Restore" />

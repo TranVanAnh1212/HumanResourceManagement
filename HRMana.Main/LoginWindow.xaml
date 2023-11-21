@@ -29,7 +29,7 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -49,20 +49,30 @@
 
             <Grid Grid.Column="1">
                 <TextBlock Margin="0,38,0,0" TextWrapping="Wrap" Text="Đăng nhập" VerticalAlignment="Top" Height="67" FontSize="36" FontWeight="Bold" TextAlignment="Center"/>
-                
+
+                <materialDesign:PackIcon Kind="Account" Width="30" Height="25" Margin="38,150,0,0" />
                 <TextBlock HorizontalAlignment="Left" Height="28" Margin="38,117,0,0" TextWrapping="Wrap" Text="Tên Đăng nhập" VerticalAlignment="Top" Width="150"/>
-                <TextBox x:Name="userName" HorizontalAlignment="Center" Text="{Binding UserName}" Margin="0,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Height="30"/>
-                
+                <TextBox x:Name="userName" HorizontalAlignment="Left" Text="{Binding UserName}" Margin="73,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" Height="30"/>
+
+                <materialDesign:PackIcon Width="30" Height="25" Kind="FormTextboxPassword" Margin="38,228,0,0" />
                 <TextBlock HorizontalAlignment="Left" Height="28" Margin="38,195,0,0" TextWrapping="Wrap" Text="Mật khẩu" VerticalAlignment="Top" Width="150"/>
-                <PasswordBox HorizontalAlignment="Center" x:Name="txt_Password" Margin="0,223,0,0" VerticalAlignment="Top" Width="300" Height="30">
+                <PasswordBox HorizontalAlignment="Left" x:Name="txt_Password" Margin="73,223,0,0" VerticalAlignment="Top" Width="272" Height="30">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PasswordChanged">
                             <i:InvokeCommandAction Command="{Binding PasswordChangeCommand, Mode=TwoWay}" CommandParameter="{Binding ElementName=txt_Password}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </PasswordBox>
-                
-                <Button x:Name="loginBtn" Command="{Binding LoginCommand}" Content="Đăng nhập" HorizontalAlignment="Center" Height="40" Margin="0,304,0,0" VerticalAlignment="Top" Width="184"/>
+
+                <Button x:Name="loginBtn" Command="{Binding LoginCommand}" HorizontalAlignment="Center" Height="40" 
+                        Margin="0,304,0,0" VerticalAlignment="Top" Width="300" Background="#FF00FF06" Foreground="#DD000000">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Width="30" Height="20" Kind="Login" />
+                            <TextBlock Text="Đăng nhập"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
 
             </Grid>
         </Grid>
@@ -76,7 +86,7 @@
                 </TransformGroup>
             </Grid.RenderTransform>
             <Rectangle HorizontalAlignment="Left" Height="45" Stroke="Black" VerticalAlignment="Top" Width="335" RadiusX="8.1" RadiusY="8.1" Fill="red"/>
-            <TextBlock HorizontalAlignment="Left" Foreground="White" Height="23" Margin="58,11,0,0" TextWrapping="Wrap" Text="Đăng nhập không thành công" VerticalAlignment="Top" Width="219"/>
+            <TextBlock HorizontalAlignment="Left" x:Name="txtbl_MessageSnackbar" Foreground="White" Height="23" Margin="58,11,0,0" TextWrapping="Wrap" Text="Đăng nhập không thành công" VerticalAlignment="Top" Width="219"/>
             <Button Command="{Binding HideNotifyCommand}" HorizontalAlignment="Left" Height="24" Margin="288,10,0,0" VerticalAlignment="Top" Width="35" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#DD080808" Padding="4,4,4,4">
                 <materialDesign:PackIcon Kind="Close" />
             </Button>

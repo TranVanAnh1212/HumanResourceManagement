@@ -47,36 +47,53 @@ namespace HRMana.Main.ViewModel
                 (p) => { return true; },
                 (p) =>
                 {
-                    // Mã hóa mật khẩu nhập vào
-                    string pass_base64_encode = StringHelper.Base64Encode(Password);
-                    string pass_md5_hash = StringHelper.MD5Hash(pass_base64_encode);
-
-                    // Ktra tài khoản
-                    var checkLogin = new LoginDAO().CheckLogin(UserName, pass_md5_hash);
-
-                    if (checkLogin != null)
+                    try
                     {
-                        //Thêm vào biến cục bộ
-                        CommonConstant.taiKhoanDN = new LoginDAO().Get_TaiKhoan_By_MaTK(checkLogin.maTaiKhoan);
-                        CommonConstant.DsQuyenCuaTKDN = CommonConstant.taiKhoanDN.Quyen.ChiTietQuyen_Quyen.ToList();
-                                                
-                        // Thêm báo cáo đăng nhập
-                        BaoCaoDangNhap bcdn = new BaoCaoDangNhap
+                        if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password))
                         {
-                            maTaiKhoan = CommonConstant.taiKhoanDN.maTaiKhoan,
-                            tgDangNhap = DateTime.Now
-                        };
-                        CommonConstant.baoCaoDN = bcdn;
+                            Login loginWindow = new Login();
+                            loginWindow.MessageSnackbar = "Tên tài khoản và mật khẩu không được để trống!";
+                            NotificationEvent.Instance.ReqquestShowNotification();
 
-                        // Hiển thị form chính
-                        var window = Application.Current.MainWindow;
-                        window.Hide();
-                        MainWindow mainWindow = new MainWindow();
-                        mainWindow.ShowDialog();
+                        }
+                        else
+                        {
+                            // Mã hóa mật khẩu nhập vào
+                            string pass_base64_encode = StringHelper.Base64Encode(Password);
+                            string pass_md5_hash = StringHelper.MD5Hash(pass_base64_encode);
+
+                            // Ktra tài khoản
+                            var checkLogin = new LoginDAO().CheckLogin(UserName, pass_md5_hash);
+
+                            if (checkLogin != null)
+                            {
+                                //Thêm vào biến cục bộ
+                                CommonConstant.taiKhoanDN = new LoginDAO().Get_TaiKhoan_By_MaTK(checkLogin.maTaiKhoan);
+                                CommonConstant.DsQuyenCuaTKDN = CommonConstant.taiKhoanDN.Quyen.ChiTietQuyen_Quyen.ToList();
+
+                                // Thêm báo cáo đăng nhập
+                                BaoCaoDangNhap bcdn = new BaoCaoDangNhap
+                                {
+                                    maTaiKhoan = CommonConstant.taiKhoanDN.maTaiKhoan,
+                                    tgDangNhap = DateTime.Now
+                                };
+                                CommonConstant.baoCaoDN = bcdn;
+
+                                // Hiển thị form chính
+                                var window = Application.Current.MainWindow;
+                                window.Hide();
+                                MainWindow mainWindow = new MainWindow();
+                                mainWindow.ShowDialog();
+                            }
+                            else
+                            {
+                                NotificationEvent.Instance.ReqquestShowNotification();
+                            }
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        NotificationEvent.Instance.ReqquestShowNotification();
+                        MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 );

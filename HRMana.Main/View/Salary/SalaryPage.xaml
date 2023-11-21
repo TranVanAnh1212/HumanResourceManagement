@@ -8,7 +8,6 @@
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
-      Style="{StaticResource Sizewindow}"
       DataContext="{StaticResource salaryVM}"
       Name="salaryPage"
       Title="SalaryPage">
@@ -25,7 +24,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <uc:LableTopUserControl Title="Danh mục bậc lương"/>
+        <uc:LableTopUserControl Title="DANH MỤC BẬC LƯƠNG"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -39,10 +38,38 @@
                     <TextBox Width="336" Text="{Binding HeSoLuong}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="230,82,0,0"></TextBox>
                     <TextBlock Text="Lương cơ bản" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="115,141,0,0"></TextBlock>
                     <TextBox Width="336" Text="{Binding LuongCoBan}" TextChanged="Format_Salary_TextChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="230,141,0,0"/>
-                    <Button Command="{Binding Create_BacLuongCommand}" Content="Thêm mới" HorizontalAlignment="Left" Margin="146,230,0,0" VerticalAlignment="Top" Width="100"/>
-                    <Button Command="{Binding CancelCommand}" Content="Hủy" HorizontalAlignment="Left" Margin="331,230,0,0" VerticalAlignment="Top" Width="100"/>
-                    <Button Command="{Binding Update_BacLuongCommand}" Content="Cập nhật" HorizontalAlignment="Left" Margin="146,305,0,0" VerticalAlignment="Top" Width="100"/>
-                    <Button Command="{Binding Delete_BacLuongCommand}" Content="Xóa" HorizontalAlignment="Left" Margin="331,305,0,0" VerticalAlignment="Top" Width="100"/>
+                    <Button Command="{Binding Create_BacLuongCommand}" HorizontalAlignment="Left" Margin="146,230,0,0" VerticalAlignment="Top" Width="125">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Plus" />
+                                <TextBlock Text="Thêm mới"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="331,230,0,0" VerticalAlignment="Top" Width="125">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="CloseThick" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Hủy"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding Update_BacLuongCommand}" HorizontalAlignment="Left" Margin="146,305,0,0" VerticalAlignment="Top" Width="125">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Width="20" Height="20" Kind="Pencil" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Cập nhật"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding Delete_BacLuongCommand}" HorizontalAlignment="Left" Margin="331,305,0,0" VerticalAlignment="Top" Width="125">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="TrashCan" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Xóa"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
 
 
                 </Grid>

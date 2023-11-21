@@ -27,7 +27,17 @@ namespace HRMana.Main.ViewModel
         public ChangePasswordViewModel()
         {
             ChangePasswordCommand = new RelayCommand<object>(
-                (param) => true,
+                (param) =>
+                {
+                    if (string.IsNullOrEmpty(MatKhauMoi) || string.IsNullOrEmpty(MatKhauCu))
+                        return false;
+
+                    if (MatKhauCu.Length < 6)
+                        return false;
+
+
+                    return true;
+                },
                 (param) =>
                 {
                     try
