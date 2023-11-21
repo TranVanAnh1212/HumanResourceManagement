@@ -1,3 +1,4 @@
+
 ﻿using HRMana.Common.Commons;
 using System;
 using System.Collections.Generic;

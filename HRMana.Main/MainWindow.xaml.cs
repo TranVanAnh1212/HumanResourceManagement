@@ -1,3 +1,4 @@
+
 ﻿using HRMana.Common.Events;
 using HRMana.Main.View.Contract;
 using HRMana.Main.View.Department;
@@ -155,6 +156,21 @@ namespace HRMana.Main
         private void ExportReport_Item_Click(object sender, RoutedEventArgs e)
         {
             Directional(new ReportPage());
+        }
+
+        private void updateDepartment_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new DepartmentPage());
+        }
+
+        private void updateContract_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new ContractPage());
+        }
+
+        private void timeKeeping_MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new TimeKeepingPage());
         }
     }
 }

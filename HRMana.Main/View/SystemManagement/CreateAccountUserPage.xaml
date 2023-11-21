@@ -1,0 +1,67 @@
+﻿<Page x:Class="HRMana.Main.View.SystemManagement.CreateAccountUserPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HRMana.Main.View.SystemManagement"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      Style="{StaticResource Sizewindow}"
+      Title="CreateAccountUserPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <!--Nút backward-->
+                <Button HorizontalAlignment="Left" Background="Transparent" BorderBrush="#303030"
+                        VerticalAlignment="Top" Margin="10 0 0 0" Height="25" Width="25"
+                        Command="{x:Static NavigationCommands.BrowseBack}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" ToolTip="Back">
+                    <materialDesign:PackIcon Kind="KeyboardArrowLeft" Height="20" Width="20" />
+                </Button>
+
+                <!--Nút forward-->
+                <Button HorizontalAlignment="Left" Background="Transparent" BorderBrush="#303030"
+                    VerticalAlignment="Top" Height="25" Width="25" Margin="20,0,0,0"
+                    Command="{x:Static NavigationCommands.BrowseForward}"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" ToolTip="Forward">
+                    <materialDesign:PackIcon Kind="KeyboardArrowRight" Height="20" Width="20" />
+                </Button>
+            </StackPanel>
+
+            <TextBlock Text="Tạo tài khoản người dùng" Margin="10,10,10,9.998" FontSize="22" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Padding="0,10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+        </Grid>
+
+        <Grid Margin="10,69,-10,0" Grid.RowSpan="2">
+            <TextBlock HorizontalAlignment="Left" Height="25.067" Margin="92.067,36.939,0,0" TextWrapping="Wrap" Text="Tên người dùng" VerticalAlignment="Top" Width="200.8" TextAlignment="Right" FontSize="14"/>
+            <TextBox HorizontalAlignment="Left" Height="25.067" Margin="314.8,36.939,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288.8"/>
+            <TextBlock HorizontalAlignment="Left" Height="25.067" Margin="92.067,77.072,0,0" TextWrapping="Wrap" Text="Mật khẩu" VerticalAlignment="Top" Width="200.8" TextAlignment="Right" FontSize="14"/>
+            <TextBox HorizontalAlignment="Left" Height="25.067" Margin="314.8,77.072,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288.8"/>
+            <Button Content="Tạo ngẫu nhiên" HorizontalAlignment="Left" Height="34" Margin="315,116,0,0" VerticalAlignment="Top" Width="152"/>
+            <TextBlock HorizontalAlignment="Left" Height="26" Margin="92,175,0,0" TextWrapping="Wrap" Text="Quyền hạn tài khoản" VerticalAlignment="Top" Width="201" TextAlignment="Right" FontSize="14"/>
+            <ComboBox HorizontalAlignment="Left" Height="26" Margin="315,175,0,0" VerticalAlignment="Top" Width="289">
+                <ComboBoxItem Content="Quản trị viên"/>
+                <ComboBoxItem Content="Admin"/>
+                <ComboBoxItem Content="Nhân viên"/>
+            </ComboBox>
+            <Button Content="Tạo tài khoản" HorizontalAlignment="Left" Height="40" Margin="236,237,0,0" VerticalAlignment="Top" Width="148"/>
+            <Button Content="Hủy bỏ" HorizontalAlignment="Left" Height="40" Margin="455,237,0,0" VerticalAlignment="Top" Width="149"/>
+            <ListView HorizontalAlignment="Left" Height="441" Margin="671,37,0,0" VerticalAlignment="Top" Width="600">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Mã tài khoản"/>
+                        <GridViewColumn Header="Tên tài khoản"/>
+                        <GridViewColumn Header="Quyền hạn tài khoản"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button Content="Khóa tài khoản" HorizontalAlignment="Left" Height="40" Margin="236,321,0,0" VerticalAlignment="Top" Width="148"/>
+            <Button Content="Xóa tài khoản" HorizontalAlignment="Left" Height="40" Margin="456,321,0,0" VerticalAlignment="Top" Width="148"/>
+        </Grid>
+    </Grid>
+</Page>
