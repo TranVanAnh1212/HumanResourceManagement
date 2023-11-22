@@ -219,7 +219,7 @@ namespace HRMana.Main.ViewModel
         {
             Page = 1;
             TotalPage = 1;
-            PageSize = 1;
+            PageSize = 10;
             NgayQuyetDinh = DateTime.Now;
             ThoiGianThiHanh = DateTime.Now;
 
@@ -260,6 +260,8 @@ namespace HRMana.Main.ViewModel
             BackToStartCommand = new RelayCommand<object>(
                 (param) =>
                 {
+                    if (Page <= 1) return false;
+
                     return true;
                 },
                 (param) =>
@@ -272,6 +274,9 @@ namespace HRMana.Main.ViewModel
             GoToEndCommand = new RelayCommand<object>(
                 (param) =>
                 {
+                    if (Page == TotalPage)
+                        return false;
+
                     return true;
                 },
                 (param) =>

@@ -90,7 +90,7 @@ namespace HRMana.Main.ViewModel
         private void Initialized()
         {
             Page = 1;
-            PageSize = 5;
+            PageSize = 20;
             TotalPage = 1;
 
             LoadWindowCommand = new RelayCommand<Page>(
@@ -161,6 +161,8 @@ namespace HRMana.Main.ViewModel
             BackToStartCommand = new RelayCommand<object>(
                 (param) =>
                 {
+                    if (Page <= 1) return false;
+
                     return true;
                 },
                 (param) =>
@@ -173,6 +175,8 @@ namespace HRMana.Main.ViewModel
             GoToEndCommand = new RelayCommand<object>(
                 (param) =>
                 {
+                    if (Page == TotalPage) return false;
+
                     return true;
                 },
                 (param) =>
@@ -189,17 +193,28 @@ namespace HRMana.Main.ViewModel
                 },
                 (param) =>
                 {
-                    var result = new ChucVuDAO().CreateNew_ChucVu(TenChucVu);
+                    var cv = new ChucVu()
+                    {
+                        maChucVu = MaChucVu,
+                        tenChucVu = TenChucVu,
+                    };
 
-                    if (result != null)
+                    var result = new ChucVuDAO().CreateNew_ChucVu(cv);
+
+                    if (result > 0)
                     {
                         ShowNotification("Thêm mới chức vụ thành công.", "#FF58FF7B");
                         EmptyTextbox();
                         GetList_ChucVu();
                     }
+                    else if (result == 0)
+                    {
+                        ShowNotification("Dữ liệu đưa vào trống.", "#FFFF00");
+                    }
                     else
                     {
-                        ShowNotification("Thêm mới chức vụ không thành công.", "#FFFF5858");
+                        ShowNotification("Có lỗi xảy ra bên phía máy chủ.", "#FFFF5858");
+
                     }
                 }
                 );
@@ -227,24 +242,38 @@ namespace HRMana.Main.ViewModel
                 },
                 (param) =>
                 {
-                    DialogWindow d = new DialogWindow();
-                    d.DialogMessage = "Bạn có chắc muốn sửa chức vụ?";
-                    d.Owner = Window.GetWindow(new PositionPage());
-
-                    if (true == d.ShowDialog())
+                    try
                     {
-                        var result = new ChucVuDAO().Update_ChucVu(MaChucVu, TenChucVu);
+                        DialogWindow d = new DialogWindow();
+                        d.DialogMessage = "Bạn có chắc muốn sửa chức vụ?";
+                        d.Owner = Window.GetWindow(new PositionPage());
 
-                        if (result)
+                        if (true == d.ShowDialog())
                         {
-                            ShowNotification("Cập nhật chức vụ thành công. ", "#FF58FF7B");
-                            EmptyTextbox();
-                            GetList_ChucVu();
+                            var cv = new ChucVu()
+                            {
+                                maChucVu = MaChucVu,
+                                tenChucVu = TenChucVu,
+                            };
+
+                            var result = new ChucVuDAO().Update_ChucVu(cv);
+
+                            if (result)
+                            {
+                                ShowNotification("Cập nhật chức vụ thành công. ", "#FF58FF7B");
+                                EmptyTextbox();
+                                GetList_ChucVu();
+                            }
+                            else
+                            {
+                                ShowNotification("Cập nhật chức vụ không thành công. ", "#FFFF5858");
+                            }
                         }
-                        else
-                        {
-                            ShowNotification("Cập nhật chức vụ không thành công. ", "#FFFF5858");
-                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        ShowNotification("Có lỗi xảy ra.", "#FFFF5858");
+
                     }
                 }
                 );
@@ -261,32 +290,40 @@ namespace HRMana.Main.ViewModel
                 },
                 (param) =>
                 {
-                    DialogWindow d = new DialogWindow();
-                    d.DialogMessage = "Bạn có chắc muốn xóa?";
-                    d.Owner = Window.GetWindow(new PositionPage());
-
-                    if (true == d.ShowDialog())
+                    try
                     {
-                        var nv_cv_Contrain = new ChucVuDAO().GetList_NhanVien_By_MaChucVu(MaChucVu);
+                        DialogWindow d = new DialogWindow();
+                        d.DialogMessage = "Bạn có chắc muốn xóa?";
+                        d.Owner = Window.GetWindow(new PositionPage());
 
-                        if (nv_cv_Contrain.Count <= 0)
+                        if (true == d.ShowDialog())
                         {
-                            var result = new ChucVuDAO().Delete_ChucVu(MaChucVu);
-                            if (result)
+                            var nv_cv_Contrain = new ChucVuDAO().GetList_NhanVien_By_MaChucVu(MaChucVu);
+
+                            if (nv_cv_Contrain.Count <= 0)
                             {
-                                ShowNotification("Xóa chức vụ thành công. ", "#FF58FF7B");
-                                EmptyTextbox();
-                                GetList_ChucVu();
+                                var result = new ChucVuDAO().Delete_ChucVu(MaChucVu);
+                                if (result)
+                                {
+                                    ShowNotification("Xóa chức vụ thành công. ", "#FF58FF7B");
+                                    EmptyTextbox();
+                                    GetList_ChucVu();
+                                }
+                                else
+                                {
+                                    ShowNotification("Xóa chức vụ không thành công. ", "#FFFF5858");
+                                }
                             }
                             else
                             {
-                                ShowNotification("Xóa chức vụ không thành công. ", "#FFFF5858");
+                                MessageBox.Show("Có nhân viên thuộc chức vụ này, \n Yêu cầu đảm bảo các nhân viên không thuộc chức vụ này.", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                             }
                         }
-                        else
-                        {
-                            MessageBox.Show("Có nhân viên thuộc chức vụ này, \n Yêu cầu đảm bảo các nhân viên không thuộc chức vụ này.", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ShowNotification("Có lỗi xảy ra.", "#FFFF5858");
+
                     }
                 }
                 );
@@ -309,7 +346,9 @@ namespace HRMana.Main.ViewModel
 
                 Positions = new ObservableCollection<PositionViewModel>(result.OrderBy(x => x.TenChucVu).Skip((Page - 1) * PageSize).Take(PageSize).ToList());
             }
-            catch (Exception ex) { }
+            catch (Exception ex) {
+                ShowNotification("Có lỗi khi lấy danh sách chức vụ.", "#FFFF5858");
+            }
         }
 
         private void EmptyTextbox()

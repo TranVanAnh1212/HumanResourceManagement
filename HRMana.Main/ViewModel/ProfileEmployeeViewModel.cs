@@ -441,7 +441,7 @@ namespace HRMana.Main.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Có lỗi xảy ra, {ex.Message}");
+                MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -455,7 +455,7 @@ namespace HRMana.Main.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Có lỗi xảy ra, {ex.Message}");
+                MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -39,11 +39,11 @@
                             <materialDesign:PackIcon Kind="WindowMinimize" />
                         </Button.Content>
                     </Button>
-                    <Button ToolTip="Maximize" Command="{Binding MaximizeCommand}" CommandParameter="{Binding ElementName=ctrlBarUC}" Style="{StaticResource ctrlBarBtn}">
+                    <Button x:Name="btn_Maximize" Click="btn_Maximize_Click" ToolTip="Maximize" Command="{Binding MaximizeCommand}" CommandParameter="{Binding ElementName=ctrlBarUC}" Style="{StaticResource ctrlBarBtn}">
                         <Button.Content>
                             <Grid>
-                                <materialDesign:PackIcon IsEnabled="false" Kind="WindowMaximize" />
-                                <!--<materialDesign:PackIcon IsEnabled="False" Kind="WindowRestore" />-->
+                                <materialDesign:PackIcon x:Name="maximize" Kind="WindowMaximize" />
+                                <materialDesign:PackIcon x:Name="normal" Kind="WindowRestore" />
                             </Grid>
                         </Button.Content>
                     </Button>

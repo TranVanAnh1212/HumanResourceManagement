@@ -40,7 +40,7 @@
           <Key>
             <PropertyRef Name="maChitietQuyen" />
           </Key>
-          <Property Name="maChitietQuyen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="maChitietQuyen" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="tenhanhDong" Type="nvarchar" MaxLength="100" />
           <Property Name="mahanhDong" Type="varchar" MaxLength="100" />
         </EntityType>
@@ -49,8 +49,8 @@
             <PropertyRef Name="maQuyen" />
             <PropertyRef Name="maChitietQuyen" />
           </Key>
-          <Property Name="maQuyen" Type="int" Nullable="false" />
-          <Property Name="maChitietQuyen" Type="int" Nullable="false" />
+          <Property Name="maQuyen" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="maChitietQuyen" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="moTa" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="ChucVu">
@@ -134,12 +134,12 @@
           <Property Name="ngaySinh" Type="date" Nullable="false" />
           <Property Name="noiSinh" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="CCCD" Type="char" MaxLength="100" Nullable="false" />
-          <Property Name="dienThoai" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="dienThoai" Type="char" MaxLength="11" />
           <Property Name="noiOHienTai" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="queQuan" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="giaDinh" Type="nvarchar" MaxLength="255" />
-          <Property Name="emailCaNhan" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="emailNoiBo" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="emailCaNhan" Type="varchar" MaxLength="255" />
+          <Property Name="emailNoiBo" Type="varchar" MaxLength="255" />
           <Property Name="coSoLamViec" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="loaiHinhLamViec" Type="nvarchar" MaxLength="255" />
           <Property Name="luongOffer" Type="decimal" Precision="18" Scale="0" />
@@ -165,7 +165,7 @@
           <Key>
             <PropertyRef Name="maQuyen" />
           </Key>
-          <Property Name="maQuyen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="maQuyen" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="tenQuyen" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -185,8 +185,8 @@
           <Property Name="maTaiKhoan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tenTaiKhoan" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="matKhau" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="maQuyen" Type="int" Nullable="false" />
-          <Property Name="trangThai" Type="bit" />
+          <Property Name="maQuyen" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="trangThai" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TonGiao">
           <Key>
@@ -226,7 +226,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ChiTietQu__maChi__589C25F3">
+        <Association Name="FK__ChiTietQu__maChi__038683F8">
           <End Role="Chitiet_Quyen" Type="Self.Chitiet_Quyen" Multiplicity="1" />
           <End Role="ChiTietQuyen_Quyen" Type="Self.ChiTietQuyen_Quyen" Multiplicity="*" />
           <ReferentialConstraint>
@@ -238,7 +238,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ChiTietQu__maQuy__57A801BA">
+        <Association Name="FK__ChiTietQu__maQuy__02925FBF">
           <End Role="Quyen" Type="Self.Quyen" Multiplicity="1" />
           <End Role="ChiTietQuyen_Quyen" Type="Self.ChiTietQuyen_Quyen" Multiplicity="*" />
           <ReferentialConstraint>
@@ -370,7 +370,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TaiKhoan__maQuye__5FB337D6">
+        <Association Name="FK__TaiKhoan__maQuye__093F5D4E">
           <End Role="Quyen" Type="Self.Quyen" Multiplicity="1" />
           <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="*" />
           <ReferentialConstraint>
@@ -410,11 +410,11 @@
             <End Role="NhanVien" EntitySet="NhanVien" />
             <End Role="ChamCong" EntitySet="ChamCong" />
           </AssociationSet>
-          <AssociationSet Name="FK__ChiTietQu__maChi__589C25F3" Association="Self.FK__ChiTietQu__maChi__589C25F3">
+          <AssociationSet Name="FK__ChiTietQu__maChi__038683F8" Association="Self.FK__ChiTietQu__maChi__038683F8">
             <End Role="Chitiet_Quyen" EntitySet="Chitiet_Quyen" />
             <End Role="ChiTietQuyen_Quyen" EntitySet="ChiTietQuyen_Quyen" />
           </AssociationSet>
-          <AssociationSet Name="FK__ChiTietQu__maQuy__57A801BA" Association="Self.FK__ChiTietQu__maQuy__57A801BA">
+          <AssociationSet Name="FK__ChiTietQu__maQuy__02925FBF" Association="Self.FK__ChiTietQu__maQuy__02925FBF">
             <End Role="Quyen" EntitySet="Quyen" />
             <End Role="ChiTietQuyen_Quyen" EntitySet="ChiTietQuyen_Quyen" />
           </AssociationSet>
@@ -458,7 +458,7 @@
             <End Role="TrinhDo" EntitySet="TrinhDo" />
             <End Role="NhanVien" EntitySet="NhanVien" />
           </AssociationSet>
-          <AssociationSet Name="FK__TaiKhoan__maQuye__5FB337D6" Association="Self.FK__TaiKhoan__maQuye__5FB337D6">
+          <AssociationSet Name="FK__TaiKhoan__maQuye__093F5D4E" Association="Self.FK__TaiKhoan__maQuye__093F5D4E">
             <End Role="Quyen" EntitySet="Quyen" />
             <End Role="TaiKhoan" EntitySet="TaiKhoan" />
           </AssociationSet>
@@ -506,21 +506,21 @@
           <Key>
             <PropertyRef Name="maChitietQuyen" />
           </Key>
-          <Property Name="maChitietQuyen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="maChitietQuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tenhanhDong" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="mahanhDong" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ChiTietQuyen_Quyen" Relationship="Self.FK__ChiTietQu__maChi__589C25F3" FromRole="Chitiet_Quyen" ToRole="ChiTietQuyen_Quyen" />
+          <NavigationProperty Name="ChiTietQuyen_Quyen" Relationship="Self.FK__ChiTietQu__maChi__038683F8" FromRole="Chitiet_Quyen" ToRole="ChiTietQuyen_Quyen" />
         </EntityType>
         <EntityType Name="ChiTietQuyen_Quyen">
           <Key>
             <PropertyRef Name="maQuyen" />
             <PropertyRef Name="maChitietQuyen" />
           </Key>
-          <Property Name="maQuyen" Type="Int32" Nullable="false" />
-          <Property Name="maChitietQuyen" Type="Int32" Nullable="false" />
+          <Property Name="maQuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="maChitietQuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="moTa" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Chitiet_Quyen" Relationship="Self.FK__ChiTietQu__maChi__589C25F3" FromRole="ChiTietQuyen_Quyen" ToRole="Chitiet_Quyen" />
-          <NavigationProperty Name="Quyen" Relationship="Self.FK__ChiTietQu__maQuy__57A801BA" FromRole="ChiTietQuyen_Quyen" ToRole="Quyen" />
+          <NavigationProperty Name="Chitiet_Quyen" Relationship="Self.FK__ChiTietQu__maChi__038683F8" FromRole="ChiTietQuyen_Quyen" ToRole="Chitiet_Quyen" />
+          <NavigationProperty Name="Quyen" Relationship="Self.FK__ChiTietQu__maQuy__02925FBF" FromRole="ChiTietQuyen_Quyen" ToRole="Quyen" />
         </EntityType>
         <EntityType Name="ChucVu">
           <Key>
@@ -612,12 +612,12 @@
           <Property Name="ngaySinh" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="noiSinh" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CCCD" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="dienThoai" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="dienThoai" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
           <Property Name="noiOHienTai" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="queQuan" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="giaDinh" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="emailCaNhan" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="emailNoiBo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="emailCaNhan" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="emailNoiBo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="coSoLamViec" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="loaiHinhLamViec" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="luongOffer" Type="Decimal" Precision="18" Scale="0" />
@@ -653,10 +653,10 @@
           <Key>
             <PropertyRef Name="maQuyen" />
           </Key>
-          <Property Name="maQuyen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="maQuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tenQuyen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ChiTietQuyen_Quyen" Relationship="Self.FK__ChiTietQu__maQuy__57A801BA" FromRole="Quyen" ToRole="ChiTietQuyen_Quyen" />
-          <NavigationProperty Name="TaiKhoan" Relationship="Self.FK__TaiKhoan__maQuye__5FB337D6" FromRole="Quyen" ToRole="TaiKhoan" />
+          <NavigationProperty Name="ChiTietQuyen_Quyen" Relationship="Self.FK__ChiTietQu__maQuy__02925FBF" FromRole="Quyen" ToRole="ChiTietQuyen_Quyen" />
+          <NavigationProperty Name="TaiKhoan" Relationship="Self.FK__TaiKhoan__maQuye__093F5D4E" FromRole="Quyen" ToRole="TaiKhoan" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -675,9 +675,9 @@
           <Property Name="maTaiKhoan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tenTaiKhoan" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="matKhau" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="maQuyen" Type="Int32" Nullable="false" />
-          <Property Name="trangThai" Type="Boolean" />
-          <NavigationProperty Name="Quyen" Relationship="Self.FK__TaiKhoan__maQuye__5FB337D6" FromRole="TaiKhoan" ToRole="Quyen" />
+          <Property Name="maQuyen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="trangThai" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Quyen" Relationship="Self.FK__TaiKhoan__maQuye__093F5D4E" FromRole="TaiKhoan" ToRole="Quyen" />
         </EntityType>
         <EntityType Name="TonGiao">
           <Key>
@@ -719,7 +719,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ChiTietQu__maChi__589C25F3">
+        <Association Name="FK__ChiTietQu__maChi__038683F8">
           <End Role="Chitiet_Quyen" Type="Self.Chitiet_Quyen" Multiplicity="1" />
           <End Role="ChiTietQuyen_Quyen" Type="Self.ChiTietQuyen_Quyen" Multiplicity="*" />
           <ReferentialConstraint>
@@ -731,7 +731,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ChiTietQu__maQuy__57A801BA">
+        <Association Name="FK__ChiTietQu__maQuy__02925FBF">
           <End Role="Quyen" Type="Self.Quyen" Multiplicity="1" />
           <End Role="ChiTietQuyen_Quyen" Type="Self.ChiTietQuyen_Quyen" Multiplicity="*" />
           <ReferentialConstraint>
@@ -863,7 +863,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TaiKhoan__maQuye__5FB337D6">
+        <Association Name="FK__TaiKhoan__maQuye__093F5D4E">
           <End Role="Quyen" Type="Self.Quyen" Multiplicity="1" />
           <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="*" />
           <ReferentialConstraint>
@@ -903,11 +903,11 @@
             <End Role="NhanVien" EntitySet="NhanVien" />
             <End Role="ChamCong" EntitySet="ChamCong" />
           </AssociationSet>
-          <AssociationSet Name="FK__ChiTietQu__maChi__589C25F3" Association="Self.FK__ChiTietQu__maChi__589C25F3">
+          <AssociationSet Name="FK__ChiTietQu__maChi__038683F8" Association="Self.FK__ChiTietQu__maChi__038683F8">
             <End Role="Chitiet_Quyen" EntitySet="Chitiet_Quyen" />
             <End Role="ChiTietQuyen_Quyen" EntitySet="ChiTietQuyen_Quyen" />
           </AssociationSet>
-          <AssociationSet Name="FK__ChiTietQu__maQuy__57A801BA" Association="Self.FK__ChiTietQu__maQuy__57A801BA">
+          <AssociationSet Name="FK__ChiTietQu__maQuy__02925FBF" Association="Self.FK__ChiTietQu__maQuy__02925FBF">
             <End Role="Quyen" EntitySet="Quyen" />
             <End Role="ChiTietQuyen_Quyen" EntitySet="ChiTietQuyen_Quyen" />
           </AssociationSet>
@@ -951,7 +951,7 @@
             <End Role="TrinhDo" EntitySet="TrinhDo" />
             <End Role="NhanVien" EntitySet="NhanVien" />
           </AssociationSet>
-          <AssociationSet Name="FK__TaiKhoan__maQuye__5FB337D6" Association="Self.FK__TaiKhoan__maQuye__5FB337D6">
+          <AssociationSet Name="FK__TaiKhoan__maQuye__093F5D4E" Association="Self.FK__TaiKhoan__maQuye__093F5D4E">
             <End Role="Quyen" EntitySet="Quyen" />
             <End Role="TaiKhoan" EntitySet="TaiKhoan" />
           </AssociationSet>

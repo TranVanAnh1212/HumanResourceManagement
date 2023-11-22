@@ -37,6 +37,7 @@ namespace HRMana.Main.ViewModel
         public string ChucVu { get => _chucVu; set { _chucVu = value; OnPropertyChanged(); } }
         public string PhongBan { get => _phongBan; set { _phongBan = value; OnPropertyChanged(); } }
 
+        public ICommand LoadWindowCommand { get; set; }
         public ICommand Export_BaoCaoDangNhap_ReportWord { get; set; }
         public ICommand Export_BaoCaoDangNhap_ReportExcel { get; set; }
         public ICommand Export_DsNhanVien_ReportWord { get; set; }
@@ -62,6 +63,14 @@ namespace HRMana.Main.ViewModel
             NgayBC = DateTime.Now.Day;
             ThangBC = DateTime.Now.Month;
             NamBC = DateTime.Now.Year;
+
+            LoadWindowCommand = new RelayCommand<object>(
+                (param) => true,
+                (param) =>
+                {
+                    GetList_BCDN(FromDate, ToDate);
+                }
+                );
 
             Export_BaoCaoDangNhap_ReportWord = new RelayCommand<object>(
                 (param) => true,

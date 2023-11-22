@@ -23,6 +23,21 @@ namespace HRMana.Main.UserControls
         public ControlBarUserControl()
         {
             InitializeComponent();
+            normal.Visibility = Visibility.Collapsed;
+        }
+
+        private void btn_Maximize_Click(object sender, RoutedEventArgs e)
+        {
+            if (normal.Visibility == Visibility.Collapsed)
+            {
+                maximize.Visibility = Visibility.Collapsed;
+                normal.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                maximize.Visibility = Visibility.Visible;
+                normal.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

@@ -62,6 +62,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="DLLs\Aspose.Words.dll" />
+    <Content Include="TextFile1.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

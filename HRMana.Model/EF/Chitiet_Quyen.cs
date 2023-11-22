@@ -20,7 +20,7 @@ namespace HRMana.Model.EF
             this.ChiTietQuyen_Quyen = new HashSet<ChiTietQuyen_Quyen>();
         }
     
-        public int maChitietQuyen { get; set; }
+        public string maChitietQuyen { get; set; }
         public string tenhanhDong { get; set; }
         public string mahanhDong { get; set; }
     

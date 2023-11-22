@@ -16,7 +16,7 @@ namespace HRMana.Model.DAO
 
             try
             {
-                phongBans = DataProvider.Instance.DBContext.PhongBan.OrderBy(x => x.tenPhong).ToList();
+                phongBans = DataProvider.Instance.DBContext.PhongBan.ToList();
             }
             catch (Exception ex)
             {

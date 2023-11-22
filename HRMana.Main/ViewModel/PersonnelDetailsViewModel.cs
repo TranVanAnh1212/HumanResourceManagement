@@ -406,9 +406,8 @@ namespace HRMana.Main.ViewModel
                     SelectedChuyenMon = ListChuyenMon.SingleOrDefault(x => x.maChuyenMon == nv.maChuyenMon);
                     MaHopDong = nv.maHopDong;
                     //SoHopDong = nv.HopDong.soHopDong;
-                    AnhThe = (nv.anhThe == null ) ? 
-                        AppDomain.CurrentDomain.BaseDirectory + "NhanVien_Image/DefaultPicture.jpg" : 
-                        AppDomain.CurrentDomain.BaseDirectory + "NhanVien_Image/" + nv.anhThe; ;
+                    AnhThe = (nv.anhThe == null ) ? "..\\..\\Assets\\NhanVien_Image\\DefaultAvatar.jpg" : 
+                        AppDomain.CurrentDomain.BaseDirectory + "NhanVien_Image\\" + nv.anhThe;
                 }
             }
             else

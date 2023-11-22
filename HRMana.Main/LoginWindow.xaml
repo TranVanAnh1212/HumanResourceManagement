@@ -52,7 +52,7 @@
 
                 <materialDesign:PackIcon Kind="Account" Width="30" Height="25" Margin="38,150,0,0" />
                 <TextBlock HorizontalAlignment="Left" Height="28" Margin="38,117,0,0" TextWrapping="Wrap" Text="Tên Đăng nhập" VerticalAlignment="Top" Width="150"/>
-                <TextBox x:Name="userName" HorizontalAlignment="Left" Text="{Binding UserName}" Margin="73,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" Height="30"/>
+                <TextBox x:Name="txt_UserName" HorizontalAlignment="Left" Text="{Binding UserName}" Margin="73,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" Height="30" KeyDown="txt_UserName_KeyDown"/>
 
                 <materialDesign:PackIcon Width="30" Height="25" Kind="FormTextboxPassword" Margin="38,228,0,0" />
                 <TextBlock HorizontalAlignment="Left" Height="28" Margin="38,195,0,0" TextWrapping="Wrap" Text="Mật khẩu" VerticalAlignment="Top" Width="150"/>
@@ -64,7 +64,7 @@
                     </i:Interaction.Triggers>
                 </PasswordBox>
 
-                <Button x:Name="loginBtn" Command="{Binding LoginCommand}" HorizontalAlignment="Center" Height="40" 
+                <Button x:Name="btn_Login" Command="{Binding LoginCommand}" HorizontalAlignment="Center" Height="40" 
                         Margin="0,304,0,0" VerticalAlignment="Top" Width="300" Background="#FF00FF06" Foreground="#DD000000">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">

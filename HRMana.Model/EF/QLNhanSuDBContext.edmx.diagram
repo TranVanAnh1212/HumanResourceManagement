@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ff1781bcbf77409d91b5c8ae2d9e8420" Name="Diagram1">
+      <Diagram DiagramId="e4c2b2a076264132bd55a6b1d533538d" Name="Diagram1">
         <EntityTypeShape EntityType="QLNhanSuModel.BacLuong" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNhanSuModel.BaoCaoDangNhap" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="QLNhanSuModel.ChamCong" Width="1.5" PointX="8.25" PointY="5.875" IsExpanded="true" />
@@ -26,8 +26,8 @@
         <EntityTypeShape EntityType="QLNhanSuModel.TrinhDo" Width="1.5" PointX="3.75" PointY="17.625" IsExpanded="true" />
         <AssociationConnector Association="QLNhanSuModel.FK__ChamCong__heSoLu__6ABAD62E" ManuallyRouted="false" />
         <AssociationConnector Association="QLNhanSuModel.FK__ChamCong__maNhan__69C6B1F5" ManuallyRouted="false" />
-        <AssociationConnector Association="QLNhanSuModel.FK__ChiTietQu__maChi__589C25F3" ManuallyRouted="false" />
-        <AssociationConnector Association="QLNhanSuModel.FK__ChiTietQu__maQuy__57A801BA" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhanSuModel.FK__ChiTietQu__maChi__038683F8" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhanSuModel.FK__ChiTietQu__maQuy__02925FBF" ManuallyRouted="false" />
         <AssociationConnector Association="QLNhanSuModel.FK__ChuyenCon__chucV__4A4E069C" ManuallyRouted="false" />
         <AssociationConnector Association="QLNhanSuModel.FK__NhanVien__maChuc__693CA210" ManuallyRouted="false" />
         <AssociationConnector Association="QLNhanSuModel.FK__ChuyenCon__soQuy__4865BE2A" ManuallyRouted="false" />
@@ -38,7 +38,7 @@
         <AssociationConnector Association="QLNhanSuModel.FK__NhanVien__maPhon__6C190EBB" ManuallyRouted="false" />
         <AssociationConnector Association="QLNhanSuModel.FK__NhanVien__maTonG__66603565" ManuallyRouted="false" />
         <AssociationConnector Association="QLNhanSuModel.FK__NhanVien__maTrin__656C112C" ManuallyRouted="false" />
-        <AssociationConnector Association="QLNhanSuModel.FK__TaiKhoan__maQuye__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="QLNhanSuModel.FK__TaiKhoan__maQuye__093F5D4E" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

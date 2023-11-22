@@ -1,4 +1,5 @@
 ﻿using HRMana.Common.Commons;
+using HRMana.Common.Events;
 using HRMana.Main.View.Dialog;
 using HRMana.Model.DAO;
 using HRMana.Model.EF;
@@ -17,6 +18,7 @@ namespace HRMana.Main.ViewModel
 {
     public class ContractViewModel : BaseViewModel
     {
+        #region Khai báo biến
         private int _totalPage;
         private int _page;
         private int _pageSize;
@@ -35,7 +37,8 @@ namespace HRMana.Main.ViewModel
         private string _permission_VIEW;
         private string _permission_EDIT;
         private string _permission_DEL;
-
+        private string _message;
+        private string _fill;
         public ICommand IncreasePageCommand { get; set; }
         public ICommand ReducePageCommand { get; set; }
         public ICommand BackToStartCommand { get; set; }
@@ -86,6 +89,13 @@ namespace HRMana.Main.ViewModel
             }
         }
 
+        public string Message
+        {
+            get => _message; set { _message = value; OnPropertyChanged(); }
+        }
+        public string Fill { get => _fill; set { _fill = value; OnPropertyChanged(); } }
+        #endregion
+
         public ContractViewModel()
         {
             Initialized();
@@ -134,6 +144,8 @@ namespace HRMana.Main.ViewModel
             BackToStartCommand = new RelayCommand<object>(
                 (param) =>
                 {
+                    if (Page <= 1) return false;
+
                     return true;
                 },
                 (param) =>
@@ -146,6 +158,8 @@ namespace HRMana.Main.ViewModel
             GoToEndCommand = new RelayCommand<object>(
                 (param) =>
                 {
+                    if (Page >= TotalPage) return false;
+
                     return true;
                 },
                 (param) =>
@@ -164,29 +178,7 @@ namespace HRMana.Main.ViewModel
                         Application.Current.Dispatcher.Invoke(new Action(() =>
                         {
                             GetList_HopDong();
-
-                            // Xét quyền của tài khoản
-                            var permissions = new Dictionary<string, string>
-                            {
-                                { "VIEW", CommonConstant.Visibility_Visible },
-                                { "ADD", CommonConstant.Visibility_Collapsed },
-                                { "EDIT", CommonConstant.Visibility_Collapsed },
-                                { "DEL", CommonConstant.Visibility_Collapsed },
-                            };
-                            var checkPermission = CommonConstant.DsQuyenCuaTKDN;
-                            foreach (var i in checkPermission)
-                            {
-                                if (permissions.ContainsKey(i.Chitiet_Quyen.mahanhDong))
-                                {
-                                    permissions[i.Chitiet_Quyen.mahanhDong] = CommonConstant.Visibility_Visible;
-                                }
-                            }
-
-                            // Gán giá trị từ dictionary vào các biến
-                            Permission_ADD = permissions["ADD"];
-                            Permission_EDIT = permissions["EDIT"];
-                            Permission_DEL = permissions["DEL"];
-                            Permission_VIEW = permissions["VIEW"];
+                            CheckPermision();
                         }));
                     });
                     GetData_Thread.IsBackground = true;
@@ -217,44 +209,7 @@ namespace HRMana.Main.ViewModel
                 },
                 (param) =>
                 {
-                    try
-                    {
-                        HopDong hd = new HopDong()
-                        {
-                            maHopDong = MaHopDong,
-                            soHopDong = SoHopDong,
-                            ngayKyHD = NgayKyHopDong,
-                            ngayKetThucHD = NgayKetThucHopDong,
-                            thoiHanHD = ThoiHanHopDong,
-                            tinhTrangChuKi = TinhTrangChuKy,
-                            loaiHopDong = LoaiHopDong,
-                        };
-
-                        var result = new HopDongDAO().CreateNew_HopDong(hd);
-
-                        if (result > 0)
-                        {
-                            MessageBox.Show("Thêm mới hợp đồng thành công.", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Information);
-                            EmptyField();
-                            GetList_HopDong();
-
-                        }
-                        else if (result == 0)
-                        {
-                            MessageBox.Show("Dữ liệu truyền vào trống", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Warning);
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                        }
-                    }
-                    catch(Exception ex)
-                    {
-                        MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                    }
+                    CreateNew_HopDong();
                 }
                 );
 
@@ -268,44 +223,7 @@ namespace HRMana.Main.ViewModel
                 },
                 (param) =>
                 {
-                    DialogWindow d = new DialogWindow();
-                    d.DialogMessage = "Bạn có chắc muốn cập nhật?";
-
-                    if (true == d.ShowDialog())
-                    {
-                        try
-                        {
-                            HopDong hd = new HopDong()
-                            {
-                                maHopDong = MaHopDong,
-                                soHopDong = SoHopDong,
-                                ngayKyHD = NgayKyHopDong,
-                                ngayKetThucHD = NgayKetThucHopDong,
-                                thoiHanHD = ThoiHanHopDong,
-                                tinhTrangChuKi = TinhTrangChuKy,
-                                loaiHopDong = LoaiHopDong,
-                            };
-
-                            var result = new HopDongDAO().Update_HopDong(hd);
-
-                            if (result)
-                            {
-                                MessageBox.Show("Cập nhật hợp đồng thành công.", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Information);
-                                EmptyField();
-                                GetList_HopDong();
-                            }
-                            else
-                            {
-                                MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                        }
-                    }
+                    Update_HopDong();
                 }
                 );
 
@@ -319,51 +237,100 @@ namespace HRMana.Main.ViewModel
                 },
                 (param) =>
                 {
-                    DialogWindow dm = new DialogWindow();
-                    dm.DialogMessage = "Bạn có chắc muốn xóa?";
+                    Delete_HopDong();
+                }
+                );
+        }
 
-                    if (true == dm.ShowDialog())
+        private void ShowNotification(string message, string fill)
+        {
+            Message = message;
+            Fill = fill;
+            NotificationEvent.Instance.ReqquestShowNotification();
+        }
+
+        private void Update_HopDong()
+        {
+            try
+            {
+                DialogWindow d = new DialogWindow();
+                d.DialogMessage = "Bạn có chắc muốn cập nhật?";
+
+                if (true == d.ShowDialog())
+                {
+                    try
                     {
-                        try
+                        HopDong hd = new HopDong()
                         {
+                            maHopDong = MaHopDong,
+                            soHopDong = SoHopDong,
+                            ngayKyHD = NgayKyHopDong,
+                            ngayKetThucHD = NgayKetThucHopDong,
+                            thoiHanHD = ThoiHanHopDong,
+                            tinhTrangChuKi = TinhTrangChuKy,
+                            loaiHopDong = LoaiHopDong,
+                        };
 
-                            var nv_hd = new NhanVienDAO().Get_NhanVien_By_MaHopDong(SelectedHopDong.maHopDong);
+                        var result = new HopDongDAO().Update_HopDong(hd);
 
-                            if (nv_hd != null)
-                            {
-                                DialogWindow d = new DialogWindow();
-                                d.DialogMessage = $"Phát hiện thấy mã hợp đồng là của nhân viên {nv_hd.tenNhanVien} - {nv_hd.maNhanVien}, vẫn muốn xóa?";
+                        if (result)
+                        {
+                            MessageBox.Show("Cập nhật hợp đồng thành công.", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Information);
+                            EmptyField();
+                            GetList_HopDong();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                                if (true == d.ShowDialog())
-                                {
-                                    var result = new HopDongDAO().Delete_HopDong(SelectedHopDong.maHopDong);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                                    if (result)
-                                    {
-                                        var nv_by_hd = new NhanVienDAO().Get_NhanVien_By_MaHopDong(SelectedHopDong.maHopDong);
-                                        nv_by_hd.maHopDong = 0;
-                                        if (nv_by_hd != null)
-                                        {
-                                            var result_nv_by_hd = new NhanVienDAO().Update_NhanVien(nv_by_hd);
-                                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //ShowNotification("Có lỗi xảy ra.", "#FFFF5858");
 
-                                        MessageBox.Show("Xóa hợp đồng thành công.", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Information);
-                                        EmptyField();
-                                        GetList_HopDong();
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
-                                    }
-                                }
-                            }
-                            else
+        private void Delete_HopDong()
+        {
+            try
+            {
+                DialogWindow dm = new DialogWindow();
+                dm.DialogMessage = "Bạn có chắc muốn xóa?";
+
+                if (true == dm.ShowDialog())
+                {
+                    try
+                    {
+
+                        var nv_hd = new NhanVienDAO().Get_NhanVien_By_MaHopDong(SelectedHopDong.maHopDong);
+
+                        if (nv_hd != null)
+                        {
+                            DialogWindow d = new DialogWindow();
+                            d.DialogMessage = $"Phát hiện thấy mã hợp đồng là của nhân viên {nv_hd.tenNhanVien} - {nv_hd.maNhanVien}, vẫn muốn xóa?";
+
+                            if (true == d.ShowDialog())
                             {
                                 var result = new HopDongDAO().Delete_HopDong(SelectedHopDong.maHopDong);
 
                                 if (result)
                                 {
+                                    var nv_by_hd = new NhanVienDAO().Get_NhanVien_By_MaHopDong(SelectedHopDong.maHopDong);
+                                    nv_by_hd.maHopDong = 0;
+                                    if (nv_by_hd != null)
+                                    {
+                                        var result_nv_by_hd = new NhanVienDAO().Update_NhanVien(nv_by_hd);
+                                    }
+
                                     MessageBox.Show("Xóa hợp đồng thành công.", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Information);
                                     EmptyField();
                                     GetList_HopDong();
@@ -374,16 +341,104 @@ namespace HRMana.Main.ViewModel
 
                                 }
                             }
-
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                            var result = new HopDongDAO().Delete_HopDong(SelectedHopDong.maHopDong);
 
+                            if (result)
+                            {
+                                MessageBox.Show("Xóa hợp đồng thành công.", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                EmptyField();
+                                GetList_HopDong();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                            }
                         }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+
                     }
                 }
-                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+        }
+
+        private void CreateNew_HopDong()
+        {
+            try
+            {
+                HopDong hd = new HopDong()
+                {
+                    maHopDong = MaHopDong,
+                    soHopDong = SoHopDong,
+                    ngayKyHD = NgayKyHopDong,
+                    ngayKetThucHD = NgayKetThucHopDong,
+                    thoiHanHD = ThoiHanHopDong,
+                    tinhTrangChuKi = TinhTrangChuKy,
+                    loaiHopDong = LoaiHopDong,
+                };
+
+                var result = new HopDongDAO().CreateNew_HopDong(hd);
+
+                if (result > 0)
+                {
+                    ShowNotification("Thêm mới hợp đồng thành công.", "#00FF00");
+                    EmptyField();
+                    GetList_HopDong();
+
+                }
+                else if (result == 0)
+                {
+                    ShowNotification("Dữ liệu truyền vào trống.", "#FFFF00");
+                }
+                else
+                {
+                    MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+        }
+
+        private void CheckPermision()
+        {
+            // Xét quyền của tài khoản
+            var permissions = new Dictionary<string, string>
+                            {
+                                { "VIEW", CommonConstant.Visibility_Visible },
+                                { "ADD", CommonConstant.Visibility_Collapsed },
+                                { "EDIT", CommonConstant.Visibility_Collapsed },
+                                { "DEL", CommonConstant.Visibility_Collapsed },
+                            };
+            var checkPermission = CommonConstant.DsQuyenCuaTKDN;
+            foreach (var i in checkPermission)
+            {
+                if (permissions.ContainsKey(i.Chitiet_Quyen.mahanhDong))
+                {
+                    permissions[i.Chitiet_Quyen.mahanhDong] = CommonConstant.Visibility_Visible;
+                }
+            }
+
+            // Gán giá trị từ dictionary vào các biến
+            Permission_ADD = permissions["ADD"];
+            Permission_EDIT = permissions["EDIT"];
+            Permission_DEL = permissions["DEL"];
+            Permission_VIEW = permissions["VIEW"];
         }
 
         private void EmptyField()
@@ -405,13 +460,13 @@ namespace HRMana.Main.ViewModel
                 var result = new HopDongDAO().GetList_HopDong();
 
                 TotalRecord = result.Count;
-                TotalPage = (int)Math.Ceiling((double) TotalRecord/PageSize);
+                TotalPage = (int)Math.Ceiling((double)TotalRecord / PageSize);
 
                 DsHopDong = new ObservableCollection<HopDong>(result.OrderBy(x => x.soHopDong).Skip((Page - 1) * PageSize).Take(PageSize));
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

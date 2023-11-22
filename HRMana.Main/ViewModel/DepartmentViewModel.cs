@@ -15,6 +15,8 @@ namespace HRMana.Main.ViewModel
 {
     public class DepartmentViewModel : BaseViewModel
     {
+        #region Khai báo biến
+
         private int _maPhong;
         private string _tenPhong;
         private string _sdt;
@@ -70,6 +72,8 @@ namespace HRMana.Main.ViewModel
         public string TenPhong { get => _tenPhong; set { _tenPhong = value; OnPropertyChanged(); } }
         public string Sdt { get => _sdt; set { _sdt = value; OnPropertyChanged(); } }
 
+        #endregion
+
         public DepartmentViewModel()
         {
             Initialized();
@@ -118,6 +122,8 @@ namespace HRMana.Main.ViewModel
             BackToStartCommand = new RelayCommand<object>(
                 (param) =>
                 {
+                    if (Page <= 1) return false;
+
                     return true;
                 },
                 (param) =>
@@ -130,6 +136,8 @@ namespace HRMana.Main.ViewModel
             GoToEndCommand = new RelayCommand<object>(
                 (param) =>
                 {
+                    if (Page == TotalPage) return false;
+
                     return true;
                 },
                 (param) =>

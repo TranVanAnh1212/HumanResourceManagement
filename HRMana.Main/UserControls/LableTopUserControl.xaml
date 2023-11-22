@@ -9,7 +9,7 @@
              mc:Ignorable="d">
     <DockPanel>
         <DockPanel.Background>
-            <ImageBrush ImageSource="/Assets/Images/borderb.PNG">
+            <ImageBrush ImageSource="/Assets/Images/borderb.PNG" TileMode="Tile">
                 <ImageBrush.RelativeTransform>
                     <TransformGroup>
                         <ScaleTransform CenterY="0.5" CenterX="0.5"/>
@@ -20,7 +20,6 @@
                 </ImageBrush.RelativeTransform>
             </ImageBrush>
         </DockPanel.Background>
-
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
             <!--Nút backward-->
             <Button HorizontalAlignment="Left" Background="Transparent" BorderBrush="#303030"

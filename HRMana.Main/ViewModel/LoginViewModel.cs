@@ -80,7 +80,7 @@ namespace HRMana.Main.ViewModel
                                 CommonConstant.baoCaoDN = bcdn;
 
                                 // Hiển thị form chính
-                                var window = Application.Current.MainWindow;
+                                var window = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
                                 window.Hide();
                                 MainWindow mainWindow = new MainWindow();
                                 mainWindow.ShowDialog();

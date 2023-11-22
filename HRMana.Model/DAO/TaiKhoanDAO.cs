@@ -52,11 +52,11 @@ namespace HRMana.Model.DAO
             }
         }
 
-        public TaiKhoan Create_TaiKhoan(string tenTaiKhoan, string matKhau, int maQuyen, bool trangThai)
+        public TaiKhoan Create_TaiKhoan(string tenTaiKhoan, string matKhau, string maQuyen, bool trangThai)
         {
             var taiKhoan = new TaiKhoan();
 
-            if (string.IsNullOrEmpty(tenTaiKhoan) || string.IsNullOrEmpty(matKhau) || maQuyen == 0)
+            if (string.IsNullOrEmpty(tenTaiKhoan) || string.IsNullOrEmpty(matKhau) || string.IsNullOrEmpty(maQuyen))
             {
                 return taiKhoan;
             }

@@ -14,8 +14,8 @@ namespace HRMana.Model.EF
     
     public partial class ChiTietQuyen_Quyen
     {
-        public int maQuyen { get; set; }
-        public int maChitietQuyen { get; set; }
+        public string maQuyen { get; set; }
+        public string maChitietQuyen { get; set; }
         public string moTa { get; set; }
     
         public virtual Chitiet_Quyen Chitiet_Quyen { get; set; }

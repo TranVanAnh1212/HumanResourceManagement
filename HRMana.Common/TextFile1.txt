@@ -1,0 +1,53 @@
+﻿private void ShowNotification(string message, string fill)
+        {
+            Message = message;
+            Fill = fill;
+            NotificationEvent.Instance.ReqquestShowNotification();
+        }
+
+
+        NotificationEvent.Instance.ShowNotificationRequested += async (sender, e) =>
+{
+    Storyboard storyboard = FindResource("ContractWindowNotification") as Storyboard;
+
+    if (storyboard != null)
+    {
+        storyboard.Begin();
+
+        await Task.Delay(TimeSpan.FromSeconds(5));
+
+        storyboard.Stop();
+    }
+
+};
+
+
+<Grid Panel.ZIndex="10" x:Name="Notification_Grid_ContractPage" HorizontalAlignment="Center" Margin="0,-161,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="61" Width="560">
+    <Grid.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform/>
+            <SkewTransform/>
+            <RotateTransform/>
+            <TranslateTransform/>
+        </TransformGroup>
+    </Grid.RenderTransform>
+    <Rectangle Height="59" Stroke="Black" VerticalAlignment="Center" 
+        RadiusX="8.1" RadiusY="8.1" Fill="{Binding Fill}"/>
+    <TextBlock Foreground="Black" FontSize="15" HorizontalAlignment="Center" 
+        Height="22" TextWrapping="Wrap" Text="{Binding Message}" VerticalAlignment="Center" Width="420"/>
+    <Button Command="{Binding HideNotifyCommand}" HorizontalAlignment="Left" Height="24" Margin="515,0,0,0" 
+    VerticalAlignment="Center" Width="35" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#DD080808" Padding="4,4,4,4">
+        <materialDesign:PackIcon Kind="Close" />
+    </Button>
+    <!--<Image HorizontalAlignment="Left" Height="33" Margin="16,6,0,0" VerticalAlignment="Top" Width="35" Source="/Assets/Images/successIcon.png"/>-->
+</Grid>
+
+
+<Page.Resources>
+    <Storyboard x:Key="ContractWindowNotification">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="Notification_Grid_ContractPage">
+            <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="78"/>
+            <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="170"/>
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
+</Page.Resources>

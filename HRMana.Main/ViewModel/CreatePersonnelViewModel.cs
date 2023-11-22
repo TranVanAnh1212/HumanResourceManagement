@@ -1,4 +1,5 @@
 ﻿using HRMana.Common;
+using HRMana.Common.Commons;
 using HRMana.Common.Events;
 using HRMana.Main.View.Personnel;
 using HRMana.Model.DAO;
@@ -21,6 +22,7 @@ namespace HRMana.Main.ViewModel
 {
     public class CreatePersonnelViewModel : BaseViewModel
     {
+        #region Khai báo biến
         private int _maNhanVien;
         private string _hoTen;
         private string _gioiTinh;
@@ -225,6 +227,8 @@ namespace HRMana.Main.ViewModel
 
         public string Fill { get => _fill; set { _fill = value; OnPropertyChanged(); } }
 
+        #endregion
+
         public CreatePersonnelViewModel()
         {
             Initialized();
@@ -272,164 +276,147 @@ namespace HRMana.Main.ViewModel
 
         private void CreateNewPersonnel()
         {
-            if (string.IsNullOrEmpty(HoTen))
+            try
             {
-                ShowNotification("Họ tên không được để trống.", "#FFFF5858");
-                return;
+                if (string.IsNullOrEmpty(HoTen))
+                {
+                    ShowNotification("Họ tên không được để trống.", "#FFFF5858");
+                    return;
+                }
+
+                if (Nam_Checked == false && Nu_Checked == false)
+                {
+                    ShowNotification("Giới tính không được để trống.", "#FFFF5858");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(NgaySinh))
+                {
+                    ShowNotification("Ngày sinh không được để trống.", "#FFFF5858");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(NoiSinh))
+                {
+                    ShowNotification("Nơi sinh không được để trống.", "#FFFF5858");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(Cccd))
+                {
+                    ShowNotification("Căn cước công dân không được để trống.", "#FFFF5858");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(NoiOHienTai))
+                {
+                    ShowNotification("Nơi ở hiện tại không được để trống.", "#FFFF5858");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(QueQuan))
+                {
+                    ShowNotification("Quê quán không được để trống.", "#FFFF5858");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(CoSoLamViec))
+                {
+                    ShowNotification("Cơ sở làm việc không được để trống.", "#FFFF5858");
+                    return;
+                }
+
+                if (SelectedTrinhDo == null)
+                {
+                    ShowNotification("Trình độ học vấn không được để trống.", "#FFFF5858");
+                    return;
+                }
+
+                if (SelectedPhongBan == null)
+                {
+                    ShowNotification("Phòng ban không được để trống.", "#FFFF5858");
+                    return;
+                }
+
+                if (SelectedTonGiao == null)
+                {
+                    ShowNotification("Tôn giáo không được để trống.", "#FFFF5858");
+                    return;
+                }
+
+                if (SelectedChuyenMon == null)
+                {
+                    ShowNotification("Chuyên môn không được để trống.", "#FFFF5858");
+                    return;
+                }
+
+                if (SelectedDanToc == null)
+                {
+                    ShowNotification("Dân tộc không được để trống.", "#FFFF5858");
+                    return;
+                }
+
+                if (SelectedChucVu == null)
+                {
+                    ShowNotification("Chức vụ không được để trống.", "#FFFF5858");
+                    return;
+                }
+
+                GioiTinh = Nam_Checked ? "Nam" : "Nữ";
+                GioiTinh = Nu_Checked ? "Nữ" : "Nam";
+
+                if (string.IsNullOrEmpty(AnhThe))
+                {
+                    AnhThe = "DefaultAvatar.jpg";
+                }
+                else
+                {
+                    AnhThe = Path.GetFileName(AnhThe);
+                }
+
+                NhanVien nv = new NhanVien()
+                {
+                    tenNhanVien = HoTen.Trim(),
+                    gioiTinh = GioiTinh.Trim(),
+                    ngaySinh = Convert.ToDateTime(NgaySinh),
+                    noiSinh = NoiSinh.Trim(),
+                    CCCD = Cccd.Trim(),
+                    dienThoai = DienThoai,
+                    noiOHienTai = NoiOHienTai.Trim(),
+                    queQuan = QueQuan.Trim(),
+                    giaDinh = TinhTrangGiaDinh.Trim(),
+                    emailCaNhan = EmailCaNhan,
+                    emailNoiBo = EmailNoiBo,
+                    coSoLamViec = CoSoLamViec.Trim(),
+                    loaiHinhLamViec = LoaiHinhLamViec.Trim(),
+                    luongOffer = StringHelper.ConvertSalary(LuongOffer),
+                    anhThe = AnhThe.Trim(),
+                    maHoSo = MaHoSo,
+                    maHopDong = MaHopDong,
+                    maChucVu = MaChucVu,
+                    maPhong = MaPhong,
+                    maTrinhDo = MaTrinhDo,
+                    maDanToc = MaDanToc,
+                    maTonGiao = MaTonGiao,
+                    maChuyenMon = MaChuyenMon,
+                };
+
+                var result = new NhanVienDAO().CreateNew_NhanVien(nv);
+
+                if (result > 0)
+                {
+                    ShowNotification("Thêm thành công.", "#FF58FF7B");
+                    EmptyField();
+                }
+                else
+                {
+                    ShowNotification("Thêm mới không thành công.", "#FFFF5858");
+
+                }
             }
-
-            if (Nam_Checked == false && Nu_Checked == false)
+            catch (Exception ex)
             {
-                ShowNotification("Giới tính không được để trống.", "#FFFF5858");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(NgaySinh))
-            {
-                ShowNotification("Ngày sinh không được để trống.", "#FFFF5858");
-                return;
-            }
-            DateTime ngaySinh;
-            if (!DateTime.TryParseExact(NgaySinh, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out ngaySinh))
-            {
-                ShowNotification("Ngày sinh phải có kiểu ngày/tháng/năm.", "#FFFF5858");
-
-                return;
-            }
-
-            if (string.IsNullOrEmpty(NoiSinh))
-            {
-                ShowNotification("Nơi sinh không được để trống.", "#FFFF5858");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(Cccd))
-            {
-                ShowNotification("Căn cước công dân không được để trống.", "#FFFF5858");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(DienThoai))
-            {
-                ShowNotification("Điện thoại không được để trống.", "#FFFF5858");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(NoiOHienTai))
-            {
-                ShowNotification("Nơi ở hiện tại không được để trống.", "#FFFF5858");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(QueQuan))
-            {
-                ShowNotification("Quê quán không được để trống.", "#FFFF5858");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(EmailCaNhan))
-            {
-                ShowNotification("Email cá nhân không được để trống.", "#FFFF5858");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(EmailNoiBo))
-            {
-                ShowNotification("Email nội bộ không được để trống.", "#FFFF5858");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(CoSoLamViec))
-            {
-                ShowNotification("Cơ sở làm việc không được để trống.", "#FFFF5858");
-                return;
-            }
-
-            if (SelectedTrinhDo == null)
-            {
-                ShowNotification("Trình độ học vấn không được để trống.", "#FFFF5858");
-                return;
-            }
-
-            if (SelectedPhongBan == null)
-            {
-                ShowNotification("Phòng ban không được để trống.", "#FFFF5858");
-                return;
-            }
-
-            if (SelectedTonGiao == null)
-            {
-                ShowNotification("Tôn giáo không được để trống.", "#FFFF5858");
-                return;
-            }
-
-            if (SelectedChuyenMon == null)
-            {
-                ShowNotification("Chuyên môn không được để trống.", "#FFFF5858");
-                return;
-            }
-
-            if (SelectedDanToc == null)
-            {
-                ShowNotification("Dân tộc không được để trống.", "#FFFF5858");
-                return;
-            }
-
-            if (SelectedChucVu == null)
-            {
-                ShowNotification("Chức vụ không được để trống.", "#FFFF5858");
-                return;
-            }
-
-            GioiTinh = Nam_Checked ? "Nam" : "Nữ";
-            GioiTinh = Nu_Checked ? "Nữ" : "Nam";
-
-            double luongOfferParse = 0;
-            if (LuongOffer != null)
-            {
-                string[] a = LuongOffer.Split('.');
-                string b = string.Concat(a);
-                luongOfferParse = Convert.ToInt32(b);
-            }
-
-            NhanVien nv = new NhanVien()
-            {
-                tenNhanVien = HoTen,
-                gioiTinh = GioiTinh,
-                ngaySinh = Convert.ToDateTime(NgaySinh),
-                noiSinh = NoiSinh,
-                CCCD = Cccd,
-                dienThoai = DienThoai,
-                noiOHienTai = NoiOHienTai,
-                queQuan = QueQuan,
-                giaDinh = TinhTrangGiaDinh,
-                emailCaNhan = EmailCaNhan,
-                emailNoiBo = EmailNoiBo,
-                coSoLamViec = CoSoLamViec,
-                loaiHinhLamViec = LoaiHinhLamViec,
-                luongOffer = Convert.ToDecimal(luongOfferParse),
-                anhThe = Path.GetFileName(AnhThe),
-                maHoSo = MaHoSo,
-                maHopDong = MaHopDong,
-                maChucVu = MaChucVu,
-                maPhong = MaPhong,
-                maTrinhDo = MaTrinhDo,
-                maDanToc = MaDanToc,
-                maTonGiao = MaTonGiao,
-                maChuyenMon = MaChuyenMon,
-            };
-
-            var result = new NhanVienDAO().CreateNew_NhanVien(nv);
-
-            if (result > 0)
-            {
-                ShowNotification("Thêm thành công.", "#FF58FF7B");
-                EmptyField();
-            }
-            else
-            {
-                ShowNotification("Thêm mới không thành công.", "#FFFF5858");
-
+                MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -458,6 +445,7 @@ namespace HRMana.Main.ViewModel
             MaNhanVien = 0;
             HoTen = string.Empty;
             GioiTinh = string.Empty;
+            NgaySinh = string.Empty;
             NoiSinh = string.Empty;
             Cccd = string.Empty;
             DienThoai = string.Empty;
@@ -506,7 +494,10 @@ namespace HRMana.Main.ViewModel
 
                 ListChuyenMon = new ObservableCollection<ChuyenMon>(result);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { 
+                MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
         }
 
         private void GetList_PhongBan()
@@ -517,7 +508,7 @@ namespace HRMana.Main.ViewModel
 
                 ListPhongBan = new ObservableCollection<PhongBan>(result);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void GetList_ChucVu()
@@ -528,7 +519,7 @@ namespace HRMana.Main.ViewModel
 
                 ListChucVu = new ObservableCollection<ChucVu>(result);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void GetList_DanToc()
@@ -539,7 +530,7 @@ namespace HRMana.Main.ViewModel
 
                 ListDanToc = new ObservableCollection<DanToc>(result);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void GetList_TonGiao()
@@ -550,7 +541,7 @@ namespace HRMana.Main.ViewModel
 
                 ListTonGiao = new ObservableCollection<TonGiao>(result);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
     }
 }

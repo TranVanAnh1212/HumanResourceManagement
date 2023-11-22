@@ -70,7 +70,7 @@ namespace HRMana.Main.ViewModel
                     Permission_MUSER = permisstionRules["MUSER"];
                 });
 
-                    ExitCommand = new RelayCommand<Object>(
+            ExitCommand = new RelayCommand<Object>(
                 (p) => { return true; },
                 (p) =>
                 {

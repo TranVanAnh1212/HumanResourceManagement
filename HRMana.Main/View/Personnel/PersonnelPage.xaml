@@ -38,7 +38,7 @@
                 </Style>
             </Grid.Resources>
 
-            <GroupBox Header="Thống kê theo" HorizontalAlignment="Left" Height="549" Margin="26,27,0,0" VerticalAlignment="Top" Width="372">
+            <GroupBox Header="Thống kê theo" HorizontalAlignment="Left" Margin="10,5,5,5" VerticalAlignment="Top" >
                 <StackPanel Style="{StaticResource stackPanelStyle}">
                     <StackPanel Style="{StaticResource stackPanelStyle}">
                         <TextBlock Height="23" TextWrapping="Wrap" Text="Phòng ban:" Width="350"/>
@@ -51,7 +51,7 @@
                     </StackPanel>
 
                     <StackPanel Style="{StaticResource stackPanelStyle}">
-                        <TextBlock Height="24" TextWrapping="Wrap" Text="trình độ:"/>
+                        <TextBlock Height="24" TextWrapping="Wrap" Text="Trình độ:"/>
                         <ComboBox ItemsSource="{Binding DsTrinhDo}" SelectedItem="{Binding SelectedTrinhDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="tenTrinhDo" Height="32"/>
                     </StackPanel>
 
@@ -60,7 +60,7 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Button Command="{Binding FilterCommand}" Height="35" Width="100">
+                        <Button Command="{Binding FilterCommand}" ToolTip="Lọc kết quả tìm kiếm" Height="35" Width="100">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Filter" />
@@ -68,7 +68,7 @@
                                 </StackPanel>
                             </Button.Content>
                         </Button>
-                        <Button Grid.Column="1" Command="{Binding CancelCommand}" Height="35" Width="100">
+                        <Button Grid.Column="1" Command="{Binding CancelCommand}" ToolTip="Hủy bỏ" Height="35" Width="100">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="CloseThick" Width="20" Height="20" Margin="0, 0, 5, 0"/>
@@ -87,7 +87,9 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <ListView Margin="10,0,10,0" x:Name="NhanSu_Lv" ItemsSource="{Binding DsNhanVien}" SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="514" VerticalAlignment="Center" >
+                <ListView Margin="10,0,10,0" x:Name="NhanSu_Lv" ItemsSource="{Binding DsNhanVien}" 
+                          SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="#" DisplayMemberBinding="{Binding MaNhanVien}"/>
@@ -104,44 +106,64 @@
                     </i:Interaction.Triggers>-->
                 </ListView>
 
-                <Grid Grid.Row="1" Margin="3 5 3 10">
-                    <Button Command="{Binding BackToStartCommand}" Margin="0,0,806.667,0" Width="55">
-                        <Button.Content>
-                            <materialDesign:PackIcon FontSize="18" Kind="SkipBackward" />
-                        </Button.Content>
-                    </Button>
-                    <Button Command="{Binding ReducePageCommand}" Margin="70.933,0.51,737.867,-0.51" Width="55" >
-                        <Button.Content>
-                            <materialDesign:PackIcon FontSize="18" Kind="ArrowLeftBold" />
-                        </Button.Content>
-                    </Button>
-                    <Button Command="{Binding IncreasePageCommand}" Margin="268.032,0.51,537.634,-0.51" Width="55">
-                        <Button.Content>
-                            <materialDesign:PackIcon FontSize="18" Kind="ArrowRightBold" />
-                        </Button.Content>
-                    </Button>
-                    <Button Command="{Binding GoToEndCommand}" Margin="346.032,0.51,459.634,-0.51" Width="55">
-                        <Button.Content>
-                            <materialDesign:PackIcon FontSize="18" Kind="SkipForward" />
-                        </Button.Content>
-                    </Button>
-                    <TextBox HorizontalAlignment="Left" Height="29.31" Margin="143.933,3.2,0,-0.51" TextWrapping="Wrap" Text="{Binding Page}" VerticalAlignment="Top" Width="35.201" TextAlignment="Center"/>
-                    <TextBlock HorizontalAlignment="Left" Height="24.8" Margin="184.134,7.71,0,-0.51" TextWrapping="Wrap" Text="/" VerticalAlignment="Top" Width="23.799" TextAlignment="Center"/>
-                    <TextBox HorizontalAlignment="Left" IsReadOnly="True" Height="29.31" Margin="212.933,3.2,0,-0.51" TextWrapping="Wrap" Text="{Binding TotalPage}" VerticalAlignment="Top" Width="35.201" TextAlignment="Center"/>
-                    <Button Visibility="{Binding Permission_ADD}" Click="btn_AddnewPersonel_Click" Margin="731,0,22,0" x:Name="btn_AddnewPersonel">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Plus" />
-                                <TextBlock Text="Thêm mới"/>
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
-                    <Button Command="{Binding RefeshCommand}" ToolTip="Refesh" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,0,0" Height="26" Width="60" Margin="639,0,0,0">
-                        <Button.Content>
-                            <materialDesign:PackIcon Kind="Restore" />
-                        </Button.Content>
-                    </Button>
+                <Grid Grid.Row="1" Margin="3 5 3 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
+                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                        <Button Command="{Binding BackToStartCommand}" ToolTip="Trang đầu" Margin="3, 3, 15, 3" Width="55">
+                            <Button.Content>
+                                <materialDesign:PackIcon FontSize="18" Kind="SkipBackward" />
+                            </Button.Content>
+                        </Button>
+                        <Button Command="{Binding ReducePageCommand}" ToolTip="Trang trước" Margin="3, 3, 15, 3" Width="55" >
+                            <Button.Content>
+                                <materialDesign:PackIcon FontSize="18" Kind="ArrowLeftBold" />
+                            </Button.Content>
+                        </Button>
+
+                        <StackPanel Orientation="Horizontal" Margin="3, 3, 15, 3">
+                            <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Page}" VerticalAlignment="Top" Width="35.201" TextAlignment="Center"/>
+                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="/" VerticalAlignment="Stretch" TextAlignment="Center"/>
+                            <TextBox HorizontalAlignment="Left" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding TotalPage}" VerticalAlignment="Top" Width="35.201" TextAlignment="Center"/>
+
+                        </StackPanel>
+
+                        <Button Command="{Binding IncreasePageCommand}" ToolTip="Trang tiếp theo" Margin="3, 3, 15, 3" Width="55">
+                            <Button.Content>
+                                <materialDesign:PackIcon FontSize="18" Kind="ArrowRightBold" />
+                            </Button.Content>
+                        </Button>
+                        
+                        <Button Command="{Binding GoToEndCommand}" ToolTip="Trang cuối cùng" Margin="3, 3, 15, 3" Width="55">
+                            <Button.Content>
+                                <materialDesign:PackIcon FontSize="18" Kind="SkipForward" />
+                            </Button.Content>
+                        </Button>
+                        
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="2">
+
+                        <Button Command="{Binding RefeshCommand}" Margin="3, 3, 15, 3" ToolTip="Refesh" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,0,0" Width="60" >
+                            <Button.Content>
+                                <materialDesign:PackIcon Kind="Restore" />
+                            </Button.Content>
+                        </Button>
+
+                        <Button Visibility="{Binding Permission_ADD}" ToolTip="Thêm mới nhân viên" Margin="3, 3, 15, 3" Click="btn_AddnewPersonel_Click" x:Name="btn_AddnewPersonel">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Plus" />
+                                    <TextBlock Text="Thêm mới"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+
+                    </StackPanel>
                 </Grid>
             </Grid>
         </Grid>

@@ -30,7 +30,7 @@ namespace HRMana.Main.ViewModel
         private string _matKhau;
         private string _trangThaiTaiKhoan;
         private string _quyenTaiKhoan;
-        private int _maQuyen;
+        private string _maQuyen;
         private ObservableCollection<AccountViewModel> _listTaiKhoan;
         private ObservableCollection<Quyen> _listQuyen;
         private Quyen _selectedQuyen;
@@ -47,7 +47,7 @@ namespace HRMana.Main.ViewModel
         public string MatKhau { get => _matKhau; set { _matKhau = value; OnPropertyChanged(); } }
         public string TrangThaiTaiKhoan { get => _trangThaiTaiKhoan; set { _trangThaiTaiKhoan = value; OnPropertyChanged(); } }
         public string QuyenTaiKhoan { get => _quyenTaiKhoan; set { _quyenTaiKhoan = value; OnPropertyChanged(); } }
-        public int MaQuyen { get => _maQuyen; set { _maQuyen = value; } }
+        public string MaQuyen { get => _maQuyen; set { _maQuyen = value; } }
         public ObservableCollection<AccountViewModel> ListTaiKhoan { get => _listTaiKhoan; set { _listTaiKhoan = value; OnPropertyChanged(); } }
         public ObservableCollection<Quyen> ListQuyen { get => _listQuyen; set { _listQuyen = value; OnPropertyChanged(); } }
 
@@ -165,21 +165,28 @@ namespace HRMana.Main.ViewModel
                 },
                 (param) =>
                 {
-                    string pass_base64_encode = StringHelper.Base64Encode(MatKhau);
-                    string pass_md5_hash = StringHelper.MD5Hash(pass_base64_encode);
-
-                    var result = new TaiKhoanDAO().Create_TaiKhoan(TenTaiKhoan, pass_md5_hash, MaQuyen, true);
-
-                    if (result != null)
+                    try
                     {
-                        ShowNotification("Thêm mới tài khoản thành công", "#FF58FF7B");
-                        GetListTaiKhoan();
-                        EmptyTextbox();
+                        string pass_base64_encode = StringHelper.Base64Encode(MatKhau);
+                        string pass_md5_hash = StringHelper.MD5Hash(pass_base64_encode);
+
+                        var result = new TaiKhoanDAO().Create_TaiKhoan(TenTaiKhoan, pass_md5_hash, MaQuyen, true);
+
+                        if (result != null)
+                        {
+                            ShowNotification("Thêm mới tài khoản thành công", "#FF58FF7B");
+                            GetListTaiKhoan();
+                            EmptyTextbox();
+                        }
+                        else
+                        {
+                            ShowNotification("Xóa tài khoản không thành công", "#FFFF5858");
+
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        ShowNotification("Xóa tài khoản không thành công", "#FFFF5858");
-
+                        ShowNotification("Có lỗi xảy ra.", "#FFFF5858");
                     }
                 }
                 );
@@ -193,28 +200,36 @@ namespace HRMana.Main.ViewModel
                 },
                 (param) =>
                 {
-                    DialogWindow dialog = new DialogWindow();
-                    dialog.DialogMessage = "Bạn có chắc muốn xóa";
-                    dialog.Owner = Window.GetWindow(new AccountUserPage());
-
-                    /*                    
-                    so sánh true với dialog.ShowDialog() if sẽ được thực thi nếu dialog.ShowDialog() là true
-                     */
-                    if (true == dialog.ShowDialog())
+                    try
                     {
-                        var result = new TaiKhoanDAO().Delete_TaiKhoan(SelectedTaiKhoan.MaTaiKhoan);
+                        DialogWindow dialog = new DialogWindow();
+                        dialog.DialogMessage = "Bạn có chắc muốn xóa";
+                        dialog.Owner = Window.GetWindow(new AccountUserPage());
 
-                        if (result)
+                        /*                    
+                        so sánh true với dialog.ShowDialog() if sẽ được thực thi nếu dialog.ShowDialog() là true
+                         */
+                        if (true == dialog.ShowDialog())
                         {
-                            ShowNotification("Xóa tài khoản thành công", "#FF58FF7B");
-                            GetListTaiKhoan();
-                            EmptyTextbox();
-                        }
-                        else
-                        {
-                            ShowNotification("Xóa tài khoản không thành công", "#FFFF5858");
+                            var result = new TaiKhoanDAO().Delete_TaiKhoan(SelectedTaiKhoan.MaTaiKhoan);
 
+                            if (result)
+                            {
+                                ShowNotification("Xóa tài khoản thành công", "#FF58FF7B");
+                                GetListTaiKhoan();
+                                EmptyTextbox();
+                            }
+                            else
+                            {
+                                ShowNotification("Xóa tài khoản không thành công", "#FFFF5858");
+
+                            }
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        ShowNotification("Có lỗi xảy ra.", "#FFFF5858");
+
                     }
                 }
                 );
@@ -228,26 +243,35 @@ namespace HRMana.Main.ViewModel
                 },
                 (param) =>
                 {
-                    DialogWindow d = new DialogWindow();
-                    d.DialogMessage = "Bạn có chắc muốn khóa tài khoản này.";
-                    d.Owner = Window.GetWindow(new AccountUserPage());
-
-                    if (true ==  d.ShowDialog())
+                    try
                     {
-                        var result = new TaiKhoanDAO().Block_TaiKhoan(SelectedTaiKhoan.MaTaiKhoan);
+                        DialogWindow d = new DialogWindow();
+                        d.DialogMessage = "Bạn có chắc muốn khóa tài khoản này.";
+                        d.Owner = Window.GetWindow(new AccountUserPage());
 
-                        if (result)
+                        if (true == d.ShowDialog())
                         {
-                            ShowNotification("Khóa tài khoản thành công", "#FF58FF7B");
-                            GetListTaiKhoan();
-                            EmptyTextbox();
-                        }
-                        else
-                        {
-                            ShowNotification("Khóa tài khoản không thành công", "#FFFF5858");
+                            var result = new TaiKhoanDAO().Block_TaiKhoan(SelectedTaiKhoan.MaTaiKhoan);
 
+                            if (result)
+                            {
+                                ShowNotification("Khóa tài khoản thành công", "#FF58FF7B");
+                                GetListTaiKhoan();
+                                EmptyTextbox();
+                            }
+                            else
+                            {
+                                ShowNotification("Khóa tài khoản không thành công", "#FFFF5858");
+
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        ShowNotification("Có lỗi xảy ra.", "#FFFF5858");
+
+                    }
+
                 }
                 );
 
@@ -260,25 +284,33 @@ namespace HRMana.Main.ViewModel
                 },
                 (param) =>
                 {
-                    DialogWindow d = new DialogWindow();
-                    d.DialogMessage = "Bạn có chắc muốn khóa tài khoản này.";
-                    d.Owner = Window.GetWindow(new AccountUserPage());
-
-                    if (true == d.ShowDialog())
+                    try
                     {
-                        var result = new TaiKhoanDAO().Unblock_TaiKhoan(SelectedTaiKhoan.MaTaiKhoan);
+                        DialogWindow d = new DialogWindow();
+                        d.DialogMessage = "Bạn có chắc muốn khóa tài khoản này.";
+                        d.Owner = Window.GetWindow(new AccountUserPage());
 
-                        if (result)
+                        if (true == d.ShowDialog())
                         {
-                            ShowNotification("Mở khóa tài khoản thành công", "#FF58FF7B");
-                            GetListTaiKhoan();
-                            EmptyTextbox();
-                        }
-                        else
-                        {
-                            ShowNotification("Mở khóa tài khoản không thành công", "#FFFF5858");
+                            var result = new TaiKhoanDAO().Unblock_TaiKhoan(SelectedTaiKhoan.MaTaiKhoan);
 
+                            if (result)
+                            {
+                                ShowNotification("Mở khóa tài khoản thành công", "#FF58FF7B");
+                                GetListTaiKhoan();
+                                EmptyTextbox();
+                            }
+                            else
+                            {
+                                ShowNotification("Mở khóa tài khoản không thành công", "#FFFF5858");
+
+                            }
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        ShowNotification("Có lỗi xảy ra.", "#FFFF5858");
+
                     }
                 }
                 );
@@ -315,7 +347,7 @@ namespace HRMana.Main.ViewModel
             TenTaiKhoan = string.Empty;
             TrangThaiTaiKhoan = string.Empty;
             MatKhau = string.Empty;
-            MaQuyen = 0;
+            MaQuyen = string.Empty;
             QuyenTaiKhoan = string.Empty;
             SelectedQuyen = null;
             SelectedTaiKhoan = null;

@@ -253,6 +253,8 @@ namespace HRMana.Main.ViewModel
             BackToStartCommand = new RelayCommand<object>(
                 (param) =>
                 {
+                    if (Page == 1) return false;
+
                     return true;
                 },
                 (param) =>
@@ -265,6 +267,8 @@ namespace HRMana.Main.ViewModel
             GoToEndCommand = new RelayCommand<object>(
                 (param) =>
                 {
+                    if (Page == TotalPage) return false;
+
                     return true;
                 },
                 (param) =>
@@ -346,7 +350,7 @@ namespace HRMana.Main.ViewModel
 
                 DsBacLuong = new ObservableCollection<BacLuong>(result);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void GetList_TrinhDo()
@@ -357,7 +361,7 @@ namespace HRMana.Main.ViewModel
 
                 DsTrinhDo = new ObservableCollection<TrinhDo>(result);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void GetList_PhongBan()
@@ -368,7 +372,7 @@ namespace HRMana.Main.ViewModel
 
                 DsPhongBan = new ObservableCollection<PhongBan>(result);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void GetList_ChucVu()
@@ -379,7 +383,7 @@ namespace HRMana.Main.ViewModel
 
                 DsChucVu = new ObservableCollection<ChucVu>(result);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void GetList_NhanVien(int maChucVu, int maPhongBan, int maTrinhDo)

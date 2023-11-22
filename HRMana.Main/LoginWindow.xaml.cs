@@ -61,5 +61,14 @@ namespace HRMana.Main
             }
             catch (Exception) { }
         }
+
+        private void txt_UserName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                txt_Password.Focus(); 
+            }
+        }
+
     }
 }

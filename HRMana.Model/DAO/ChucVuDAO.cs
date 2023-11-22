@@ -15,7 +15,7 @@ namespace HRMana.Model.DAO
 
             try
             {
-                var result = DataProvider.Instance.DBContext.Database.SqlQuery<ChucVu>("exec [dbo].[LayDanhSach_ChucVu]").ToList();
+                var result = DataProvider.Instance.DBContext.ChucVu.ToList();
 
                 chucVu = result;
             }
@@ -60,33 +60,37 @@ namespace HRMana.Model.DAO
             catch { return null; }
         }
 
-        public ChucVu CreateNew_ChucVu(string tenChucVu)
-        {
-            ChucVu cv = null;
-
-            if (!string.IsNullOrEmpty(tenChucVu))
-            {
-                var result = DataProvider.Instance.DBContext.Database.SqlQuery<ChucVu>($"exec [dbo].[TaoMoi_ChucVu] N'{tenChucVu}'");
-
-                cv = result.SingleOrDefault();
-            }
-
-            return cv;
-        }
-
-        public bool Update_ChucVu(int maChucVu, string tenChucVu)
+        public int CreateNew_ChucVu(ChucVu cv)
         {
             try
             {
-                if (string.IsNullOrEmpty(tenChucVu) && maChucVu == 0)
+               if (cv != null)
+                {
+                    DataProvider.Instance.DBContext.ChucVu.Add(cv);
+                    DataProvider.Instance.DBContext.SaveChanges();
+
+                    return cv.maChucVu;
+                }
+               else
+                {
+                    return 0;
+                }
+            }
+            catch { return -1; }
+        }
+
+        public bool Update_ChucVu(ChucVu cv)
+        {
+            try
+            {
+                if (cv == null)
                 {
                     return false;
                 }
                 else
                 {
-                    var result = DataProvider.Instance.DBContext.ChucVu.Where(x => x.maChucVu == maChucVu).SingleOrDefault();
-
-                    result.tenChucVu = tenChucVu;
+                    var result = DataProvider.Instance.DBContext.ChucVu.Where(x => x.maChucVu == cv.maChucVu).SingleOrDefault();
+                    result.tenChucVu = cv.tenChucVu;
 
                     DataProvider.Instance.DBContext.SaveChanges();
 
@@ -94,7 +98,7 @@ namespace HRMana.Model.DAO
                 }
 
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }
@@ -116,9 +120,10 @@ namespace HRMana.Model.DAO
                     DataProvider.Instance.DBContext.SaveChanges();
 
                     return true;
-                    
+
                 }
-            }catch (Exception ex)
+            }
+            catch
             {
                 return false;
             }

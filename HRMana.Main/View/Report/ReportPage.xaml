@@ -3,13 +3,21 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HRMana.Main.View.Report"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       mc:Ignorable="d" 
+      x:Name="ReportWindow"
       Style="{StaticResource Sizewindow}"
       DataContext="{StaticResource reportVM}"
       Title="ReportPage">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadWindowCommand}" CommandParameter="{Binding ElementName=ReportWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -40,10 +48,10 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel>
-                            <TextBlock Text="Cộng hòa xã hội chủ nghĩa Việt Nam" FontSize="24" FontWeight="Bold" TextAlignment="Center"/>
-                            <TextBlock Text="Độc lập - tự do - hạnh phúc" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
-                            <TextBlock Text="------------------" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
-                            <TextBlock FontSize="17" FontWeight="DemiBold" Padding="0, 0, 100, 0" TextAlignment="Right">
+                            <TextBlock Text="Cộng hòa xã hội chủ nghĩa Việt Nam" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock Text="Độc lập - tự do - hạnh phúc" FontSize="17" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock Text="------------------" FontSize="18" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock FontSize="15" FontWeight="DemiBold" Padding="0, 0, 100, 0" TextAlignment="Right">
                                 <Run Text="...,"/>
                                 <Run Text="Ngày"/>
                                 <Run Text="{Binding NgayBC}"/>
@@ -56,25 +64,34 @@
 
                         <Grid Grid.Row="1">
 
-                            <Label Content="Tên nhân viên" HorizontalAlignment="Left" Margin="48,69,0,0" VerticalAlignment="Top"/>
-                            <TextBox Text="{Binding TenNV}" HorizontalAlignment="Left" Margin="160,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
-                            <Label Content="Chức vụ" HorizontalAlignment="Left" Margin="433,68,0,0" VerticalAlignment="Top"/>
-                            <TextBox Text="{Binding ChucVu}" HorizontalAlignment="Left" Margin="496,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
-                            <Label Content="Phòng ban" HorizontalAlignment="Left" Margin="767,69,0,0" VerticalAlignment="Top"/>
-                            <TextBox Text="{Binding PhongBan}" HorizontalAlignment="Left" Margin="860,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
-                            <DatePicker SelectedDate="{Binding FromDate}" HorizontalAlignment="Left" Margin="191,188,0,0" VerticalAlignment="Top" Width="170"/>
-                            <Label Content="Xuất báo cáo" FontWeight="Bold" HorizontalAlignment="Left" Margin="45,154,0,0" VerticalAlignment="Top" Width="106"/>
-                            <Label Content="Thời gian từ" HorizontalAlignment="Left" Margin="78,189,0,0" VerticalAlignment="Top"/>
-                            <DatePicker SelectedDate="{Binding ToDate}" HorizontalAlignment="Left" Margin="462,188,0,0" VerticalAlignment="Top" Width="170"/>
-                            <Label Content="Đến" HorizontalAlignment="Left" Margin="399,189,0,0" VerticalAlignment="Top"/>
-                            <TextBlock FontSize="33" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Báo cáo tài khoản đăng nhập" VerticalAlignment="Top"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="48,117,0,0" TextWrapping="Wrap" Text="Thời gian thực hiện" VerticalAlignment="Top"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="186,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
+                            <Label Content="Tên nhân viên" HorizontalAlignment="Left" Margin="45,54,0,0" VerticalAlignment="Top"/>
+                            <TextBox Text="{Binding TenNV}" HorizontalAlignment="Left" Margin="157,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+                            <Label Content="Chức vụ" HorizontalAlignment="Left" Margin="430,53,0,0" VerticalAlignment="Top"/>
+                            <TextBox Text="{Binding ChucVu}" HorizontalAlignment="Left" Margin="493,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+                            <Label Content="Phòng ban" HorizontalAlignment="Left" Margin="764,54,0,0" VerticalAlignment="Top"/>
+                            <TextBox Text="{Binding PhongBan}" HorizontalAlignment="Left" Margin="857,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+                            <DatePicker SelectedDate="{Binding FromDate}" HorizontalAlignment="Left" Margin="282,138,0,0" VerticalAlignment="Top" Width="170"/>
+                            <Label Content="Xuất báo cáo" FontWeight="Bold" HorizontalAlignment="Left" Margin="42,139,0,0" VerticalAlignment="Top" Width="106"/>
+                            <Label Content="Thời gian từ" HorizontalAlignment="Left" Margin="169,139,0,0" VerticalAlignment="Top"/>
+                            <DatePicker SelectedDate="{Binding ToDate}" HorizontalAlignment="Left" Margin="553,138,0,0" VerticalAlignment="Top" Width="170"/>
+                            <Label Content="Đến" HorizontalAlignment="Left" Margin="490,139,0,0" VerticalAlignment="Top"/>
+                            <TextBlock FontSize="27" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Báo cáo tài khoản đăng nhập" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="45,102,0,0" TextWrapping="Wrap" Text="Thời gian thực hiện" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="183,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
                                 <Run Text="Tháng"/>
                                 <Run Text="{Binding ThangBC}"/>
                                 <Run Text="Năm"/>
                                 <Run Text="{Binding NamBC}"/>
                             </TextBlock>
+                            <ListView BorderBrush="#FF797979" BorderThickness="1" ItemsSource="{Binding DsBCDN}" Margin="10,198,0,0">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Tên tài khoản" DisplayMemberBinding="{Binding TenTaiKhoan}"/>
+                                        <GridViewColumn Header="Thời gian đăng nhập" DisplayMemberBinding="{Binding TgDangNhap}"/>
+                                        <GridViewColumn Header="Thời gian đăng xuất" DisplayMemberBinding="{Binding TgDangXuat}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
                         </Grid>
 
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="2">
@@ -113,10 +130,10 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel>
-                            <TextBlock Text="Cộng hòa xã hội chủ nghĩa Việt Nam" FontSize="24" FontWeight="Bold" TextAlignment="Center"/>
-                            <TextBlock Text="Độc lập - tự do - hạnh phúc" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
-                            <TextBlock Text="------------------" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
-                            <TextBlock FontSize="17" FontWeight="DemiBold" Padding="0, 0, 100, 0" TextAlignment="Right">
+                            <TextBlock Text="Cộng hòa xã hội chủ nghĩa Việt Nam" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock Text="Độc lập - tự do - hạnh phúc" FontSize="17" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock Text="------------------" FontSize="18" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock FontSize="15" FontWeight="DemiBold" Padding="0, 0, 100, 0" TextAlignment="Right">
                                     <Run Text="...,"/>
                                     <Run Text="Ngày"/>
                                     <Run Text="{Binding NgayBC}"/>
@@ -135,7 +152,7 @@
                             <TextBox Text="{Binding ChucVu}" HorizontalAlignment="Left" Margin="494,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
                             <Label Content="Phòng ban" HorizontalAlignment="Left" Margin="765,72,0,0" VerticalAlignment="Top"/>
                             <TextBox Text="{Binding PhongBan}" HorizontalAlignment="Left" Margin="858,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
-                            <TextBlock FontSize="33" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Báo cáo danh sách nhân viên" VerticalAlignment="Top"/>
+                            <TextBlock FontSize="27" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Báo cáo danh sách nhân viên" VerticalAlignment="Top"/>
                             <TextBlock HorizontalAlignment="Left" Margin="46,120,0,0" TextWrapping="Wrap" Text="Thời gian thực hiện" VerticalAlignment="Top"/>
                             <TextBlock HorizontalAlignment="Left" Margin="184,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
                                     <Run Text="Tháng"/>
@@ -181,10 +198,10 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel>
-                            <TextBlock Text="Cộng hòa xã hội chủ nghĩa Việt Nam" FontSize="24" FontWeight="Bold" TextAlignment="Center"/>
-                            <TextBlock Text="Độc lập - tự do - hạnh phúc" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
-                            <TextBlock Text="------------------" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
-                            <TextBlock FontSize="17" FontWeight="DemiBold" Padding="0, 0, 100, 0" TextAlignment="Right">
+                            <TextBlock Text="Cộng hòa xã hội chủ nghĩa Việt Nam" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock Text="Độc lập - tự do - hạnh phúc" FontSize="17" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock Text="------------------" FontSize="18" FontWeight="Bold" TextAlignment="Center"/>
+                            <TextBlock FontSize="15" FontWeight="DemiBold" Padding="0, 0, 100, 0" TextAlignment="Right">
                 <Run Text="...,"/>
                 <Run Text="Ngày"/>
                 <Run Text="{Binding NgayBC}"/>
@@ -203,7 +220,7 @@
                             <TextBox Text="{Binding ChucVu}" HorizontalAlignment="Left" Margin="499,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
                             <Label Content="Phòng ban" HorizontalAlignment="Left" Margin="770,75,0,0" VerticalAlignment="Top"/>
                             <TextBox Text="{Binding PhongBan}" HorizontalAlignment="Left" Margin="863,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
-                            <TextBlock FontSize="33" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Báo cáo chấm công" VerticalAlignment="Top"/>
+                            <TextBlock FontSize="27" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" Text="Báo cáo chấm công" VerticalAlignment="Top"/>
                             <TextBlock HorizontalAlignment="Left" Margin="51,123,0,0" TextWrapping="Wrap" Text="Thời gian thực hiện" VerticalAlignment="Top"/>
                             <TextBlock HorizontalAlignment="Left" Margin="189,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
                                     <Run Text="Tháng"/>

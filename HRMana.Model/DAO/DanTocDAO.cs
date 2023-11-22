@@ -75,7 +75,7 @@ namespace HRMana.Model.DAO
 
             try
             {
-                list = DataProvider.Instance.DBContext.Database.SqlQuery<DanToc>("exec [dbo].[LayDanhSach_DanToc]").ToList();
+                list = DataProvider.Instance.DBContext.DanToc.ToList();
             }
             catch(Exception ex)
             {

@@ -21,7 +21,7 @@ namespace HRMana.Model.EF
             this.TaiKhoan = new HashSet<TaiKhoan>();
         }
     
-        public int maQuyen { get; set; }
+        public string maQuyen { get; set; }
         public string tenQuyen { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

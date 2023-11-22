@@ -117,6 +117,8 @@ namespace HRMana.Main.ViewModel
             BackToStartCommand = new RelayCommand<object>(
                 (param) =>
                 {
+                    if (Page == 1) return false;
+
                     return true;
                 },
                 (param) =>
@@ -129,6 +131,8 @@ namespace HRMana.Main.ViewModel
             GoToEndCommand = new RelayCommand<object>(
                 (param) =>
                 {
+                    if (Page == TotalPage) return false;
+
                     return true;
                 },
                 (param) =>
