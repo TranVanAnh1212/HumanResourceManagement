@@ -171,9 +171,15 @@ namespace HRMana.Main.ViewModel
 
         #endregion
 
+
         public PersonnelViewModel()
         {
             Initialize();
+        }
+
+        private void PersonnelViewModel_LoadData(object sender, EventArgs e)
+        {
+            GetList_NhanVien(MaChucVu, MaPhong, MaTrinhDo);
         }
 
         private void Initialize()
@@ -196,19 +202,25 @@ namespace HRMana.Main.ViewModel
                             GetList_TrinhDo();
                             GetList_BacLuong();
 
+                            // Xét quyền của tài khoản
+                            var permissions = new Dictionary<string, string>
+                            {
+                                { "VIEW", CommonConstant.Visibility_Visible },
+                                { "ADD", CommonConstant.Visibility_Collapsed },
+                                { "EDIT", CommonConstant.Visibility_Collapsed },
+                                { "DEL", CommonConstant.Visibility_Collapsed },
+                            };
                             var checkPermission = CommonConstant.DsQuyenCuaTKDN;
-
                             foreach (var i in checkPermission)
                             {
-                                if (i.Chitiet_Quyen.mahanhDong.Equals("ADD"))
+                                if (permissions.ContainsKey(i.Chitiet_Quyen.mahanhDong))
                                 {
-                                    Permission_ADD = CommonConstant.Visibility_Visible;
-                                }
-                                else
-                                {
-                                    Permission_ADD = CommonConstant.Visibility_Hidden;
+                                    permissions[i.Chitiet_Quyen.mahanhDong] = CommonConstant.Visibility_Visible;
                                 }
                             }
+
+                            // Gán giá trị từ dictionary vào các biến
+                            Permission_ADD = permissions["ADD"];
                         }));
                     });
                     GetData_Thread.IsBackground = true;
@@ -386,7 +398,7 @@ namespace HRMana.Main.ViewModel
             catch (Exception ex) { MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
-        private void GetList_NhanVien(int maChucVu, int maPhongBan, int maTrinhDo)
+        public void GetList_NhanVien(int maChucVu, int maPhongBan, int maTrinhDo)
         {
             try
             {

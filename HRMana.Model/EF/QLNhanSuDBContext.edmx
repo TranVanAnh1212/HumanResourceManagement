@@ -35,6 +35,8 @@
           <Property Name="soNgayTangCa" Type="int" />
           <Property Name="luongTangCa" Type="decimal" Precision="18" Scale="0" />
           <Property Name="phuCapCongViec" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Thang" Type="int" />
+          <Property Name="Nam" Type="int" />
         </EntityType>
         <EntityType Name="Chitiet_Quyen">
           <Key>
@@ -137,7 +139,6 @@
           <Property Name="dienThoai" Type="char" MaxLength="11" />
           <Property Name="noiOHienTai" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="queQuan" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="giaDinh" Type="nvarchar" MaxLength="255" />
           <Property Name="emailCaNhan" Type="varchar" MaxLength="255" />
           <Property Name="emailNoiBo" Type="varchar" MaxLength="255" />
           <Property Name="coSoLamViec" Type="nvarchar" MaxLength="255" Nullable="false" />
@@ -499,6 +500,8 @@
           <Property Name="soNgayTangCa" Type="Int32" />
           <Property Name="luongTangCa" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="phuCapCongViec" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Thang" Type="Int32" />
+          <Property Name="Nam" Type="Int32" />
           <NavigationProperty Name="BacLuong" Relationship="Self.FK__ChamCong__heSoLu__6ABAD62E" FromRole="ChamCong" ToRole="BacLuong" />
           <NavigationProperty Name="NhanVien" Relationship="Self.FK__ChamCong__maNhan__69C6B1F5" FromRole="ChamCong" ToRole="NhanVien" />
         </EntityType>
@@ -615,7 +618,6 @@
           <Property Name="dienThoai" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
           <Property Name="noiOHienTai" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="queQuan" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="giaDinh" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="emailCaNhan" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="emailNoiBo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="coSoLamViec" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
@@ -993,6 +995,8 @@
                 <ScalarProperty Name="soNgayTangCa" ColumnName="soNgayTangCa" />
                 <ScalarProperty Name="luongTangCa" ColumnName="luongTangCa" />
                 <ScalarProperty Name="phuCapCongViec" ColumnName="phuCapCongViec" />
+                <ScalarProperty Name="Thang" ColumnName="Thang" />
+                <ScalarProperty Name="Nam" ColumnName="Nam" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1103,7 +1107,6 @@
                 <ScalarProperty Name="dienThoai" ColumnName="dienThoai" />
                 <ScalarProperty Name="noiOHienTai" ColumnName="noiOHienTai" />
                 <ScalarProperty Name="queQuan" ColumnName="queQuan" />
-                <ScalarProperty Name="giaDinh" ColumnName="giaDinh" />
                 <ScalarProperty Name="emailCaNhan" ColumnName="emailCaNhan" />
                 <ScalarProperty Name="emailNoiBo" ColumnName="emailNoiBo" />
                 <ScalarProperty Name="coSoLamViec" ColumnName="coSoLamViec" />

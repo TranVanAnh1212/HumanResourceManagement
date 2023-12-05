@@ -30,7 +30,6 @@ namespace HRMana.Model.EF
         public string dienThoai { get; set; }
         public string noiOHienTai { get; set; }
         public string queQuan { get; set; }
-        public string giaDinh { get; set; }
         public string emailCaNhan { get; set; }
         public string emailNoiBo { get; set; }
         public string coSoLamViec { get; set; }

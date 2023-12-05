@@ -12,6 +12,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows;
 using HRMana.Common.Commons;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace HRMana.Main.ViewModel
 {
@@ -207,8 +209,7 @@ namespace HRMana.Main.ViewModel
 
                             if (checkExist_BacLuong != null)
                             {
-                                MessageBox.Show("Bậc lương đã tồn tại.", "Cảnh báo!", MessageBoxButton.OK, MessageBoxImage.Warning);
-
+                                ShowMessageBoxCustom("Bậc lương đã tồn tại.", CommonConstant.Error_ICon);
                             }
                             else
                             {
@@ -222,15 +223,15 @@ namespace HRMana.Main.ViewModel
 
                                 if (result < 0)
                                 {
-                                    MessageBox.Show("Có lỗi xảy ra ở máy chủ", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    ShowMessageBoxCustom("Có lỗi xảy ra ở máy chủ", CommonConstant.Error_ICon);
                                 }
                                 else if (result == 0)
                                 {
-                                    MessageBox.Show("Dữ liệu đang bị rỗng.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                    ShowMessageBoxCustom("Dữ liệu đang bị rỗng.", CommonConstant.Warning_ICon);
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Thêm mới bậc lương thành công", "Cảnh báo!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    ShowMessageBoxCustom("Thêm mới bậc lương thành công", CommonConstant.Success_ICon);
                                     GetList_BacLuong();
                                     EmptyField();
                                 }
@@ -238,7 +239,7 @@ namespace HRMana.Main.ViewModel
                         }
                         else
                         {
-                            MessageBox.Show("Hệ số lương và luong cơ bản không được bỏ trống.", "Cảnh báo!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            ShowMessageBoxCustom("Hệ số lương và luong cơ bản không được bỏ trống.", CommonConstant.Warning_ICon);
                         }
                     }
                     catch (Exception ex)
@@ -276,12 +277,12 @@ namespace HRMana.Main.ViewModel
 
                             if (!result)
                             {
-                                MessageBox.Show("Có lỗi xảy ra ở máy chủ", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                ShowMessageBoxCustom("Có lỗi xảy ra ở máy chủ", CommonConstant.Error_ICon);
 
                             }
                             else
                             {
-                                MessageBox.Show("Cập nhật bậc lương thành công", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                ShowMessageBoxCustom("Cập nhật bậc lương thành công", CommonConstant.Success_ICon);
                                 GetList_BacLuong();
                                 EmptyField();
                             }
@@ -322,12 +323,12 @@ namespace HRMana.Main.ViewModel
 
                                 if (!result)
                                 {
-                                    MessageBox.Show("Có lỗi xảy ra ở máy chủ", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    ShowMessageBoxCustom("Có lỗi xảy ra ở máy chủ", CommonConstant.Error_ICon);
 
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Xóa bậc lương thành công", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    ShowMessageBoxCustom("Xóa bậc lương thành công", CommonConstant.Success_ICon);
                                     GetList_BacLuong();
                                     EmptyField();
                                 }
@@ -340,6 +341,19 @@ namespace HRMana.Main.ViewModel
                     }
                 }
                 );
+        }
+
+        private void ShowMessageBoxCustom(string msg, string imagePath)
+        {
+            MessageBox_Custom messageBox_Custom = new MessageBox_Custom();
+            messageBox_Custom.MsgBox_Content = msg;
+
+            // Chuyển đổi đường dẫn hình ảnh từ kiểu string sang ImageSource
+            ImageSource msgIcon = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+
+            messageBox_Custom.Img_MsgIcon = msgIcon;
+
+            messageBox_Custom.ShowDialog();
         }
 
         private void EmptyField()

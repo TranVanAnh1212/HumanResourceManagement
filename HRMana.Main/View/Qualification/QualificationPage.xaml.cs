@@ -23,12 +23,25 @@ namespace HRMana.Main.View.Qualification
         public QualificationPage()
         {
             InitializeComponent();
+            txtbl_TenTrinhDoValidate.Visibility = Visibility.Visible;
         }
+
 
         private void UpperCaseFirstChar(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
             string value = textBox.Text;
+
+            if (textBox.Text.Length <= 0)
+            {
+                txtbl_TenTrinhDoValidate.Visibility = Visibility.Visible;
+                btn_Add.IsEnabled = false;
+            }
+            else
+            {
+                txtbl_TenTrinhDoValidate.Visibility = Visibility.Visible;
+                btn_Add.IsEnabled = true;
+            }
 
             if (!string.IsNullOrEmpty(value))
             {

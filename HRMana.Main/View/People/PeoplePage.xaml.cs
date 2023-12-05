@@ -23,12 +23,24 @@ namespace HRMana.Main.View.People
         public PeoplePage()
         {
             InitializeComponent();
+                txt_TenDanTocValidate.Visibility = Visibility.Collapsed;
         }
 
         private void UpperCaseFirstChar(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
             string value = textBox.Text;
+
+            if (textBox.Text.Length <= 0)
+            {
+                txt_TenDanTocValidate.Visibility = Visibility.Visible;
+                btn_Add.IsEnabled = false;
+            }
+            else
+            {
+                txt_TenDanTocValidate.Visibility = Visibility.Collapsed;
+                btn_Add.IsEnabled = true;
+            }
 
             if (!string.IsNullOrEmpty(value))
             {

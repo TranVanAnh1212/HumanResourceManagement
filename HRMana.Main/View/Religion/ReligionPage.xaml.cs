@@ -23,12 +23,24 @@ namespace HRMana.Main.View.Religion
         public ReligionPage()
         {
             InitializeComponent();
+            txtbl_TenTonGiaoValidate.Visibility = Visibility.Collapsed;
         }
 
         private void UpperCaseFirstChar(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
             string value = textBox.Text;
+
+            if (textBox.Text.Length <= 0)
+            {
+                txtbl_TenTonGiaoValidate.Visibility = Visibility.Visible;
+                btn_Add.IsEnabled = false;
+            }
+            else
+            {
+                txtbl_TenTonGiaoValidate.Visibility = Visibility.Collapsed;
+                btn_Add.IsEnabled = true;
+            }
 
             if (!string.IsNullOrEmpty(value))
             {

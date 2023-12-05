@@ -1,4 +1,5 @@
 ﻿using HRMana.Common.Events;
+using HRMana.Main.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace HRMana.Main
         public Login()
         {
             InitializeComponent();
+            txt_UserName.Focus();
 
             NotificationEvent.Instance.ShowNotificationRequested += async (sender, e) =>
             {
@@ -70,5 +72,15 @@ namespace HRMana.Main
             }
         }
 
+        private void txt_Password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (DataContext is LoginViewModel viewModel)
+                {
+                    viewModel.LoginCommand.Execute(null);
+                }
+            }
+        }
     }
 }

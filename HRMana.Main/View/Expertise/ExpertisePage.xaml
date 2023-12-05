@@ -7,8 +7,8 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-      mc:Ignorable="d" 
-      x:Name="expertisePage"
+      mc:Ignorable="d" Background="White"
+      x:Name="expertisePage" FontSize="14"
       DataContext="{StaticResource expertiseVM}"
       Title="ExpertisePage">
 
@@ -37,8 +37,12 @@
                     <TextBlock Text="Mã chuyên môn" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="100,0,0,448"></TextBlock>
                     <TextBox Text="{Binding MaChuyenMon}" IsReadOnly="True" Width="336" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="215,0,0,443"></TextBox>
                     <TextBlock Text="Chuyên môn" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="121,0,0,396"></TextBlock>
-                    <TextBox TextChanged="UpperCaseFirstChar" Text="{Binding TenChuyenMon}" Width="336" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="215,0,0,391"/>
-                    <Button Visibility="{Binding Permission_ADD}" Command="{Binding Create_ChuyenMonCommand}" HorizontalAlignment="Left" Margin="160,247,0,0" VerticalAlignment="Top" Width="125">
+                    <TextBox TextChanged="UpperCaseFirstChar" Text="{Binding TenChuyenMon}" Width="336" 
+                             VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="215,0,0,391" x:Name="txt_TenChuyenMon"/>
+                    <TextBlock x:Name="txtbl_tenChuyenMonValidate" Text="Tên chuyên môn không được bỏ trống" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="215,85,0,0" Foreground="Red" FontSize="10"/>
+
+                    <Button Visibility="{Binding Permission_ADD}" Command="{Binding Create_ChuyenMonCommand}" 
+                            HorizontalAlignment="Left" x:Name="btn_Add" Margin="160,247,0,0" VerticalAlignment="Top" Width="125">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Plus" />
@@ -46,7 +50,8 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="330,247,0,0" VerticalAlignment="Top" Width="125">
+                    <Button Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="330,247,0,0" 
+                            VerticalAlignment="Top" Width="125" >
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="CloseThick" Width="20" Height="20" Margin="0, 0, 5, 0"/>
@@ -54,7 +59,8 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Visibility="{Binding Permission_DEL}" Command="{Binding Delete_ChuyenMonCommand}" HorizontalAlignment="Left" Margin="330,325,0,0" VerticalAlignment="Top" Width="125">
+                    <Button Visibility="{Binding Permission_DEL}" Command="{Binding Delete_ChuyenMonCommand}" 
+                            HorizontalAlignment="Left" x:Name="btn_Del"  Margin="330,325,0,0" VerticalAlignment="Top" Width="125">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="TrashCan" Width="20" Height="20" Margin="0, 0, 5, 0"/>
@@ -62,7 +68,8 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Visibility="{Binding Permission_EDIT}" Command="{Binding Update_ChuyenMonCommand}" HorizontalAlignment="Left" Margin="160,325,0,0" VerticalAlignment="Top" Width="125">
+                    <Button Visibility="{Binding Permission_EDIT}" Command="{Binding Update_ChuyenMonCommand}" 
+                            HorizontalAlignment="Left" x:Name="btn_Edit"  Margin="160,325,0,0" VerticalAlignment="Top" Width="125">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Width="20" Height="20" Kind="Pencil" Margin="0, 0, 5, 0"/>

@@ -34,7 +34,6 @@ namespace HRMana.Main.ViewModel
         private string _dienThoai;
         private string _noiOHienTai;
         private string _QueQuan;
-        private string _tinhTrangGiaDinh;
         private string _emailCaNhan;
         private string _emailNoiBo;
         private string _coSoLamViec;
@@ -100,7 +99,6 @@ namespace HRMana.Main.ViewModel
         public string DienThoai { get => _dienThoai; set { _dienThoai = value; OnPropertyChanged(); } }
         public string NoiOHienTai { get => _noiOHienTai; set { _noiOHienTai = value; OnPropertyChanged(); } }
         public string QueQuan { get => _QueQuan; set { _QueQuan = value; OnPropertyChanged(); } }
-        public string TinhTrangGiaDinh { get => _tinhTrangGiaDinh; set { _tinhTrangGiaDinh = value; OnPropertyChanged(); } }
         public string EmailCaNhan { get => _emailCaNhan; set { _emailCaNhan = value; OnPropertyChanged(); } }
         public string EmailNoiBo { get => _emailNoiBo; set { _emailNoiBo = value; OnPropertyChanged(); } }
         public string CoSoLamViec { get => _coSoLamViec; set { _coSoLamViec = value; OnPropertyChanged(); } }
@@ -384,7 +382,6 @@ namespace HRMana.Main.ViewModel
                     dienThoai = DienThoai,
                     noiOHienTai = NoiOHienTai.Trim(),
                     queQuan = QueQuan.Trim(),
-                    giaDinh = TinhTrangGiaDinh.Trim(),
                     emailCaNhan = EmailCaNhan,
                     emailNoiBo = EmailNoiBo,
                     coSoLamViec = CoSoLamViec.Trim(),
@@ -451,7 +448,6 @@ namespace HRMana.Main.ViewModel
             DienThoai = string.Empty;
             NoiOHienTai = string.Empty;
             QueQuan = string.Empty;
-            TinhTrangGiaDinh = string.Empty;
             EmailCaNhan = string.Empty;
             EmailNoiBo = string.Empty;
             CoSoLamViec = string.Empty;

@@ -7,7 +7,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:local="clr-namespace:HRMana.Main.View.Position"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"  FontSize="14" Background="Wheat"
       DataContext="{StaticResource positionVM}"
       x:Name="PositionPage_Name"
       Title="PositionPage">
@@ -63,14 +63,46 @@
 
             <GroupBox Margin="10" Header="Thông tin" Grid.Column="0">
                 <Grid>
-                    <Label Content="Mã chức vụ" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="40" Margin="10,31,0,0" VerticalAlignment="Top" Width="140"/>
-                    <TextBox IsReadOnly="True" Text="{Binding MaChucVu, Mode=TwoWay}" HorizontalAlignment="Left" Height="40" Margin="180,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" Cursor="No"/>
-                    <Label Content="Tên chức vụ" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="40" Margin="10,87,0,0" VerticalAlignment="Top" Width="140"/>
-                    <TextBox HorizontalAlignment="Left" Text="{Binding TenChucVu, Mode=TwoWay}" Height="40" Margin="180,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450"/>
-                    <Button Visibility="{Binding Permission_ADD}" Command="{Binding CreateNew_ChucVuCommand}" Content="Thêm mới" HorizontalAlignment="Left" Height="35" Margin="165,166,0,0" VerticalAlignment="Top" Width="115"/>
-                    <Button Visibility="{Binding Permission_EDIT}" Command="{Binding Update_ChucVuCommand}" Content="Sửa" HorizontalAlignment="Left" Height="35" Margin="340,166,0,0" VerticalAlignment="Top" Width="115"/>
-                    <Button Visibility="{Binding Permission_DEL}" Command="{Binding Delete_ChucVuCommand}" Content="Xóa" HorizontalAlignment="Left" Height="35" Margin="165,241,0,0" VerticalAlignment="Top" Width="115"/>
-                    <Button Command="{Binding CancelCommandCommand}" Content="Hủy" HorizontalAlignment="Left" Height="35" Margin="340,241,0,0" VerticalAlignment="Top" Width="115"/>
+                    <Label Content="Mã chức vụ" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="140"/>
+                    <TextBox IsReadOnly="True" Text="{Binding MaChucVu, Mode=TwoWay}" HorizontalAlignment="Left" Margin="180,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" Cursor="No"/>
+                    <Label Content="Tên chức vụ" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Width="140"/>
+                    <TextBox HorizontalAlignment="Left" Text="{Binding TenChucVu, Mode=TwoWay}" 
+                             Margin="180,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450"/>
+                    <TextBlock Text="Tên chức vụ không được bỏ trống" HorizontalAlignment="Left" Foreground="Red" FontSize="10" VerticalAlignment="Top" Margin="180,120,0,0" x:Name="txtbl_TenChucVuValidate"/>
+
+                    <Button Visibility="{Binding Permission_ADD}" Command="{Binding CreateNew_ChucVuCommand}" x:Name="btn_Add"
+                            HorizontalAlignment="Left" Height="35" Margin="180,227,0,0" VerticalAlignment="Top" Width="130">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Plus" />
+                                <TextBlock Text="Thêm mới"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Visibility="{Binding Permission_EDIT}" Command="{Binding Update_ChucVuCommand}" HorizontalAlignment="Left" Height="35" Margin="180,302,0,0" VerticalAlignment="Top" Width="130">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Width="20" Height="20" Kind="Pencil" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Cập nhật"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Visibility="{Binding Permission_DEL}" Command="{Binding Delete_ChucVuCommand}" HorizontalAlignment="Left" Height="35" Margin="355,302,0,0" VerticalAlignment="Top" Width="130">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="TrashCan" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Xóa"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding CancelCommandCommand}" HorizontalAlignment="Left" Height="35" Margin="355,227,0,0" VerticalAlignment="Top" Width="130">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="CloseThick" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Hủy bỏ"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
 
                 </Grid>
             </GroupBox>

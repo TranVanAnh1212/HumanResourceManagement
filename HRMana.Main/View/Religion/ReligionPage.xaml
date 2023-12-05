@@ -7,9 +7,9 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-      mc:Ignorable="d" 
+      mc:Ignorable="d" FontSize="14"
       DataContext="{StaticResource religionViewModel}"
-      x:Name="religionPage"
+      x:Name="religionPage" Background="White"
       Title="ReligionPage">
 
     <i:Interaction.Triggers>
@@ -38,8 +38,14 @@
                     <TextBlock Text="Mã tôn giáo" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="90,74,0,0"></TextBlock>
                     <TextBox Text="{Binding MaTonGiao}" IsReadOnly="True" Width="336" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="205,74,0,0"></TextBox>
                     <TextBlock Text="Tôn giáo" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="90,122,0,0"></TextBlock>
-                    <TextBox Text="{Binding TenTonGiao}" TextChanged="UpperCaseFirstChar" Width="336" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="205,122,0,0"/>
-                    <Button Command="{Binding Create_TonGiaoCommand}" HorizontalAlignment="Left" Margin="151,202,0,0" VerticalAlignment="Top" Width="125">
+                    <TextBox Text="{Binding TenTonGiao}" TextChanged="UpperCaseFirstChar" Width="336" VerticalAlignment="Top" 
+                             HorizontalAlignment="Left" Margin="205,122,0,0"/>
+                    <TextBlock Text="Tên tôn giáo không được bỏ trống" HorizontalAlignment="Left" Foreground="Red" 
+                               FontSize="10" VerticalAlignment="Top" Margin="205,153,0,0" x:Name="txtbl_TenTonGiaoValidate"/>
+
+
+                    <Button Command="{Binding Create_TonGiaoCommand}" HorizontalAlignment="Left" Margin="146,233,0,0" 
+                            VerticalAlignment="Top" Width="124" x:Name="btn_Add">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Plus" />
@@ -47,7 +53,7 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="351,202,0,0" VerticalAlignment="Top" Width="125">
+                    <Button Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="346,233,0,0" VerticalAlignment="Top" Width="124">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="CloseThick" Width="20" Height="20" Margin="0, 0, 5, 0"/>
@@ -55,7 +61,7 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Command="{Binding Update_TonGiaoCommand}" HorizontalAlignment="Left" Margin="151,279,0,0" VerticalAlignment="Top" Width="125">
+                    <Button Command="{Binding Update_TonGiaoCommand}" HorizontalAlignment="Left" Margin="146,310,0,0" VerticalAlignment="Top" Width="124">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Width="20" Height="20" Kind="Pencil" Margin="0, 0, 5, 0"/>
@@ -63,7 +69,7 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Command="{Binding Delete_TonGiaoCommand}" HorizontalAlignment="Left" Margin="351,279,0,0" VerticalAlignment="Top" Width="125">
+                    <Button Command="{Binding Delete_TonGiaoCommand}" HorizontalAlignment="Left" Margin="346,310,0,0" VerticalAlignment="Top" Width="124">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="TrashCan" Width="20" Height="20" Margin="0, 0, 5, 0"/>
@@ -85,8 +91,8 @@
                     <ListView ItemsSource="{Binding DsTonGiao}" SelectedItem="{Binding SelectedTonGiao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Mã tôn giáo" Width="200" DisplayMemberBinding="{Binding maTonGiao}"></GridViewColumn>
-                                <GridViewColumn Header="Tên tôn giáo" Width="400" DisplayMemberBinding="{Binding tenTonGiao}"></GridViewColumn>
+                                <GridViewColumn Header="Mã tôn giáo" DisplayMemberBinding="{Binding maTonGiao}"></GridViewColumn>
+                                <GridViewColumn Header="Tên tôn giáo" DisplayMemberBinding="{Binding tenTonGiao}"></GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>

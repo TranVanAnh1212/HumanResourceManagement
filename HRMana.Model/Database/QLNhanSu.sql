@@ -35,17 +35,18 @@ create table ChiTietQuyen_Quyen
 )
 go
 
-insert into ChiTietQuyen_Quyen values 
-( 'ADMIN', 'ADD', N'Quyền được thêm mới'),
-( 'ADMIN', 'DEL', N'Quyền được xoa'),
-( 'ADMIN', 'EDIT', N'Quyền được chỉnh sửa'),
-( 'ADMIN', 'VIEW', N'Quyền được xem'),
-( 'ADMIN', 'MUSER', N'Quyền quản lý người dùng'),
-( 'NV', 'ADD', N'Quyền được thêm mới'),
-( 'QL', 'VIEW', N'Quyền được xem')
-go
+--insert into ChiTietQuyen_Quyen values 
+--( 'ADMIN', 'ADD', N'Quyền được thêm mới'),
+--( 'ADMIN', 'DEL', N'Quyền được xoa'),
+--( 'ADMIN', 'EDIT', N'Quyền được chỉnh sửa'),
+--( 'ADMIN', 'VIEW', N'Quyền được xem'),
+--( 'ADMIN', 'MUSER', N'Quyền quản lý người dùng'),
+--( 'NV', 'ADD', N'Quyền được thêm mới'),
+--( 'QL', 'VIEW', N'Quyền được xem')
+--go
 
 select * from ChiTietQuyen_Quyen
+select * from Quyen
 select * from TaiKhoan
 go
 
@@ -67,13 +68,13 @@ go
 --alter table ChiTiet_Quyen
 --drop column maQuyen
 
-insert into ChiTiet_Quyen values
-('ADD', N'Thêm', 'ADD'),
-('DEL', N'Xóa', 'DEL'),
-('EDIT', N'Sửa', 'EDIT'),
-('VIEW', N'Xem', 'VIEW'),
-('MUSER', N'Quản lý người dùng', 'MUSER')
-go
+--insert into ChiTiet_Quyen values
+--('ADD', N'Thêm', 'ADD'),
+--('DEL', N'Xóa', 'DEL'),
+--('EDIT', N'Sửa', 'EDIT'),
+--('VIEW', N'Xem', 'VIEW'),
+--('MUSER', N'Quản lý người dùng', 'MUSER')
+--go
 
 select * from Chitiet_Quyen
 go
@@ -261,7 +262,10 @@ create table ChamCong
 go
 
 alter table ChamCong
-drop column ngungViec
+add Nam int 
+
+delete from ChamCong
+where maChamCong = 5
 
 select* from ChamCong
 go
@@ -303,10 +307,10 @@ create table HopDong
 )
 go
 
-insert into HopDong values 
-(N'32131sd', '12-06-2022', '12-06-2027', N'Có thời hạn', N'5 năm', N'Đã ký'),
-(N'32ed1sd', '12-06-2023', '12-06-2027', N'không thời hạn', N'', N'Đã ký')
-go
+--insert into HopDong values 
+--(N'32131sd', '12-06-2022', '12-06-2027', N'Có thời hạn', N'5 năm', N'Đã ký'),
+--(N'32ed1sd', '12-06-2023', '12-06-2027', N'không thời hạn', N'', N'Đã ký')
+--go
 select * from HopDong 
 go
 
@@ -322,7 +326,6 @@ create table NhanVien
 	dienThoai	char(11)	 null,
 	noiOHienTai nvarchar(255)	not null,
 	queQuan		nvarchar(255)	not null,
-	giaDinh		nvarchar(255)	,
 	emailCaNhan varchar(255) null,
 	emailNoiBo	varchar(255) null,
 	coSoLamViec nvarchar(255)	not null,
@@ -339,6 +342,9 @@ create table NhanVien
 	anhThe		varchar(255),
 )
 go
+
+alter table NhanVien
+drop column giaDinh
 
 select * from NhanVien
 

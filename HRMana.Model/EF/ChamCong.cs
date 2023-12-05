@@ -24,6 +24,8 @@ namespace HRMana.Model.EF
         public Nullable<int> soNgayTangCa { get; set; }
         public Nullable<decimal> luongTangCa { get; set; }
         public Nullable<decimal> phuCapCongViec { get; set; }
+        public Nullable<int> Thang { get; set; }
+        public Nullable<int> Nam { get; set; }
     
         public virtual BacLuong BacLuong { get; set; }
         public virtual NhanVien NhanVien { get; set; }

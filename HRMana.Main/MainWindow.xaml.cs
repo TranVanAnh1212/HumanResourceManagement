@@ -4,6 +4,7 @@ using HRMana.Main.View.Contract;
 using HRMana.Main.View.Department;
 using HRMana.Main.View.Expertise;
 using HRMana.Main.View.Home;
+using HRMana.Main.View.Informations;
 using HRMana.Main.View.People;
 using HRMana.Main.View.Personnel;
 using HRMana.Main.View.Position;
@@ -171,6 +172,23 @@ namespace HRMana.Main
         private void timeKeeping_MenuItem_Click(object sender, RoutedEventArgs e)
         {
             Directional(new TimeKeepingPage());
+        }
+
+        private void about_Item_Click(object sender, RoutedEventArgs e)
+        {
+            var about = new AboutWindow();
+            about.ShowDialog();
+        }
+
+        private void contactTechnician_Item_Click(object sender, RoutedEventArgs e)
+        {
+            var contact = new ContactTechnicianWindow();
+            contact.ShowDialog();
+        }
+
+        private void accountAuthentication_Item_Click(object sender, RoutedEventArgs e)
+        {
+            Directional(new AccountAuthenticationPage());
         }
     }
 }

@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace HRMana.Main.ViewModel
 {
@@ -264,12 +266,12 @@ namespace HRMana.Main.ViewModel
                             var result = new HoSoDAO().CreateNew_HoSo(hso);
 
                             if (result < 0)
-                                MessageBox.Show("Thêm mới thất bại, Có lỗi từ máy chủ!", "Lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                ShowMessageBoxCustom("Thêm mới thất bại, Có lỗi từ máy chủ!", CommonConstant.Error_ICon);
                             else if (result == 0)
-                                MessageBox.Show("Thêm mới thất bại, Dữ liệu trống!", "Lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                ShowMessageBoxCustom("Thêm mới thất bại, Dữ liệu trống!", CommonConstant.Warning_ICon);
                             else
                             {
-                                MessageBox.Show("Thêm mới thành công!", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                ShowMessageBoxCustom("Thêm mới thành công!", CommonConstant.Success_ICon);
 
                                 var nv = new NhanVien()
                                 {
@@ -284,12 +286,12 @@ namespace HRMana.Main.ViewModel
                         }
                         else
                         {
-                            MessageBox.Show("Nhân viên không tồn tại, hãy thêm mới nhân viên trước!", "Lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                            ShowMessageBoxCustom("Nhân viên không tồn tại, hãy thêm mới nhân viên trước!", CommonConstant.Error_ICon);
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 );
@@ -329,10 +331,10 @@ namespace HRMana.Main.ViewModel
                             var result = new HoSoDAO().Update_HoSo(hso);
 
                             if (result)
-                                MessageBox.Show("Cập nhật hồ sơ thất bại!", "Lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                ShowMessageBoxCustom("Cập nhật hồ sơ thất bại!", CommonConstant.Error_ICon);
                             else
                             {
-                                MessageBox.Show("Cập nhật hồ sơ thành công!", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                ShowMessageBoxCustom("Cập nhật hồ sơ thành công!", CommonConstant.Success_ICon);
                                 EmptyField();
                             }
                         }
@@ -364,10 +366,10 @@ namespace HRMana.Main.ViewModel
                             var result = new HoSoDAO().Delete_HoSo(MaHoSo);
 
                             if (result)
-                                MessageBox.Show("Xóa hồ sơ thất bại!", "Lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                ShowMessageBoxCustom("Xóa hồ sơ thất bại!", CommonConstant.Error_ICon);
                             else
                             {
-                                MessageBox.Show("Xóa hồ sơ thành công!", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                ShowMessageBoxCustom("Xóa hồ sơ thành công!", CommonConstant.Success_ICon);
                                 EmptyField();
                             }
                         }
@@ -388,6 +390,18 @@ namespace HRMana.Main.ViewModel
                 );
         }
 
+        private void ShowMessageBoxCustom(string msg, string imagePath)
+        {
+            MessageBox_Custom messageBox_Custom = new MessageBox_Custom();
+            messageBox_Custom.MsgBox_Content = msg;
+
+            // Chuyển đổi đường dẫn hình ảnh từ kiểu string sang ImageSource
+            ImageSource msgIcon = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+
+            messageBox_Custom.Img_MsgIcon = msgIcon;
+
+            messageBox_Custom.ShowDialog();
+        }
 
         private void EmptyField()
         {
@@ -424,11 +438,6 @@ namespace HRMana.Main.ViewModel
         private void EmptyHopDong()
         {
             SoHopDong = LoaiHopDong = ThoiHanHD = NgayBDHD = string.Empty;
-        }
-
-        private void EmptyBacLuong()
-        {
-            HeSoLuong = LuongCoBan = MaHopDong = 0;
         }
 
         private void GetList_NhanVien()

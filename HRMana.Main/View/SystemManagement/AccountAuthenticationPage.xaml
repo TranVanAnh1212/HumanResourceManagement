@@ -1,0 +1,261 @@
+﻿<Page x:Class="HRMana.Main.View.SystemManagement.AccountAuthenticationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HRMana.Main.View.SystemManagement"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:uc="clr-namespace:HRMana.Main.UserControls"
+      mc:Ignorable="d" FontSize="14"
+      x:Name="accountAuthenPage"
+      DataContext="{StaticResource accAuthenVM}"
+      Title="AccountAuthenticationPage">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadWindowCommand}" CommandParameter="{Binding ElementName=accountAuthenPage}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <uc:LableTopUserControl Title="Phân quyền tài khoản"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Margin="0 0 0 15" Text="Thêm quyền mới" TextAlignment="Center" FontWeight="Bold" Foreground="#FF273996" FontSize="25"/>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Mã Quyền" Margin="10" TextAlignment="Right"/>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBox Margin="10 0 10 5" x:Name="txt_MaQuyen" TextChanged="txt_MaQuyen_TextChanged" Text="{Binding MaQuyen}"/>
+                        <TextBlock Margin="10 0 10 5" Foreground="Red" Text="Mã quyền không được bỏ trống" x:Name="txtbl_MaQuyen" FontSize="10"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Tên Quyền" Margin="10" TextAlignment="Right"/>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBox Margin="10 10 10 5" Text="{Binding TenQuyen}" TextChanged="txt_TenQuyen_TextChanged" x:Name="txt_TenQuyen"/>
+                        <TextBlock Text="Tên quyền không được bỏ trống" FontSize="10" x:Name="txtbl_TenQuyen" Foreground="Red" Margin="10 0 10 5"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Chọn hành động" Margin="10" TextAlignment="Right"/>
+
+                    <StackPanel Grid.Column="1">
+                        <Grid Margin="0 10 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel>
+                                <TextBlock Text="Thêm mới" TextAlignment="Center"/>
+                                <CheckBox IsChecked="{Binding IsADD_Cheked}" x:Name="ckb_Add" HorizontalAlignment="Center"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Cập nhật" TextAlignment="Center"/>
+                                <CheckBox IsChecked="{Binding IsEDIT_Cheked}" x:Name="ckb_Edit" HorizontalAlignment="Center"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="Xóa" TextAlignment="Center"/>
+                                <CheckBox IsChecked="{Binding IsDEL_Cheked}" x:Name="ckb_Del" HorizontalAlignment="Center"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="3">
+                                <TextBlock Text="Xem" TextAlignment="Center"/>
+                                <CheckBox IsChecked="{Binding IsVIEW_Cheked}" x:Name="ckb_View" HorizontalAlignment="Center"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="4">
+                                <TextBlock Text="Q.lý tài khoản" TextWrapping="Wrap" TextAlignment="Center"/>
+                                <CheckBox IsChecked="{Binding IsMUSER_Cheked}" x:Name="ckb_Muser" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                        <TextBlock Text="Bạn cẫn chưa chọn hành động" x:Name="txtbl_HanhDong" FontSize="10" Foreground="Red" Margin="10 0 10 0"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="4">
+                    <Button Command="{Binding CreateNew_Quyen}" HorizontalAlignment="Left" Margin="105,30,0,0"
+                            VerticalAlignment="Top" Width="190" x:Name="btn_AddQuyen">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Plus" />
+                                <TextBlock Text="Thêm quyền mới"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding CanCelCommand}" HorizontalAlignment="Left" Margin="400,30,0,0" 
+                            VerticalAlignment="Top" Width="190" x:Name="btn_Cancel">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="CloseThick" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Hủy bỏ"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding Update_Quyen}" HorizontalAlignment="Left" Margin="105,81,0,0" 
+                            VerticalAlignment="Top" Width="190" x:Name="btn_Update">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Width="20" Height="20" Kind="Pencil" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Cập nhật"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Command="{Binding Delete_Quyen}" HorizontalAlignment="Left" Margin="400,81,0,0" 
+                            VerticalAlignment="Top" Width="190" x:Name="btn_Delete">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="TrashCan" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Xóa"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+
+                </Grid>
+
+                <Grid Grid.Row="5">
+                    <ListView Margin="20" ItemsSource="{Binding DsQuyen}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                              SelectedItem="{Binding SelectedQuyen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="lv_Quyen">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Mã quyền" DisplayMemberBinding="{Binding maQuyen}"/>
+                                <GridViewColumn Header="Tên quyền" DisplayMemberBinding="{Binding tenQuyen}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Chỉnh sửa quyền tài khoản" Margin="0 0 0 15" Foreground="#FF273996" FontSize="25" TextAlignment="Center" FontWeight="Bold" />
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Mã tài khoản" Margin="10" TextAlignment="Right"/>
+
+                    <TextBox Margin="10" IsReadOnly="True" Text="{Binding MaTaiKhoan}" Grid.Column="1"/>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Tên tài khoản" Margin="10" TextAlignment="Right"/>
+
+                    <TextBox Margin="10" IsReadOnly="True" Text="{Binding TenTaiKhoan}" Grid.Column="1"/>
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Quyền" Margin="10" TextAlignment="Right"/>
+
+                    <ComboBox Margin="10" ItemsSource="{Binding ListQuyen}" DisplayMemberPath="tenQuyen"
+                              SelectedItem="{Binding SelectedQuyenTK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
+                </Grid>
+
+                <Grid Grid.Row="4">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Margin="20" Command="{Binding Update_Quyen_TaiKhoan}">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Width="20" Height="20" Kind="Pencil" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Cập nhật quyền tài khoản"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Grid.Column="1" Margin="20" Command="{Binding Cancel_Quyen_TaiKhoan}">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="CloseThick" Width="20" Height="20" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="Hủy bỏ"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+
+                <ListView Grid.Row="5" ItemsSource="{Binding ListTaiKhoan}" 
+                          SelectedItem="{Binding SelectedTaiKhoan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Mã tài khoản" DisplayMemberBinding="{Binding maTaiKhoan}"/>
+                            <GridViewColumn Header="Tên tài khoản" DisplayMemberBinding="{Binding tenTaiKhoan}"/>
+                            <GridViewColumn Header="Quyền" DisplayMemberBinding="{Binding maQuyen}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </Grid>
+
+
+    </Grid>
+</Page>

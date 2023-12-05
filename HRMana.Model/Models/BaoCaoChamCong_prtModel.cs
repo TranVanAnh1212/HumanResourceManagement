@@ -8,6 +8,8 @@ namespace HRMana.Model.Models
 {
     public class BaoCaoChamCong_prtModel
     {
+        public int Thang { get; set; }
+        public int Nam { get; set; }
         public int MaNhanVien { get; set; }
         public string TenNhanVien { get; set; }
         public decimal HeSoLuong { get; set; }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace HRMana.Model.DAO
 {
@@ -116,6 +117,7 @@ namespace HRMana.Model.DAO
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "Thông báo lỗi.", MessageBoxButton.OK, MessageBoxImage.Stop);
                 return -1;
             }
         }
@@ -140,6 +142,7 @@ namespace HRMana.Model.DAO
 
             }catch(Exception ex)
             {
+                MessageBox.Show(ex.Message, "Thông báo lỗi.", MessageBoxButton.OK, MessageBoxImage.Stop);
                 return false;
             }
         }
@@ -160,7 +163,6 @@ namespace HRMana.Model.DAO
                     nhanvien.dienThoai = nv.dienThoai;
                     nhanvien.noiOHienTai = nv.noiOHienTai;
                     nhanvien.queQuan = nv.queQuan;
-                    nhanvien.giaDinh = nv.giaDinh;
                     nhanvien.emailCaNhan = nv.emailCaNhan;
                     nhanvien.emailNoiBo = nv.emailNoiBo;
                     nhanvien.coSoLamViec = nv.coSoLamViec;
@@ -187,6 +189,7 @@ namespace HRMana.Model.DAO
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "Thông báo lỗi.", MessageBoxButton.OK, MessageBoxImage.Stop);
                 return false;
             }
         }

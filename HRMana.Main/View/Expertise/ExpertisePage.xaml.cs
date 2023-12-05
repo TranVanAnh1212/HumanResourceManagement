@@ -23,6 +23,7 @@ namespace HRMana.Main.View.Expertise
         public ExpertisePage()
         {
             InitializeComponent();
+            txtbl_tenChuyenMonValidate.Visibility = Visibility.Collapsed;
         }
 
         private void UpperCaseFirstChar(object sender, TextChangedEventArgs e)
@@ -30,11 +31,23 @@ namespace HRMana.Main.View.Expertise
             TextBox textBox = sender as TextBox;
             string value = textBox.Text;
 
+            if (textBox.Text.Length <= 0)
+            {
+                txtbl_tenChuyenMonValidate.Visibility = Visibility.Visible;
+                btn_Add.IsEnabled = false;
+            }
+            else
+            {
+                txtbl_tenChuyenMonValidate.Visibility = Visibility.Collapsed;
+                btn_Add.IsEnabled = true;
+            }
+
             if (!string.IsNullOrEmpty(value))
             {
                 textBox.Text = char.ToUpper(value[0]) + value.Substring(1);
                 textBox.CaretIndex = textBox.Text.Length;
             }
         }
+
     }
 }

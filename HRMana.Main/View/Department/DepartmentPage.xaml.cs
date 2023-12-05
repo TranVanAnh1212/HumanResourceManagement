@@ -1,19 +1,8 @@
 
-﻿using HRMana.Common.Commons;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HRMana.Common.Commons;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace HRMana.Main.View.Department
 {
@@ -25,6 +14,7 @@ namespace HRMana.Main.View.Department
         public DepartmentPage()
         {
             InitializeComponent();
+            txtbl_PhoneValidate.Visibility = Visibility.Collapsed;
         }
 
         private void UpperCaseFirstChar(object sender, TextChangedEventArgs e)
@@ -43,18 +33,43 @@ namespace HRMana.Main.View.Department
         {
             var txt = sender as TextBox;
 
-            if (!StringHelper.IsPhoneNumber(txt.Text))
+            if (string.IsNullOrEmpty(txt.Text))
             {
-                txt.BorderBrush = new SolidColorBrush(Color.FromArgb(100, 255, 4, 4));
-                txt.CaretBrush = new SolidColorBrush(Color.FromArgb(100, 255, 4, 4));
-                txt.SelectionBrush = new SolidColorBrush(Color.FromArgb(100, 255, 4, 4));
+                btn_CreateNew.IsEnabled = true;
+                btn_Update.IsEnabled = true;
+                btn_Delete.IsEnabled = true;
+                txtbl_PhoneValidate.Visibility = Visibility.Collapsed;
             }
             else
             {
-                txt.BorderBrush = new SolidColorBrush(Color.FromArgb(54, 0, 0, 0));
-                txt.CaretBrush = new SolidColorBrush(Color.FromArgb(100, 103, 58, 183));
-                txt.SelectionBrush = new SolidColorBrush(Color.FromArgb(100, 179, 157, 219));
-
+                if (!StringHelper.IsPhoneNumber(txt.Text))
+                {
+                    btn_CreateNew.IsEnabled = false;
+                    btn_Update.IsEnabled = false;
+                    btn_Delete.IsEnabled = false;
+                    txtbl_PhoneValidate.Text = "Định dạng số điện thoại không đúng!";
+                    txtbl_PhoneValidate.Visibility = Visibility.Visible;
+                    txtbl_PhoneValidate.Foreground = new SolidColorBrush(Colors.Red);
+                }
+                else
+                {
+                    if (txt.Text.Length > 11)
+                    {
+                        btn_CreateNew.IsEnabled = false;
+                        btn_Update.IsEnabled = false;
+                        btn_Delete.IsEnabled = false;
+                        txtbl_PhoneValidate.Text = "Số điện thoại chỉ dài 10 chứ số";
+                        txtbl_PhoneValidate.Visibility = Visibility.Visible;
+                        txtbl_PhoneValidate.Foreground = new SolidColorBrush(Colors.Red);
+                    }
+                    else
+                    {
+                        txtbl_PhoneValidate.Visibility = Visibility.Collapsed;
+                        btn_CreateNew.IsEnabled = true;
+                        btn_Update.IsEnabled = true;
+                        btn_Delete.IsEnabled = true;
+                    }
+                }
             }
         }
     }

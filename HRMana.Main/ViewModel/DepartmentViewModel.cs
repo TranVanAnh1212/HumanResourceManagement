@@ -1,4 +1,5 @@
-﻿using HRMana.Common.Commons;
+﻿using Aspose.Words.Drawing;
+using HRMana.Common.Commons;
 using HRMana.Main.View.Dialog;
 using HRMana.Model.DAO;
 using HRMana.Model.EF;
@@ -10,6 +11,8 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace HRMana.Main.ViewModel
 {
@@ -208,22 +211,24 @@ namespace HRMana.Main.ViewModel
 
                         if (result > 0)
                         {
-                            MessageBox.Show("Thêm mới phòng ban thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                            ShowMessageBoxCustom("Thêm mới phòng ban thành công.", CommonConstant.Success_ICon);
+
                             EmptyField();
                             GetList_PhongBan();
                         }
                         else if (result == 0)
                         {
-                            MessageBox.Show("Phòng ban rỗng.");
+                            ShowMessageBoxCustom("Dữ liệu đưa vào rỗng.", CommonConstant.Warning_ICon);
                         }
                         else
                         {
-                            MessageBox.Show("Có lỗi xảy ra khi thêm phòng ban mới vào máy chủ.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                            ShowMessageBoxCustom("Có lỗi xảy ra khi thêm phòng ban mới vào máy chủ.", CommonConstant.Error_ICon);
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
                 }
@@ -251,18 +256,18 @@ namespace HRMana.Main.ViewModel
 
                             if (result)
                             {
-                                MessageBox.Show("Cập nhật phòng ban thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                                ShowMessageBoxCustom("Cập nhật phòng ban thành công.", CommonConstant.Success_ICon);
                                 EmptyField();
                                 GetList_PhongBan();
                             }
                             else
                             {
-                                MessageBox.Show("Có lỗi xảy ra khi cập nhật ở máy chủ.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                                ShowMessageBoxCustom("Có lỗi xảy ra khi cập nhật phòng ban ở máy chủ.", CommonConstant.Error_ICon);
                             }
                         }
-                        catch
+                        catch (Exception ex)
                         {
-                            MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show(ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
                 }
@@ -293,13 +298,13 @@ namespace HRMana.Main.ViewModel
 
                                 if (result)
                                 {
-                                    MessageBox.Show("Xóa phòng ban thành công.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    ShowMessageBoxCustom("Xóa phòng ban thành công.", CommonConstant.Success_ICon);
                                     EmptyField();
                                     GetList_PhongBan();
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Có lỗi xảy ra khi xóa ở máy chủ.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    ShowMessageBoxCustom("Có lỗi xảy ra khi xóa phòng ban ở máy chủ.", CommonConstant.Error_ICon);
                                 }
                             }
                             else
@@ -308,9 +313,9 @@ namespace HRMana.Main.ViewModel
 
                             }
                         }
-                        catch
+                        catch (Exception ex) 
                         {
-                            MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show(ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
                 }
@@ -351,6 +356,19 @@ namespace HRMana.Main.ViewModel
             {
                 MessageBox.Show("Có lỗi khi lấy dữ liệu", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void ShowMessageBoxCustom(string msg, string imagePath)
+        {
+            MessageBox_Custom messageBox_Custom = new MessageBox_Custom();
+            messageBox_Custom.MsgBox_Content = msg;
+
+            // Chuyển đổi đường dẫn hình ảnh từ kiểu string sang ImageSource
+            ImageSource msgIcon = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+
+            messageBox_Custom.Img_MsgIcon = msgIcon;
+
+            messageBox_Custom.ShowDialog();
         }
     }
 }

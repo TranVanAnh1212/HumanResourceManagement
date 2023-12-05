@@ -12,11 +12,15 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace HRMana.Main.ViewModel
 {
     public class TimeKeepingViewModel : BaseViewModel
     {
+        private int _thang;
+        private int _nam;
         private int _maChamCong;
         private int _maNhanVien;
         private string _tenNhanVien;
@@ -38,7 +42,8 @@ namespace HRMana.Main.ViewModel
         private string _permission_VIEW;
         private string _permission_EDIT;
         private string _permission_DEL;
-
+        private List<int> _dsThang;
+        private List<int> _dsNam;
         public ICommand LoadWindowCommand { get; set; }
         public ICommand Create_ChamCongCommand { get; set; }
         public ICommand Update_ChamCongCommand { get; set; }
@@ -65,7 +70,10 @@ namespace HRMana.Main.ViewModel
                     MaNhanVien = SelectedNhanVien.maNhanVien;
                     TenNhanVien = SelectedNhanVien.tenNhanVien;
 
-                    Get_ChamCong(MaNhanVien);
+                    Thang = DateTime.Now.Month;
+                    Nam = DateTime.Now.Year;
+
+                    //Get_ChamCong(MaNhanVien);
                 }
             }
         }
@@ -137,6 +145,37 @@ namespace HRMana.Main.ViewModel
             }
         }
 
+        public int Thang
+        {
+            get => _thang; set
+            {
+                _thang = value;
+                OnPropertyChanged();
+
+                if (SelectedNhanVien != null)
+                {
+                    Get_ChamCong(MaNhanVien, _thang, _nam);
+                }
+            }
+        }
+        public int Nam
+        {
+            get => _nam;
+            set
+            {
+                _nam = value;
+                OnPropertyChanged();
+
+                if (SelectedNhanVien != null)
+                {
+                    Get_ChamCong(MaNhanVien, _thang, _nam);
+                }
+            }
+        }
+
+        public List<int> DsThang { get => _dsThang; set => _dsThang = value; }
+        public List<int> DsNam { get => _dsNam; set => _dsNam = value; }
+
         public TimeKeepingViewModel()
         {
             Initialized();
@@ -144,6 +183,18 @@ namespace HRMana.Main.ViewModel
 
         private void Initialized()
         {
+            DsThang = new List<int>()
+            {
+                1, 2, 3, 4, 5,6 ,7 , 8 , 9 , 10 , 11 , 12
+            };
+            DsNam = new List<int>();
+            int currentYear = DateTime.Now.Year;
+            for (int year = 1900; year <= currentYear; year++)
+            {
+                DsNam.Add(year);
+            }
+            DsNam = DsNam.OrderByDescending(x => x).ToList();
+
             LoadWindowCommand = new RelayCommand<Page>(
                 (param) => { return true; },
                 (param) =>
@@ -244,6 +295,19 @@ namespace HRMana.Main.ViewModel
                 );
         }
 
+        private void ShowMessageBoxCustom(string msg, string imagePath)
+        {
+            MessageBox_Custom messageBox_Custom = new MessageBox_Custom();
+            messageBox_Custom.MsgBox_Content = msg;
+
+            // Chuyển đổi đường dẫn hình ảnh từ kiểu string sang ImageSource
+            ImageSource msgIcon = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+
+            messageBox_Custom.Img_MsgIcon = msgIcon;
+
+            messageBox_Custom.ShowDialog();
+        }
+
         private void Delete_ChamCong()
         {
             DialogWindow d = new DialogWindow();
@@ -257,17 +321,17 @@ namespace HRMana.Main.ViewModel
 
                     if (result)
                     {
-                        MessageBox.Show("Xóa chấm công thành công!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        ShowMessageBoxCustom("Xóa chấm công thành công!", CommonConstant.Success_ICon);
                         EmptyField();
                     }
                     else
                     {
-                        MessageBox.Show("Đã xảy ra lỗi!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        ShowMessageBoxCustom("Đã xảy ra lỗi!", CommonConstant.Error_ICon);
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Đã xảy ra lỗi!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 }
             }
@@ -300,17 +364,17 @@ namespace HRMana.Main.ViewModel
 
                     if (result)
                     {
-                        MessageBox.Show("Cập nhật chấm công thành công!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        ShowMessageBoxCustom("Cập nhật chấm công thành công!", CommonConstant.Success_ICon);
                         EmptyField();
                     }
                     else
                     {
-                        MessageBox.Show("Đã xảy ra lỗi!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        ShowMessageBoxCustom("Đã xảy ra lỗi!", CommonConstant.Error_ICon);
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Đã xảy ra lỗi!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 }
             }
@@ -322,13 +386,15 @@ namespace HRMana.Main.ViewModel
             {
                 if (SelectedNhanVien == null)
                 {
-                    MessageBox.Show("Chưa chọn nhân viên, mời chọn một nhân viên!", "Cảnh báo!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    ShowMessageBoxCustom("Chưa chọn nhân viên, mời chọn một nhân viên!", CommonConstant.Warning_ICon);
                     return;
                 }
                 else
                 {
                     var cc = new ChamCong()
                     {
+                        Thang = Thang,
+                        Nam = Nam,
                         maNhanVien = MaNhanVien,
                         heSoLuong = SelectedBacLuong.heSoLuong,
                         SoNgayCong = SoNgayCong,
@@ -344,36 +410,38 @@ namespace HRMana.Main.ViewModel
 
                     if (result == 0)
                     {
-                        MessageBox.Show("Chấm công đang trống!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        ShowMessageBoxCustom("Chấm công đang trống!", CommonConstant.Error_ICon);
 
                     }
                     else if (result < 0)
                     {
-                        MessageBox.Show("Đã xảy ra lỗi!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        ShowMessageBoxCustom("Đã xảy ra lỗi!", CommonConstant.Error_ICon);
 
                     }
                     else
                     {
-                        MessageBox.Show($"Thêm mới chấm công cho nhân viên {TenNhanVien} thành công!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        ShowMessageBoxCustom($"Thêm mới chấm công cho nhân viên {TenNhanVien} thành công!", CommonConstant.Success_ICon);
                         EmptyField();
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Đã xảy ra lỗi!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
         }
 
-        private void Get_ChamCong(int mnv)
+        private void Get_ChamCong(int mnv, int thang, int nam)
         {
             try
             {
-                var result = new ChamCongDAO().Get_ChamCong_By_MaNhanVien(mnv);
+                var result = new ChamCongDAO().Get_ChamCong_By_MaNhanVien(mnv, thang, nam);
 
                 if (result.maChamCong != 0)
                 {
+                    _thang = result.Thang.Value;
+                    _nam = result.Nam.Value;
                     MaNhanVien = result.maNhanVien;
                     MaChamCong = result.maChamCong;
                     TenNhanVien = result.NhanVien.tenNhanVien;
@@ -390,8 +458,7 @@ namespace HRMana.Main.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show($"Nhân viên {TenNhanVien} không có chấm công!", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
-                    EmptyField_MNV();
+                    EmptyField_ChamCong();
                 }
             }
             catch
@@ -419,9 +486,27 @@ namespace HRMana.Main.ViewModel
         {
             SelectedBacLuong = null;
             SelectedNhanVien = null;
+            Thang = DateTime.Now.Month;
+            Nam = DateTime.Now.Month;
             MaNhanVien = 0;
             MaChamCong = 0;
             TenNhanVien = string.Empty;
+            HeSoLuong = 0;
+            LuongCoBan = string.Empty;
+            SoNgayCong = 0;
+            SoNgayTangCa = 0;
+            UngTruoc = string.Empty;
+            ConLai = string.Empty;
+            SoNghiPhep = 0;
+            SoNgayTangCa = 0;
+            PhuCapCongViec = string.Empty;
+            LuongTangCa = string.Empty;
+        }
+
+        private void EmptyField_ChamCong()
+        {
+            SelectedBacLuong = null;
+            MaChamCong = 0;
             HeSoLuong = 0;
             LuongCoBan = string.Empty;
             SoNgayCong = 0;

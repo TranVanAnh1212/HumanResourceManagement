@@ -8,7 +8,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       mc:Ignorable="d" 
-      x:Name="personnelPage"
+      x:Name="personnelPage" FontSize="14"
       DataContext="{StaticResource personnelVM}"
       Title="PersonnelPage">
 
@@ -38,7 +38,7 @@
                 </Style>
             </Grid.Resources>
 
-            <GroupBox Header="Thống kê theo" HorizontalAlignment="Left" Margin="10,5,5,5" VerticalAlignment="Top" >
+            <GroupBox Header="Thống kê theo" HorizontalAlignment="Left" Margin="10,5,5,15" VerticalAlignment="Stretch" >
                 <StackPanel Style="{StaticResource stackPanelStyle}">
                     <StackPanel Style="{StaticResource stackPanelStyle}">
                         <TextBlock Height="23" TextWrapping="Wrap" Text="Phòng ban:" Width="350"/>
@@ -93,7 +93,7 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="#" DisplayMemberBinding="{Binding MaNhanVien}"/>
-                            <GridViewColumn Header="Tên" DisplayMemberBinding="{Binding HoTen}"/>
+                            <GridViewColumn Header="Họ và tên" DisplayMemberBinding="{Binding HoTen}"/>
                             <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding GioiTinh}"/>
                             <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding TenChucVu}"/>
                             <GridViewColumn Header="Phòng" DisplayMemberBinding="{Binding TenPhong}"/>
@@ -110,7 +110,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Orientation="Horizontal" Grid.Column="0">
@@ -146,15 +146,15 @@
                         
                     </StackPanel>
 
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="2">
-
+                    <StackPanel Orientation="Horizontal" Grid.Column="2">
                         <Button Command="{Binding RefeshCommand}" Margin="3, 3, 15, 3" ToolTip="Refesh" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="0,0,0,0" Width="60" >
                             <Button.Content>
                                 <materialDesign:PackIcon Kind="Restore" />
                             </Button.Content>
                         </Button>
 
-                        <Button Visibility="{Binding Permission_ADD}" ToolTip="Thêm mới nhân viên" Margin="3, 3, 15, 3" Click="btn_AddnewPersonel_Click" x:Name="btn_AddnewPersonel">
+                        <Button Visibility="{Binding Permission_ADD}" HorizontalAlignment="Left" ToolTip="Thêm mới nhân viên"
+                                Click="btn_AddnewPersonel_Click" x:Name="btn_AddnewPersonel">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Plus" />

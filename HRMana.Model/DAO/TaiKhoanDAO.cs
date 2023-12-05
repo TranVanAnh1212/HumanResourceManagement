@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HRMana.Model.DAO
 {
@@ -14,6 +15,51 @@ namespace HRMana.Model.DAO
         {
             IEnumerable<TaiKhoan> listTaiKhoan = await DataProvider.Instance.DBContext.TaiKhoan.ToListAsync();
             return listTaiKhoan;
+        }
+
+        public bool ChangePermission_TaiKhoan(TaiKhoan taiKhoan)
+        {
+            try
+            {
+                var tk = DataProvider.Instance.DBContext.TaiKhoan.FirstOrDefault(x => x.maTaiKhoan == taiKhoan.maTaiKhoan);
+                tk.maQuyen = taiKhoan.maQuyen;
+                DataProvider.Instance.DBContext.SaveChanges();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Thông báo lỗi.", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+        }
+
+        public bool ChangePermission_ListTaiKhoan(string maQUyen)
+        {
+            try
+            {
+                var tk = DataProvider.Instance.DBContext.TaiKhoan.Where(x => x.maQuyen.Equals(maQUyen)).ToList();
+
+                if (tk != null && tk.Any())
+                {
+                    foreach (var x in tk)
+                    {
+                        x.maQuyen = "NV";
+                    }
+
+                    DataProvider.Instance.DBContext.SaveChanges(); 
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Thông báo lỗi.", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
         }
 
         public List<TaiKhoan> GetListTaiKhoan()
@@ -27,7 +73,7 @@ namespace HRMana.Model.DAO
             return DataProvider.Instance.DBContext.TaiKhoan.FirstOrDefault(x => x.maTaiKhoan == mtk);
         }
 
-        public bool ChangePassword (TaiKhoan tk)
+        public bool ChangePassword(TaiKhoan tk)
         {
             try
             {
@@ -100,7 +146,8 @@ namespace HRMana.Model.DAO
 
                     return true;
 
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     return false;
                 }
@@ -109,7 +156,7 @@ namespace HRMana.Model.DAO
 
         public bool Block_TaiKhoan(int maTaiKhoan)
         {
-            if ( maTaiKhoan == 0)
+            if (maTaiKhoan == 0)
             {
                 return false;
             }
@@ -123,7 +170,7 @@ namespace HRMana.Model.DAO
 
                     return true;
                 }
-                catch ( Exception ex )
+                catch (Exception ex)
                 {
                     return false;
                 }

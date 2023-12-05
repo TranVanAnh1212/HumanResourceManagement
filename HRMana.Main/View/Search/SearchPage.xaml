@@ -8,7 +8,7 @@
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       xmlns:local="clr-namespace:HRMana.Main.View.Search"
       mc:Ignorable="d" 
-      Name="searchPage"
+      Name="searchPage" FontSize="14"
       DataContext="{StaticResource searchVM}"
       Title="SearchPage">
 
@@ -35,7 +35,7 @@
                 <Button Command="{Binding SearchCommand}" x:Name="btn_Search" CommandParameter="{Binding ElementName=btn_Search}" Width="120" Margin="430,147,100,10" VerticalAlignment="Top">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Magnify" />
+                            <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Magnify" />
                             <TextBlock Text="Tìm kiếm"/>
                         </StackPanel>
                     </Button.Content>

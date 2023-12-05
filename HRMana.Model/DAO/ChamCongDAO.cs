@@ -10,7 +10,7 @@ namespace HRMana.Model.DAO
 {
     public class ChamCongDAO
     {
-        public ChamCong Get_ChamCong_By_MaNhanVien(int mnv)
+        public ChamCong Get_ChamCong_By_MaNhanVien(int mnv, int thang, int nam)
         {
             var cc = new ChamCong();
 
@@ -18,7 +18,7 @@ namespace HRMana.Model.DAO
             {
                 if (mnv > 0)
                 {
-                    var result = DataProvider.Instance.DBContext.ChamCong.Where(x => x.maNhanVien == mnv).FirstOrDefault();
+                    var result = DataProvider.Instance.DBContext.ChamCong.Where(x => x.maNhanVien == mnv && x.Thang == thang && x.Nam == nam).FirstOrDefault();
 
                     if (result != null)
                     {

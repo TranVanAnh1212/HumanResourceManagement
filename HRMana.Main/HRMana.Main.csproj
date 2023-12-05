@@ -124,13 +124,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Assets\Libs\ReportExtensionMethod.cs" />
-    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="UserControls\ControlBarUserControl.xaml.cs">
       <DependentUpon>ControlBarUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\LableTopUserControl.xaml.cs">
       <DependentUpon>LableTopUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AccountAutheticationViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModel\ContractViewModel.cs" />
@@ -165,11 +165,20 @@
     <Compile Include="View\Dialog\DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Dialog\MessageBox_Custom.xaml.cs">
+      <DependentUpon>MessageBox_Custom.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Expertise\ExpertisePage.xaml.cs">
       <DependentUpon>ExpertisePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Home\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Informations\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Informations\ContactTechnicianWindow.xaml.cs">
+      <DependentUpon>ContactTechnicianWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\People\PeoplePage.xaml.cs">
       <DependentUpon>PeoplePage.xaml</DependentUpon>
@@ -203,6 +212,9 @@
     </Compile>
     <Compile Include="View\Search\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SystemManagement\AccountAuthenticationPage.xaml.cs">
+      <DependentUpon>AccountAuthenticationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SystemManagement\AccountUserPage.xaml.cs">
       <DependentUpon>AccountUserPage.xaml</DependentUpon>
@@ -267,11 +279,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Dialog\MessageBox_Custom.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Expertise\ExpertisePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Home\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Informations\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Informations\ContactTechnicianWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -316,6 +340,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Search\SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SystemManagement\AccountAuthenticationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -407,19 +435,11 @@
     <Resource Include="Assets\NhanVien_Image\DefaultAvatar.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="SqlServerTypes\x64\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Assets\Images\logoCty.png" />
+    <Resource Include="Assets\Images\LogoCty_CoBG.jpg" />
+    <Resource Include="Assets\Images\5060525_2668181.png" />
+    <Resource Include="Assets\Images\WarningICon.png" />
+    <Resource Include="Assets\Images\banner.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -58,6 +58,7 @@
     <Compile Include="DAO\BaoCaoDangNhapDAO.cs" />
     <Compile Include="DAO\ChamCongDAO.cs" />
     <Compile Include="DAO\ChiTietQuyenDAO.cs" />
+    <Compile Include="DAO\ChiTietQuyen_QuyenDAO.cs" />
     <Compile Include="DAO\ChucVuDAO.cs" />
     <Compile Include="DAO\ChuyenCongTacDAO.cs" />
     <Compile Include="DAO\ChuyenCongTac_NhanVienDAO.cs" />

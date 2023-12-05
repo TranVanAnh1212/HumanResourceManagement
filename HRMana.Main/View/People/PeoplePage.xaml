@@ -7,9 +7,9 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-      mc:Ignorable="d" 
+      mc:Ignorable="d" Background="White"
       DataContext="{StaticResource peopleVM}"
-      x:Name="peoplePage"
+      x:Name="peoplePage" FontSize="14"
       Title="PeoplePage">
 
     <i:Interaction.Triggers>
@@ -34,12 +34,16 @@
 
             <GroupBox Header="Thông tin" Margin="10">
                 <Grid>
-                    <TextBlock Text="Mã dân tộc" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,33,0,0"></TextBlock>
-                    <TextBox IsReadOnly="True" Text="{Binding MaDanToc}" Width="336" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="180,28,0,0"></TextBox>
-                    <TextBlock Text="Dân tộc" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="92,0,0,432"></TextBlock>
-                    <TextBox TextChanged="UpperCaseFirstChar" Text="{Binding TenDanToc}" Width="336" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="180,0,0,427"/>
+                    <TextBlock Text="Mã dân tộc" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,49,0,0"></TextBlock>
+                    <TextBox IsReadOnly="True" Text="{Binding MaDanToc}" Width="336" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="180,44,0,0"></TextBox>
+                    <TextBlock Text="Tên dân tộc" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="68,100,0,0"></TextBlock>
+                    <TextBox TextChanged="UpperCaseFirstChar" Text="{Binding TenDanToc}" Width="336" VerticalAlignment="Top" 
+                             HorizontalAlignment="Left" Margin="180,96,0,0"/>
+                    <TextBlock Text="Tên dân tộc không được bỏ trống" Foreground="Red" FontSize="10" Margin="180,129,0,0" 
+                               HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="txt_TenDanTocValidate"/>
 
-                    <Button Command="{Binding Create_DanTocCommand}" HorizontalAlignment="Left" Margin="131,172,0,0" VerticalAlignment="Top" Width="125">
+                    <Button Command="{Binding Create_DanTocCommand}" HorizontalAlignment="Left" Margin="131,210,0,0" 
+                            VerticalAlignment="Top" Width="125" x:Name="btn_Add">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Plus" />
@@ -47,7 +51,7 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="348,172,0,0" VerticalAlignment="Top" Width="125">
+                    <Button Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="348,210,0,0" VerticalAlignment="Top" Width="125">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="CloseThick" Width="20" Height="20" Margin="0, 0, 5, 0"/>
@@ -55,7 +59,7 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Command="{Binding Update_DanTocCommand}" HorizontalAlignment="Left" Margin="131,247,0,0" VerticalAlignment="Top" Width="125">
+                    <Button Command="{Binding Update_DanTocCommand}" HorizontalAlignment="Left" Margin="131,285,0,0" VerticalAlignment="Top" Width="125">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Width="20" Height="20" Kind="Pencil" Margin="0, 0, 5, 0"/>
@@ -63,7 +67,7 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Command="{Binding Delete_DanTocCommand}" HorizontalAlignment="Left" Margin="348,247,0,0" VerticalAlignment="Top" Width="125">
+                    <Button Command="{Binding Delete_DanTocCommand}" HorizontalAlignment="Left" Margin="348,285,0,0" VerticalAlignment="Top" Width="125">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="TrashCan" Width="20" Height="20" Margin="0, 0, 5, 0"/>
@@ -86,8 +90,8 @@
                     <ListView ItemsSource="{Binding DsDanToc}" SelectedItem="{Binding SelectedDanToc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Mã dân tộc" DisplayMemberBinding="{Binding maDanToc}" Width="100"></GridViewColumn>
-                                <GridViewColumn Header="Tên dân tộc" DisplayMemberBinding="{Binding tenDanToc}" Width="400"></GridViewColumn>
+                                <GridViewColumn Header="Mã dân tộc" DisplayMemberBinding="{Binding maDanToc}"></GridViewColumn>
+                                <GridViewColumn Header="Tên dân tộc" DisplayMemberBinding="{Binding tenDanToc}"></GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>

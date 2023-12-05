@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       xmlns:local="clr-namespace:HRMana.Main.View.Profile"
-      mc:Ignorable="d"
+      mc:Ignorable="d" FontSize="14"
       DataContext="{StaticResource profileVM}"
       Name="profilePage"
       Title="ProfileEmployeePage">
@@ -34,8 +34,17 @@
             </Grid.ColumnDefinitions>
 
             <Grid>
-                <TextBox Text="{Binding TNV_Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="118,22,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="182" Height="26"/>
-                <TextBlock HorizontalAlignment="Left" Margin="17,22,0,0" TextWrapping="Wrap" Text="Tên nhân viên" VerticalAlignment="Top" Height="26" FontWeight="Bold"/>
+                <TextBox
+                        MaxWidth="400"
+                        Margin="10,17,10,0" 
+                        VerticalAlignment="Top"
+                        materialDesign:HintAssist.Hint="Tìm kiếm theo tên nhân viên"
+                        AcceptsReturn="True"
+                        Text="{Binding TNV_Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
+                        Style="{StaticResource MaterialDesignFilledTextBox}"
+                        TextWrapping="Wrap" Height="45" Padding="16,3,12,3" />
+
                 <ListView ItemsSource="{Binding DsNhanVien}" SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,70,5,10">
                     <ListView.View>
                         <GridView>

@@ -25,6 +25,7 @@ namespace HRMana.Main.View.Position
         public PositionPage()
         {
             InitializeComponent();
+            txtbl_TenChucVuValidate.Visibility = Visibility.Visible;
 
             NotificationEvent.Instance.ShowNotificationRequested += async (sender, e) =>
             {
@@ -44,6 +45,29 @@ namespace HRMana.Main.View.Position
                 catch (Exception exep) { }
             };
 
+        }
+
+        private void UpperCaseFirstChar(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            string value = textBox.Text;
+
+            if (textBox.Text.Length <= 0)
+            {
+                txtbl_TenChucVuValidate.Visibility = Visibility.Visible;
+                btn_Add.IsEnabled = false;
+            }
+            else
+            {
+                txtbl_TenChucVuValidate.Visibility = Visibility.Collapsed;
+                btn_Add.IsEnabled = true;
+            }
+
+            if (!string.IsNullOrEmpty(value))
+            {
+                textBox.Text = char.ToUpper(value[0]) + value.Substring(1);
+                textBox.CaretIndex = textBox.Text.Length;
+            }
         }
     }
 }

@@ -22,4 +22,5 @@
     <vm:ChangePasswordViewModel x:Key="changePassVM"></vm:ChangePasswordViewModel>
     <vm:ProfileEmployeeViewModel x:Key="profileVM"></vm:ProfileEmployeeViewModel>
     <vm:ReportViewModel x:Key="reportVM"></vm:ReportViewModel>
+    <vm:AccountAutheticationViewModel x:Key="accAuthenVM"></vm:AccountAutheticationViewModel>
 </ResourceDictionary>

@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace HRMana.Main.ViewModel
 {
@@ -386,6 +388,19 @@ namespace HRMana.Main.ViewModel
                 );
         }
 
+        private void ShowMessageBoxCustom(string msg, string imagePath)
+        {
+            MessageBox_Custom messageBox_Custom = new MessageBox_Custom();
+            messageBox_Custom.MsgBox_Content = msg;
+
+            // Chuyển đổi đường dẫn hình ảnh từ kiểu string sang ImageSource
+            ImageSource msgIcon = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+
+            messageBox_Custom.Img_MsgIcon = msgIcon;
+
+            messageBox_Custom.ShowDialog();
+        }
+
         private void Delete_DieuDongCongtac()
         {
             DialogWindow d = new DialogWindow();
@@ -412,31 +427,31 @@ namespace HRMana.Main.ViewModel
 
                             if (result_nv)
                             {
-                                MessageBox.Show($"Xóa chuyển công tác nhân viên \"{HoTen}\" thành công");
+                                ShowMessageBoxCustom($"Xóa chuyển công tác nhân viên \"{HoTen}\" thành công.", CommonConstant.Success_ICon);
                                 GetList_ChuyenCongTac_NhanVien();
                                 GetList_NhanVien();
                                 EmptyField();
                             }
                             else
                             {
-                                MessageBox.Show($"Xóa chuyển công tác nhân viên \"{HoTen}\" không thành công");
+                                ShowMessageBoxCustom($"Xóa chuyển công tác nhân viên \"{HoTen}\" thất bại.", CommonConstant.Error_ICon);
                             }
                         }
                         else
                         {
-                            MessageBox.Show($"Xóa chuyển công tác nhân viên \"{HoTen}\" không thành công");
+                            ShowMessageBoxCustom($"Xóa chuyển công tác nhân viên \"{HoTen}\" không thành công", CommonConstant.Error_ICon);
 
                         }
                     }
                     else
                     {
-                        MessageBox.Show($"Xóa chuyển công tác nhân viên \"{HoTen}\" không thành công");
+                        ShowMessageBoxCustom($"Xóa chuyển công tác nhân viên \"{HoTen}\" không thành công", CommonConstant.Error_ICon);
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.Message, "Thông báo lỗi.", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -481,19 +496,19 @@ namespace HRMana.Main.ViewModel
 
                         if (result_nv)
                         {
-                            MessageBox.Show($"Sửa đổi chuyển công tác nhân viên \"{HoTen}\" thành công");
+                            ShowMessageBoxCustom($"Sửa đổi chuyển công tác nhân viên \"{HoTen}\" thành công", CommonConstant.Success_ICon);
                             GetList_ChuyenCongTac_NhanVien();
                             GetList_NhanVien();
                             EmptyField();
                         }
                         else
                         {
-                            MessageBox.Show($"Sửa đổi chuyển công tác nhân viên \"{HoTen}\" không thành công");
+                            ShowMessageBoxCustom($"Sửa đổi chuyển công tác nhân viên \"{HoTen}\" không thành công", CommonConstant.Error_ICon);
                         }
                     }
                     else
                     {
-                        MessageBox.Show($"Sửa đổi chuyển công tác nhân viên \"{HoTen}\" không thành công");
+                        ShowMessageBoxCustom($"Sửa đổi chuyển công tác nhân viên \"{HoTen}\" không thành công", CommonConstant.Error_ICon);
 
                     }
 
@@ -541,19 +556,19 @@ namespace HRMana.Main.ViewModel
 
                     if (result_nv)
                     {
-                        MessageBox.Show($"Chuyển công tác nhân viên \"{HoTen}\" thành công");
+                        ShowMessageBoxCustom($"Chuyển công tác nhân viên \"{HoTen}\" thành công.", CommonConstant.Success_ICon);
                         GetList_ChuyenCongTac_NhanVien();
                         GetList_NhanVien();
                         EmptyField();
                     }
                     else
                     {
-                        MessageBox.Show($"Chuyển công tác nhân viên \"{HoTen}\" không thành công");
+                        ShowMessageBoxCustom($"Chuyển công tác nhân viên \"{HoTen}\" không thành công", CommonConstant.Error_ICon);
                     }
                 }
                 else
                 {
-                    MessageBox.Show($"Chuyển công tác nhân viên \"{HoTen}\" không thành công");
+                    ShowMessageBoxCustom($"Chuyển công tác nhân viên \"{HoTen}\" không thành công", CommonConstant.Error_ICon);
 
                 }
             }

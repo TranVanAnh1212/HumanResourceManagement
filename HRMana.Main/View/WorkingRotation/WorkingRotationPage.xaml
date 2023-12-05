@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
-      mc:Ignorable="d" 
+      mc:Ignorable="d" FontSize="14" Background="White"
       DataContext="{StaticResource workingRotationVM}"
       x:Name="workingRotationPage"
       Title="WorkingRotationPage">
@@ -34,9 +34,16 @@
 
             <Grid>
 
-                <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Tìm kiếm" VerticalAlignment="Top"/>
-                <TextBlock HorizontalAlignment="Left" Margin="53,33,0,0" TextWrapping="Wrap" Text="Tên nhân viên" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Height="29" Margin="152,29,0,0" TextWrapping="Wrap" Text="{Binding TNV_Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="209"/>
+                <TextBox
+                    MaxWidth="400"
+                    Margin="21,17,10,0" 
+                    VerticalAlignment="Top"
+                    materialDesign:HintAssist.Hint="Tìm kiếm theo tên nhân viên"
+                    AcceptsReturn="True"
+                    Text="{Binding TNV_Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
+                    Style="{StaticResource MaterialDesignFilledTextBox}"
+                    TextWrapping="Wrap" Height="45" Padding="16,3,12,3" />
 
                 <GroupBox Margin="2,78,2.2,3.2" Header="Danh sách nhân viên">
                     <ListView ItemsSource="{Binding DsNhanVien}" SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">

@@ -222,9 +222,6 @@ namespace HRMana.Main.ViewModel
             CancelCommandCommand = new RelayCommand<object>(
                 (param) =>
                 {
-                    if (SelectedPosition == null || TenChucVu == string.Empty)
-                        return false;
-
                     return true;
                 },
                 (param) =>

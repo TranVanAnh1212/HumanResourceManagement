@@ -50,5 +50,7 @@ namespace HRMana.Common
 
             return pathImage;
         }
+
+
     }
 }

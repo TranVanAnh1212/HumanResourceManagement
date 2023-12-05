@@ -13,6 +13,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using HRMana.Common.Commons;
 
 namespace HRMana.Main.ViewModel
 {
@@ -31,7 +34,6 @@ namespace HRMana.Main.ViewModel
         private string _dienThoai;
         private string _noiOHienTai;
         private string _QueQuan;
-        private string _tinhTrangGiaDinh;
         private string _emailCaNhan;
         private string _emailNoiBo;
         private string _coSoLamViec;
@@ -102,7 +104,6 @@ namespace HRMana.Main.ViewModel
         public string DienThoai { get => _dienThoai; set { _dienThoai = value; OnPropertyChanged(); } }
         public string NoiOHienTai { get => _noiOHienTai; set { _noiOHienTai = value; OnPropertyChanged(); } }
         public string QueQuan { get => _QueQuan; set { _QueQuan = value; OnPropertyChanged(); } }
-        public string TinhTrangGiaDinh { get => _tinhTrangGiaDinh; set { _tinhTrangGiaDinh = value; OnPropertyChanged(); } }
         public string EmailCaNhan { get => _emailCaNhan; set { _emailCaNhan = value; OnPropertyChanged(); } }
         public string EmailNoiBo { get => _emailNoiBo; set { _emailNoiBo = value; OnPropertyChanged(); } }
         public string CoSoLamViec { get => _coSoLamViec; set { _coSoLamViec = value; OnPropertyChanged(); } }
@@ -248,21 +249,22 @@ namespace HRMana.Main.ViewModel
 
             LoadWindowCommand = new RelayCommand<Window>(
                 (param) => true,
-                (param) =>
+                async (param) =>
                 {
-                    Thread GetData_Thread = new Thread(async () =>
+                    Task loading_Task = new Task(() =>
                     {
-                        await Task.Run(() => { GetList_BacLuong(); });
-                        await Task.Run(() => { GetList_ChucVu(); });
-                        await Task.Run(() => { GetList_ChuyenMon();});
-                        await Task.Run(() => { GetList_DanToc();});
-                        await Task.Run(() => { GetList_PhongBan();});
-                        await Task.Run(() => { GetList_TonGiao();});
-                        await Task.Run(() => { GetList_TrinhDo();});
-                        await Task.Run(() => { Get_NhanVien_ByMaNhanVien();});
+                        GetList_BacLuong();
+                        GetList_ChucVu();
+                        GetList_ChuyenMon();
+                        GetList_DanToc();
+                        GetList_PhongBan();
+                        GetList_TonGiao();
+                        GetList_TrinhDo();
+                        Get_NhanVien_ByMaNhanVien();
                     });
-                    GetData_Thread.IsBackground = true;
-                    GetData_Thread.Start();
+
+                    loading_Task.Start();
+                    await loading_Task;
                 }
                 );
 
@@ -285,12 +287,12 @@ namespace HRMana.Main.ViewModel
                         var result = new NhanVienDAO().Delete_NhanVien(MaNhanVien);
                         if (result)
                         {
-                            MessageBox.Show("Xóa nhân viên thành công.");
+                            ShowMessageBoxCustom("Xóa nhân viên thành công.", CommonConstant.Success_ICon);
                             CloseDetailWindow();
                         }
                         else
                         {
-                            MessageBox.Show("Xóa nhân viên thất bại.");
+                            ShowMessageBoxCustom("Xóa nhân viên thất bại.", CommonConstant.Error_ICon);
                         }
                     }
                 }
@@ -307,14 +309,6 @@ namespace HRMana.Main.ViewModel
                         GioiTinh = Nam_Checked ? "Nam" : "Nữ";
                         GioiTinh = Nu_Checked ? "Nữ" : "Nam";
 
-                        double luongOfferParse = 0;
-                        if (LuongOffer != null)
-                        {
-                            string[] a = LuongOffer.Split('.');
-                            string b = string.Concat(a);
-                            luongOfferParse = Convert.ToInt32(b);
-                        }
-
                         NhanVien nv = new NhanVien()
                         {
                             maNhanVien = MaNhanVien,
@@ -326,12 +320,11 @@ namespace HRMana.Main.ViewModel
                             dienThoai = DienThoai,
                             noiOHienTai = NoiOHienTai,
                             queQuan = QueQuan,
-                            giaDinh = TinhTrangGiaDinh,
                             emailCaNhan = EmailCaNhan,
                             emailNoiBo = EmailNoiBo,
                             coSoLamViec = CoSoLamViec,
                             loaiHinhLamViec = LoaiHinhLamViec,
-                            luongOffer = Convert.ToDecimal(luongOfferParse),
+                            luongOffer = StringHelper.ConvertSalary(LuongOffer),
                             anhThe = Path.GetFileName(AnhThe),
                             maHoSo = MaHoSo,
                             maHopDong = MaHopDong,
@@ -347,12 +340,12 @@ namespace HRMana.Main.ViewModel
 
                         if (result)
                         {
-                            MessageBox.Show("Cập nhật nhân viên thành công.");
+                            ShowMessageBoxCustom("Cập nhật nhân viên thành công.", CommonConstant.Success_ICon);
                             CloseDetailWindow();
                         }
                         else
                         {
-                            MessageBox.Show("Cập nhật nhân viên thất bại.");
+                            ShowMessageBoxCustom("Cập nhật nhân viên thất bại.", CommonConstant.Error_ICon);
                         }
                     }
                 }
@@ -385,7 +378,6 @@ namespace HRMana.Main.ViewModel
                     DienThoai = nv.dienThoai;
                     NoiOHienTai = nv.noiOHienTai;
                     QueQuan = nv.queQuan;
-                    TinhTrangGiaDinh = nv.giaDinh;
                     EmailCaNhan = nv.emailCaNhan;
                     EmailNoiBo = nv.emailNoiBo;
                     CoSoLamViec = nv.coSoLamViec;
@@ -406,14 +398,27 @@ namespace HRMana.Main.ViewModel
                     SelectedChuyenMon = ListChuyenMon.SingleOrDefault(x => x.maChuyenMon == nv.maChuyenMon);
                     MaHopDong = nv.maHopDong;
                     //SoHopDong = nv.HopDong.soHopDong;
-                    AnhThe = (nv.anhThe == null ) ? "..\\..\\Assets\\NhanVien_Image\\DefaultAvatar.jpg" : 
+                    AnhThe = (nv.anhThe == null) ? "..\\..\\Assets\\NhanVien_Image\\DefaultAvatar.jpg" :
                         AppDomain.CurrentDomain.BaseDirectory + "NhanVien_Image\\" + nv.anhThe;
                 }
             }
             else
             {
-                MessageBox.Show("Lấy thông tin nhân viên lỗi");
+                ShowMessageBoxCustom("Lấy thông tin nhân viên lỗi", CommonConstant.Error_ICon);
             }
+        }
+
+        private void ShowMessageBoxCustom(string msg, string imagePath)
+        {
+            MessageBox_Custom messageBox_Custom = new MessageBox_Custom();
+            messageBox_Custom.MsgBox_Content = msg;
+
+            // Chuyển đổi đường dẫn hình ảnh từ kiểu string sang ImageSource
+            ImageSource msgIcon = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+
+            messageBox_Custom.Img_MsgIcon = msgIcon;
+
+            messageBox_Custom.ShowDialog();
         }
 
         private void GetList_BacLuong()

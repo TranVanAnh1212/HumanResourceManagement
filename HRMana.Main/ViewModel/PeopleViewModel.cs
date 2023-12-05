@@ -12,6 +12,8 @@ using System.Windows;
 using System.Windows.Input;
 using HRMana.Common.Commons;
 using HRMana.Main.View.Dialog;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace HRMana.Main.ViewModel
 {
@@ -213,22 +215,22 @@ namespace HRMana.Main.ViewModel
 
                             if (result < 0)
                             {
-                                MessageBox.Show("Có lỗi xảy ra ở máy chủ", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                ShowMessageBoxCustom("Có lỗi xảy ra ở máy chủ", CommonConstant.Error_ICon);
                             }
                             else if (result == 0)
                             {
-                                MessageBox.Show("Dữ liệu đang bị rỗng.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                ShowMessageBoxCustom("Dữ liệu đang bị rỗng.", CommonConstant.Warning_ICon);
                             }
                             else
                             {
-                                MessageBox.Show("Thêm mới dân tộc thành công", "Cảnh báo!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                ShowMessageBoxCustom("Thêm mới dân tộc thành công", CommonConstant.Success_ICon);
                                 GetList_DanToc();
                                 EmptyField();
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Tên dân tộc không được bỏ trống.", "Cảnh báo!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            ShowMessageBoxCustom("Tên dân tộc không được bỏ trống", CommonConstant.Warning_ICon);
                         }
                     }
                     catch (Exception ex)
@@ -266,12 +268,12 @@ namespace HRMana.Main.ViewModel
 
                             if (!result)
                             {
-                                MessageBox.Show("Có lỗi xảy ra ở máy chủ", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                ShowMessageBoxCustom("Có lỗi xảy ra ở máy chủ", CommonConstant.Error_ICon);
 
                             }
                             else
                             {
-                                MessageBox.Show("Cập nhật dân tộc thành công", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                ShowMessageBoxCustom("Cập nhật dân tộc thành công", CommonConstant.Success_ICon);
                                 GetList_DanToc();
                                 EmptyField();
                             }
@@ -308,12 +310,13 @@ namespace HRMana.Main.ViewModel
 
                                 if (!result)
                                 {
-                                    MessageBox.Show("Có lỗi xảy ra ở máy chủ", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    ShowMessageBoxCustom("Có lỗi xảy ra ở máy chủ", CommonConstant.Error_ICon);
 
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Xóa dân tộc thành công", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    ShowMessageBoxCustom("Xóa dân tộc dân tộc thành công", CommonConstant.Success_ICon);
+
                                     GetList_DanToc();
                                     EmptyField();
                                 }
@@ -338,6 +341,19 @@ namespace HRMana.Main.ViewModel
             SelectedDanToc = null;
             MaDanToc = 0;
             TenDanToc = string.Empty;
+        }
+
+        private void ShowMessageBoxCustom(string msg, string imagePath)
+        {
+            MessageBox_Custom messageBox_Custom = new MessageBox_Custom();
+            messageBox_Custom.MsgBox_Content = msg;
+
+            // Chuyển đổi đường dẫn hình ảnh từ kiểu string sang ImageSource
+            ImageSource msgIcon = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+
+            messageBox_Custom.Img_MsgIcon = msgIcon;
+
+            messageBox_Custom.ShowDialog();
         }
 
         private void GetList_DanToc()

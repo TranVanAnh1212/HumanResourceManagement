@@ -33,10 +33,15 @@ namespace HRMana.Main.ViewModel
         private string _thoiHanHopDong;
         private ObservableCollection<HopDong> _dsHopDong;
         private HopDong _selectedHopDong;
+
+        private bool _rdb_CTHChecked;
+        private bool _rdb_KTHChecked;
+
         private string _permission_ADD;
         private string _permission_VIEW;
         private string _permission_EDIT;
         private string _permission_DEL;
+
         private string _message;
         private string _fill;
         public ICommand IncreasePageCommand { get; set; }
@@ -82,9 +87,18 @@ namespace HRMana.Main.ViewModel
                     SoHopDong = SelectedHopDong.soHopDong;
                     NgayKyHopDong = SelectedHopDong.ngayKyHD;
                     NgayKetThucHopDong = SelectedHopDong.ngayKetThucHD;
-                    LoaiHopDong = SelectedHopDong.loaiHopDong;
                     TinhTrangChuKy = SelectedHopDong.tinhTrangChuKi;
-                    ThoiHanHopDong = SelectedHopDong.thoiHanHD;
+
+                    if (SelectedHopDong.loaiHopDong.Equals("Không thời hạn"))
+                    {
+                        Rdb_KTHChecked = true;
+                    }
+
+                    if (SelectedHopDong.loaiHopDong.Equals("Có thời hạn"))
+                    {
+                        Rdb_CTHChecked = true;
+                        ThoiHanHopDong = SelectedHopDong.thoiHanHD;
+                    }
                 }
             }
         }
@@ -94,6 +108,9 @@ namespace HRMana.Main.ViewModel
             get => _message; set { _message = value; OnPropertyChanged(); }
         }
         public string Fill { get => _fill; set { _fill = value; OnPropertyChanged(); } }
+
+        public bool Rdb_CTHChecked { get => _rdb_CTHChecked; set { _rdb_CTHChecked = value; OnPropertyChanged(); } }
+        public bool Rdb_KTHChecked { get => _rdb_KTHChecked; set { _rdb_KTHChecked = value; OnPropertyChanged(); } }
         #endregion
 
         public ContractViewModel()
@@ -266,10 +283,20 @@ namespace HRMana.Main.ViewModel
                             soHopDong = SoHopDong,
                             ngayKyHD = NgayKyHopDong,
                             ngayKetThucHD = NgayKetThucHopDong,
-                            thoiHanHD = ThoiHanHopDong,
                             tinhTrangChuKi = TinhTrangChuKy,
-                            loaiHopDong = LoaiHopDong,
                         };
+
+                        if (Rdb_KTHChecked)
+                        {
+                            hd.loaiHopDong = "Không thời hạn";
+                            hd.thoiHanHD = null;
+                        }
+
+                        if (Rdb_CTHChecked)
+                        {
+                            hd.loaiHopDong = "Có thời hạn";
+                            hd.thoiHanHD = ThoiHanHopDong;
+                        }
 
                         var result = new HopDongDAO().Update_HopDong(hd);
 
@@ -310,13 +337,13 @@ namespace HRMana.Main.ViewModel
                 {
                     try
                     {
-
                         var nv_hd = new NhanVienDAO().Get_NhanVien_By_MaHopDong(SelectedHopDong.maHopDong);
 
                         if (nv_hd != null)
                         {
                             DialogWindow d = new DialogWindow();
-                            d.DialogMessage = $"Phát hiện thấy mã hợp đồng là của nhân viên {nv_hd.tenNhanVien} - {nv_hd.maNhanVien}, vẫn muốn xóa?";
+                            d.DialogMessage =
+                                $"Phát hiện thấy mã hợp đồng là của nhân viên {nv_hd.tenNhanVien} - {nv_hd.maNhanVien}, vẫn muốn xóa?";
 
                             if (true == d.ShowDialog())
                             {
@@ -384,10 +411,20 @@ namespace HRMana.Main.ViewModel
                     soHopDong = SoHopDong,
                     ngayKyHD = NgayKyHopDong,
                     ngayKetThucHD = NgayKetThucHopDong,
-                    thoiHanHD = ThoiHanHopDong,
                     tinhTrangChuKi = TinhTrangChuKy,
-                    loaiHopDong = LoaiHopDong,
                 };
+
+                if (Rdb_KTHChecked)
+                {
+                    hd.loaiHopDong = "Không thời hạn";
+                    hd.thoiHanHD = null;
+                }
+
+                if (Rdb_CTHChecked)
+                {
+                    hd.loaiHopDong = "Có thời hạn";
+                    hd.thoiHanHD = ThoiHanHopDong;
+                }
 
                 var result = new HopDongDAO().CreateNew_HopDong(hd);
 
@@ -405,13 +442,11 @@ namespace HRMana.Main.ViewModel
                 else
                 {
                     MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
-
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Có lỗi xảy ra.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

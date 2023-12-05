@@ -14,6 +14,11 @@ using System.Windows.Input;
 using ThuVienWinform.Report.AsposeWordExtension;
 using HRMana.Model.Models;
 using System.Globalization;
+using System.Threading.Tasks;
+using HRMana.Main.View.Dialog;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using HRMana.Common.Commons;
 
 namespace HRMana.Main.ViewModel
 {
@@ -51,6 +56,19 @@ namespace HRMana.Main.ViewModel
         public ObservableCollection<BaoCaoDsNhanVien_rptModel> DsBCDSNV { get => _dsBCDSNV; set { _dsBCDSNV = value; OnPropertyChanged(); } }
         public ObservableCollection<BaoCaoChamCong_prtModel> DsBCCC { get => _dsBCCC; set { _dsBCCC = value; OnPropertyChanged(); } }
 
+        private void ShowMessageBoxCustom(string msg, string imagePath)
+        {
+            MessageBox_Custom messageBox_Custom = new MessageBox_Custom();
+            messageBox_Custom.MsgBox_Content = msg;
+
+            // Chuyển đổi đường dẫn hình ảnh từ kiểu string sang ImageSource
+            ImageSource msgIcon = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+
+            messageBox_Custom.Img_MsgIcon = msgIcon;
+
+            messageBox_Custom.ShowDialog();
+        }
+
         public ReportViewModel()
         {
             Initialized();
@@ -74,323 +92,83 @@ namespace HRMana.Main.ViewModel
 
             Export_BaoCaoDangNhap_ReportWord = new RelayCommand<object>(
                 (param) => true,
-                (param) =>
+                async (param) =>
                 {
-                    try
-                    {
-                        GetList_BCDN(FromDate, ToDate);
-
-                        // Nạp file
-                        Document baoCaoDangNhap_Template = new Document("../../Assets/Templates/BC_DangNhap.doc");
-
-                        // Điền các thông tin cố định
-                        baoCaoDangNhap_Template.MailMerge.Execute(new[] { "NgayBC" }, new[] { NgayBC.ToString() });
-                        baoCaoDangNhap_Template.MailMerge.Execute(new[] { "ThangBC" }, new[] { ThangBC.ToString() });
-                        baoCaoDangNhap_Template.MailMerge.Execute(new[] { "NamBC" }, new[] { NamBC.ToString() });
-                        baoCaoDangNhap_Template.MailMerge.Execute(new[] { "HoTen" }, new[] { TenNV });
-                        baoCaoDangNhap_Template.MailMerge.Execute(new[] { "ChucVu" }, new[] { ChucVu });
-                        baoCaoDangNhap_Template.MailMerge.Execute(new[] { "PhongBan" }, new[] { PhongBan });
-
-                        // Điền thông tin vào bảng
-                        Table bangThongTinBCDN = baoCaoDangNhap_Template.GetChild(NodeType.Table, 1, true) as Table; // Láy ra bảng thứ 2
-
-                        int hangHienTai = 1;
-                        bangThongTinBCDN.InsertRows(hangHienTai, hangHienTai, DsBCDN.Count() - 1);
-                        for (int i = 1; i <= DsBCDN.Count() - 1; i++)
+                    Task exportWord_ChamCong = new Task(
+                        () =>
                         {
-                            bangThongTinBCDN.PutValue(hangHienTai, 0, i.ToString()); // Cột STT
-                            bangThongTinBCDN.PutValue(hangHienTai, 2, DsBCDN[i].TenTaiKhoan.ToString()); // Cột Tên tài khoản
-                            bangThongTinBCDN.PutValue(hangHienTai, 3, DsBCDN[i].TgDangNhap.ToString()); // Cột thời gian đăng nhập
-                            bangThongTinBCDN.PutValue(hangHienTai, 4, DsBCDN[i].TgDangXuat.ToString()); // Cột thời gian đăng xuất
-                            hangHienTai++;
-                        }
-
-                        try
-                        {
-                            SaveFileDialog sfd = new SaveFileDialog();
-                            sfd.Filter = "Word Document (*.docx)|*.docx";
-                            sfd.FileName = "BaoCaoDangNhap.docx"; // Đặt tên file mặc định (có thể thay đổi)
-                            sfd.Title = "Lưu file";
-
-                            if (sfd.ShowDialog() == true)
+                            try
                             {
-                                string duongDanFile = sfd.FileName;
+                                GetList_BCDN(FromDate, ToDate);
 
-                                //if (File.Exists(duongDanFile))
-                                //{
-                                //    if (MessageBox.Show("File đã tồn tại. Bạn có muốn ghi đè không?", "Xác nhận ghi đè", MessageBoxButton.YesNo) == MessageBoxResult.No)
-                                //    {
-                                //        return; // Không ghi đè, thoát khỏi phương thức
-                                //    }
-                                //}
+                                // Nạp file
+                                Document baoCaoDangNhap_Template = new Document("../../Assets/Templates/BC_DangNhap.doc");
 
-                                // Lưu và mở file
-                                baoCaoDangNhap_Template.Save(sfd.FileName);
-                                MessageBox.Show("Xuất báo cáo thành công. ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                                // Điền các thông tin cố định
+                                baoCaoDangNhap_Template.MailMerge.Execute(new[] { "NgayBC" }, new[] { NgayBC.ToString() });
+                                baoCaoDangNhap_Template.MailMerge.Execute(new[] { "ThangBC" }, new[] { ThangBC.ToString() });
+                                baoCaoDangNhap_Template.MailMerge.Execute(new[] { "NamBC" }, new[] { NamBC.ToString() });
+                                baoCaoDangNhap_Template.MailMerge.Execute(new[] { "HoTen" }, new[] { TenNV });
+                                baoCaoDangNhap_Template.MailMerge.Execute(new[] { "ChucVu" }, new[] { ChucVu });
+                                baoCaoDangNhap_Template.MailMerge.Execute(new[] { "PhongBan" }, new[] { PhongBan });
+
+                                // Điền thông tin vào bảng
+                                Table bangThongTinBCDN = baoCaoDangNhap_Template.GetChild(NodeType.Table, 1, true) as Table; // Láy ra bảng thứ 2
+
+                                int hangHienTai = 1;
+                                bangThongTinBCDN.InsertRows(hangHienTai, hangHienTai, DsBCDN.Count() - 1);
+                                for (int i = 1; i <= DsBCDN.Count() - 1; i++)
+                                {
+                                    bangThongTinBCDN.PutValue(hangHienTai, 0, i.ToString()); // Cột STT
+                                    bangThongTinBCDN.PutValue(hangHienTai, 2, DsBCDN[i].TenTaiKhoan.ToString()); // Cột Tên tài khoản
+                                    bangThongTinBCDN.PutValue(hangHienTai, 3, DsBCDN[i].TgDangNhap.ToString()); // Cột thời gian đăng nhập
+                                    bangThongTinBCDN.PutValue(hangHienTai, 4, DsBCDN[i].TgDangXuat.ToString()); // Cột thời gian đăng xuất
+                                    hangHienTai++;
+                                }
+
+                                SaveFileDialog sfd = new SaveFileDialog();
+                                sfd.Filter = "Word Document (*.docx)|*.docx";
+                                sfd.FileName = "BaoCaoDangNhap.docx"; // Đặt tên file mặc định (có thể thay đổi)
+                                sfd.Title = "Lưu file";
+
+                                if (sfd.ShowDialog() == true)
+                                {
+                                    string duongDanFile = sfd.FileName;
+
+                                    //if (File.Exists(duongDanFile))
+                                    //{
+                                    //    if (MessageBox.Show("File đã tồn tại. Bạn có muốn ghi đè không?", "Xác nhận ghi đè", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                                    //    {
+                                    //        return; // Không ghi đè, thoát khỏi phương thức
+                                    //    }
+                                    //}
+
+                                    // Lưu và mở file
+                                    baoCaoDangNhap_Template.Save(sfd.FileName);
+                                    ShowMessageBoxCustom("Xuất báo cáo thành công. ", CommonConstant.Success_ICon);
+                                }
+
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Đã xảy ra lỗi khi xuất báo cáo: " + ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Đã xảy ra lỗi khi lưu và mở file: " + ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Đã xảy ra lỗi khi xuất báo cáo: " + ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        );
 
-                    }
+                    exportWord_ChamCong.Start();
+                    await exportWord_ChamCong;
                 }
                 );
 
             Export_BaoCaoDangNhap_ReportExcel = new RelayCommand<object>(
                 (param) => true,
-                (param) =>
+                async (param) =>
                 {
-                    GetList_BCDN(FromDate, ToDate);
-
-                    string filePath = "";
-                    SaveFileDialog dialog = new SaveFileDialog();
-                    dialog.Filter = "Excel | *.xlsx | Excel 2003 | *.xls";
-
-                    // Nếu mở file và chọn nơi lưu file thành công sẽ lưu đường dẫn lại dùng
-                    if (dialog.ShowDialog() == true)
+                    Task exportExcel_BCDangNhap = new Task(() =>
                     {
-                        filePath = dialog.FileName;
-                    }
-
-                    // nếu đường dẫn null hoặc rỗng thì báo không hợp lệ và return hàm
-                    if (string.IsNullOrEmpty(filePath))
-                    {
-                        MessageBox.Show("Đường dẫn báo cáo không hợp lệ");
-                        return;
-                    }
-
-                    try
-                    {
-                        // If you are a commercial business and have
-                        // purchased commercial licenses use the static property
-                        // LicenseContext of the ExcelPackage class:
-                        //ExcelPackage.LicenseContext = LicenseContext.Commercial;
-
-                        // If you use EPPlus in a noncommercial context
-                        // according to the Polyform Noncommercial license:
-                        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                        using (ExcelPackage p = new ExcelPackage())
-                        {
-                            // đặt tên người tạo file
-                            p.Workbook.Properties.Author = TenNV;
-
-                            // đặt tiêu đề cho file
-                            p.Workbook.Properties.Title = "Báo cáo tài khoản đăng nhập";
-
-                            //Tạo một sheet để làm việc trên đó
-                            p.Workbook.Worksheets.Add("NewSheet");
-
-                            // lấy sheet vừa add ra để thao tác
-                            ExcelWorksheet ws = p.Workbook.Worksheets[0];
-
-                            // đặt tên cho sheet
-                            ws.Name = "Báo cáo tài khoản đăng nhập";
-                            // fontsize mặc định cho cả sheet
-                            ws.Cells.Style.Font.Size = 14;
-                            // font family mặc định cho cả sheet
-                            ws.Cells.Style.Font.Name = "Calibri";
-
-                            // Tạo danh sách các column header
-                            string[] arrColumnHeader = {
-                                                "Tên tài khoản",
-                                                "Thời gian đăng nhập",
-                                                "Thời gian đăng xuất",
-                            };
-
-                            // lấy ra số lượng cột cần dùng dựa vào số lượng header
-                            var countColHeader = arrColumnHeader.Count();
-
-                            // merge các column lại từ column 1 đến số column header
-                            // gán giá trị cho cell vừa merge là Thống kê thông tni User Kteam
-                            ws.Cells[1, 1].Value = "Thống kê thông tin tài khoản đăng nhập";
-                            ws.Cells[1, 1, 1, countColHeader].Merge = true;
-                            // in đậm
-                            ws.Cells[1, 1, 1, countColHeader].Style.Font.Bold = true;
-                            ws.Cells[1, 1, 1, countColHeader].Style.Font.Size = 20;
-                            ws.Cells[1, 1, 1, countColHeader].Style.WrapText = true;
-                            // căn giữa
-                            ws.Cells[1, 1, 1, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                            ws.Cells[1, 1, 1, countColHeader].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                            ws.Cells[1, 1, 1, countColHeader].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGreen);
-
-                            ws.Cells[3, 1].Value = "Họ và tên người báo cáo";
-                            ws.Cells[3, 1, 3, 2].Merge = true;
-                            ws.Cells[3, 3].Value = TenNV;
-                            ws.Cells[3, 3, 3, 3].Merge = true;
-
-                            ws.Cells[3, 4].Value = "Chức vụ";
-                            ws.Cells[3, 5].Value = ChucVu;
-
-                            ws.Cells[3, 7].Value = "Phòng ban";
-                            ws.Cells[3, 8].Value = PhongBan;
-
-                            ws.Cells[4, 1].Value = "Ngày xuất báo cáo";
-                            ws.Cells[4, 1, 4, 3].Merge = true;
-                            ws.Cells[4, 4].Value = $"Ngày {NgayBC} - Tháng {ThangBC} - Năm {NamBC}";
-                            ws.Cells[4, 4, 4, 6].Merge = true;
-
-                            int colIndex = 1;
-                            int rowIndex = 6;
-
-                            //tạo các header từ column header đã tạo từ bên trên
-                            foreach (var item in arrColumnHeader)
-                            {
-                                var cell = ws.Cells[rowIndex, colIndex];
-
-                                //set màu thành gray
-                                var fill = cell.Style.Fill;
-                                fill.PatternType = ExcelFillStyle.Solid;
-                                fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
-
-                                cell.Style.Font.Bold = true;
-                                cell.Style.WrapText = true;
-
-                                //căn chỉnh các border
-                                var border = cell.Style.Border;
-                                border.Bottom.Style =
-                                    border.Top.Style =
-                                    border.Left.Style =
-                                    border.Right.Style = ExcelBorderStyle.Thin;
-
-                                //gán giá trị
-                                cell.Value = item;
-
-                                colIndex++;
-                            }
-
-                            // với mỗi item trong danh sách BCDN sẽ ghi trên 1 dòng
-                            foreach (var item in DsBCDN)
-                            {
-                                // bắt đầu ghi từ cột 1. Excel bắt đầu từ 1 không phải từ 0
-                                colIndex = 1;
-
-                                // rowIndex tương ứng từng dòng dữ liệu
-                                rowIndex++;
-
-                                //gán giá trị cho từng cell                      
-                                // lưu ý phải .ToShortDateString để dữ liệu khi in ra Excel là ngày như ta vẫn thấy.Nếu không sẽ ra tổng số :v
-                                ws.Cells[rowIndex, colIndex++].Value = item.TenTaiKhoan;
-                                ws.Cells[rowIndex, colIndex++].Value = item.TgDangNhap.ToShortDateString();
-                                ws.Cells[rowIndex, colIndex++].Value = item.TgDangXuat.Value.ToShortDateString();
-
-                            }
-
-                            // AutoFit all columns after adding data
-                            for (int i = 1; i <= ws.Dimension.End.Column; i++)
-                            {
-                                ws.Column(i).AutoFit();
-                            }
-
-                            // Freeze panes so that columns 1 and 2 are always visible
-                            ws.View.FreezePanes(7, 3);
-
-                            // căn giữa
-                            ws.Row(6).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                            ws.Row(6).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-
-                            //Lưu file lại
-                            Byte[] bin = p.GetAsByteArray();
-                            File.WriteAllBytes(filePath, bin);
-                        }
-                        MessageBox.Show("Xuất excel thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Có lỗi khi lưu file!\n{ex.Message}", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                );
-
-            Export_DsNhanVien_ReportWord = new RelayCommand<object>(
-                (param) => true,
-                (param) =>
-                {
-                    try
-                    {
-                        GetList_BCDSNV();
-
-                        // Nạp file
-                        Document baoCaoDsNhanVien_Template = new Document("../../Assets/Templates/BC_DsNhanVien.doc");
-
-                        // Điền các thông tin cố định
-                        baoCaoDsNhanVien_Template.MailMerge.Execute(new[] { "NgayBC" }, new[] { NgayBC.ToString() });
-                        baoCaoDsNhanVien_Template.MailMerge.Execute(new[] { "ThangBC" }, new[] { ThangBC.ToString() });
-                        baoCaoDsNhanVien_Template.MailMerge.Execute(new[] { "NamBC" }, new[] { NamBC.ToString() });
-                        baoCaoDsNhanVien_Template.MailMerge.Execute(new[] { "HoTen" }, new[] { TenNV });
-                        baoCaoDsNhanVien_Template.MailMerge.Execute(new[] { "ChucVu" }, new[] { ChucVu });
-                        baoCaoDsNhanVien_Template.MailMerge.Execute(new[] { "PhongBan" }, new[] { PhongBan });
-
-                        // Điền thông tin vào bảng
-                        Table bangThongTinDSNV = baoCaoDsNhanVien_Template.GetChild(NodeType.Table, 1, true) as Table; // Láy ra bảng thứ 2
-
-                        int hangHienTai = 1;
-                        bangThongTinDSNV.InsertRows(hangHienTai, hangHienTai, DsBCDSNV.Count() - 1);
-                        for (int i = 1; i <= DsBCDSNV.Count() - 1; i++)
-                        {
-                            bangThongTinDSNV.PutValue(hangHienTai, 0, DsBCDSNV[i].MaNhanVien.ToString());
-                            bangThongTinDSNV.PutValue(hangHienTai, 1, DsBCDSNV[i].TenNhanVien.ToString());
-                            bangThongTinDSNV.PutValue(hangHienTai, 2, DsBCDSNV[i].GioiTinh.ToString());
-                            bangThongTinDSNV.PutValue(hangHienTai, 3, DsBCDSNV[i].NgaySinh.ToString());
-                            bangThongTinDSNV.PutValue(hangHienTai, 4, DsBCDSNV[i].DienThoai.ToString());
-                            bangThongTinDSNV.PutValue(hangHienTai, 5, DsBCDSNV[i].QueQuan.ToString());
-                            bangThongTinDSNV.PutValue(hangHienTai, 6, DsBCDSNV[i].DanToc.ToString());
-                            bangThongTinDSNV.PutValue(hangHienTai, 7, DsBCDSNV[i].TonGiao.ToString());
-                            bangThongTinDSNV.PutValue(hangHienTai, 8, DsBCDSNV[i].ChucVu.ToString());
-                            bangThongTinDSNV.PutValue(hangHienTai, 9, DsBCDSNV[i].PhongBan.ToString());
-                            hangHienTai++;
-                        }
-
-                        try
-                        {
-                            SaveFileDialog sfd = new SaveFileDialog();
-                            sfd.Filter = "Word Document (*.docx)|*.docx";
-                            sfd.FileName = "BaoCaoDsNhanVien.docx"; // Đặt tên file mặc định (có thể thay đổi)
-                            sfd.Title = "Lưu file";
-
-                            if (sfd.ShowDialog() == true)
-                            {
-                                string duongDanFile = sfd.FileName;
-
-                                //if (File.Exists(duongDanFile))
-                                //{
-                                //    if (MessageBox.Show("File đã tồn tại. Bạn có muốn ghi đè không?", "Xác nhận ghi đè", MessageBoxButton.YesNo) == MessageBoxResult.No)
-                                //    {
-                                //        return; // Không ghi đè, thoát khỏi phương thức
-                                //    }
-                                //}
-
-                                // Lưu và mở file
-                                baoCaoDsNhanVien_Template.Save(sfd.FileName);
-                                MessageBox.Show("Xuất báo cáo thành công. ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Đã xảy ra lỗi khi lưu file: " + ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Đã xảy ra lỗi khi xuất báo cáo: " + ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                    }
-                }
-                );
-
-            Export_DsNhanVien_ReportExcel = new RelayCommand<object>(
-                (param) => true,
-                (param) =>
-                {
-                    try
-                    {
-                        GetList_BCDSNV();
+                        GetList_BCDN(FromDate, ToDate);
 
                         string filePath = "";
                         SaveFileDialog dialog = new SaveFileDialog();
@@ -411,6 +189,13 @@ namespace HRMana.Main.ViewModel
 
                         try
                         {
+                            // If you are a commercial business and have
+                            // purchased commercial licenses use the static property
+                            // LicenseContext of the ExcelPackage class:
+                            //ExcelPackage.LicenseContext = LicenseContext.Commercial;
+
+                            // If you use EPPlus in a noncommercial context
+                            // according to the Polyform Noncommercial license:
                             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                             using (ExcelPackage p = new ExcelPackage())
                             {
@@ -418,16 +203,16 @@ namespace HRMana.Main.ViewModel
                                 p.Workbook.Properties.Author = TenNV;
 
                                 // đặt tiêu đề cho file
-                                p.Workbook.Properties.Title = "Báo cáo Danh sách nhân viên";
+                                p.Workbook.Properties.Title = "Báo cáo tài khoản đăng nhập";
 
                                 //Tạo một sheet để làm việc trên đó
-                                p.Workbook.Worksheets.Add("Ds Nhân viên Sheet");
+                                p.Workbook.Worksheets.Add("NewSheet");
 
                                 // lấy sheet vừa add ra để thao tác
                                 ExcelWorksheet ws = p.Workbook.Worksheets[0];
 
                                 // đặt tên cho sheet
-                                ws.Name = "Báo cáo Danh sách nhân viên";
+                                ws.Name = "Báo cáo tài khoản đăng nhập";
                                 // fontsize mặc định cho cả sheet
                                 ws.Cells.Style.Font.Size = 14;
                                 // font family mặc định cho cả sheet
@@ -435,6 +220,256 @@ namespace HRMana.Main.ViewModel
 
                                 // Tạo danh sách các column header
                                 string[] arrColumnHeader = {
+                                                "Tên tài khoản",
+                                                "Thời gian đăng nhập",
+                                                "Thời gian đăng xuất",
+                            };
+
+                                // lấy ra số lượng cột cần dùng dựa vào số lượng header
+                                var countColHeader = arrColumnHeader.Count();
+
+                                // merge các column lại từ column 1 đến số column header
+                                // gán giá trị cho cell vừa merge là Thống kê thông tni User Kteam
+                                ws.Cells[1, 1].Value = "Thống kê thông tin tài khoản đăng nhập";
+                                ws.Cells[1, 1, 1, countColHeader].Merge = true;
+                                // in đậm
+                                ws.Cells[1, 1, 1, countColHeader].Style.Font.Bold = true;
+                                ws.Cells[1, 1, 1, countColHeader].Style.Font.Size = 20;
+                                ws.Cells[1, 1, 1, countColHeader].Style.WrapText = true;
+                                // căn giữa
+                                ws.Cells[1, 1, 1, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                ws.Cells[1, 1, 1, countColHeader].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                ws.Cells[1, 1, 1, countColHeader].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGreen);
+
+                                ws.Cells[3, 1].Value = "Họ và tên người báo cáo";
+                                ws.Cells[3, 1, 3, 2].Merge = true;
+                                ws.Cells[3, 3].Value = TenNV;
+                                ws.Cells[3, 3, 3, 3].Merge = true;
+
+                                ws.Cells[3, 4].Value = "Chức vụ";
+                                ws.Cells[3, 5].Value = ChucVu;
+
+                                ws.Cells[3, 7].Value = "Phòng ban";
+                                ws.Cells[3, 8].Value = PhongBan;
+
+                                ws.Cells[4, 1].Value = "Ngày xuất báo cáo";
+                                ws.Cells[4, 1, 4, 3].Merge = true;
+                                ws.Cells[4, 4].Value = $"Ngày {NgayBC} - Tháng {ThangBC} - Năm {NamBC}";
+                                ws.Cells[4, 4, 4, 6].Merge = true;
+
+                                int colIndex = 1;
+                                int rowIndex = 6;
+
+                                //tạo các header từ column header đã tạo từ bên trên
+                                foreach (var item in arrColumnHeader)
+                                {
+                                    var cell = ws.Cells[rowIndex, colIndex];
+
+                                    //set màu thành gray
+                                    var fill = cell.Style.Fill;
+                                    fill.PatternType = ExcelFillStyle.Solid;
+                                    fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
+
+                                    cell.Style.Font.Bold = true;
+                                    cell.Style.WrapText = true;
+
+                                    //căn chỉnh các border
+                                    var border = cell.Style.Border;
+                                    border.Bottom.Style =
+                                        border.Top.Style =
+                                        border.Left.Style =
+                                        border.Right.Style = ExcelBorderStyle.Thin;
+
+                                    //gán giá trị
+                                    cell.Value = item;
+
+                                    colIndex++;
+                                }
+
+                                // với mỗi item trong danh sách BCDN sẽ ghi trên 1 dòng
+                                foreach (var item in DsBCDN)
+                                {
+                                    // bắt đầu ghi từ cột 1. Excel bắt đầu từ 1 không phải từ 0
+                                    colIndex = 1;
+
+                                    // rowIndex tương ứng từng dòng dữ liệu
+                                    rowIndex++;
+
+                                    //gán giá trị cho từng cell                      
+                                    // lưu ý phải .ToShortDateString để dữ liệu khi in ra Excel là ngày như ta vẫn thấy.Nếu không sẽ ra tổng số :v
+                                    ws.Cells[rowIndex, colIndex++].Value = item.TenTaiKhoan;
+                                    ws.Cells[rowIndex, colIndex++].Value = item.TgDangNhap.ToShortDateString();
+                                    ws.Cells[rowIndex, colIndex++].Value = item.TgDangXuat.Value.ToShortDateString();
+
+                                }
+
+                                // AutoFit all columns after adding data
+                                for (int i = 1; i <= ws.Dimension.End.Column; i++)
+                                {
+                                    ws.Column(i).AutoFit();
+                                }
+
+                                // Freeze panes so that columns 1 and 2 are always visible
+                                ws.View.FreezePanes(7, 3);
+
+                                // căn giữa
+                                ws.Row(6).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                                ws.Row(6).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+
+                                //Lưu file lại
+                                Byte[] bin = p.GetAsByteArray();
+                                File.WriteAllBytes(filePath, bin);
+                            }
+                            ShowMessageBoxCustom("Xuất excel thành công!",  CommonConstant.Success_ICon);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Có lỗi khi lưu file!\n{ex.Message}", "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    });
+
+                    exportExcel_BCDangNhap.Start();
+                    await exportExcel_BCDangNhap;
+
+                }
+                );
+
+            Export_DsNhanVien_ReportWord = new RelayCommand<object>(
+                (param) => true,
+                async (param) =>
+                {
+                    Task exportWord_DSNV = new Task(() =>
+                    {
+                        try
+                        {
+                            GetList_BCDSNV();
+
+                            // Nạp file
+                            Document baoCaoDsNhanVien_Template = new Document("../../Assets/Templates/BC_DsNhanVien.doc");
+
+                            // Điền các thông tin cố định
+                            baoCaoDsNhanVien_Template.MailMerge.Execute(new[] { "NgayBC" }, new[] { NgayBC.ToString() });
+                            baoCaoDsNhanVien_Template.MailMerge.Execute(new[] { "ThangBC" }, new[] { ThangBC.ToString() });
+                            baoCaoDsNhanVien_Template.MailMerge.Execute(new[] { "NamBC" }, new[] { NamBC.ToString() });
+                            baoCaoDsNhanVien_Template.MailMerge.Execute(new[] { "HoTen" }, new[] { TenNV });
+                            baoCaoDsNhanVien_Template.MailMerge.Execute(new[] { "ChucVu" }, new[] { ChucVu });
+                            baoCaoDsNhanVien_Template.MailMerge.Execute(new[] { "PhongBan" }, new[] { PhongBan });
+
+                            // Điền thông tin vào bảng
+                            Table bangThongTinDSNV = baoCaoDsNhanVien_Template.GetChild(NodeType.Table, 1, true) as Table; // Láy ra bảng thứ 2
+
+                            int hangHienTai = 1;
+                            bangThongTinDSNV.InsertRows(hangHienTai, hangHienTai, DsBCDSNV.Count() - 1);
+                            for (int i = 1; i <= DsBCDSNV.Count() - 1; i++)
+                            {
+                                bangThongTinDSNV.PutValue(hangHienTai, 0, DsBCDSNV[i].MaNhanVien.ToString());
+                                bangThongTinDSNV.PutValue(hangHienTai, 1, DsBCDSNV[i].TenNhanVien.ToString());
+                                bangThongTinDSNV.PutValue(hangHienTai, 2, DsBCDSNV[i].GioiTinh.ToString());
+                                bangThongTinDSNV.PutValue(hangHienTai, 3, DsBCDSNV[i].NgaySinh.ToString());
+                                bangThongTinDSNV.PutValue(hangHienTai, 4, DsBCDSNV[i].DienThoai.ToString());
+                                bangThongTinDSNV.PutValue(hangHienTai, 5, DsBCDSNV[i].QueQuan.ToString());
+                                bangThongTinDSNV.PutValue(hangHienTai, 6, DsBCDSNV[i].DanToc.ToString());
+                                bangThongTinDSNV.PutValue(hangHienTai, 7, DsBCDSNV[i].TonGiao.ToString());
+                                bangThongTinDSNV.PutValue(hangHienTai, 8, DsBCDSNV[i].ChucVu.ToString());
+                                bangThongTinDSNV.PutValue(hangHienTai, 9, DsBCDSNV[i].PhongBan.ToString());
+                                hangHienTai++;
+                            }
+
+                            try
+                            {
+                                SaveFileDialog sfd = new SaveFileDialog();
+                                sfd.Filter = "Word Document (*.docx)|*.docx";
+                                sfd.FileName = "BaoCaoDsNhanVien.docx"; // Đặt tên file mặc định (có thể thay đổi)
+                                sfd.Title = "Lưu file";
+
+                                if (sfd.ShowDialog() == true)
+                                {
+                                    string duongDanFile = sfd.FileName;
+
+                                    //if (File.Exists(duongDanFile))
+                                    //{
+                                    //    if (MessageBox.Show("File đã tồn tại. Bạn có muốn ghi đè không?", "Xác nhận ghi đè", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                                    //    {
+                                    //        return; // Không ghi đè, thoát khỏi phương thức
+                                    //    }
+                                    //}
+
+                                    // Lưu và mở file
+                                    baoCaoDsNhanVien_Template.Save(sfd.FileName);
+                                    ShowMessageBoxCustom("Xuất báo cáo thành công. ", CommonConstant.Success_ICon);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Đã xảy ra lỗi khi lưu file: " + ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Đã xảy ra lỗi khi xuất báo cáo: " + ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        }
+                    });
+
+                    exportWord_DSNV.Start();
+                    await exportWord_DSNV;
+                }
+                );
+
+            Export_DsNhanVien_ReportExcel = new RelayCommand<object>(
+                (param) => true,
+                async (param) =>
+                {
+                    Task exportExcel_DSNV = new Task(() =>
+                    {
+                        try
+                        {
+                            GetList_BCDSNV();
+
+                            string filePath = "";
+                            SaveFileDialog dialog = new SaveFileDialog();
+                            dialog.Filter = "Excel | *.xlsx | Excel 2003 | *.xls";
+
+                            // Nếu mở file và chọn nơi lưu file thành công sẽ lưu đường dẫn lại dùng
+                            if (dialog.ShowDialog() == true)
+                            {
+                                filePath = dialog.FileName;
+                            }
+
+                            // nếu đường dẫn null hoặc rỗng thì báo không hợp lệ và return hàm
+                            if (string.IsNullOrEmpty(filePath))
+                            {
+                                MessageBox.Show("Đường dẫn báo cáo không hợp lệ");
+                                return;
+                            }
+
+                            try
+                            {
+                                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                                using (ExcelPackage p = new ExcelPackage())
+                                {
+                                    // đặt tên người tạo file
+                                    p.Workbook.Properties.Author = TenNV;
+
+                                    // đặt tiêu đề cho file
+                                    p.Workbook.Properties.Title = "Báo cáo Danh sách nhân viên";
+
+                                    //Tạo một sheet để làm việc trên đó
+                                    p.Workbook.Worksheets.Add("Ds Nhân viên Sheet");
+
+                                    // lấy sheet vừa add ra để thao tác
+                                    ExcelWorksheet ws = p.Workbook.Worksheets[0];
+
+                                    // đặt tên cho sheet
+                                    ws.Name = "Báo cáo Danh sách nhân viên";
+                                    // fontsize mặc định cho cả sheet
+                                    ws.Cells.Style.Font.Size = 14;
+                                    // font family mặc định cho cả sheet
+                                    ws.Cells.Style.Font.Name = "Calibri";
+
+                                    // Tạo danh sách các column header
+                                    string[] arrColumnHeader = {
                                                 "Mã nhân viên",
                                                 "Tên nhân viên",
                                                 "Giới tính",
@@ -458,213 +493,226 @@ namespace HRMana.Main.ViewModel
                                                 "Phòng ban",
                                 };
 
-                                // lấy ra số lượng cột cần dùng dựa vào số lượng header
-                                var countColHeader = arrColumnHeader.Count();
+                                    // lấy ra số lượng cột cần dùng dựa vào số lượng header
+                                    var countColHeader = arrColumnHeader.Count();
 
-                                // merge các column lại từ column 1 đến số column header
-                                // gán giá trị cho cell vừa merge là Thống kê thông tni User Kteam
-                                ws.Cells[1, 1].Value = "Thống kê thông tin nhân viên";
-                                ws.Cells[1, 1, 1, countColHeader].Merge = true;
-                                // in đậm
-                                ws.Cells[1, 1, 1, countColHeader].Style.Font.Bold = true;
-                                ws.Cells[1, 1, 1, countColHeader].Style.Font.Size = 20;
-                                ws.Cells[1, 1, 1, countColHeader].Style.WrapText = true;
-                                // căn giữa
-                                ws.Cells[1, 1, 1, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                                ws.Cells[1, 1, 1, countColHeader].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                ws.Cells[1, 1, 1, countColHeader].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGreen);
+                                    // merge các column lại từ column 1 đến số column header
+                                    // gán giá trị cho cell vừa merge là Thống kê thông tni User Kteam
+                                    ws.Cells[1, 1].Value = "Thống kê thông tin nhân viên";
+                                    ws.Cells[1, 1, 1, countColHeader].Merge = true;
+                                    // in đậm
+                                    ws.Cells[1, 1, 1, countColHeader].Style.Font.Bold = true;
+                                    ws.Cells[1, 1, 1, countColHeader].Style.Font.Size = 20;
+                                    ws.Cells[1, 1, 1, countColHeader].Style.WrapText = true;
+                                    // căn giữa
+                                    ws.Cells[1, 1, 1, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                    ws.Cells[1, 1, 1, countColHeader].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    ws.Cells[1, 1, 1, countColHeader].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGreen);
 
-                                ws.Cells[3, 1].Value = "Họ và tên người báo cáo";
-                                ws.Cells[3, 1, 3, 2].Merge = true;
-                                ws.Cells[3, 3].Value = TenNV;
-                                ws.Cells[3, 3, 3, 3].Merge = true;
+                                    ws.Cells[3, 1].Value = "Họ và tên người báo cáo";
+                                    ws.Cells[3, 1, 3, 2].Merge = true;
+                                    ws.Cells[3, 3].Value = TenNV;
+                                    ws.Cells[3, 3, 3, 3].Merge = true;
 
-                                ws.Cells[3, 4].Value = "Chức vụ";
-                                ws.Cells[3, 5].Value = ChucVu;
+                                    ws.Cells[3, 4].Value = "Chức vụ";
+                                    ws.Cells[3, 5].Value = ChucVu;
 
-                                ws.Cells[3, 7].Value = "Phòng ban";
-                                ws.Cells[3, 8].Value = PhongBan;
+                                    ws.Cells[3, 7].Value = "Phòng ban";
+                                    ws.Cells[3, 8].Value = PhongBan;
 
-                                ws.Cells[4, 1].Value = "Ngày xuất báo cáo";
-                                ws.Cells[4, 1, 4, 3].Merge = true;
-                                ws.Cells[4, 4].Value = $"Ngày {NgayBC} - Tháng {ThangBC} - Năm {NamBC}";
-                                ws.Cells[4, 4, 4, 6].Merge = true;
+                                    ws.Cells[4, 1].Value = "Ngày xuất báo cáo";
+                                    ws.Cells[4, 1, 4, 3].Merge = true;
+                                    ws.Cells[4, 4].Value = $"Ngày {NgayBC} - Tháng {ThangBC} - Năm {NamBC}";
+                                    ws.Cells[4, 4, 4, 6].Merge = true;
 
-                                int colIndex = 1;
-                                int rowIndex = 6;
+                                    int colIndex = 1;
+                                    int rowIndex = 6;
 
-                                //tạo các header từ column header đã tạo từ bên trên
-                                foreach (var item in arrColumnHeader)
-                                {
-                                    var cell = ws.Cells[rowIndex, colIndex];
+                                    //tạo các header từ column header đã tạo từ bên trên
+                                    foreach (var item in arrColumnHeader)
+                                    {
+                                        var cell = ws.Cells[rowIndex, colIndex];
 
-                                    //set màu thành gray
-                                    var fill = cell.Style.Fill;
-                                    fill.PatternType = ExcelFillStyle.Solid;
-                                    fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
+                                        //set màu thành gray
+                                        var fill = cell.Style.Fill;
+                                        fill.PatternType = ExcelFillStyle.Solid;
+                                        fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
 
-                                    cell.Style.Font.Bold = true;
-                                    cell.Style.WrapText = true;
+                                        cell.Style.Font.Bold = true;
+                                        cell.Style.WrapText = true;
 
 
-                                    //căn chỉnh các border
-                                    var border = cell.Style.Border;
-                                    border.Bottom.Style =
-                                        border.Top.Style =
-                                        border.Left.Style =
-                                        border.Right.Style = ExcelBorderStyle.Thin;
+                                        //căn chỉnh các border
+                                        var border = cell.Style.Border;
+                                        border.Bottom.Style =
+                                            border.Top.Style =
+                                            border.Left.Style =
+                                            border.Right.Style = ExcelBorderStyle.Thin;
 
-                                    //gán giá trị
-                                    cell.Value = item;
+                                        //gán giá trị
+                                        cell.Value = item;
 
-                                    colIndex++;
+                                        colIndex++;
+                                    }
+
+                                    // với mỗi item trong danh sách BCDN sẽ ghi trên 1 dòng
+                                    foreach (var item in DsBCDSNV)
+                                    {
+                                        // bắt đầu ghi từ cột 1. Excel bắt đầu từ 1 không phải từ 0
+                                        colIndex = 1;
+
+                                        // rowIndex tương ứng từng dòng dữ liệu
+                                        rowIndex++;
+
+                                        //gán giá trị cho từng cell                      
+                                        // lưu ý phải .ToShortDateString để dữ liệu khi in ra Excel là ngày như ta vẫn thấy.Nếu không sẽ ra tổng số :v
+                                        ws.Cells[rowIndex, colIndex++].Value = item.MaNhanVien;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.TenNhanVien;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.GioiTinh;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.NgaySinh.ToShortDateString();
+                                        ws.Cells[rowIndex, colIndex++].Value = item.NoiSinh;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.QueQuan;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.NoiOHienTai;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.CCCD;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.DienThoai;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.GiaDinh;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.DanToc;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.TonGiao;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.EmailCaNhan;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.EmailNoiBo;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.CoSoLamViec;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.LoaiHinhLamViec;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.LuongOffer.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN"));
+                                        ws.Cells[rowIndex, colIndex++].Value = item.TrinhDo;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.ChuyenMon;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.ChucVu;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.PhongBan;
+
+                                    }
+
+                                    // AutoFit all columns after adding data
+                                    for (int i = 1; i <= ws.Dimension.End.Column; i++)
+                                    {
+                                        ws.Column(i).AutoFit();
+                                    }
+
+                                    // Freeze panes so that columns 1 and 2 are always visible
+                                    ws.View.FreezePanes(7, 3);
+
+                                    // căn giữa
+                                    ws.Row(6).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                                    ws.Row(6).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                                    //Lưu file lại
+                                    Byte[] bin = p.GetAsByteArray();
+                                    File.WriteAllBytes(filePath, bin);
                                 }
-
-                                // với mỗi item trong danh sách BCDN sẽ ghi trên 1 dòng
-                                foreach (var item in DsBCDSNV)
-                                {
-                                    // bắt đầu ghi từ cột 1. Excel bắt đầu từ 1 không phải từ 0
-                                    colIndex = 1;
-
-                                    // rowIndex tương ứng từng dòng dữ liệu
-                                    rowIndex++;
-
-                                    //gán giá trị cho từng cell                      
-                                    // lưu ý phải .ToShortDateString để dữ liệu khi in ra Excel là ngày như ta vẫn thấy.Nếu không sẽ ra tổng số :v
-                                    ws.Cells[rowIndex, colIndex++].Value = item.MaNhanVien;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.TenNhanVien;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.GioiTinh;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.NgaySinh.ToShortDateString();
-                                    ws.Cells[rowIndex, colIndex++].Value = item.NoiSinh;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.QueQuan;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.NoiOHienTai;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.CCCD;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.DienThoai;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.GiaDinh;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.DanToc;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.TonGiao;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.EmailCaNhan;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.EmailNoiBo;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.CoSoLamViec;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.LoaiHinhLamViec;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.LuongOffer.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN"));
-                                    ws.Cells[rowIndex, colIndex++].Value = item.TrinhDo;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.ChuyenMon;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.ChucVu;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.PhongBan;
-
-                                }
-
-                                // AutoFit all columns after adding data
-                                for (int i = 1; i <= ws.Dimension.End.Column; i++)
-                                {
-                                    ws.Column(i).AutoFit();
-                                }
-
-                                // Freeze panes so that columns 1 and 2 are always visible
-                                ws.View.FreezePanes(7, 3);
-
-                                // căn giữa
-                                ws.Row(6).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                                ws.Row(6).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-                                //Lưu file lại
-                                Byte[] bin = p.GetAsByteArray();
-                                File.WriteAllBytes(filePath, bin);
+                                ShowMessageBoxCustom("Xuất excel thành công!", CommonConstant.Success_ICon);
                             }
-                            MessageBox.Show("Xuất excel thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    });
+
+                    exportExcel_DSNV.Start();
+                    await exportExcel_DSNV;
                 }
                 );
 
             Export_ChamCong_ReportWord = new RelayCommand<object>(
                 (param) => true,
-                (param) =>
+                async (param) =>
                 {
-                    try
+                    Task exportWord = new Task(() =>
                     {
-                        GetList_BCCC();
-
-                        // Nạp file
-                        Document baoCaoChamCong_Template = new Document("../../Assets/Templates/BC_ChamCong.doc");
-
-                        // Điền các thông tin cố định
-                        baoCaoChamCong_Template.MailMerge.Execute(new[] { "NgayBC" }, new[] { NgayBC.ToString() });
-                        baoCaoChamCong_Template.MailMerge.Execute(new[] { "ThangBC" }, new[] { ThangBC.ToString() });
-                        baoCaoChamCong_Template.MailMerge.Execute(new[] { "NamBC" }, new[] { NamBC.ToString() });
-                        baoCaoChamCong_Template.MailMerge.Execute(new[] { "HoTen" }, new[] { TenNV });
-                        baoCaoChamCong_Template.MailMerge.Execute(new[] { "ChucVu" }, new[] { ChucVu });
-                        baoCaoChamCong_Template.MailMerge.Execute(new[] { "PhongBan" }, new[] { PhongBan });
-
-                        // Điền thông tin vào bảng
-                        Table bangThongTinChamCong = baoCaoChamCong_Template.GetChild(NodeType.Table, 1, true) as Table; // Láy ra bảng thứ 2
-
-                        int hangHienTai = 1;
-                        bangThongTinChamCong.InsertRows(hangHienTai, hangHienTai, DsBCCC.Count() - 1);
-                        for (int i = 1; i <= DsBCCC.Count() - 1; i++)
-                        {
-                            bangThongTinChamCong.PutValue(hangHienTai, 0, DsBCCC[i].MaNhanVien.ToString());
-                            bangThongTinChamCong.PutValue(hangHienTai, 1, DsBCCC[i].TenNhanVien.ToString());
-                            bangThongTinChamCong.PutValue(hangHienTai, 2, DsBCCC[i].HeSoLuong.ToString());
-                            bangThongTinChamCong.PutValue(hangHienTai, 3, DsBCCC[i].LuongCoBan.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN")));
-                            bangThongTinChamCong.PutValue(hangHienTai, 4, DsBCCC[i].SoNgayCong.ToString());
-                            bangThongTinChamCong.PutValue(hangHienTai, 5, DsBCCC[i].UngTruocLuong.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN")));
-                            bangThongTinChamCong.PutValue(hangHienTai, 6, DsBCCC[i].ConLai.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN")));
-                            bangThongTinChamCong.PutValue(hangHienTai, 7, DsBCCC[i].NghiPhep.ToString());
-                            bangThongTinChamCong.PutValue(hangHienTai, 8, DsBCCC[i].SoNgayTangCa.ToString());
-                            bangThongTinChamCong.PutValue(hangHienTai, 9, DsBCCC[i].LuongTangCa.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN")));
-                            bangThongTinChamCong.PutValue(hangHienTai, 10, DsBCCC[i].PhuCapCongViec.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN")));
-                            hangHienTai++;
-                        }
-
                         try
                         {
-                            SaveFileDialog sfd = new SaveFileDialog();
-                            sfd.Filter = "Word Document (*.docx)|*.docx";
-                            sfd.FileName = "BaoCaoChamCong.docx"; // Đặt tên file mặc định (có thể thay đổi)
-                            sfd.Title = "Lưu file";
+                            GetList_BCCC();
 
-                            if (sfd.ShowDialog() == true)
+                            // Nạp file
+                            Document baoCaoChamCong_Template = new Document("../../Assets/Templates/BC_ChamCong.doc");
+
+                            // Điền các thông tin cố định
+                            baoCaoChamCong_Template.MailMerge.Execute(new[] { "NgayBC" }, new[] { NgayBC.ToString() });
+                            baoCaoChamCong_Template.MailMerge.Execute(new[] { "ThangBC" }, new[] { ThangBC.ToString() });
+                            baoCaoChamCong_Template.MailMerge.Execute(new[] { "NamBC" }, new[] { NamBC.ToString() });
+                            baoCaoChamCong_Template.MailMerge.Execute(new[] { "HoTen" }, new[] { TenNV });
+                            baoCaoChamCong_Template.MailMerge.Execute(new[] { "ChucVu" }, new[] { ChucVu });
+                            baoCaoChamCong_Template.MailMerge.Execute(new[] { "PhongBan" }, new[] { PhongBan });
+
+                            // Điền thông tin vào bảng
+                            Table bangThongTinChamCong = baoCaoChamCong_Template.GetChild(NodeType.Table, 1, true) as Table; // Láy ra bảng thứ 2
+
+                            int hangHienTai = 1;
+                            bangThongTinChamCong.InsertRows(hangHienTai, hangHienTai, DsBCCC.Count() - 1);
+                            for (int i = 1; i <= DsBCCC.Count() - 1; i++)
                             {
-                                string duongDanFile = sfd.FileName;
+                                bangThongTinChamCong.PutValue(hangHienTai, 0, DsBCCC[i].MaNhanVien.ToString());
+                                bangThongTinChamCong.PutValue(hangHienTai, 1, DsBCCC[i].TenNhanVien.ToString());
+                                bangThongTinChamCong.PutValue(hangHienTai, 2, DsBCCC[i].HeSoLuong.ToString());
+                                bangThongTinChamCong.PutValue(hangHienTai, 3, DsBCCC[i].LuongCoBan.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN")));
+                                bangThongTinChamCong.PutValue(hangHienTai, 4, DsBCCC[i].SoNgayCong.ToString());
+                                bangThongTinChamCong.PutValue(hangHienTai, 5, DsBCCC[i].UngTruocLuong.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN")));
+                                bangThongTinChamCong.PutValue(hangHienTai, 6, DsBCCC[i].ConLai.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN")));
+                                bangThongTinChamCong.PutValue(hangHienTai, 7, DsBCCC[i].NghiPhep.ToString());
+                                bangThongTinChamCong.PutValue(hangHienTai, 8, DsBCCC[i].SoNgayTangCa.ToString());
+                                bangThongTinChamCong.PutValue(hangHienTai, 9, DsBCCC[i].LuongTangCa.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN")));
+                                bangThongTinChamCong.PutValue(hangHienTai, 10, DsBCCC[i].PhuCapCongViec.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN")));
+                                hangHienTai++;
+                            }
 
-                                //if (File.Exists(duongDanFile))
-                                //{
-                                //    if (MessageBox.Show("File đã tồn tại. Bạn có muốn ghi đè không?", "Xác nhận ghi đè", MessageBoxButton.YesNo) == MessageBoxResult.No)
-                                //    {
-                                //        return; // Không ghi đè, thoát khỏi phương thức
-                                //    }
-                                //}
+                            try
+                            {
+                                SaveFileDialog sfd = new SaveFileDialog();
+                                sfd.Filter = "Word Document (*.docx)|*.docx";
+                                sfd.FileName = "BaoCaoChamCong.docx"; // Đặt tên file mặc định (có thể thay đổi)
+                                sfd.Title = "Lưu file";
 
-                                // Lưu và mở file
-                                baoCaoChamCong_Template.Save(sfd.FileName);
-                                MessageBox.Show("Xuất báo cáo thành công. ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                                if (sfd.ShowDialog() == true)
+                                {
+                                    string duongDanFile = sfd.FileName;
+
+                                    //if (File.Exists(duongDanFile))
+                                    //{
+                                    //    if (MessageBox.Show("File đã tồn tại. Bạn có muốn ghi đè không?", "Xác nhận ghi đè", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                                    //    {
+                                    //        return; // Không ghi đè, thoát khỏi phương thức
+                                    //    }
+                                    //}
+
+                                    // Lưu và mở file
+                                    baoCaoChamCong_Template.Save(sfd.FileName);
+                                    ShowMessageBoxCustom("Xuất báo cáo thành công. ", CommonConstant.Success_ICon);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Đã xảy ra lỗi khi lưu file: " + ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                             }
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Đã xảy ra lỗi khi lưu file: " + ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Đã xảy ra lỗi khi xuất báo cáo: " + ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("Đã xảy ra lỗi khi xuất báo cáo: " + ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                    }
+                        }
+                    });
+
+                    exportWord.Start();
+                    await exportWord;
                 });
 
             Export_ChamCong_ReportExcel = new RelayCommand<object>(
-                (param) => true,
                 (param) =>
+                {
+                    return true;
+                },
+                async (param) =>
                 {
                     try
                     {
@@ -687,7 +735,7 @@ namespace HRMana.Main.ViewModel
                             return;
                         }
 
-                        try
+                        Task exprtExcel_ChamCong = new Task(() =>
                         {
                             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                             using (ExcelPackage p = new ExcelPackage())
@@ -698,144 +746,158 @@ namespace HRMana.Main.ViewModel
                                 // đặt tiêu đề cho file
                                 p.Workbook.Properties.Title = "Báo cáo chấm công";
 
-                                //Tạo một sheet để làm việc trên đó
-                                p.Workbook.Worksheets.Add("bc chấm công Sheet");
-
-                                // lấy sheet vừa add ra để thao tác
-                                ExcelWorksheet ws = p.Workbook.Worksheets[0];
-
-                                // đặt tên cho sheet
-                                ws.Name = "Báo cáo Chấm công";
-                                // fontsize mặc định cho cả sheet
-                                ws.Cells.Style.Font.Size = 14;
-                                // font family mặc định cho cả sheet
-                                ws.Cells.Style.Font.Name = "Calibri";
-
-                                // Tạo danh sách các column header
-                                string[] arrColumnHeader = {
-                                                "Mã nhân viên",
-                                                "Tên nhân viên",
-                                                "Hệ số lương",
-                                                "Lương cơ bản",
-                                                "Số ngày công",
-                                                "Ứng trước lương",
-                                                "Còn lại",
-                                                "Nghỉ phép",
-                                                "Số ngày tăng ca",
-                                                "Lương tăng ca",
-                                                "Phụ cấp công việc",
-                                };
-
-                                // lấy ra số lượng cột cần dùng dựa vào số lượng header
-                                var countColHeader = arrColumnHeader.Count();
-
-                                // merge các column lại từ column 1 đến số column header
-                                // gán giá trị cho cell vừa merge là Thống kê thông tni User Kteam
-                                ws.Cells[1, 1].Value = "Thống kê thông tin chấm công nhân viên";
-                                ws.Cells[1, 1, 1, countColHeader].Merge = true;
-                                // in đậm
-                                ws.Cells[1, 1, 1, countColHeader].Style.Font.Bold = true;
-                                ws.Cells[1, 1, 1, countColHeader].Style.Font.Size = 20;
-                                ws.Cells[1, 1, 1, countColHeader].Style.WrapText = true;
-                                // căn giữa
-                                ws.Cells[1, 1, 1, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                                ws.Cells[1, 1, 1, countColHeader].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                ws.Cells[1, 1, 1, countColHeader].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGreen);
-
-                                ws.Cells[3, 1].Value = "Họ và tên người báo cáo";
-                                ws.Cells[3, 1, 3, 2].Merge = true;
-                                ws.Cells[3, 3].Value = TenNV;
-                                ws.Cells[3, 3, 3, 3].Merge = true;
-
-                                ws.Cells[3, 4].Value = "Chức vụ";
-                                ws.Cells[3, 5].Value = ChucVu;
-
-                                ws.Cells[3, 7].Value = "Phòng ban";
-                                ws.Cells[3, 8].Value = PhongBan;
-
-                                ws.Cells[4, 1].Value = "Ngày xuất báo cáo";
-                                ws.Cells[4, 1, 4, 3].Merge = true;
-                                ws.Cells[4, 4].Value = $"Ngày {NgayBC} - Tháng {ThangBC} - Năm {NamBC}";
-                                ws.Cells[4, 4, 4, 6].Merge = true;
-
-                                int colIndex = 1;
-                                int rowIndex = 6;
-
-                                //tạo các header từ column header đã tạo từ bên trên
-                                foreach (var item in arrColumnHeader)
+                                for (int i = 1; i <= 12; i++)
                                 {
-                                    var cell = ws.Cells[rowIndex, colIndex];
+                                    //Tạo một sheet để làm việc trên đó
+                                    p.Workbook.Worksheets.Add("Sheet-" + i);
 
-                                    //set màu thành gray
-                                    var fill = cell.Style.Fill;
-                                    fill.PatternType = ExcelFillStyle.Solid;
-                                    fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
+                                    // lấy sheet vừa add ra để thao tác
+                                    ExcelWorksheet ws = p.Workbook.Worksheets[i - 1];
 
-                                    cell.Style.Font.Bold = true;
-                                    cell.Style.WrapText = true;
+                                    // đặt tên cho sheet
+                                    ws.Name = "Sheet - tháng " + i;
+                                    // fontsize mặc định cho cả sheet
+                                    ws.Cells.Style.Font.Size = 14;
+                                    // font family mặc định cho cả sheet
+                                    ws.Cells.Style.Font.Name = "Calibri";
+
+                                    #region export file excel chấm công
+                                    // Tạo danh sách các column header
+                                    string[] arrColumnHeader = {
+                                                    "Thời gian",
+                                                    "Mã nhân viên",
+                                                    "Tên nhân viên",
+                                                    "Hệ số lương",
+                                                    "Lương cơ bản",
+                                                    "Số ngày công",
+                                                    "Ứng trước lương",
+                                                    "Còn lại",
+                                                    "Nghỉ phép",
+                                                    "Số ngày tăng ca",
+                                                    "Lương tăng ca",
+                                                    "Phụ cấp công việc",
+                                    };
+
+                                    // lấy ra số lượng cột cần dùng dựa vào số lượng header
+                                    var countColHeader = arrColumnHeader.Count();
+
+                                    // merge các column lại từ column 1 đến số column header
+                                    // gán giá trị cho cell vừa merge là Thống kê thông tni User Kteam
+                                    ws.Cells[1, 1].Value = "Thống kê thông tin chấm công nhân viên";
+                                    ws.Cells[1, 1, 1, countColHeader].Merge = true;
+                                    // in đậm
+                                    ws.Cells[1, 1, 1, countColHeader].Style.Font.Bold = true;
+                                    ws.Cells[1, 1, 1, countColHeader].Style.Font.Size = 20;
+                                    ws.Cells[1, 1, 1, countColHeader].Style.WrapText = true;
+                                    // căn giữa
+                                    ws.Cells[1, 1, 1, countColHeader].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                    ws.Cells[1, 1, 1, countColHeader].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    ws.Cells[1, 1, 1, countColHeader].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGreen);
+
+                                    ws.Cells[3, 1].Value = "Họ và tên người báo cáo";
+                                    ws.Cells[3, 1, 3, 2].Merge = true;
+                                    ws.Cells[3, 3].Value = TenNV;
+                                    ws.Cells[3, 3, 3, 3].Merge = true;
+
+                                    ws.Cells[3, 4].Value = "Chức vụ";
+                                    ws.Cells[3, 5].Value = ChucVu;
+
+                                    ws.Cells[3, 7].Value = "Phòng ban";
+                                    ws.Cells[3, 8].Value = PhongBan;
+
+                                    ws.Cells[4, 1].Value = "Ngày xuất báo cáo";
+                                    ws.Cells[4, 1, 4, 3].Merge = true;
+                                    ws.Cells[4, 4].Value = $"Ngày {NgayBC} - Tháng {ThangBC} - Năm {NamBC}";
+                                    ws.Cells[4, 4, 4, 6].Merge = true;
+
+                                    int colIndex = 1;
+                                    int rowIndex = 6;
+
+                                    //tạo các header từ column header đã tạo từ bên trên
+                                    foreach (var item in arrColumnHeader)
+                                    {
+                                        var cell = ws.Cells[rowIndex, colIndex];
+
+                                        //set màu thành gray
+                                        var fill = cell.Style.Fill;
+                                        fill.PatternType = ExcelFillStyle.Solid;
+                                        fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
+
+                                        cell.Style.Font.Bold = true;
+                                        cell.Style.WrapText = true;
 
 
-                                    //căn chỉnh các border
-                                    var border = cell.Style.Border;
-                                    border.Bottom.Style =
-                                        border.Top.Style =
-                                        border.Left.Style =
-                                        border.Right.Style = ExcelBorderStyle.Thin;
+                                        //căn chỉnh các border
+                                        var border = cell.Style.Border;
+                                        border.Bottom.Style =
+                                            border.Top.Style =
+                                            border.Left.Style =
+                                            border.Right.Style = ExcelBorderStyle.Thin;
 
-                                    //gán giá trị
-                                    cell.Value = item;
+                                        //gán giá trị
+                                        cell.Value = item;
 
-                                    colIndex++;
+                                        colIndex++;
+                                    }
+
+                                    var currentMonth = DsBCCC.Where(x => x.Thang == i && x.Nam == DateTime.Now.Year).ToList();
+
+                                    // với mỗi item trong danh sách BCDN sẽ ghi trên 1 dòng
+                                    foreach (var item in currentMonth)
+                                    {
+                                        // bắt đầu ghi từ cột 1. Excel bắt đầu từ 1 không phải từ 0
+                                        colIndex = 1;
+
+                                        // rowIndex tương ứng từng dòng dữ liệu
+                                        rowIndex++;
+
+                                        //gán giá trị cho từng cell                      
+                                        // lưu ý phải .ToShortDateString để dữ liệu khi in ra Excel là ngày như ta vẫn thấy.Nếu không sẽ ra tổng số :v
+                                        //ws.Cells[rowIndex, colIndex++].Value = item.;
+                                        ws.Cells[rowIndex, colIndex++].Value = $"{item.Thang}/{item.Nam}";
+                                        ws.Cells[rowIndex, colIndex++].Value = item.MaNhanVien;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.TenNhanVien;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.HeSoLuong;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.LuongCoBan.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN"));
+                                        ws.Cells[rowIndex, colIndex++].Value = item.SoNgayCong;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.UngTruocLuong.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN"));
+                                        ws.Cells[rowIndex, colIndex++].Value = item.ConLai.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN"));
+                                        ws.Cells[rowIndex, colIndex++].Value = item.NghiPhep;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.SoNgayTangCa;
+                                        ws.Cells[rowIndex, colIndex++].Value = item.LuongTangCa.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN"));
+                                        ws.Cells[rowIndex, colIndex++].Value = item.PhuCapCongViec.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN"));
+
+                                    }
+
+                                    // AutoFit all columns after adding data
+                                    for (int j = 1; j <= ws.Dimension.End.Column; j++)
+                                    {
+                                        ws.Column(j).AutoFit();
+                                    }
+
+                                    // Freeze panes so that columns 1 and 2 are always visible
+                                    ws.View.FreezePanes(8, 3);
+
+                                    // căn giữa
+                                    ws.Row(6).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                                    ws.Row(6).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                                    #endregion
+
                                 }
-
-                                // với mỗi item trong danh sách BCDN sẽ ghi trên 1 dòng
-                                foreach (var item in DsBCCC)
-                                {
-                                    // bắt đầu ghi từ cột 1. Excel bắt đầu từ 1 không phải từ 0
-                                    colIndex = 1;
-
-                                    // rowIndex tương ứng từng dòng dữ liệu
-                                    rowIndex++;
-
-                                    //gán giá trị cho từng cell                      
-                                    // lưu ý phải .ToShortDateString để dữ liệu khi in ra Excel là ngày như ta vẫn thấy.Nếu không sẽ ra tổng số :v
-                                    ws.Cells[rowIndex, colIndex++].Value = item.MaNhanVien;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.TenNhanVien;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.HeSoLuong;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.LuongCoBan.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN"));
-                                    ws.Cells[rowIndex, colIndex++].Value = item.SoNgayCong;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.UngTruocLuong.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN"));
-                                    ws.Cells[rowIndex, colIndex++].Value = item.ConLai.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN"));
-                                    ws.Cells[rowIndex, colIndex++].Value = item.NghiPhep;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.SoNgayTangCa;
-                                    ws.Cells[rowIndex, colIndex++].Value = item.LuongTangCa.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN"));
-                                    ws.Cells[rowIndex, colIndex++].Value = item.PhuCapCongViec.Value.ToString("N0", CultureInfo.CreateSpecificCulture("vi-VN"));
-
-                                }
-
-                                // AutoFit all columns after adding data
-                                for (int i = 1; i <= ws.Dimension.End.Column; i++)
-                                {
-                                    ws.Column(i).AutoFit();
-                                }
-
-                                // Freeze panes so that columns 1 and 2 are always visible
-                                ws.View.FreezePanes(7, 3);
-
-                                // căn giữa
-                                ws.Row(6).Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                                ws.Row(6).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
                                 //Lưu file lại
                                 Byte[] bin = p.GetAsByteArray();
                                 File.WriteAllBytes(filePath, bin);
                             }
-                            MessageBox.Show("Xuất excel thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
+
+                        });
+
+                        exprtExcel_ChamCong.Start();
+                        await exprtExcel_ChamCong;
+
+                        ShowMessageBoxCustom("Xuất excel thành công!", CommonConstant.Success_ICon);
+
                     }
                     catch (Exception ex)
                     {
@@ -892,7 +954,6 @@ namespace HRMana.Main.ViewModel
                             EmailNoiBo = item.emailNoiBo,
                             DienThoai = item.dienThoai,
                             QueQuan = item.queQuan,
-                            GiaDinh = item.giaDinh,
                             CoSoLamViec = item.coSoLamViec,
                             LoaiHinhLamViec = item.loaiHinhLamViec,
                             LuongOffer = item.luongOffer,
@@ -930,6 +991,8 @@ namespace HRMana.Main.ViewModel
                     {
                         var cc = new BaoCaoChamCong_prtModel()
                         {
+                            Thang = item.Thang.Value,
+                            Nam = item.Nam.Value,
                             MaNhanVien = item.maNhanVien,
                             TenNhanVien = item.NhanVien.tenNhanVien,
                             HeSoLuong = item.heSoLuong,
@@ -956,3 +1019,5 @@ namespace HRMana.Main.ViewModel
         }
     }
 }
+
+

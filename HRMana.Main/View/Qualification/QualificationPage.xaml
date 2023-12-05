@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"  FontSize="14" Background="White"
       DataContext="{StaticResource quantificationVM}"
       x:Name="qualificationPage"
       Title="QualificationPage">
@@ -38,8 +38,14 @@
                     <TextBlock Text="Mã trình độ" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="57,58,0,0"></TextBlock>
                     <TextBox IsReadOnly="True" Text="{Binding MaTrinhDo}" Width="336" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="146,54,0,0"></TextBox>
                     <TextBlock Text="Trình độ" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="76,103,0,0"></TextBlock>
-                    <TextBox TextChanged="UpperCaseFirstChar" Text="{Binding TenTrinhDo}" Width="336" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="146,98,0,0"/>
-                    <Button Visibility="{Binding Permission_ADD}" Command="{Binding Create_TrinhDoCommand}" HorizontalAlignment="Left" Margin="76,192,0,0" VerticalAlignment="Top" Width="125">
+                    <TextBox TextChanged="UpperCaseFirstChar" Text="{Binding TenTrinhDo}" Width="336" VerticalAlignment="Top" 
+                             HorizontalAlignment="Left" Margin="146,98,0,0"/>
+                    <TextBlock Text="Trình độ học vấn không được bỏ trống" HorizontalAlignment="Left" Foreground="Red" 
+                               FontSize="10" VerticalAlignment="Top" Margin="146,129,0,0" x:Name="txtbl_TenTrinhDoValidate"/>
+
+
+                    <Button Visibility="{Binding Permission_ADD}" Command="{Binding Create_TrinhDoCommand}" x:Name="btn_Add"
+                            HorizontalAlignment="Left" Margin="76,192,0,0" VerticalAlignment="Top" Width="125">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Plus" />
@@ -85,8 +91,8 @@
                     <ListView ItemsSource="{Binding DsTrinhDo}" SelectedItem="{Binding SelectedTrinhDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Mã trình độ" Width="200" DisplayMemberBinding="{Binding maTrinhDo}"></GridViewColumn>
-                                <GridViewColumn Header="Trình dộ" Width="400" DisplayMemberBinding="{Binding tenTrinhDo}"></GridViewColumn>
+                                <GridViewColumn Header="Mã trình độ" DisplayMemberBinding="{Binding maTrinhDo}"></GridViewColumn>
+                                <GridViewColumn Header="Trình dộ" DisplayMemberBinding="{Binding tenTrinhDo}"></GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>

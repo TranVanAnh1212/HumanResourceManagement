@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace HRMana.Main.ViewModel
 {
@@ -213,22 +215,22 @@ namespace HRMana.Main.ViewModel
 
                             if (result < 0)
                             {
-                                MessageBox.Show("Có lỗi xảy ra ở máy chủ", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                ShowMessageBoxCustom("Có lỗi xảy ra ở máy chủ", CommonConstant.Error_ICon);
                             }
                             else if (result == 0)
                             {
-                                MessageBox.Show("Dữ liệu đang bị rỗng.", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                ShowMessageBoxCustom("Dữ liệu đang bị rỗng.", CommonConstant.Warning_ICon);
                             }
                             else
                             {
-                                MessageBox.Show("Thêm mới chuyên môn thành công", "Cảnh báo!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                ShowMessageBoxCustom("Thêm mới chuyên môn thành công", CommonConstant.Success_ICon);
                                 GetList_ChuyenMon();
                                 EmptyField();
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Tên chuyên môn không được bỏ trống.", "Cảnh báo!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            ShowMessageBoxCustom("Tên chuyên môn không được bỏ trống.", CommonConstant.Warning_ICon);
                         }
                     }
                     catch (Exception ex)
@@ -266,12 +268,11 @@ namespace HRMana.Main.ViewModel
 
                             if (!result)
                             {
-                                MessageBox.Show("Có lỗi xảy ra ở máy chủ", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                                ShowMessageBoxCustom("Có lỗi xảy ra ở máy chủ", CommonConstant.Error_ICon);
                             }
                             else
                             {
-                                MessageBox.Show("Cập nhật chuyên môn thành công", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                ShowMessageBoxCustom("Cập nhật chuyên môn thành công", CommonConstant.Success_ICon);
                                 GetList_ChuyenMon();
                                 EmptyField();
                             }
@@ -304,7 +305,7 @@ namespace HRMana.Main.ViewModel
                             var listNV_Constrain = new ChuyenMonDAO().GetCount_NhanVien_By_MaChuyenMon(MaChuyenMon);
                             if (listNV_Constrain.Count > 0)
                             {
-                                MessageBox.Show("Có {} nhân viên đang thuộc chuyên môn này, \n Yêu cầu không có nhân viên nào thuộc trình độ này.", "Cảnh báo!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                MessageBox.Show($"Có {listNV_Constrain.Count} nhân viên đang thuộc chuyên môn này, \n Yêu cầu không có nhân viên nào thuộc trình độ này.", "Cảnh báo!", MessageBoxButton.OK, MessageBoxImage.Warning);
                             }
                             else
                             {
@@ -312,12 +313,12 @@ namespace HRMana.Main.ViewModel
 
                                 if (!result)
                                 {
-                                    MessageBox.Show("Có lỗi xảy ra ở máy chủ", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    ShowMessageBoxCustom("Có lỗi xảy ra ở máy chủ", CommonConstant.Error_ICon);
 
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Xóa chuyên môn thành công", "Thông báo!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    ShowMessageBoxCustom("Xóa chuyên môn thành công", CommonConstant.Success_ICon);
                                     GetList_ChuyenMon();
                                     EmptyField();
                                 }
@@ -352,8 +353,21 @@ namespace HRMana.Main.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{ex.Message}", "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void ShowMessageBoxCustom(string msg, string imagePath)
+        {
+            MessageBox_Custom messageBox_Custom = new MessageBox_Custom();
+            messageBox_Custom.MsgBox_Content = msg;
+
+            // Chuyển đổi đường dẫn hình ảnh từ kiểu string sang ImageSource
+            ImageSource msgIcon = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+
+            messageBox_Custom.Img_MsgIcon = msgIcon;
+
+            messageBox_Custom.ShowDialog();
         }
     }
 }

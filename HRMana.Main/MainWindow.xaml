@@ -69,6 +69,13 @@
                                 </MenuItem.Icon>
                             </MenuItem>
 
+                            <MenuItem Header="Phân quyền" Visibility="{Binding Permission_MUSER}" 
+                                      x:Name="accountAuthentication_Item" Click="accountAuthentication_Item_Click">
+                                <MenuItem.Icon>
+                                    <materialDesign:PackIcon Kind="AccountCog" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+
                             <MenuItem Header="Đổi mật khẩu" x:Name="changedPassword_Item" Click="changedPassword_Item_Click">
                                 <MenuItem.Icon>
                                     <materialDesign:PackIcon Kind="AccountReactivate" />
@@ -174,12 +181,12 @@
                         </MenuItem>
 
                         <MenuItem Header="Trợ giúp">
-                            <MenuItem Header="Về chúng tôi">
+                            <MenuItem x:Name="about_Item" Click="about_Item_Click" Header="Về chúng tôi">
                                 <MenuItem.Icon>
                                     <materialDesign:PackIcon Kind="Information" />
                                 </MenuItem.Icon>
                             </MenuItem>
-                            <MenuItem Header="Liên hệ với kĩ thuật viên">
+                            <MenuItem x:Name="contactTechnician_Item" Click="contactTechnician_Item_Click" Header="Liên hệ với kĩ thuật viên">
                                 <MenuItem.Icon>
                                     <materialDesign:PackIcon Kind="Tools" />
                                 </MenuItem.Icon>
@@ -191,6 +198,9 @@
             </Grid>
 
             <Grid Grid.Row="1">
+                <Grid.Background>
+                    <ImageBrush ImageSource="/Assets/Images/HinhAnhCty.jpg" Opacity="0.1"/>
+                </Grid.Background>
                 <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3"/>
             </Grid>
         </Grid>
