@@ -23,22 +23,16 @@ namespace HRMana.Main.ViewModel
     public class CreatePersonnelViewModel : BaseViewModel
     {
         #region Khai báo biến
-        private int _maNhanVien;
+        private string _maNhanVien;
         private string _hoTen;
         private string _gioiTinh;
         private bool _Nam_Checked;
         private bool _Nu_Checked;
         private string _ngaySinh;
-        private string _noiSinh;
         private string _cccd;
         private string _dienThoai;
         private string _noiOHienTai;
         private string _QueQuan;
-        private string _emailCaNhan;
-        private string _emailNoiBo;
-        private string _coSoLamViec;
-        private string _loaiHinhLamViec;
-        private string _luongOffer;
         private int _maHoSo;
         private int _maChucVu;
         private string _tenChucVu;
@@ -76,7 +70,7 @@ namespace HRMana.Main.ViewModel
         public ICommand CreateNewCommand { get; set; }
         public ICommand ChooseImageCommand { get; set; }
 
-        public int MaNhanVien { get => _maNhanVien; set { _maNhanVien = value; OnPropertyChanged(); } }
+        public string MaNhanVien { get => _maNhanVien; set { _maNhanVien = value; OnPropertyChanged(); } }
         public string HoTen { get => _hoTen; set { _hoTen = value; OnPropertyChanged(); } }
         public string GioiTinh
         {
@@ -94,16 +88,10 @@ namespace HRMana.Main.ViewModel
             }
         }
         public string NgaySinh { get => _ngaySinh; set { _ngaySinh = value; OnPropertyChanged(); } }
-        public string NoiSinh { get => _noiSinh; set { _noiSinh = value; OnPropertyChanged(); } }
         public string Cccd { get => _cccd; set { _cccd = value; OnPropertyChanged(); } }
         public string DienThoai { get => _dienThoai; set { _dienThoai = value; OnPropertyChanged(); } }
         public string NoiOHienTai { get => _noiOHienTai; set { _noiOHienTai = value; OnPropertyChanged(); } }
         public string QueQuan { get => _QueQuan; set { _QueQuan = value; OnPropertyChanged(); } }
-        public string EmailCaNhan { get => _emailCaNhan; set { _emailCaNhan = value; OnPropertyChanged(); } }
-        public string EmailNoiBo { get => _emailNoiBo; set { _emailNoiBo = value; OnPropertyChanged(); } }
-        public string CoSoLamViec { get => _coSoLamViec; set { _coSoLamViec = value; OnPropertyChanged(); } }
-        public string LoaiHinhLamViec { get => _loaiHinhLamViec; set { _loaiHinhLamViec = value; OnPropertyChanged(); } }
-        public string LuongOffer { get => _luongOffer; set { _luongOffer = value; OnPropertyChanged(); } }
         public int MaHoSo { get => _maHoSo; set { _maHoSo = value; OnPropertyChanged(); } }
         public int MaChucVu { get => _maChucVu; set { _maChucVu = value; OnPropertyChanged(); } }
         public string TenChucVu { get => _tenChucVu; set { _tenChucVu = value; OnPropertyChanged(); } }
@@ -294,12 +282,6 @@ namespace HRMana.Main.ViewModel
                     return;
                 }
 
-                if (string.IsNullOrEmpty(NoiSinh))
-                {
-                    ShowNotification("Nơi sinh không được để trống.", "#FFFF5858");
-                    return;
-                }
-
                 if (string.IsNullOrEmpty(Cccd))
                 {
                     ShowNotification("Căn cước công dân không được để trống.", "#FFFF5858");
@@ -315,12 +297,6 @@ namespace HRMana.Main.ViewModel
                 if (string.IsNullOrEmpty(QueQuan))
                 {
                     ShowNotification("Quê quán không được để trống.", "#FFFF5858");
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(CoSoLamViec))
-                {
-                    ShowNotification("Cơ sở làm việc không được để trống.", "#FFFF5858");
                     return;
                 }
 
@@ -377,16 +353,10 @@ namespace HRMana.Main.ViewModel
                     tenNhanVien = HoTen.Trim(),
                     gioiTinh = GioiTinh.Trim(),
                     ngaySinh = Convert.ToDateTime(NgaySinh),
-                    noiSinh = NoiSinh.Trim(),
                     CCCD = Cccd.Trim(),
                     dienThoai = DienThoai,
                     noiOHienTai = NoiOHienTai.Trim(),
                     queQuan = QueQuan.Trim(),
-                    emailCaNhan = EmailCaNhan,
-                    emailNoiBo = EmailNoiBo,
-                    coSoLamViec = CoSoLamViec.Trim(),
-                    loaiHinhLamViec = LoaiHinhLamViec.Trim(),
-                    luongOffer = StringHelper.ConvertSalary(LuongOffer),
                     anhThe = AnhThe.Trim(),
                     maHoSo = MaHoSo,
                     maHopDong = MaHopDong,
@@ -400,7 +370,7 @@ namespace HRMana.Main.ViewModel
 
                 var result = new NhanVienDAO().CreateNew_NhanVien(nv);
 
-                if (result > 0)
+                if (!string.IsNullOrEmpty(result))
                 {
                     ShowNotification("Thêm thành công.", "#FF58FF7B");
                     EmptyField();
@@ -408,7 +378,6 @@ namespace HRMana.Main.ViewModel
                 else
                 {
                     ShowNotification("Thêm mới không thành công.", "#FFFF5858");
-
                 }
             }
             catch (Exception ex)
@@ -439,20 +408,14 @@ namespace HRMana.Main.ViewModel
             SelectedTonGiao = null;
             SelectedTrinhDo = null;
 
-            MaNhanVien = 0;
+            MaNhanVien = string.Empty;
             HoTen = string.Empty;
             GioiTinh = string.Empty;
             NgaySinh = string.Empty;
-            NoiSinh = string.Empty;
             Cccd = string.Empty;
             DienThoai = string.Empty;
             NoiOHienTai = string.Empty;
             QueQuan = string.Empty;
-            EmailCaNhan = string.Empty;
-            EmailNoiBo = string.Empty;
-            CoSoLamViec = string.Empty;
-            LoaiHinhLamViec = string.Empty;
-            LuongOffer = string.Empty;
             MaHoSo = 0;
             MaChucVu = 0;
             TenChucVu = string.Empty;

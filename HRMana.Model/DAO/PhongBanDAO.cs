@@ -1,6 +1,7 @@
 ﻿using HRMana.Model.EF;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,34 +13,22 @@ namespace HRMana.Model.DAO
     {
         public List<PhongBan> GetList_PhongBan()
         {
-            List<PhongBan> phongBans = new List<PhongBan>();
+            return DataProvider.Instance.DBContext.PhongBan.ToList();
+        }
 
-            try
-            {
-                phongBans = DataProvider.Instance.DBContext.PhongBan.ToList();
-            }
-            catch (Exception ex)
-            {
-                return phongBans;
-            }
+        public async Task<List<PhongBan>> GetList_PhongBanAsync()
+        {
+            return await DataProvider.Instance.DBContext.PhongBan.ToListAsync();
 
-            return phongBans;
         }
 
         public PhongBan Get_PhongBan_By_MaPhongBan(int id)
         {
-            try
+            if (id > 0)
             {
-                if (id > 0)
-                {
-                    return DataProvider.Instance.DBContext.PhongBan.FirstOrDefault(x => x.maPhong == id);
-                }
-                else
-                {
-                    return null;
-                }
+                return DataProvider.Instance.DBContext.PhongBan.FirstOrDefault(x => x.maPhong == id);
             }
-            catch (Exception ex)
+            else
             {
                 return null;
             }

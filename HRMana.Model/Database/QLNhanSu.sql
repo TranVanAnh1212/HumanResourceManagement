@@ -1,5 +1,8 @@
 ﻿
 
+use master
+go
+
 create database QLNhanSu
 go
 
@@ -26,6 +29,14 @@ select * from Chitiet_Quyen
 select * from ChitietQuyen_Quyen
 go
 
+create table Chitiet_Quyen
+(
+	maChitietQuyen	varchar(50)	 primary key not null,
+	tenhanhDong		nvarchar(100),
+	mahanhDong		varchar(100),
+)
+go
+
 create table ChiTietQuyen_Quyen 
 (
 	maQuyen varchar(50) not null foreign key(maQuyen) references Quyen(maQuyen),
@@ -35,14 +46,14 @@ create table ChiTietQuyen_Quyen
 )
 go
 
---insert into ChiTietQuyen_Quyen values 
---( 'ADMIN', 'ADD', N'Quyền được thêm mới'),
---( 'ADMIN', 'DEL', N'Quyền được xoa'),
---( 'ADMIN', 'EDIT', N'Quyền được chỉnh sửa'),
---( 'ADMIN', 'VIEW', N'Quyền được xem'),
---( 'ADMIN', 'MUSER', N'Quyền quản lý người dùng'),
---( 'NV', 'ADD', N'Quyền được thêm mới'),
---( 'QL', 'VIEW', N'Quyền được xem')
+insert into ChiTietQuyen_Quyen values 
+( 'ADMIN', 'ADD', N'Quyền được thêm mới'),
+( 'ADMIN', 'DEL', N'Quyền được xoa'),
+( 'ADMIN', 'EDIT', N'Quyền được chỉnh sửa'),
+( 'ADMIN', 'VIEW', N'Quyền được xem'),
+( 'ADMIN', 'MUSER', N'Quyền quản lý người dùng'),
+( 'NV', 'ADD', N'Quyền được thêm mới'),
+( 'QL', 'VIEW', N'Quyền được xem')
 --go
 
 select * from ChiTietQuyen_Quyen
@@ -50,13 +61,7 @@ select * from Quyen
 select * from TaiKhoan
 go
 
-create table Chitiet_Quyen
-(
-	maChitietQuyen	varchar(50)	 primary key not null,
-	tenhanhDong		nvarchar(100),
-	mahanhDong		varchar(100),
-)
-go
+
 
 --SELECT CONSTRAINT_NAME
 --FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
@@ -68,13 +73,13 @@ go
 --alter table ChiTiet_Quyen
 --drop column maQuyen
 
---insert into ChiTiet_Quyen values
---('ADD', N'Thêm', 'ADD'),
---('DEL', N'Xóa', 'DEL'),
---('EDIT', N'Sửa', 'EDIT'),
---('VIEW', N'Xem', 'VIEW'),
---('MUSER', N'Quản lý người dùng', 'MUSER')
---go
+insert into ChiTiet_Quyen values
+('ADD', N'Thêm', 'ADD'),
+('DEL', N'Xóa', 'DEL'),
+('EDIT', N'Sửa', 'EDIT'),
+('VIEW', N'Xem', 'VIEW'),
+('MUSER', N'Quản lý người dùng', 'MUSER')
+go
 
 select * from Chitiet_Quyen
 go
@@ -220,7 +225,7 @@ go
 create table ChuyenCongTac_NhanVien
 (
 	soQuyetDinh		varchar(100)	foreign key (soQuyetDinh) references ChuyenCongTac(soQuyetDinh)		not null,
-	maNhanVien		int		foreign key (maNhanVien) references NhanVien(maNhanVien)	not null,
+	maNhanVien		varchar(10)		foreign key (maNhanVien) references NhanVien(maNhanVien)	not null,
 	chucVuCu		int,
 	phongBanCu		int,
 	chucVuMoi		int foreign key(chucVuMoi) references ChucVu(maChucVu),
@@ -230,13 +235,13 @@ create table ChuyenCongTac_NhanVien
 go
 
 insert into ChuyenCongTac_NhanVien values
-('NQ345NAH678', 5, 6, 6, 1, 6),
-('NQ3438TF970', 6, 6, 6, 10, 6)
+('NQ345NAH678', 'NV00001', 6, 6, 1, 6),
+('NQ3438TF970', 'NV00002', 6, 6, 10, 6)
 go
 
-select * from ChuyenCongTac_NhanVien
-inner join PhongBan on maPhong = phongBanCu
-inner join NhanVien on NhanVien.maNhanVien = ChuyenCongTac_NhanVien.maNhanVien
+--select * from ChuyenCongTac_NhanVien
+--inner join PhongBan on maPhong = phongBanCu
+--inner join NhanVien on NhanVien.maNhanVien = ChuyenCongTac_NhanVien.maNhanVien
 
 
 --drop table ChuyenCongTac_NhanVien
@@ -249,23 +254,31 @@ select * from PhongBan
 create table ChamCong
 (
 	maChamCong		int identity(1, 1) primary key not null,
-	maNhanVien		int	foreign key (maNhanVien) references NhanVien(maNhanVien) not null,
+	maNhanVien		varchar(10)	foreign key (maNhanVien) references NhanVien(maNhanVien) not null,
+	thang int not null, 
+	nam int not null,
 	heSoLuong		DECIMAL(5, 2) foreign key(heSoLuong) references BacLuong(heSoLuong) not null,
 	SoNgayCong		int,
 	ungTruocLuong	decimal,
 	conLai			decimal,
 	nghiPhep		int,
-	soNgayTangCa	int,
+	soGioTangCa	int,
 	luongTangCa		decimal,
 	phuCapCongViec	decimal,
+	tongNhan decimal(18, 1) 
 )
 go
 
-alter table ChamCong
-add Nam int 
+--SP_RENAME 'ChamCong.soNgayTangCa', 'soGioTangCa', 'COLUMN';
 
-delete from ChamCong
-where maChamCong = 5
+--alter table ChamCong
+--add tongNhan decimal(18, 1) 
+
+--alter table ChamCong
+--add nam int 
+
+--delete from ChamCong
+--where maChamCong = 5
 
 select* from ChamCong
 go
@@ -317,20 +330,14 @@ go
 -- bảng nhân viên
 create table NhanVien
 (
-	maNhanVien	int identity(1,1) primary key not null,
+	maNhanVien	varchar(10) primary key not null,
 	tenNhanVien nvarchar(255)	not null,
 	gioiTinh	nvarchar(10)	not null,
 	ngaySinh	Date	not null,
-	noiSinh		nvarchar(255)	not null,
 	CCCD		char(100)		not null,
 	dienThoai	char(11)	 null,
 	noiOHienTai nvarchar(255)	not null,
 	queQuan		nvarchar(255)	not null,
-	emailCaNhan varchar(255) null,
-	emailNoiBo	varchar(255) null,
-	coSoLamViec nvarchar(255)	not null,
-	loaiHinhLamViec nvarchar(255),
-	luongOffer	decimal,
 	maHoSo		int,
 	maTrinhDo	int	foreign key (maTrinhDo) references TrinhDo(maTrinhDo) not null,
 	maTonGiao	int	foreign key (maTonGiao) references TonGiao(maTonGiao) not null,
@@ -343,43 +350,33 @@ create table NhanVien
 )
 go
 
-alter table NhanVien
-drop column giaDinh
+select * from NhanVien 
 
-select * from NhanVien
+--SELECT CONSTRAINT_NAME
+--FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+--WHERE TABLE_NAME = 'NhanVien' AND COLUMN_NAME = 'maHoSo';
 
-ALTER TABLE NhanVien
-ALTER COLUMN emailNoiBo varchar(255) NULL;
+--alter table NhanVien
+--drop column chuyenNganh
 
-SELECT CONSTRAINT_NAME
-FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
-WHERE TABLE_NAME = 'NhanVien' AND COLUMN_NAME = 'maHoSo';
+--alter table NhanVien
+--drop constraint FK__NhanVien__maHoSo__6477ECF3
 
-alter table NhanVien
-drop column chuyenNganh
+--insert into NhanVien values
+--(N'Trần Văn Anh', N'Nam', '12-06-2003', N'Định Tân - Yên Định - Thanh Hóa', '3133542342', '0334237519', N'250 Tây Tự - Phường Tây Tựu - Quận bắc Từ Liêm - Hà Nội',  N'Định Tân - Yên Định - Thanh Hóa', N'Chưa lập gia đình', 'anh@gmail.com', 'work@gmail.com', N'Hà Nội', 'fulltime', 12000000, '', '', 1, 3, 8, 2, 1, 6, 3, 6)
+--go
 
-alter table NhanVien
-drop constraint FK__NhanVien__maHoSo__6477ECF3
+--insert into NhanVien values
+--(N'Nguyễn Việt Anh', N'Nam', '12-06-2003', N'Hà Nội', '3133542342', '0334237519', N'Nhổn City',  N'Hà Nội', N'Chưa lập gia đình', 'anh@gmail.com', 'work@gmail.com', N'Hà Nội', 'fulltime', 15000000, '', '', 1, 3, 8, 2, 1, 6, 2, 6)
+--go
 
-insert into NhanVien values
-(N'Trần Văn Anh', N'Nam', '12-06-2003', N'Định Tân - Yên Định - Thanh Hóa', '3133542342', '0334237519', N'250 Tây Tự - Phường Tây Tựu - Quận bắc Từ Liêm - Hà Nội',  N'Định Tân - Yên Định - Thanh Hóa', N'Chưa lập gia đình', 'anh@gmail.com', 'work@gmail.com', N'Hà Nội', 'fulltime', 12000000, '', '', 1, 3, 8, 2, 1, 6, 3, 6)
-go
+--insert into NhanVien values
+--(N'Đặng Thọ Chiến', N'Nam', '12-06-2023', N'Hà Nội', '3133542342', '0334237519', N'Nhổn City',  N'Hà Nội', N'Chưa lập gia đình', 'anh@gmail.com', 'work@gmail.com', N'Hà Nội', 'fulltime', 10000000, '', '', 1, 3, 8, 2, 1, 6, 2, 6)
+--go
 
-insert into NhanVien values
-(N'Nguyễn Việt Anh', N'Nam', '12-06-2003', N'Hà Nội', '3133542342', '0334237519', N'Nhổn City',  N'Hà Nội', N'Chưa lập gia đình', 'anh@gmail.com', 'work@gmail.com', N'Hà Nội', 'fulltime', 15000000, '', '', 1, 3, 8, 2, 1, 6, 2, 6)
-go
-
-insert into NhanVien values
-(N'Đặng Thọ Chiến', N'Nam', '12-06-2023', N'Hà Nội', '3133542342', '0334237519', N'Nhổn City',  N'Hà Nội', N'Chưa lập gia đình', 'anh@gmail.com', 'work@gmail.com', N'Hà Nội', 'fulltime', 10000000, '', '', 1, 3, 8, 2, 1, 6, 2, 6)
-go
-
-insert into NhanVien values
-(N'Dư Ngọc Ánh', N'Nam', '12-06-2123', N'Hà Nội', '3133542342', '0334237519', N'Nhổn City',  N'Hà Nội', N'Chưa lập gia đình', 'anh@gmail.com', 'work@gmail.com', N'Hà Nội', 'fulltime', 9000000, '', '', 1, 3, 8, 2, 1, 6, 2, 6)
-go
-
-UPDATE NhanVien
-SET anhThe = '/Assets/NhanVien_Image/AnhThe.jpg'
-WHERE maNhanVien = 8;
+--insert into NhanVien values
+--(N'Dư Ngọc Ánh', N'Nam', '12-06-2123', N'Hà Nội', '3133542342', '0334237519', N'Nhổn City',  N'Hà Nội', N'Chưa lập gia đình', 'anh@gmail.com', 'work@gmail.com', N'Hà Nội', 'fulltime', 9000000, '', '', 1, 3, 8, 2, 1, 6, 2, 6)
+--go
 
 --ALTER TABLE NhanVien
 --DROP CONSTRAINT FK__NhanVien__maTaiK__6B24EA82;
@@ -458,18 +455,6 @@ go
 select * from ChucVu
 go
 
-
-insert into BacLuong values
-(1, 3000000),
-(2, 5000000),
-(3, 6000000),
-(4, 8000000),
-(5, 10000000),
-(6, 15000000)
-go
-select * from BacLuong
-go
-
 -- store procherduce
 create proc DangNhap_Proc
 @tenTaiKhoan varchar(255), @matKhau varchar(255)
@@ -483,7 +468,7 @@ go
 
 ---
 -- Tạo một tài khoản 
-alter PROCEDURE [dbo].[TaoMoiTaiKhoan]
+create PROCEDURE [dbo].[TaoMoiTaiKhoan]
 (
   @tenTaiKhoan varchar(255),
   @matKhau varchar(255),
@@ -512,7 +497,6 @@ BEGIN
 END;
 go
 
-
 create proc [dbo].[XoaTaiKhoan]
 ( @maTaiKhoan int)
 as
@@ -533,12 +517,35 @@ select * from HopDong
 select * from DanToc
 select * from HoSo
 select * from ChucVu
+select * from PhongBan
+go
 
-update NhanVien
-set anhThe = '4b4db64d-57d6-41d8-b61d-ac23752d3857.jpg'
-where maNhanVien = 15
+--update NhanVien
+--set anhThe = '4b4db64d-57d6-41d8-b61d-ac23752d3857.jpg'
+--where maNhanVien = 15
 
-select * from BaoCaoDangNhap
+--delete from BaoCaoDangNhap
+--where maTaiKhoan = 20
 
-delete from BaoCaoDangNhap
-where maTaiKhoan = 20
+----------- ------ Func Nhân Viên Tự Tăng -------- --------
+
+CREATE FUNCTION dbo.GenerateEmployeeCode()
+RETURNS VARCHAR(10)
+AS
+BEGIN
+    DECLARE @MaxCode INT
+    DECLARE @NewCode VARCHAR(10)
+
+    SELECT @MaxCode = ISNULL(MAX(SUBSTRING(maNhanVien, 3, 5)), 0) FROM NhanVien
+
+    SET @NewCode = 'NV' + RIGHT('00000' + CAST(@MaxCode + 1 AS VARCHAR(5)), 5)
+
+    RETURN @NewCode
+END
+go
+
+-------- ---------- ------------ ------------- -----------
+
+--INSERT INTO NhanVien VALUES (dbo.GenerateEmployeeCode(), N'Trần Văn Anh', N'Nam', '12/06/2003', '13212412412', '313231321', N'Hà Nội', N'Thanh Hóa', 0, 3, 1, 2, 1, 6, 0, 6, '')
+
+select * from NhanVien

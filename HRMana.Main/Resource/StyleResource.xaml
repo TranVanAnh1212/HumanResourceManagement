@@ -3,13 +3,43 @@
     <Color x:Key="winBorderColor1">#6D2FFF</Color>
     <Color x:Key="winBorderColor2">#FB539B</Color>
     <Color x:Key="winBorderColor3">#836EFB</Color>
-    
+
+    <Style x:Key="Page_Style" TargetType="{x:Type Page}">
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TranslateTransform X="0" Y="30" />
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="Visibility" Value="Collapsed">
+                <Setter Property="Opacity" Value="0" />
+            </Trigger>
+
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                     Duration="0:0:1"
+                                     From="0"
+                                     To="1" />
+                        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                     From="30"
+                                     To="0"
+                                     Duration="0:0:0.8"
+                                     DecelerationRatio="0.6" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
     <Style x:Key="Sizewindow" TargetType="Page">
         <Setter Property="Height" Value="650"/>
         <Setter Property="Width" Value="1300"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Foreground" Value="ForestGreen"/>
-    </Style> 
+    </Style>
 
     <Style x:Key="ctrlBarBtn" TargetType="Button">
         <Setter Property="Width" Value="35"/>
@@ -34,9 +64,9 @@
                 <Setter Property="Foreground" Value="White"/>
             </Trigger>
         </Style.Triggers>
-        
+
     </Style>
-    
+
     <Style x:Key="closeBtn" TargetType="Button" BasedOn="{StaticResource ctrlBarBtn}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -44,5 +74,10 @@
                 <Setter Property="Foreground" Value="White"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style x:Key="LoginPage_CloseBtn" TargetType="Button" BasedOn="{StaticResource ctrlBarBtn}">
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
     </Style>
 </ResourceDictionary>

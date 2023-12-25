@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"    
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
-      mc:Ignorable="d" Background="White"
+      mc:Ignorable="d" 
       DataContext="{StaticResource createPersonnelVM}"
       x:Name="createPersonnelPage" FontSize="14"
       Title="CreateNewPersonnelPage">
@@ -33,7 +33,8 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <Grid Panel.ZIndex="10" x:Name="Notification_Grid_createPsnel" HorizontalAlignment="Center" Margin="0,-161,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="61" Width="560">
+        <Grid Panel.ZIndex="10" x:Name="Notification_Grid_createPsnel" HorizontalAlignment="Center" 
+              Margin="0,-161,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="61" Width="560">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -56,7 +57,6 @@
         <uc:LableTopUserControl Title="THÊM MỚI NHÂN SỰ"/>
 
         <Grid Grid.Row="1">
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
@@ -80,119 +80,129 @@
 
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <GroupBox Grid.Row="0" Margin="10,16,25,10">
                     <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <Grid>
-                            <TextBlock HorizontalAlignment="Left" Margin="366,11,0,10" TextWrapping="Wrap" Text="Giới tính" VerticalAlignment="Top"/>
-                            <RadioButton x:Name="rdbNam" IsChecked="{Binding Nam_Checked}" Content="Nam" HorizontalAlignment="Left" Margin="432,9,0,0" VerticalAlignment="Top"/>
-                            <RadioButton x:Name="rdbNu" IsChecked="{Binding Nu_Checked}" Content="Nữ" HorizontalAlignment="Left" Margin="502,10,0,0" VerticalAlignment="Top"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="589,12,0,0" TextWrapping="Wrap" Text="Nơi ở hiện tại" VerticalAlignment="Top"/>
-                            <TextBox TextChanged="UpperCaseFirstChar" Text="{Binding NoiOHienTai}" HorizontalAlignment="Left" Margin="686,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="276"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="0,10,0,0" TextWrapping="Wrap" Text="Tên nhân viên" VerticalAlignment="Top" Width="92"/>
-                            <TextBox TextChanged="Format_HoTen_TextChanged" Text="{Binding HoTen}" HorizontalAlignment="Left" Margin="105,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="221"/>
+                        <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="0,10,0,0" TextWrapping="Wrap" Text="Tên nhân viên" VerticalAlignment="Top" Width="92"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" TextChanged="Format_HoTen_TextChanged" Text="{Binding HoTen}" 
+                                 HorizontalAlignment="Left" Margin="10,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="221"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,10" TextWrapping="Wrap" 
+                                   Text="Giới tính" VerticalAlignment="Top"/>
 
-                        </Grid>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="3">
+                            <RadioButton x:Name="rdbNam" IsChecked="{Binding Nam_Checked}" Content="Nam" 
+                                         HorizontalAlignment="Left" Margin="15,5,0,0" VerticalAlignment="Top"/>
+                            <RadioButton x:Name="rdbNu" IsChecked="{Binding Nu_Checked}" Content="Nữ" 
+                                         HorizontalAlignment="Left" Margin="15,5,0,0" VerticalAlignment="Top"/>
+                        </StackPanel>
 
-                        <Grid Grid.Row="1">
-                            <TextBlock HorizontalAlignment="Left" Margin="259,14,0,0" TextWrapping="Wrap" Text="Quê quán" VerticalAlignment="Top"/>
-                            <TextBox TextChanged="UpperCaseFirstChar" Text="{Binding QueQuan}" HorizontalAlignment="Left" Margin="334,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="265"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="2,14,0,0" TextWrapping="Wrap" Text="Ngày sinh" VerticalAlignment="Top"/>
-                            <TextBox Text="{Binding NgaySinh}" HorizontalAlignment="Left" x:Name="txt_Birthday" TextChanged="txt_Birthday_TextChanged" Margin="74,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="111"/>
-                            <TextBlock Text="Định dạng ngày tháng năm không đúng" x:Name="txtbl_BirthdayValidate" HorizontalAlignment="Left" FontSize="10" Margin="74,38,0,10" Height="20" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Row="0" Grid.Column="4" HorizontalAlignment="Left" Margin="10,5,20,0" 
+                                   TextWrapping="Wrap" Text="Nơi ở hiện tại" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="0" Grid.Column="5" TextChanged="UpperCaseFirstChar" Grid.ColumnSpan="3" 
+                                 Text="{Binding NoiOHienTai}" HorizontalAlignment="Left" Margin="10,5,0,0" 
+                                 TextWrapping="Wrap" VerticalAlignment="Top" Width="276"/>
 
-                            <TextBlock HorizontalAlignment="Left" Margin="621,16,0,0" TextWrapping="Wrap" Text="Nơi sinh" VerticalAlignment="Top"/>
-                            <TextBox TextChanged="UpperCaseFirstChar" Text="{Binding NoiSinh}" HorizontalAlignment="Left" Margin="686,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275"/>
 
-                        </Grid>
+                        <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="10,5,10,0" 
+                                   TextWrapping="Wrap" Text="Quê quán" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="1" Grid.Column="3" TextChanged="UpperCaseFirstChar" Grid.ColumnSpan="3"
+                                 Text="{Binding QueQuan}" HorizontalAlignment="Left" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="10,5,0,0" TextWrapping="Wrap" Text="Ngày sinh" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding NgaySinh}" 
+                                 HorizontalAlignment="Left" x:Name="txt_Birthday" ToolTip="Định dạng ngày sinh phải là dd/MM/yyyy"
+                                 TextChanged="txt_Birthday_TextChanged" Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="Định dạng ngày tháng năm không đúng" 
+                                   x:Name="txtbl_BirthdayValidate" HorizontalAlignment="Left" FontSize="10" 
+                                   Margin="10,38,0,10" Height="20" VerticalAlignment="Top"/>
 
-                        <Grid Grid.Row="2">
-                            <TextBlock HorizontalAlignment="Left" Margin="0,14,0,0" TextWrapping="Wrap" Text="Điện thoại" VerticalAlignment="Top"/>
-                            <TextBox Text="{Binding DienThoai}" x:Name="txt_PhoneNumber" TextChanged="txt_PhoneNumber_TextChanged" HorizontalAlignment="Left" Margin="74,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="155"/>
-                            <TextBlock Text="Số điện thoại chỉ có 10 chữ số" x:Name="txtbl_PhoneErrorValidate" Margin="74,39,0,10" FontSize="10" Width="200" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top"/>
 
-                            <TextBlock HorizontalAlignment="Left" Margin="256,14,0,0" TextWrapping="Wrap" Text="Tôn giáo" VerticalAlignment="Top"/>
-                            <ComboBox IsEditable="True" ItemsSource="{Binding ListTonGiao}" DisplayMemberPath="tenTonGiao" 
+                        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Margin="10,5,0,0" 
+                                   TextWrapping="Wrap" Text="Điện thoại" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DienThoai}" x:Name="txt_PhoneNumber"
+                                 TextChanged="txt_PhoneNumber_TextChanged" HorizontalAlignment="Left" 
+                                 Margin="10,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="Số điện thoại chỉ có 10 chữ số" 
+                                   x:Name="txtbl_PhoneErrorValidate" Margin="10,39,0,5" FontSize="10" 
+                                   Width="200" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" 
+                                   Margin="10,5,10,0" TextWrapping="Wrap" Text="Tôn giáo" VerticalAlignment="Top"/>
+                        <ComboBox Grid.Row="2" Grid.Column="3" IsEditable="True" 
+                                  ItemsSource="{Binding ListTonGiao}" DisplayMemberPath="tenTonGiao" 
                                       SelectedItem="{Binding SelectedTonGiao, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                      HorizontalAlignment="Left" Margin="314,11,0,0" VerticalAlignment="Top" Width="151"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="502,14,0,0" TextWrapping="Wrap" Text="Dân tộc" VerticalAlignment="Top"/>
-                            <ComboBox IsEditable="True" ItemsSource="{Binding ListDanToc}" DisplayMemberPath="tenDanToc" 
+                                      HorizontalAlignment="Stretch" Margin="10,5,20,0" VerticalAlignment="Top" />
+                        <TextBlock Grid.Row="2" Grid.Column="4" HorizontalAlignment="Left" Margin="10,5,0,0" 
+                                   TextWrapping="Wrap" Text="Dân tộc" VerticalAlignment="Top"/>
+                        <ComboBox Grid.Row="2" Grid.Column="5" IsEditable="True" ItemsSource="{Binding ListDanToc}" DisplayMemberPath="tenDanToc" 
                                       SelectedItem="{Binding SelectedDanToc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                      HorizontalAlignment="Left" Margin="560,11,0,0" VerticalAlignment="Top" Width="140"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="740,14,0,0" TextWrapping="Wrap" Text="CCCD" VerticalAlignment="Top"/>
-                            <TextBox Text="{Binding Cccd}" HorizontalAlignment="Left" Margin="786,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168"/>
+                                      HorizontalAlignment="Stretch" Margin="10,5,20,0" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Row="2" Grid.Column="6" HorizontalAlignment="Left" Margin="10,5,10,0" 
+                                   TextWrapping="Wrap" Text="CCCD" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="2" Grid.Column="7" Text="{Binding Cccd}" HorizontalAlignment="Left" 
+                                 Margin="10,5,20,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168"/>
 
-                        </Grid>
 
                     </Grid>
                 </GroupBox>
+
                 <GroupBox Grid.Row="1" Margin="10,10,25,10">
                     <Grid>
-
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <Grid>
-                            <TextBlock HorizontalAlignment="Left" Margin="0,14,0,0" TextWrapping="Wrap" Text="Email cá nhân" VerticalAlignment="Top"/>
-                            <TextBox Text="{Binding EmailCaNhan}" TextChanged="txt_EmailCN_TextChanged" x:Name="txt_EmailCN" HorizontalAlignment="Left" Margin="101,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
-                            <TextBlock Text="Định dạng email không đúng" FontSize="10" x:Name="txtbl_EmailCNValidate" HorizontalAlignment="Left" Margin="101,38,0,5"/>
-
-                            <TextBlock HorizontalAlignment="Left" Margin="331,14,0,0" TextWrapping="Wrap" Text="Email nội bộ" VerticalAlignment="Top"/>
-                            <TextBox Text="{Binding EmailNoiBo}" x:Name="txt_EmailNB" TextChanged="txt_EmailNB_TextChanged" HorizontalAlignment="Left" Margin="426,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
-                            <TextBlock Text="Định dạng email không đúng" FontSize="10" x:Name="txtbl_EmailNBValidate" HorizontalAlignment="Left" Margin="426,38,0,5"/>
-
-                            <TextBlock HorizontalAlignment="Left" Margin="682,14,0,0" TextWrapping="Wrap" Text="Trình độ học vấn" VerticalAlignment="Top"/>
-                            <ComboBox IsEditable="True" ItemsSource="{Binding ListTrinhDo}" DisplayMemberPath="tenTrinhDo" 
+                        <TextBlock HorizontalAlignment="Left" Margin="10,14,10,10" TextWrapping="Wrap" Text="Trình độ học vấn" VerticalAlignment="Top"/>
+                        <ComboBox Grid.Row="0" Grid.Column="1" IsEditable="True" ItemsSource="{Binding ListTrinhDo}" DisplayMemberPath="tenTrinhDo" 
                                       SelectedItem="{Binding SelectedTrinhDo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                      HorizontalAlignment="Left" Margin="802,10,0,0" VerticalAlignment="Top" Width="152" RenderTransformOrigin="0.5,0.5"></ComboBox>
-
-                        </Grid>
-
-                        <Grid Grid.Row="1">
-                            <TextBlock HorizontalAlignment="Left" Margin="1,14,0,0" TextWrapping="Wrap" Text="Chức vụ" VerticalAlignment="Top"/>
-                            <ComboBox IsEditable="True" ItemsSource="{Binding ListChucVu}" DisplayMemberPath="tenChucVu" SelectedItem="{Binding SelectedChucVu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="101,11,0,0" VerticalAlignment="Top" Width="165"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="326,14,0,0" TextWrapping="Wrap" Text="Cơ sở làm việc" VerticalAlignment="Top"/>
-                            <TextBox Text="{Binding CoSoLamViec}" TextChanged="UpperCaseFirstChar" HorizontalAlignment="Left" Margin="446,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236"/>
-
-                        </Grid>
-
-                        <Grid Grid.Row="2">
-                            <TextBlock HorizontalAlignment="Left" Margin="0,14,0,0" TextWrapping="Wrap" Text="Phòng ban" VerticalAlignment="Top"/>
-                            <ComboBox IsEditable="True" ItemsSource="{Binding ListPhongBan}" DisplayMemberPath="tenPhong" 
-                                      SelectedItem="{Binding SelectedPhongBan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      HorizontalAlignment="Left" Margin="101,11,0,0" Width="200" VerticalAlignment="Top"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="326,14,0,0" TextWrapping="Wrap" Text="Loại hình làm việc" VerticalAlignment="Top"/>
-                            <TextBox TextChanged="UpperCaseFirstChar" Text="{Binding LoaiHinhLamViec}" HorizontalAlignment="Left" Margin="446,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="666,14,0,0" TextWrapping="Wrap" Text="Chuyên môn" VerticalAlignment="Top"/>
-                            <ComboBox IsEditable="True" ItemsSource="{Binding ListChuyenMon}" DisplayMemberPath="tenChuyenMon" 
+                                      Margin="10,10,10,10"></ComboBox>
+                        <TextBlock Grid.Row="0" Grid.Column="2" Margin="10,10,10,10" TextWrapping="Wrap" Text="Chuyên môn" />
+                        <ComboBox Grid.Row="0" Grid.Column="3" IsEditable="True" ItemsSource="{Binding ListChuyenMon}" DisplayMemberPath="tenChuyenMon" 
                                       SelectedItem="{Binding SelectedChuyenMon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                      HorizontalAlignment="Left" Margin="786,11,0,0" VerticalAlignment="Top" Width="168" RenderTransformOrigin="0.5,0.5"/>
+                                      Margin="10"/>
 
-                        </Grid>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="10" 
+                                   TextWrapping="Wrap" Text="Chức vụ"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" IsEditable="True" ItemsSource="{Binding ListChucVu}" 
+                                  DisplayMemberPath="tenChucVu" 
+                                  SelectedItem="{Binding SelectedChucVu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,10,0,0"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" Margin="10,10" TextWrapping="Wrap" Text="Phòng ban"/>
+                        <ComboBox Grid.Row="1" Grid.Column="3" IsEditable="True" ItemsSource="{Binding ListPhongBan}" DisplayMemberPath="tenPhong" 
+                                      SelectedItem="{Binding SelectedPhongBan, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10"/>
 
-                        <Grid Grid.Row="3">
-                            <TextBlock HorizontalAlignment="Left" Margin="0,14,0,0" TextWrapping="Wrap" Text="Mã hồ sơ" VerticalAlignment="Top"/>
-                            <TextBox Text="{Binding MaHoSo}" HorizontalAlignment="Left" Margin="101,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="330,14,0,0" TextWrapping="Wrap" Text="Mã hợp đồng" VerticalAlignment="Top"/>
-                            <TextBox Text="{Binding MaHopDong}" HorizontalAlignment="Left" Margin="431,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="669,14,0,0" TextWrapping="Wrap" Text="Lương Offer" VerticalAlignment="Top"/>
-                            <TextBox Text="{Binding LuongOffer}" x:Name="txt_LuongOffer" TextChanged="txt_LuongOffer_TextChanged" HorizontalAlignment="Left" Margin="770,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="10,14" TextWrapping="Wrap" Text="Mã hồ sơ" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding MaHoSo}" Margin="10,11,0,0" TextWrapping="Wrap"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" Margin="10,14" 
+                                   TextWrapping="Wrap" Text="Mã hợp đồng" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding MaHopDong}" Margin="10" TextWrapping="Wrap"/>
 
-                        </Grid>
 
                         <!--<TextBlock HorizontalAlignment="Left" Margin="666,197,0,0" TextWrapping="Wrap" Text="Bậc lương" VerticalAlignment="Top"/>
         <ComboBox ItemsSource="{Binding ListBacLuong}" SelectedItem="{Binding SelectedBacLuong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="786,190,0,0" VerticalAlignment="Top" Width="168" RenderTransformOrigin="0.5,0.5"/>-->
@@ -200,8 +210,9 @@
                     </Grid>
                 </GroupBox>
 
-                <StackPanel Orientation="Horizontal" Grid.Row="2">
-                    <Button Command="{Binding CreateNewCommand}" x:Name="btn_CreateNew" HorizontalAlignment="Left" Margin="55,10,10,10" VerticalAlignment="Top" RenderTransformOrigin="-0.266,0.773" Width="160" Height="40">
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10">
+                    <Button Command="{Binding CreateNewCommand}" x:Name="btn_CreateNew" 
+                            HorizontalAlignment="Left" Margin="255,10,10,10" VerticalAlignment="Top" RenderTransformOrigin="-0.266,0.773" Width="160" Height="40">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Width="20" Height="20" Margin="0, 0, 5, 0" Kind="Plus" />

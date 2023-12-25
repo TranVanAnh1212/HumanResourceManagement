@@ -1,6 +1,7 @@
 ﻿using HRMana.Model.EF;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -10,32 +11,28 @@ namespace HRMana.Model.DAO
 {
     public class ChamCongDAO
     {
-        public ChamCong Get_ChamCong_By_MaNhanVien(int mnv, int thang, int nam)
+        public ChamCong Get_ChamCong_By_MaNhanVien(string mnv, int thang, int nam)
         {
             var cc = new ChamCong();
 
-            try
+            if (!string.IsNullOrEmpty(mnv))
             {
-                if (mnv > 0)
-                {
-                    var result = DataProvider.Instance.DBContext.ChamCong.Where(x => x.maNhanVien == mnv && x.Thang == thang && x.Nam == nam).FirstOrDefault();
+                var result = DataProvider.Instance.DBContext
+                    .ChamCong
+                    .Where(x => x.maNhanVien.Equals(mnv) && x.thang == thang && x.nam == nam)
+                    .FirstOrDefault();
 
-                    if (result != null)
-                    {
-                        cc = result;
-                        return cc;
-                    }
-                    else
-                    {
-                        return cc;
-                    }
+                if (result != null)
+                {
+                    cc = result;
+                    return cc;
                 }
                 else
                 {
                     return cc;
                 }
             }
-            catch
+            else
             {
                 return cc;
             }
@@ -44,14 +41,12 @@ namespace HRMana.Model.DAO
 
         public IEnumerable<ChamCong> GetList_ChamCong()
         {
-            try
-            {
-                return DataProvider.Instance.DBContext.ChamCong.ToList();
-            }
-            catch
-            {
-                return Enumerable.Empty<ChamCong>();
-            }
+            return DataProvider.Instance.DBContext.ChamCong.ToList();
+        }
+
+        public async Task<IEnumerable<ChamCong>> GetList_ChamCongAsync()
+        {
+            return await DataProvider.Instance.DBContext.ChamCong.ToListAsync();
         }
 
         public int Create_ChamCong(ChamCong cc)
@@ -87,7 +82,7 @@ namespace HRMana.Model.DAO
                     result.ungTruocLuong = cc.ungTruocLuong;
                     result.conLai = cc.conLai;
                     result.nghiPhep = cc.nghiPhep;
-                    result.soNgayTangCa = cc.soNgayTangCa;
+                    result.soGioTangCa = cc.soGioTangCa;
                     result.luongTangCa = cc.luongTangCa;
                     result.phuCapCongViec = cc.phuCapCongViec;
 

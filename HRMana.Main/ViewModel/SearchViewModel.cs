@@ -13,7 +13,7 @@ namespace HRMana.Main.ViewModel
 {
     public class SearchViewModel : BaseViewModel
     {
-        private int _maNhanVien;
+        private string _maNhanVien;
         private string _hoTen;
         private string _ngaySinh;
         private string _gioiTinh;
@@ -27,7 +27,7 @@ namespace HRMana.Main.ViewModel
         public ICommand SearchCommand { get; set; }
         public ICommand CancelCommand { get; set; }
 
-        public int MaNhanVien { get => _maNhanVien; set { _maNhanVien = value; OnPropertyChanged(); } }
+        public string MaNhanVien { get => _maNhanVien; set { _maNhanVien = value; OnPropertyChanged(); } }
         public string HoTen { get => _hoTen; set { _hoTen = value; OnPropertyChanged(); } }
         public string NgaySinh { get => _ngaySinh; set { _ngaySinh = value; OnPropertyChanged(); } }
         public string QueQuan { get => _queQuan; set { _queQuan = value; OnPropertyChanged(); } }
@@ -75,9 +75,9 @@ namespace HRMana.Main.ViewModel
                                                QueQuan = nv.queQuan,
                                            };
 
-                        if (MaNhanVien != 0)
+                        if ( !string.IsNullOrEmpty(MaNhanVien))
                         {
-                            searchResult = searchResult.Where(x => x.MaNhanVien == MaNhanVien);
+                            searchResult = searchResult.Where(x => x.MaNhanVien.Contains(MaNhanVien));
                         }
 
                         if (!string.IsNullOrEmpty(HoTen))
@@ -105,7 +105,7 @@ namespace HRMana.Main.ViewModel
                  (param) =>
                  {
                      SelectedSearchResult = null;
-                     MaNhanVien = 0;
+                     MaNhanVien = string.Empty;
                      HoTen = string.Empty;
                      NgaySinh = string.Empty;
                      QueQuan = string.Empty;

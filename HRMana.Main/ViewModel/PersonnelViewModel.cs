@@ -20,9 +20,10 @@ namespace HRMana.Main.ViewModel
     public class PersonnelViewModel : BaseViewModel
     {
         #region Khai báo biến
-        private int _maNhanVien;
+        private string _maNhanVien;
         private string _hoTen;
         private string _gioiTinh;
+        private DateTime _ngaySinh;
         private string _cccd;
         private int _maChucVu;
         private string _tenChucVu;
@@ -59,7 +60,7 @@ namespace HRMana.Main.ViewModel
         public ICommand RefeshCommand { get; set; }
         public ICommand ShowPersonnelDetailsCommand { get; set; }
 
-        public int MaNhanVien { get => _maNhanVien; set { _maNhanVien = value; OnPropertyChanged(); } }
+        public string MaNhanVien { get => _maNhanVien; set { _maNhanVien = value; OnPropertyChanged(); } }
         public string HoTen { get => _hoTen; set { _hoTen = value; OnPropertyChanged(); } }
         public string GioiTinh { get => _gioiTinh; set { _gioiTinh = value; OnPropertyChanged(); } }
         public int MaChucVu { get => _maChucVu; set { _maChucVu = value; OnPropertyChanged(); } }
@@ -168,6 +169,8 @@ namespace HRMana.Main.ViewModel
         }
 
         public string Permission_ADD { get => _permission_ADD; set { _permission_ADD = value; OnPropertyChanged(); } }
+
+        public DateTime NgaySinh { get => _ngaySinh; set { _ngaySinh = value; OnPropertyChanged(); } }
 
         #endregion
 
@@ -411,6 +414,7 @@ namespace HRMana.Main.ViewModel
                                                             MaNhanVien = nv.maNhanVien,
                                                             HoTen = nv.tenNhanVien,
                                                             GioiTinh = nv.gioiTinh,
+                                                            NgaySinh = nv.ngaySinh,
                                                             MaChucVu = nv.maChucVu,
                                                             TenChucVu = nv.ChucVu.tenChucVu,
                                                             MaPhong = nv.maPhong,

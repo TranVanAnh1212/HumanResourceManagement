@@ -23,7 +23,7 @@ namespace HRMana.Main.ViewModel
         private string _soQuyetDinh;
         private DateTime _ngayQuyetDinh;
         private DateTime _thoiGianThiHanh;
-        private int _maNhanVien;
+        private string _maNhanVien;
         private string _hoTen;
         private int _maChucVuCu;
         private string _tenChucVuCu;
@@ -69,7 +69,7 @@ namespace HRMana.Main.ViewModel
         public string Permission_DEL { get => _permission_DEL; set { _permission_DEL = value; OnPropertyChanged(); } }
 
 
-        public int MaNhanVien { get => _maNhanVien; set { _maNhanVien = value; OnPropertyChanged(); } }
+        public string MaNhanVien { get => _maNhanVien; set { _maNhanVien = value; OnPropertyChanged(); } }
         public string HoTen { get => _hoTen; set { _hoTen = value; OnPropertyChanged(); } }
         public int MaChucVuCu { get => _maChucVuCu; set { _maChucVuCu = value; OnPropertyChanged(); } }
         public string TenChucVuCu { get => _tenChucVuCu; set { _tenChucVuCu = value; OnPropertyChanged(); } }
@@ -587,7 +587,7 @@ namespace HRMana.Main.ViewModel
             SelectedChucVuMoi = null;
             SelectedDieuDongCongTac = null;
 
-            MaNhanVien = 0;
+            MaNhanVien = string.Empty;
             SoQuyetDinh = string.Empty;
             HoTen = string.Empty;
             NgayQuyetDinh = DateTime.Now;

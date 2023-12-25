@@ -18,7 +18,9 @@ namespace HRMana.Main.ViewModel
         public ICommand MinimizeCommand { get; set; }
         public ICommand MaximizeCommand { get; set; }
         public ICommand MoveWindowCommand { get; set; }
+        //public bool IsLoginWindow { get => _isLoginWindow; set { _isLoginWindow = value; OnPropertyChanged(); } }
 
+        //private bool _isLoginWindow;
 
         public ControlBarViewModel()
         {
@@ -87,6 +89,7 @@ namespace HRMana.Main.ViewModel
                         {
                             isWindow.WindowState = WindowState.Normal;
                         }
+
                     }
                 }
                 );
@@ -99,7 +102,7 @@ namespace HRMana.Main.ViewModel
                 });
         }
 
-        private void MoveWinDown(FrameworkElement fele) 
+        private void MoveWinDown(FrameworkElement fele)
         {
             FrameworkElement windown = fele;
             Window isWindow = windown as Window;

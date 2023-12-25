@@ -43,13 +43,15 @@ namespace HRMana.Model.DAO
             return nv;
         }
 
-        public NhanVien Get_NhanVien_By_MaNhanVien(int maNhanVien)
+        public NhanVien Get_NhanVien_By_MaNhanVien(string maNhanVien)
         {
             NhanVien nv = null;
 
             try
             {
-                nv = DataProvider.Instance.DBContext.NhanVien.SingleOrDefault(x => x.maNhanVien == maNhanVien);
+                nv = DataProvider.Instance.DBContext
+                    .NhanVien
+                    .SingleOrDefault(x => x.maNhanVien.Equals(maNhanVien));
             }
             catch (Exception ex)
             {
@@ -66,7 +68,7 @@ namespace HRMana.Model.DAO
                 var nhanvien = DataProvider.Instance.DBContext.NhanVien.Where(x => x.maNhanVien == nv.maNhanVien).FirstOrDefault();
 
                 if (nhanvien != null)
-                {                    
+                {
                     nhanvien.maHoSo = nv.maHoSo;
 
                     DataProvider.Instance.DBContext.SaveChanges();
@@ -99,34 +101,31 @@ namespace HRMana.Model.DAO
             return nv;
         }
 
-        public int CreateNew_NhanVien(NhanVien nhanVien)
+        public string CreateNew_NhanVien(NhanVien nhanVien)
         {
-            try
-            {
-                if (nhanVien == null)
-                {
-                    return -1;
-                }
-                else
-                {
-                    DataProvider.Instance.DBContext.NhanVien.Add(nhanVien);
-                    DataProvider.Instance.DBContext.SaveChanges();
+            // Sử dụng context của Entity Framework để tạo mã nhân viên mới
+            string newEmployeeCode = DataProvider.Instance.DBContext.Database.SqlQuery<string>("SELECT dbo.GenerateEmployeeCode()").FirstOrDefault();
 
-                    return nhanVien.maNhanVien;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Thông báo lỗi.", MessageBoxButton.OK, MessageBoxImage.Stop);
-                return -1;
-            }
+            // Gán mã nhân viên mới cho đối tượng nhân viên
+            nhanVien.maNhanVien = newEmployeeCode;
+
+            DataProvider.Instance.DBContext.NhanVien.Add(nhanVien);
+
+            //DataProvider.Instance.DBContext.Database
+            //    .SqlQuery<NhanVien>($"INSERT INTO NhanVien VALUES (dbo.GenerateEmployeeCode(), N'{nhanVien.tenNhanVien}', N'{nhanVien.gioiTinh}', '{nhanVien.ngaySinh}', '{nhanVien.CCCD}', '{nhanVien.dienThoai}', N'{nhanVien.noiOHienTai}', N'{nhanVien.queQuan}', {nhanVien.maHoSo}, {nhanVien.maTrinhDo}, {nhanVien.maTonGiao}, {nhanVien.maChuyenMon}, {nhanVien.DanToc}, {nhanVien.maChucVu}, {nhanVien.maHopDong}, {nhanVien.maPhong}, '{nhanVien.anhThe}')");
+
+            DataProvider.Instance.DBContext.SaveChanges();
+
+            return nhanVien.maNhanVien;
         }
 
-        public bool Delete_NhanVien (int id)
+        public bool Delete_NhanVien(string id)
         {
             try
             {
-                var nv = DataProvider.Instance.DBContext.NhanVien.Where(x => x.maNhanVien == id).FirstOrDefault();
+                var nv = DataProvider.Instance.DBContext.NhanVien
+                    .Where(x => x.maNhanVien.Equals(id))
+                    .FirstOrDefault();
 
                 if (nv != null)
                 {
@@ -140,7 +139,8 @@ namespace HRMana.Model.DAO
                     return false;
                 }
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Thông báo lỗi.", MessageBoxButton.OK, MessageBoxImage.Stop);
                 return false;
@@ -151,23 +151,20 @@ namespace HRMana.Model.DAO
         {
             try
             {
-                var nhanvien = DataProvider.Instance.DBContext.NhanVien.Where(x => x.maNhanVien == nv.maNhanVien).FirstOrDefault();
+                var nhanvien = DataProvider.Instance.DBContext
+                    .NhanVien
+                    .Where(x => x.maNhanVien.Equals(nv.maNhanVien))
+                    .FirstOrDefault();
 
                 if (nhanvien != null)
                 {
                     nhanvien.tenNhanVien = nv.tenNhanVien;
                     nhanvien.gioiTinh = nv.gioiTinh;
                     nhanvien.ngaySinh = nv.ngaySinh;
-                    nhanvien.noiSinh = nv.noiSinh;
                     nhanvien.CCCD = nv.CCCD;
                     nhanvien.dienThoai = nv.dienThoai;
                     nhanvien.noiOHienTai = nv.noiOHienTai;
                     nhanvien.queQuan = nv.queQuan;
-                    nhanvien.emailCaNhan = nv.emailCaNhan;
-                    nhanvien.emailNoiBo = nv.emailNoiBo;
-                    nhanvien.coSoLamViec = nv.coSoLamViec;
-                    nhanvien.loaiHinhLamViec = nv.loaiHinhLamViec;
-                    nhanvien.luongOffer = nv.luongOffer;
                     nhanvien.maHopDong = nv.maHopDong;
                     nhanvien.maHoSo = nv.maHoSo;
                     nhanvien.maChucVu = nv.maChucVu;

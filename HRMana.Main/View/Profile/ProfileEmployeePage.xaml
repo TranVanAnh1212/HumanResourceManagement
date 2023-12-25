@@ -9,7 +9,7 @@
       xmlns:local="clr-namespace:HRMana.Main.View.Profile"
       mc:Ignorable="d" FontSize="14"
       DataContext="{StaticResource profileVM}"
-      Name="profilePage"
+      Name="profilePage" 
       Title="ProfileEmployeePage">
 
     <i:Interaction.Triggers>
@@ -61,53 +61,101 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                
+
                 <GroupBox Header="Thông tin nhân viên" Margin="5,5,5,5">
                     <Grid>
-                        <TextBlock HorizontalAlignment="Left" Margin="10,18,0,0" TextWrapping="Wrap" Text="Mã nhân viên" VerticalAlignment="Top"/>
-                        <TextBox Text="{Binding MaNhanVien}" IsReadOnly="True" HorizontalAlignment="Left" Margin="110,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="270,19,0,0" TextWrapping="Wrap" Text="Tên nhân viên" VerticalAlignment="Top" Width="90"/>
-                        <TextBox Text="{Binding HoTen}" IsReadOnly="True" Margin="381,10,14,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBox Text="{Binding TenChucVu}" IsReadOnly="True" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="94,56,0,0" VerticalAlignment="Top" Width="164" Height="29"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="11,0,0,0" TextWrapping="Wrap" Text="Chức vụ:" VerticalAlignment="Center"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="7,119,0,0" TextWrapping="Wrap" Text="Trình độ :" VerticalAlignment="Top" />
-                        <TextBlock HorizontalAlignment="Left" Margin="287,118,0,0" TextWrapping="Wrap" Text="Chuyên môn :" VerticalAlignment="Top"/>
-                        <TextBox Text="{Binding TenChuyenMon}" IsReadOnly="True" HorizontalAlignment="Left" Margin="381,108,0,0" VerticalAlignment="Top" Width="234" Height="30"/>
-                        <TextBox Text="{Binding TenTrinhDo}" IsReadOnly="True" HorizontalAlignment="Left" Margin="93,108,0,0" VerticalAlignment="Top" Width="163" Height="30"/>
-                        <TextBox Text="{Binding TenPhong}" IsReadOnly="True" HorizontalAlignment="Left" Margin="382,60,0,0" VerticalAlignment="Top" Width="229" Height="29"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="283,65,0,0" TextWrapping="Wrap" Text="Phòng ban:" VerticalAlignment="Top"/>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock HorizontalAlignment="Left" Margin="10,18,15,10" TextWrapping="Wrap" Text="Mã nhân viên" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding MaNhanVien}" IsReadOnly="True" 
+                                 HorizontalAlignment="Stretch" Margin="10,14,10,10" TextWrapping="Wrap" VerticalAlignment="Top" />
+
+                        <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Margin="10,14,10,10" TextWrapping="Wrap" Text="Tên nhân viên" VerticalAlignment="Top" Width="90"/>
+                        <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding HoTen}" IsReadOnly="True" HorizontalAlignment="Stretch"
+                                 Margin="10,14,10,10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="10,14,10,10" TextWrapping="Wrap" Text="Chức vụ:" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TenChucVu}" IsReadOnly="True" 
+                                 TextWrapping="Wrap" HorizontalAlignment="Stretch" Margin="10,14,10,10" VerticalAlignment="Top"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Left" Margin="10,14,10,10" TextWrapping="Wrap" Text="Phòng ban:" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding TenPhong}" IsReadOnly="True" 
+                                 HorizontalAlignment="Stretch" Margin="10,14,10,10" VerticalAlignment="Top" />
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Margin="10,14,10,10" TextWrapping="Wrap" Text="Trình độ :" VerticalAlignment="Top" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TenChuyenMon}" IsReadOnly="True" 
+                                 HorizontalAlignment="Stretch" Margin="10,14,10,10" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" Margin="10,14,10,10" 
+                                   TextWrapping="Wrap" Text="Chuyên môn :" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding TenTrinhDo}" IsReadOnly="True" 
+                                 HorizontalAlignment="Stretch" Margin="10,14,10,10" VerticalAlignment="Top" />
 
                     </Grid>
                 </GroupBox>
 
                 <GroupBox Grid.Row="1" Header="Hồ sơ" Margin="5,5,5,5">
                     <Grid>
-                        <TextBlock HorizontalAlignment="Left" Margin="15,8,0,0" TextWrapping="Wrap" Text="Mã hồ sơ" VerticalAlignment="Top"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="289,8,0,0" TextWrapping="Wrap" Text="Sơ yếu lý lịch" VerticalAlignment="Top" Width="90"/>
-                        <TextBox Text="{Binding MaHoSo}" IsReadOnly="True" HorizontalAlignment="Left" Margin="89,3,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="132"/>
-                        <TextBox Text="{Binding SoYeuLyLich}" Margin="401,0,33,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="14,55,0,0" TextWrapping="Wrap" Text="Giấy khai sinh" VerticalAlignment="Top" Width="90"/>
-                        <TextBox Text="{Binding GiayKhaiSinh}" Margin="110,46,382,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="289,59,0,0" TextWrapping="Wrap" Text="Sổ hộ khẩu" VerticalAlignment="Top" Width="90"/>
-                        <TextBox Text="{Binding SoHoKhau}" Margin="388,50,53,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="13,100,0,0" TextWrapping="Wrap" Text="Bằng tốt nghiệp" VerticalAlignment="Top" Width="100"/>
-                        <TextBox Text="{Binding BangTotNghiep}" Margin="123,96,382,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="289,105,0,0" TextWrapping="Wrap" Text="Giấy khám SK" VerticalAlignment="Top" Width="90"/>
-                        <TextBox Text="{Binding GiayKhamSK}" Margin="388,96,53,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="18,154,0,0" TextWrapping="Wrap" Text="Ảnh thẻ" VerticalAlignment="Top" Width="62"/>
-                        <TextBox Text="{Binding AnhThe}" Margin="84,145,382,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="291,149,0,0" TextWrapping="Wrap" Text="Tình trạng Hồ sơ" VerticalAlignment="Top" Width="116"/>
-                        <TextBox Text="{Binding TinhTrangHoSo}" Margin="417,145,53,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="3,200,0,0" TextWrapping="Wrap" Text="Hình thức thanh toán lương" VerticalAlignment="Top"/>
-                        <TextBox Text="{Binding HinhThucThanhToanLuong}" Margin="173,196,281,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="23,253,0,0" TextWrapping="Wrap" Text="Số tài khoản ngân hàng" VerticalAlignment="Top"/>
-                        <TextBox Text="{Binding SoTkNganHang}" Margin="178,248,197,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="360,205,0,0" TextWrapping="Wrap" Text="Ngân hàng" VerticalAlignment="Top" Width="76"/>
-                        <TextBox Text="{Binding NganHang}" Margin="448,196,7,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="3,308,0,0" TextWrapping="Wrap" Text="Mã số thuế" VerticalAlignment="Top" Width="76"/>
-                        <TextBox Text="{Binding MaSoThue}" Margin="98,299,367,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                        <TextBlock HorizontalAlignment="Left" Margin="318,308,0,0" TextWrapping="Wrap" Text="Mã số BHXH" VerticalAlignment="Top" Width="100"/>
-                        <TextBox Text="{Binding MaSoBHXH}" Margin="448,299,17,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock HorizontalAlignment="Left" Margin="10,10,10,10" TextWrapping="Wrap" Text="Mã hồ sơ" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding MaHoSo}" IsReadOnly="True" 
+                                 HorizontalAlignment="Stretch" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" Text="Sơ yếu lý lịch" VerticalAlignment="Top" Width="90"/>
+                        <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding SoYeuLyLich}" Margin="10" TextWrapping="Wrap" 
+                                 VerticalAlignment="Top"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" Text="Giấy khai sinh" VerticalAlignment="Top" Width="90"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding GiayKhaiSinh}" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" Text="Sổ hộ khẩu" VerticalAlignment="Top" Width="90"/>
+                        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding SoHoKhau}" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" Text="Bằng tốt nghiệp" VerticalAlignment="Top" Width="100"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding BangTotNghiep}" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" Text="Giấy khám SK" VerticalAlignment="Top" Width="90"/>
+                        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding GiayKhamSK}" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" 
+                                   Text="Ảnh 3x4" VerticalAlignment="Top" Width="62"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding AnhThe}" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" Text="Tình trạng Hồ sơ" VerticalAlignment="Top" Width="116"/>
+                        <TextBox Grid.Row="3" Grid.Column="3" Text="{Binding TinhTrangHoSo}" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+                        <TextBlock Grid.Row="4" HorizontalAlignment="Left" Margin="10"
+                                   TextWrapping="Wrap" Text="Hình thức thanh toán lương" VerticalAlignment="Top" Height="43" Grid.RowSpan="2" Width="110"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding HinhThucThanhToanLuong}" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" Text="Ngân hàng" VerticalAlignment="Top" Width="76"/>
+                        <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding NganHang}" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+                        <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" Text="Số tài khoản ngân hàng" VerticalAlignment="Top"/>
+                        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SoTkNganHang}" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+                        <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" Text="Mã số thuế" VerticalAlignment="Top" Width="76"/>
+                        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding MaSoThue}" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                        <TextBlock Grid.Row="6" Grid.Column="2" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" Text="Mã số BHXH" VerticalAlignment="Top" Width="100"/>
+                        <TextBox Grid.Row="6" Grid.Column="3" Text="{Binding MaSoBHXH}" Margin="1" TextWrapping="Wrap" VerticalAlignment="Top"/>
                     </Grid>
                 </GroupBox>
             </Grid>
@@ -121,18 +169,24 @@
                 <TextBox Text="{Binding LuongCoBan}" HorizontalAlignment="Left" Margin="109,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165"  />
                 <TextBlock HorizontalAlignment="Left" Margin="31,61,0,0" TextWrapping="Wrap" Text="Bậc lương" VerticalAlignment="Top"/>
                 <TextBlock HorizontalAlignment="Left" Margin="7,106,0,0" TextWrapping="Wrap" Text="Lương cơ bản" VerticalAlignment="Top" />-->
+
                         <TextBlock HorizontalAlignment="Left" Margin="6,16,0,0" TextWrapping="Wrap" Text="Hợp đồng lao động" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF273996"/>
 
-                        <TextBox IsReadOnly="True" Text="{Binding SoHopDong}" HorizontalAlignment="Left" Margin="109,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" />
-                        <TextBox IsReadOnly="True" Text="{Binding LoaiHopDong}" HorizontalAlignment="Left" Margin="109,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" Height="30"/>
-                        <TextBox IsReadOnly="True" Text="{Binding NgayBDHD}" HorizontalAlignment="Left" Margin="109,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" Height="30"/>
-                        <TextBox IsReadOnly="True" Text="{Binding MaHopDong}" HorizontalAlignment="Left" Margin="109,87,0,0" VerticalAlignment="Top" Width="147" Height="29"/>
                         <TextBlock HorizontalAlignment="Left" Margin="26,47,0,0" TextWrapping="Wrap" Text="HĐLĐ số :" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding SoHopDong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" 
+                                 Margin="109,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" />
                         <TextBlock HorizontalAlignment="Left" Margin="35,97,0,0" TextWrapping="Wrap" Text="Mã HĐ :" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding MaHopDong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" 
+                                 Margin="109,87,0,0" VerticalAlignment="Top" Width="147" />
                         <TextBlock HorizontalAlignment="Left" Margin="29,144,0,0" TextWrapping="Wrap" Text="Loại HĐ :" VerticalAlignment="Top" />
+                        <TextBox Text="{Binding LoaiHopDong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" 
+                                 Margin="109,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" />
                         <TextBlock HorizontalAlignment="Left" Margin="12,198,0,0" TextWrapping="Wrap" Text="Ngày bắt đầu:" VerticalAlignment="Top"/>
+                        <TextBox Text="{Binding NgayBDHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" 
+                                 Margin="109,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" />
                         <TextBlock HorizontalAlignment="Left" Margin="38,245,0,0" TextWrapping="Wrap" Text="Thời hạn:" VerticalAlignment="Top"/>
-                        <TextBox IsReadOnly="True" Text="{Binding ThoiHanHD}" HorizontalAlignment="Left" Margin="109,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" Height="30"/>
+                        <TextBox Text="{Binding ThoiHanHD, StringFormat={}{0: dd/MM/yyyy}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" 
+                                 Margin="109,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" />
                     </Grid>
                 </GroupBox>
 

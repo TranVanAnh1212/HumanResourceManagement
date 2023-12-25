@@ -23,22 +23,16 @@ namespace HRMana.Main.ViewModel
     {
         #region Khai báo biến
 
-        private int _maNhanVien;
+        private string _maNhanVien;
         private string _hoTen;
         private string _gioiTinh;
         private bool _Nam_Checked;
         private bool _Nu_Checked;
         private string _ngaySinh;
-        private string _noiSinh;
         private string _cccd;
         private string _dienThoai;
         private string _noiOHienTai;
         private string _QueQuan;
-        private string _emailCaNhan;
-        private string _emailNoiBo;
-        private string _coSoLamViec;
-        private string _loaiHinhLamViec;
-        private string _luongOffer;
         private int _maHoSo;
         private int _maChucVu;
         private string _tenChucVu;
@@ -71,6 +65,11 @@ namespace HRMana.Main.ViewModel
         private string _message;
         private string _fill;
 
+        private string _permission_ADD;
+        private string _permission_VIEW;
+        private string _permission_EDIT;
+        private string _permission_DEL;
+
         public ICommand Update_NhanVienCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand Delete_NhanVienCommand { get; set; }
@@ -78,7 +77,7 @@ namespace HRMana.Main.ViewModel
         public ICommand ExitCommand { get; set; }
         public ICommand ChooseImageCommand { get; set; }
 
-        public int MaNhanVien
+        public string MaNhanVien
         {
             get => _maNhanVien;
             set
@@ -99,16 +98,10 @@ namespace HRMana.Main.ViewModel
             }
         }
         public string NgaySinh { get => _ngaySinh; set { _ngaySinh = value; OnPropertyChanged(); } }
-        public string NoiSinh { get => _noiSinh; set { _noiSinh = value; OnPropertyChanged(); } }
         public string Cccd { get => _cccd; set { _cccd = value; OnPropertyChanged(); } }
         public string DienThoai { get => _dienThoai; set { _dienThoai = value; OnPropertyChanged(); } }
         public string NoiOHienTai { get => _noiOHienTai; set { _noiOHienTai = value; OnPropertyChanged(); } }
         public string QueQuan { get => _QueQuan; set { _QueQuan = value; OnPropertyChanged(); } }
-        public string EmailCaNhan { get => _emailCaNhan; set { _emailCaNhan = value; OnPropertyChanged(); } }
-        public string EmailNoiBo { get => _emailNoiBo; set { _emailNoiBo = value; OnPropertyChanged(); } }
-        public string CoSoLamViec { get => _coSoLamViec; set { _coSoLamViec = value; OnPropertyChanged(); } }
-        public string LoaiHinhLamViec { get => _loaiHinhLamViec; set { _loaiHinhLamViec = value; OnPropertyChanged(); } }
-        public string LuongOffer { get => _luongOffer; set { _luongOffer = value; OnPropertyChanged(); } }
         public int MaHoSo { get => _maHoSo; set { _maHoSo = value; OnPropertyChanged(); } }
         public int MaChucVu { get => _maChucVu; set { _maChucVu = value; OnPropertyChanged(); } }
         public string TenChucVu { get => _tenChucVu; set { _tenChucVu = value; OnPropertyChanged(); } }
@@ -230,10 +223,15 @@ namespace HRMana.Main.ViewModel
 
         public string Fill { get => _fill; set { _fill = value; OnPropertyChanged(); } }
 
+        public string Permission_ADD { get => _permission_ADD; set { _permission_ADD = value; OnPropertyChanged(); } }
+        public string Permission_VIEW { get => _permission_VIEW; set { _permission_VIEW = value; OnPropertyChanged(); } }
+        public string Permission_EDIT { get => _permission_EDIT; set { _permission_EDIT = value; OnPropertyChanged(); } }
+        public string Permission_DEL { get => _permission_DEL; set { _permission_DEL = value; OnPropertyChanged(); } }
+
         #endregion
 
 
-        public PersonnelDetailsViewModel(int maNhanVien)
+        public PersonnelDetailsViewModel(string maNhanVien)
         {
             MaNhanVien = maNhanVien;
             Initialize();
@@ -253,6 +251,28 @@ namespace HRMana.Main.ViewModel
                 {
                     Task loading_Task = new Task(() =>
                     {
+                        var permissions = new Dictionary<string, string>
+                            {
+                                { "VIEW", CommonConstant.Visibility_Visible },
+                                { "ADD", CommonConstant.Visibility_Collapsed },
+                                { "EDIT", CommonConstant.Visibility_Collapsed },
+                                { "DEL", CommonConstant.Visibility_Collapsed },
+                            };
+                        var checkPermission = CommonConstant.DsQuyenCuaTKDN;
+                        foreach (var i in checkPermission)
+                        {
+                            if (permissions.ContainsKey(i.Chitiet_Quyen.mahanhDong))
+                            {
+                                permissions[i.Chitiet_Quyen.mahanhDong] = CommonConstant.Visibility_Visible;
+                            }
+                        }
+
+                        // Gán giá trị từ dictionary vào các biến
+                        Permission_ADD = permissions["ADD"];
+                        Permission_EDIT = permissions["EDIT"];
+                        Permission_DEL = permissions["DEL"];
+                        Permission_VIEW = permissions["VIEW"];
+
                         GetList_BacLuong();
                         GetList_ChucVu();
                         GetList_ChuyenMon();
@@ -315,16 +335,10 @@ namespace HRMana.Main.ViewModel
                             tenNhanVien = HoTen,
                             gioiTinh = GioiTinh,
                             ngaySinh = Convert.ToDateTime(NgaySinh),
-                            noiSinh = NoiSinh,
                             CCCD = Cccd,
                             dienThoai = DienThoai,
                             noiOHienTai = NoiOHienTai,
                             queQuan = QueQuan,
-                            emailCaNhan = EmailCaNhan,
-                            emailNoiBo = EmailNoiBo,
-                            coSoLamViec = CoSoLamViec,
-                            loaiHinhLamViec = LoaiHinhLamViec,
-                            luongOffer = StringHelper.ConvertSalary(LuongOffer),
                             anhThe = Path.GetFileName(AnhThe),
                             maHoSo = MaHoSo,
                             maHopDong = MaHopDong,
@@ -363,7 +377,7 @@ namespace HRMana.Main.ViewModel
 
         private void Get_NhanVien_ByMaNhanVien()
         {
-            if (MaNhanVien != 0)
+            if ( !string.IsNullOrEmpty(MaNhanVien))
             {
                 var nv = new NhanVienDAO().Get_NhanVien_By_MaNhanVien(MaNhanVien);
 
@@ -373,17 +387,10 @@ namespace HRMana.Main.ViewModel
                     Nam_Checked = (nv.gioiTinh == "Nam" ? true : false);
                     Nu_Checked = (nv.gioiTinh == "Nữ" ? true : false);
                     NgaySinh = nv.ngaySinh.ToString("dd/MM/yyyy");
-                    NoiSinh = nv.noiSinh;
                     Cccd = nv.CCCD;
                     DienThoai = nv.dienThoai;
                     NoiOHienTai = nv.noiOHienTai;
                     QueQuan = nv.queQuan;
-                    EmailCaNhan = nv.emailCaNhan;
-                    EmailNoiBo = nv.emailNoiBo;
-                    CoSoLamViec = nv.coSoLamViec;
-                    LoaiHinhLamViec = nv.loaiHinhLamViec;
-                    LuongOffer = nv.luongOffer.ToString();
-                    MaHoSo = nv.maHoSo;
                     MaChucVu = nv.maChucVu;
                     SelectedChucVu = ListChucVu.Where(x => x.maChucVu == nv.maChucVu).SingleOrDefault();
                     MaPhong = nv.maPhong;
@@ -396,7 +403,7 @@ namespace HRMana.Main.ViewModel
                     SelectedTonGiao = ListTonGiao.SingleOrDefault(x => x.maTonGiao == nv.maTonGiao);
                     MaChuyenMon = nv.maChuyenMon;
                     SelectedChuyenMon = ListChuyenMon.SingleOrDefault(x => x.maChuyenMon == nv.maChuyenMon);
-                    MaHopDong = nv.maHopDong;
+                    MaHopDong = (int)nv.maHopDong;
                     //SoHopDong = nv.HopDong.soHopDong;
                     AnhThe = (nv.anhThe == null) ? "..\\..\\Assets\\NhanVien_Image\\DefaultAvatar.jpg" :
                         AppDomain.CurrentDomain.BaseDirectory + "NhanVien_Image\\" + nv.anhThe;

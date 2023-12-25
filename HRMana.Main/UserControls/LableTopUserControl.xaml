@@ -24,7 +24,8 @@
             <!--Nút backward-->
             <Button HorizontalAlignment="Left" Background="Transparent" BorderBrush="#303030"
                     VerticalAlignment="Top" Margin="10 0 0 0" Height="25" Width="25"
-                    Command="{x:Static NavigationCommands.BrowseBack}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" ToolTip="Back">
+                    Command="{x:Static NavigationCommands.BrowseBack}" 
+                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" ToolTip="Back">
                 <materialDesign:PackIcon Kind="KeyboardArrowLeft" Height="20" Width="20" />
             </Button>
 

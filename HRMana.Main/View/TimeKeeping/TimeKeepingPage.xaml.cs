@@ -24,6 +24,7 @@ namespace HRMana.Main.View.TimeKeeping
         {
             InitializeComponent();
         }
+
         private void Format_Salary_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox tb = sender as TextBox;

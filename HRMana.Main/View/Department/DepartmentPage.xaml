@@ -7,7 +7,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       xmlns:local="clr-namespace:HRMana.Main.View.Department"
-      mc:Ignorable="d" FontSize="14"
+      mc:Ignorable="d" FontSize="14" 
       DataContext="{StaticResource departmentVM}"
       x:Name="departmentPage"
       Title="DepartmentPage">
@@ -44,7 +44,8 @@
                     <TextBlock HorizontalAlignment="Left" Height="30" Margin="210,54,0,0" TextWrapping="Wrap" Text="Mã phòng ban" VerticalAlignment="Top" Width="96" TextAlignment="Right"/>
                     <TextBox IsReadOnly="True" Text="{Binding MaPhong}" HorizontalAlignment="Left" Height="30" Margin="325,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="312"/>
                     <TextBlock HorizontalAlignment="Left" Height="30" Margin="209,102,0,0" TextWrapping="Wrap" Text="Tên phòng ban" VerticalAlignment="Top" Width="97" TextAlignment="Right"/>
-                    <TextBox TextChanged="UpperCaseFirstChar" HorizontalAlignment="Left" Text="{Binding TenPhong}" Height="30" Margin="325,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="312"/>
+                    <TextBox TextChanged="UpperCaseFirstChar" HorizontalAlignment="Left" Text="{Binding TenPhong}" 
+                             Height="30" Margin="325,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="312"/>
                     <TextBlock HorizontalAlignment="Left" Height="30" Margin="209,144,0,0" TextWrapping="Wrap" Text="Điện thoại" VerticalAlignment="Top" Width="97" TextAlignment="Right"/>
                     <TextBox x:Name="txt_dienThoai" TextChanged="txt_dienThoai_TextChanged" HorizontalAlignment="Left" Height="30" Text="{Binding Sdt}" Margin="325,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="312"/>
                     <TextBlock Text="Định dạng số điện thoại không đúng!" x:Name="txtbl_PhoneValidate" HorizontalAlignment="Left" Margin="325,172,0,0" TextWrapping="Wrap" FontSize="10" VerticalAlignment="Top"/>

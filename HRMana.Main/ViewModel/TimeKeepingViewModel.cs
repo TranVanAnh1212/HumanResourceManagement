@@ -22,7 +22,7 @@ namespace HRMana.Main.ViewModel
         private int _thang;
         private int _nam;
         private int _maChamCong;
-        private int _maNhanVien;
+        private string _maNhanVien;
         private string _tenNhanVien;
         private decimal _heSoLuong;
         private string _luongCoBan;
@@ -30,7 +30,7 @@ namespace HRMana.Main.ViewModel
         private string _ungTruoc;
         private string _conLai;
         private int _soNghiPhep;
-        private int _soNgayTangCa;
+        private int _soGioTangCa;
         private string _luongTangCa;
         private string _phuCapCongViec;
         private ObservableCollection<BacLuong> _DsBacLuong;
@@ -44,6 +44,8 @@ namespace HRMana.Main.ViewModel
         private string _permission_DEL;
         private List<int> _dsThang;
         private List<int> _dsNam;
+        private string _tongLuong;
+
         public ICommand LoadWindowCommand { get; set; }
         public ICommand Create_ChamCongCommand { get; set; }
         public ICommand Update_ChamCongCommand { get; set; }
@@ -79,11 +81,36 @@ namespace HRMana.Main.ViewModel
         }
 
         public int MaChamCong { get => _maChamCong; set { _maChamCong = value; OnPropertyChanged(); } }
-        public int MaNhanVien { get => _maNhanVien; set { _maNhanVien = value; OnPropertyChanged(); } }
+        public string MaNhanVien { get => _maNhanVien; set { _maNhanVien = value; OnPropertyChanged(); } }
         public string TenNhanVien { get => _tenNhanVien; set { _tenNhanVien = value; OnPropertyChanged(); } }
         public decimal HeSoLuong { get => _heSoLuong; set { _heSoLuong = value; OnPropertyChanged(); } }
-        public string LuongCoBan { get => _luongCoBan; set { _luongCoBan = value; OnPropertyChanged(); } }
-        public int SoNgayCong { get => _soNgayCong; set { _soNgayCong = value; OnPropertyChanged(); } }
+        public string LuongCoBan
+        {
+            get => _luongCoBan; set
+            {
+                _luongCoBan = value; OnPropertyChanged();
+                if (!string.IsNullOrEmpty(value))
+                {
+                    var tongLuong = Convert.ToInt32(TinhTongLuong(LuongCoBan, SoNgayCong, SoGioTangCa, LuongTangCa, PhuCapCongViec));
+
+                    TongLuong = tongLuong.ToString();
+                }
+            }
+        }
+        public int SoNgayCong
+        {
+            get => _soNgayCong; set
+            {
+                _soNgayCong = value; OnPropertyChanged();
+                if (value != 0)
+                {
+                    var tongLuong = Convert.ToInt32(TinhTongLuong(LuongCoBan, SoNgayCong, SoGioTangCa, LuongTangCa, PhuCapCongViec));
+
+                    TongLuong = tongLuong.ToString();
+
+                }
+            }
+        }
         public string UngTruoc
         {
             get => _ungTruoc;
@@ -94,19 +121,64 @@ namespace HRMana.Main.ViewModel
 
                 if (!string.IsNullOrEmpty(value))
                 {
-                    var lcb = StringHelper.ConvertSalary(LuongCoBan);
+                    var tl = StringHelper.ConvertSalary(TongLuong);
                     var ut = StringHelper.ConvertSalary(value);
-                    var cl = lcb - ut;
+                    var cl = Convert.ToInt32(tl - ut);
 
                     ConLai = cl.ToString();
+
                 }
             }
         }
         public string ConLai { get => _conLai; set { _conLai = value; OnPropertyChanged(); } }
         public int SoNghiPhep { get => _soNghiPhep; set { _soNghiPhep = value; OnPropertyChanged(); } }
-        public int SoNgayTangCa { get => _soNgayTangCa; set { _soNgayTangCa = value; OnPropertyChanged(); } }
-        public string LuongTangCa { get => _luongTangCa; set { _luongTangCa = value; OnPropertyChanged(); } }
-        public string PhuCapCongViec { get => _phuCapCongViec; set { _phuCapCongViec = value; OnPropertyChanged(); } }
+        public int SoGioTangCa
+        {
+            get => _soGioTangCa;
+            set
+            {
+                _soGioTangCa = value; OnPropertyChanged();
+                if (value != 0)
+                {
+                    decimal lcb = StringHelper.ConvertSalary(LuongCoBan);
+                    var ltc = Convert.ToInt32(TinhLuongTangCa(lcb, SoGioTangCa));
+
+                    LuongTangCa = ltc.ToString();
+
+                    var tongLuong = Convert.ToInt32(TinhTongLuong(LuongCoBan, SoNgayCong, SoGioTangCa, LuongTangCa, PhuCapCongViec));
+
+                    TongLuong = tongLuong.ToString();
+                }
+            }
+        }
+        public string LuongTangCa
+        {
+            get => _luongTangCa;
+            set
+            {
+                _luongTangCa = value; OnPropertyChanged();
+                if (!string.IsNullOrEmpty(value))
+                {
+                    var tongLuong = Convert.ToInt32(TinhTongLuong(LuongCoBan, SoNgayCong, SoGioTangCa, LuongTangCa, PhuCapCongViec));
+
+                    TongLuong = tongLuong.ToString();
+                }
+            }
+        }
+        public string PhuCapCongViec
+        {
+            get => _phuCapCongViec;
+            set
+            {
+                _phuCapCongViec = value; OnPropertyChanged();
+                if (!string.IsNullOrEmpty(value))
+                {
+                    var tongLuong = Convert.ToInt32(TinhTongLuong(LuongCoBan, SoNgayCong, SoGioTangCa, LuongTangCa, PhuCapCongViec));
+
+                    TongLuong = tongLuong.ToString();
+                }
+            }
+        }
 
         public ObservableCollection<BacLuong> DsBacLuong { get => _DsBacLuong; set { _DsBacLuong = value; OnPropertyChanged(); } }
         public BacLuong SelectedBacLuong
@@ -175,6 +247,15 @@ namespace HRMana.Main.ViewModel
 
         public List<int> DsThang { get => _dsThang; set => _dsThang = value; }
         public List<int> DsNam { get => _dsNam; set => _dsNam = value; }
+        public string TongLuong
+        {
+            get => _tongLuong;
+            set
+            {
+                _tongLuong = value;
+                OnPropertyChanged();
+            }
+        }
 
         public TimeKeepingViewModel()
         {
@@ -352,8 +433,9 @@ namespace HRMana.Main.ViewModel
                         maNhanVien = MaNhanVien,
                         heSoLuong = SelectedBacLuong.heSoLuong,
                         SoNgayCong = SoNgayCong,
-                        soNgayTangCa = SoNgayTangCa,
+                        soGioTangCa = SoGioTangCa,
                         ungTruocLuong = StringHelper.ConvertSalary(UngTruoc),
+                        tongNhan = StringHelper.ConvertSalary(TongLuong),
                         conLai = StringHelper.ConvertSalary(ConLai),
                         nghiPhep = SoNghiPhep,
                         luongTangCa = StringHelper.ConvertSalary(LuongTangCa),
@@ -393,13 +475,14 @@ namespace HRMana.Main.ViewModel
                 {
                     var cc = new ChamCong()
                     {
-                        Thang = Thang,
-                        Nam = Nam,
+                        thang = Thang,
+                        nam = Nam,
                         maNhanVien = MaNhanVien,
                         heSoLuong = SelectedBacLuong.heSoLuong,
                         SoNgayCong = SoNgayCong,
-                        soNgayTangCa = SoNgayTangCa,
+                        soGioTangCa = SoGioTangCa,
                         ungTruocLuong = StringHelper.ConvertSalary(UngTruoc),
+                        tongNhan = StringHelper.ConvertSalary(TongLuong),
                         conLai = StringHelper.ConvertSalary(ConLai),
                         nghiPhep = SoNghiPhep,
                         luongTangCa = StringHelper.ConvertSalary(LuongTangCa),
@@ -432,7 +515,7 @@ namespace HRMana.Main.ViewModel
             }
         }
 
-        private void Get_ChamCong(int mnv, int thang, int nam)
+        private void Get_ChamCong(string mnv, int thang, int nam)
         {
             try
             {
@@ -440,8 +523,8 @@ namespace HRMana.Main.ViewModel
 
                 if (result.maChamCong != 0)
                 {
-                    _thang = result.Thang.Value;
-                    _nam = result.Nam.Value;
+                    _thang = result.thang;
+                    _nam = result.nam;
                     MaNhanVien = result.maNhanVien;
                     MaChamCong = result.maChamCong;
                     TenNhanVien = result.NhanVien.tenNhanVien;
@@ -449,11 +532,12 @@ namespace HRMana.Main.ViewModel
                     HeSoLuong = result.heSoLuong;
                     LuongCoBan = result.BacLuong.luongCoBan.ToString();
                     SoNgayCong = Convert.ToInt32(result.SoNgayCong);
-                    SoNgayTangCa = (int)result.soNgayTangCa;
+                    SoGioTangCa = (int)result.soGioTangCa;
                     UngTruoc = result.ungTruocLuong.ToString();
+                    TongLuong = result.tongNhan.ToString();
                     ConLai = result.conLai.ToString();
                     SoNghiPhep = (int)result.nghiPhep;
-                    SoNgayTangCa = (int)result.soNgayTangCa;
+                    //SoGioTangCa = (int)result.soGioTangCa;
                     PhuCapCongViec = result.phuCapCongViec.ToString();
                 }
                 else
@@ -488,17 +572,18 @@ namespace HRMana.Main.ViewModel
             SelectedNhanVien = null;
             Thang = DateTime.Now.Month;
             Nam = DateTime.Now.Month;
-            MaNhanVien = 0;
+            MaNhanVien = string.Empty;
             MaChamCong = 0;
             TenNhanVien = string.Empty;
             HeSoLuong = 0;
             LuongCoBan = string.Empty;
             SoNgayCong = 0;
-            SoNgayTangCa = 0;
+            SoGioTangCa = 0;
             UngTruoc = string.Empty;
+            TongLuong = string.Empty;
             ConLai = string.Empty;
             SoNghiPhep = 0;
-            SoNgayTangCa = 0;
+            SoGioTangCa = 0;
             PhuCapCongViec = string.Empty;
             LuongTangCa = string.Empty;
         }
@@ -510,11 +595,11 @@ namespace HRMana.Main.ViewModel
             HeSoLuong = 0;
             LuongCoBan = string.Empty;
             SoNgayCong = 0;
-            SoNgayTangCa = 0;
+            SoGioTangCa = 0;
             UngTruoc = string.Empty;
             ConLai = string.Empty;
             SoNghiPhep = 0;
-            SoNgayTangCa = 0;
+            SoGioTangCa = 0;
             PhuCapCongViec = string.Empty;
             LuongTangCa = string.Empty;
         }
@@ -526,11 +611,11 @@ namespace HRMana.Main.ViewModel
             HeSoLuong = 0;
             LuongCoBan = string.Empty;
             SoNgayCong = 0;
-            SoNgayTangCa = 0;
+            SoGioTangCa = 0;
             UngTruoc = string.Empty;
             ConLai = string.Empty;
             SoNghiPhep = 0;
-            SoNgayTangCa = 0;
+            SoGioTangCa = 0;
             PhuCapCongViec = string.Empty;
             LuongTangCa = string.Empty;
         }
@@ -561,6 +646,40 @@ namespace HRMana.Main.ViewModel
             {
                 MessageBox.Show($"Có lỗi xảy ra, {ex.Message}");
             }
+        }
+
+        private decimal TinhTongLuong(string luongCoBan, int soNgayCong, int soGioTangCa, string luongTangCa, string phuCapCongViec)
+        {
+            decimal tongLuong = 0;
+
+            decimal lcb = 0;
+            decimal ltc = 0;
+            decimal pccv = 0;
+            decimal utl = 0;
+
+            if (!string.IsNullOrEmpty(luongCoBan))
+            {
+                lcb = StringHelper.ConvertSalary(luongCoBan);
+            }
+
+            if (!string.IsNullOrEmpty(luongTangCa))
+            {
+                ltc = StringHelper.ConvertSalary(luongTangCa);
+            }
+
+            if (!string.IsNullOrEmpty(phuCapCongViec))
+            {
+                pccv = StringHelper.ConvertSalary(phuCapCongViec);
+            }
+
+            tongLuong = (lcb + pccv) / 26 * soNgayCong + TinhLuongTangCa(lcb, soGioTangCa);
+
+            return tongLuong;
+        }
+
+        private decimal TinhLuongTangCa(decimal luongCoBan, int soGioTangCa)
+        {
+            return (luongCoBan / 26 / 8) * soGioTangCa;
         }
 
     }

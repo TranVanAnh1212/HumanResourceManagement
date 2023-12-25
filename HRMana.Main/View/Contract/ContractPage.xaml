@@ -7,9 +7,9 @@
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:local="clr-namespace:HRMana.Main.View.Contract"
-      mc:Ignorable="d"
+      mc:Ignorable="d" 
       DataContext="{StaticResource contractVM}" FontSize="14"
-      x:Name="contractPage"
+      x:Name="contractPage" Background="White" Height="500"
       Title="ContractPage">
 
     <i:Interaction.Triggers>
@@ -59,8 +59,8 @@
         <Grid Grid.Row="1">
 
             <Grid.RowDefinitions>
-                <RowDefinition/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
@@ -96,35 +96,35 @@
                         <TextBlock Text="Số hợp đồng không được bỏ trống" x:Name="txtbl_SoHopDongValidate" FontSize="10" Foreground="Red" Margin="254,44,10,0"/>
                     </Grid>
 
-                    <Grid Grid.Row="2">
+                    <Grid Grid.Row="0" Grid.Column="1">
 
                         <TextBlock Text="Ngày ký hợp đồng" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                                   Margin="138,14,0,0"></TextBlock>
+                                   Margin="10,14,0,0"></TextBlock>
                         <DatePicker SelectedDate="{Binding NgayKyHopDong}" HorizontalAlignment="Left" 
-                                    Margin="274,14,0,0" VerticalAlignment="Top" Width="262"/>
+                                    Margin="147,14,0,0" VerticalAlignment="Top" Width="275"/>
                     </Grid>
 
-                    <Grid Grid.Row="3">
+                    <Grid Grid.Row="1" Grid.Column="1">
 
                         <TextBlock Text="Ngày kết thúc hợp đồng" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                                   Margin="138,14,10,10"></TextBlock>
+                                   Margin="10,18,0,0"></TextBlock>
                         <DatePicker SelectedDate="{Binding NgayKetThucHopDong}" HorizontalAlignment="Left" 
-                                    VerticalAlignment="Top" Margin="317,14,10,10" Width="221"></DatePicker>
+                                    VerticalAlignment="Top" Margin="191,10,0,0" Width="234" x:Name="dpNgayKTHD"></DatePicker>
                     </Grid>
 
-                    <Grid Grid.Row="0" Grid.Column="1">
-                        <TextBlock Text="Loại hợp đồng" VerticalAlignment="Top" HorizontalAlignment="Left" 
-                                   Margin="9,14,10,10"></TextBlock>
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <TextBlock Text="Loại hợp đồng" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                   Margin="130,0,0,0"></TextBlock>
                         <!--<TextBox Text="{Binding LoaiHopDong}" TextChanged="UpperCaseFirstChar" Width="283" 
                                  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="142,14,10,10"></TextBox>-->
 
-                        <StackPanel Orientation="Horizontal"  Margin="142,0,0,0">
+                        <StackPanel Orientation="Horizontal"  Margin="250,0,0,0">
                             <RadioButton Content="Có thời hạn" IsChecked="{Binding Rdb_CTHChecked}" Margin="0 0 15 0" Name="rdb_CoThoiHan" Checked="cb_KhongThoiHan_Checked"/>
                             <RadioButton Content="Không thời hạn" IsChecked="{Binding Rdb_KTHChecked}" x:Name="cb_KhongThoiHan" Checked="cb_KhongThoiHan_Checked"/>
                         </StackPanel>
                     </Grid>
 
-                    <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid Grid.Row="3" Grid.Column="1">
                         <TextBlock Text="Tình trạng chữ ký" HorizontalAlignment="Left" VerticalAlignment="Top" 
                                    Margin="9,14,10,10"></TextBlock>
                         <TextBox Text="{Binding TinhTrangChuKy}" TextChanged="UpperCaseFirstChar" 

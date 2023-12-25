@@ -18,8 +18,6 @@ namespace HRMana.Main.View.Personnel
         {
             InitializeComponent();
             txtbl_PhoneErrorValidate.Visibility = Visibility.Collapsed;
-            txtbl_EmailCNValidate.Visibility = Visibility.Collapsed;
-            txtbl_EmailNBValidate.Visibility = Visibility.Collapsed;
             txtbl_BirthdayValidate.Visibility = Visibility.Collapsed;
 
             NotificationEvent.Instance.ShowNotificationRequested += async (sender, e) =>
@@ -40,19 +38,6 @@ namespace HRMana.Main.View.Personnel
                 catch (Exception exep) { }
             };
 
-        }
-
-        private void txt_LuongOffer_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox tb = sender as TextBox;
-
-            if (tb.Text.Length > 0)
-            {
-                double value = 0;
-                double.TryParse(txt_LuongOffer.Text, out value);
-                tb.Text = value.ToString("N0");
-                tb.CaretIndex = tb.Text.Length;
-            }
         }
 
         private void txt_PhoneNumber_TextChanged(object sender, TextChangedEventArgs e)
@@ -87,58 +72,6 @@ namespace HRMana.Main.View.Personnel
                         txtbl_PhoneErrorValidate.Visibility = Visibility.Collapsed;
 
                     }
-                }
-            }
-        }
-
-        private void txt_EmailCN_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox txt = sender as TextBox;
-
-            if (txt.Text.Length == 0)
-            {
-                btn_CreateNew.IsEnabled = true;
-                txtbl_EmailCNValidate.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                if (!StringHelper.IsValidEmail(txt.Text))
-                {
-                    txtbl_EmailCNValidate.Visibility = Visibility.Visible;
-                    txtbl_EmailCNValidate.Foreground = new SolidColorBrush(Colors.Red);
-                    btn_CreateNew.IsEnabled = false;
-                }
-                else
-                {
-                    btn_CreateNew.IsEnabled = true;
-                    txtbl_EmailCNValidate.Visibility = Visibility.Collapsed;
-
-                }
-            }
-        }
-
-        private void txt_EmailNB_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox txt = sender as TextBox;
-
-            if (txt.Text.Length == 0)
-            {
-                btn_CreateNew.IsEnabled = true;
-                txtbl_EmailNBValidate.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                if (!StringHelper.IsValidEmail(txt.Text))
-                {
-                    txtbl_EmailNBValidate.Visibility = Visibility.Visible;
-                    txtbl_EmailNBValidate.Foreground = new SolidColorBrush(Colors.Red);
-                    btn_CreateNew.IsEnabled = false;
-                }
-                else
-                {
-                    btn_CreateNew.IsEnabled = true;
-                    txtbl_EmailNBValidate.Visibility = Visibility.Collapsed;
-
                 }
             }
         }

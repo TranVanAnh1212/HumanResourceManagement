@@ -68,7 +68,7 @@ namespace HRMana.Main
         {
             if (e.Key == Key.Enter)
             {
-                txt_Password.Focus(); 
+                txt_Password.Focus();
             }
         }
 
@@ -82,5 +82,28 @@ namespace HRMana.Main
                 }
             }
         }
+
+        private void Grid_Top_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void btn_Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        //private void LoginWindow_MouseMove(object sender, MouseEventArgs e)
+        //{
+        //    if (e.LeftButton == MouseButtonState.Pressed)
+        //    {
+        //        // Kiểm tra nếu thanh Taskbar được nhấn và di chuột lên trên đầu tiên của màn hình
+        //        if (e.GetPosition(this).Y <= 0 && Mouse.Captured == null)
+        //        {
+        //            // Phóng to cửa sổ
+        //            this.WindowState = WindowState.Maximized;
+        //        }
+        //    }
+        //}
     }
 }

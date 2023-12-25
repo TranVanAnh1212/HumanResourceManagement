@@ -153,9 +153,6 @@
     <Compile Include="ViewModel\SearchViewModel.cs" />
     <Compile Include="ViewModel\TimeKeepingViewModel.cs" />
     <Compile Include="ViewModel\WorkingRotationViewModel.cs" />
-    <Compile Include="View\CheDo\RegimePage.xaml.cs">
-      <DependentUpon>RegimePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Contract\ContractPage.xaml.cs">
       <DependentUpon>ContractPage.xaml</DependentUpon>
     </Compile>
@@ -260,10 +257,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\LableTopUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CheDo\RegimePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -77,11 +77,13 @@ namespace HRMana.Main.View.Contract
             if (cb_KhongThoiHan.IsChecked == true)
             {
                 txt_THHD.IsEnabled = false;
+                dpNgayKTHD.IsEnabled = false;
             }
 
             if (rdb_CoThoiHan.IsChecked == true)
             {
                 txt_THHD.IsEnabled = true;
+                dpNgayKTHD.IsEnabled = true;
             }
         }
     }

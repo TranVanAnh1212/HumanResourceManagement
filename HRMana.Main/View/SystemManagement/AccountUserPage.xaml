@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
-      mc:Ignorable="d" FontSize="14" Background="White"
+      mc:Ignorable="d" 
       DataContext="{StaticResource taiKhoanVM}"
       Title="AccountUserPage">
 

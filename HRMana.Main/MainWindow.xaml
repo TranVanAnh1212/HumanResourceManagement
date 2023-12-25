@@ -31,181 +31,191 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
+    <Border CornerRadius="3" BorderThickness="2">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
+                <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.5"/>
+                <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
 
-        <Grid Grid.Row="0">
-            <uc:ControlBarUserControl/>
-        </Grid>
-
-        <Grid Grid.Row="1" Margin="0, 10, 0, 0">
-
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <materialDesign:Card>
-                    <Menu Height="35" materialDesign:MenuAssist.TopLevelMenuItemHeight="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type materialDesign:Card}}, Path=ActualHeight}" Padding="10,0">
-                        <MenuItem Header="Hệ thống">
-                            <!--<MenuItem.Icon>
+                <uc:ControlBarUserControl/>
+            </Grid>
+
+            <Grid Grid.Row="1" Margin="0, 10, 0, 0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <materialDesign:Card>
+                        <Menu Height="35" materialDesign:MenuAssist.TopLevelMenuItemHeight="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type materialDesign:Card}}, Path=ActualHeight}" Padding="10,0">
+                            <MenuItem Header="Hệ thống">
+                                <!--<MenuItem.Icon>
                                 <materialDesign:PackIcon Kind="WrenchCogOutline" />
                             </MenuItem.Icon>-->
 
-                            <MenuItem Header="Về trang chủ" x:Name="GoHome_MenuItem" Click="GoHome_MenuItem_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="Home" />
-                                </MenuItem.Icon>
-                            </MenuItem>
+                                <MenuItem Header="Về trang chủ" x:Name="GoHome_MenuItem" Click="GoHome_MenuItem_Click">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="Home" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
 
-                            <MenuItem Header="Tài khoản người dùng" Visibility="{Binding Permission_MUSER}" 
+                                <MenuItem Header="Tài khoản người dùng" Visibility="{Binding Permission_MUSER}" 
                                       x:Name="createAccUser_MenuItem" Click="createAccUser_MenuItem_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="AccountCircle" />
-                                </MenuItem.Icon>
-                            </MenuItem>
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="AccountCircle" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
 
-                            <MenuItem Header="Phân quyền" Visibility="{Binding Permission_MUSER}" 
+                                <MenuItem Header="Phân quyền" Visibility="{Binding Permission_MUSER}" 
                                       x:Name="accountAuthentication_Item" Click="accountAuthentication_Item_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="AccountCog" />
-                                </MenuItem.Icon>
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="AccountCog" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+
+                                <MenuItem Header="Đổi mật khẩu" x:Name="changedPassword_Item" Click="changedPassword_Item_Click">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="AccountReactivate" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <Separator/>
+
+                                <MenuItem Header="Đăng xuất" x:Name="LogOut_MenuItem" Command="{Binding LogoutCommand}" CommandParameter="mainWindow">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="Logout" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+
+                                <MenuItem Header="Thoát" x:Name="Exit_MenuItem" Command="{Binding ExitCommand}" CommandParameter="mainWindow">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="Power" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
                             </MenuItem>
 
-                            <MenuItem Header="Đổi mật khẩu" x:Name="changedPassword_Item" Click="changedPassword_Item_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="AccountReactivate" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <Separator/>
-
-                            <MenuItem Header="Đăng xuất" x:Name="LogOut_MenuItem" Command="{Binding LogoutCommand}" CommandParameter="mainWindow">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="Logout" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-
-                            <MenuItem Header="Thoát" x:Name="Exit_MenuItem" Command="{Binding ExitCommand}" CommandParameter="mainWindow">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="Power" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                        </MenuItem>
-
-                        <MenuItem Header="Hồ sơ">
-                            <MenuItem Header="Hồ sơ nhân viên" x:Name="profile_Item" Click="profile_Item_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="CardAccountDetailsOutline" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem Header="Điều động công tác" x:Name="workingRotationItem" Click="workingRotationItem_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="PuzzleEditOutline" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem Header="Hợp đồng lao động" x:Name="contract_Item" Click="contract_Item_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="IdCard" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                        </MenuItem>
-
-                        <MenuItem Header="Nhân sự">
-                            <MenuItem Header="Danh sách nhân sự" x:Name="listPersonel" Click="listPersonel_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="FormatListChecks" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem Header="Thêm nhân sự mới" Visibility="{Binding Permission_ADD}" x:Name="createPersonnel_item" Click="createPersonnel_item_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="AccountMultiplePlus" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                        </MenuItem>
-
-                        <MenuItem Header="Lương">
-                            <MenuItem Header="Chấm công" x:Name="TimeKeeping_Item" Click="TimeKeeping_Item_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="BookOpenPageVariantOutline" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem Header="Danh mục bậc lương" x:Name="salaryItem" Click="salaryItem_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="CurrencyUsd" />
-                                </MenuItem.Icon>
+                            <MenuItem Header="Hồ sơ">
+                                <MenuItem Header="Hồ sơ nhân viên" x:Name="profile_Item" Click="profile_Item_Click">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="CardAccountDetailsOutline" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Điều động công tác" x:Name="workingRotationItem" Click="workingRotationItem_Click">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="PuzzleEditOutline" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Hợp đồng lao động" x:Name="contract_Item" Click="contract_Item_Click">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="IdCard" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
                             </MenuItem>
 
-                        </MenuItem>
+                            <MenuItem Header="Nhân sự">
+                                <MenuItem Header="Danh sách nhân sự" x:Name="listPersonel" Click="listPersonel_Click">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="FormatListChecks" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Thêm nhân sự mới" Visibility="{Binding Permission_ADD}" 
+                                      x:Name="createPersonnel_item" Click="createPersonnel_item_Click">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="AccountMultiplePlus" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </MenuItem>
 
-                        <MenuItem Header="Danh mục">
-                            <MenuItem Header="Danh mục chức vụ" x:Name="positionItem" Click="positionItem_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="Seat" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem Header="Danh mục phòng ban" x:Name="department_Item" Click="department_Item_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="DoorSliding" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem Header="Danh mục trình độ" x:Name="qualification_Item" Click="quantification_Item_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="SchoolOutline" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <!--<MenuItem Header="Danh mục chế độ"/>-->
-                            <MenuItem Header="Danh mục chuyên môn" x:Name="expertiseItem" Click="expertiseItem_Click"/>
-                            <MenuItem Header="Danh mục dân tộc" x:Name="peopleItem" Click="peopleItem_Click"/>
-                            <MenuItem Header="Danh mục tôn giáo" x:Name="religionItem" Click="religionItem_Click"/>
-                        </MenuItem>
+                            <MenuItem Header="Lương">
+                                <MenuItem Header="Chấm công" x:Name="TimeKeeping_Item" Click="TimeKeeping_Item_Click">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="BookOpenPageVariantOutline" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Danh mục bậc lương" x:Name="salaryItem" Click="salaryItem_Click">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="CurrencyUsd" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
 
-                        <MenuItem Header="Thống kê - báo cáo">
-                            <MenuItem Header="Xuất báo cáo" x:Name="exportReport_Item" Click="ExportReport_Item_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="ArrowUpBox" />
-                                </MenuItem.Icon>
                             </MenuItem>
-                            
-                        </MenuItem>
 
-                        <MenuItem Header="Tìm kiếm">
-                            <MenuItem Header="Tìm kiếm nhân viên" x:Name="search_Item" Click="search_Item_Click">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="Magnify" />
-                                </MenuItem.Icon>    
+                            <MenuItem Header="Danh mục">
+                                <MenuItem Header="Danh mục chức vụ" x:Name="positionItem" Click="positionItem_Click">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="Seat" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Danh mục phòng ban" x:Name="department_Item" Click="department_Item_Click">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="DoorSliding" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Danh mục trình độ" x:Name="qualification_Item" Click="quantification_Item_Click">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="SchoolOutline" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <!--<MenuItem Header="Danh mục chế độ"/>-->
+                                <MenuItem Header="Danh mục chuyên môn" x:Name="expertiseItem" Click="expertiseItem_Click"/>
+                                <MenuItem Header="Danh mục dân tộc" x:Name="peopleItem" Click="peopleItem_Click"/>
+                                <MenuItem Header="Danh mục tôn giáo" x:Name="religionItem" Click="religionItem_Click"/>
                             </MenuItem>
-                        </MenuItem>
 
-                        <MenuItem Header="Trợ giúp">
-                            <MenuItem x:Name="about_Item" Click="about_Item_Click" Header="Về chúng tôi">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="Information" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                            <MenuItem x:Name="contactTechnician_Item" Click="contactTechnician_Item_Click" Header="Liên hệ với kĩ thuật viên">
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="Tools" />
-                                </MenuItem.Icon>
-                            </MenuItem>
-                        </MenuItem>
-                    </Menu>
-                </materialDesign:Card>
+                            <MenuItem Header="Thống kê - báo cáo">
+                                <MenuItem Header="Xuất báo cáo" x:Name="exportReport_Item" Click="ExportReport_Item_Click">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="ArrowUpBox" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
 
+                            </MenuItem>
+
+                            <MenuItem Header="Tìm kiếm">
+                                <MenuItem Header="Tìm kiếm nhân viên" x:Name="search_Item" Click="search_Item_Click">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="Magnify" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </MenuItem>
+
+                            <MenuItem Header="Trợ giúp">
+                                <MenuItem x:Name="about_Item" Click="about_Item_Click" Header="Về chúng tôi">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="Information" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem x:Name="contactTechnician_Item" Click="contactTechnician_Item_Click" Header="Liên hệ với kĩ thuật viên">
+                                    <MenuItem.Icon>
+                                        <materialDesign:PackIcon Kind="Tools" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </MenuItem>
+                        </Menu>
+                    </materialDesign:Card>
+
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.Background>
+                        <ImageBrush ImageSource="/Assets/Images/HinhAnhCty.jpg" Opacity="0.1"/>
+                    </Grid.Background>
+                    <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3"/>
+                </Grid>
             </Grid>
 
-            <Grid Grid.Row="1">
-                <Grid.Background>
-                    <ImageBrush ImageSource="/Assets/Images/HinhAnhCty.jpg" Opacity="0.1"/>
-                </Grid.Background>
-                <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Grid.ColumnSpan="3"/>
-            </Grid>
-        </Grid>
-
-        <!--<Grid x:Name="Notification_Grid" HorizontalAlignment="Center" Margin="0,-101,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="61">
+            <!--<Grid x:Name="Notification_Grid" HorizontalAlignment="Center" Margin="0,-101,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Height="61">
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -225,5 +235,6 @@
             </Button>
             <Image HorizontalAlignment="Left" Height="33" Margin="16,6,0,0" VerticalAlignment="Top" Width="35" Source="/Assets/Images/successIcon.png"/>
         </Grid>-->
-    </Grid>
+        </Grid>
+    </Border>
 </Window>

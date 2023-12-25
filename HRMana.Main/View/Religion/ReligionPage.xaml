@@ -9,7 +9,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" FontSize="14"
       DataContext="{StaticResource religionViewModel}"
-      x:Name="religionPage" Background="White"
+      x:Name="religionPage" 
       Title="ReligionPage">
 
     <i:Interaction.Triggers>

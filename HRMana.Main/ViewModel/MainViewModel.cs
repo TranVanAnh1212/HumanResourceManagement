@@ -49,9 +49,9 @@ namespace HRMana.Main.ViewModel
                 {
                     var permisstionRules = new Dictionary<string, string>()
                     {
-                        {"ADD", CommonConstant.Visibility_Visible },
+                        {"VIEW", CommonConstant.Visibility_Visible },
+                        {"ADD", CommonConstant.Visibility_Collapsed },
                         {"EDIT", CommonConstant.Visibility_Collapsed },
-                        {"VIEW", CommonConstant.Visibility_Collapsed },
                         {"DEL", CommonConstant.Visibility_Collapsed },
                         {"MUSER", CommonConstant.Visibility_Collapsed },
                     };

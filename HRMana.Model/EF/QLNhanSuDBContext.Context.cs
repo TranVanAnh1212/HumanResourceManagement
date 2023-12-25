@@ -16,7 +16,7 @@ namespace HRMana.Model.EF
     public partial class QLNhanSuEntities : DbContext
     {
         public QLNhanSuEntities()
-            : base("metadata=res://*/EF.QLNhanSuDBContext.csdl|res://*/EF.QLNhanSuDBContext.ssdl|res://*/EF.QLNhanSuDBContext.msl;provider=System.Data.SqlClient;provider connection string=\"data source=.\\sqlexpress;initial catalog=QLNhanSu;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework\"")
+            : base("metadata=res://*/EF.QLNhanSuDBContext.csdl|res://*/EF.QLNhanSuDBContext.ssdl|res://*/EF.QLNhanSuDBContext.msl;provider=System.Data.SqlClient;provider connection string=\"data source=.\\sqlexpress;initial catalog=QLNhanSu;integrated security=True;encrypt=True;trustservercertificate=True;MultipleActiveResultSets=True;App=EntityFramework\"")
         {
         }
     

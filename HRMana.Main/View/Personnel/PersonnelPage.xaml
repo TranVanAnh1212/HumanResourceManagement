@@ -7,7 +7,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       x:Name="personnelPage" FontSize="14"
       DataContext="{StaticResource personnelVM}"
       Title="PersonnelPage">
@@ -95,8 +95,9 @@
                             <GridViewColumn Header="#" DisplayMemberBinding="{Binding MaNhanVien}"/>
                             <GridViewColumn Header="Họ và tên" DisplayMemberBinding="{Binding HoTen}"/>
                             <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding GioiTinh}"/>
+                            <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding NgaySinh, StringFormat={}{0: dd/MM/yyyy}}"/>
                             <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding TenChucVu}"/>
-                            <GridViewColumn Header="Phòng" DisplayMemberBinding="{Binding TenPhong}"/>
+                            <GridViewColumn Header="Phòng ban" DisplayMemberBinding="{Binding TenPhong}"/>
                         </GridView>
                     </ListView.View>
                     <!--<i:Interaction.Triggers>

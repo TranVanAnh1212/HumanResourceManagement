@@ -20,7 +20,7 @@ namespace HRMana.Main.ViewModel
     public class ProfileEmployeeViewModel : BaseViewModel
     {
         #region Khai báo biến
-        private int _maNhanVien;
+        private string _maNhanVien;
         private string _hoTen;
         private ObservableCollection<NhanVien> _dsNhanVien;
         private NhanVien _selectedNhanVien;
@@ -52,6 +52,7 @@ namespace HRMana.Main.ViewModel
         private string _maSoBHXH;
         private decimal _heSoLuong;
         private decimal _luongCoBan;
+
         private string _soHopDong;
         private int _maHopDong;
         private string _loaiHopDong;
@@ -71,7 +72,7 @@ namespace HRMana.Main.ViewModel
         public string Permission_DEL { get => _permission_DEL; set { _permission_DEL = value; OnPropertyChanged(); } }
 
 
-        public int MaNhanVien { get => _maNhanVien; set { _maNhanVien = value; OnPropertyChanged(); } }
+        public string MaNhanVien { get => _maNhanVien; set { _maNhanVien = value; OnPropertyChanged(); } }
         public string HoTen { get => _hoTen; set { _hoTen = value; OnPropertyChanged(); } }
         public int MaChucVu { get => _maChucVu; set { _maChucVu = value; OnPropertyChanged(); } }
         public string TenChucVu { get => _tenChucVu; set { _tenChucVu = value; OnPropertyChanged(); } }
@@ -95,7 +96,8 @@ namespace HRMana.Main.ViewModel
                     TenPhong = SelectedNhanVien.PhongBan.tenPhong;
                     TenTrinhDo = SelectedNhanVien.TrinhDo.tenTrinhDo;
                     TenChuyenMon = SelectedNhanVien.ChuyenMon.tenChuyenMon;
-                    var hd = new HopDongDAO().Get_HopDong_By_MaHopDong(SelectedNhanVien.maHopDong);
+                    
+                    var hd = new HopDongDAO().Get_HopDong_By_MaHopDong(SelectedNhanVien.maHopDong.Value);
                     if (hd != null)
                     {
                         MaHopDong = hd.maHopDong;
@@ -109,7 +111,7 @@ namespace HRMana.Main.ViewModel
                         EmptyHopDong();
                     }
 
-                    var hs = new HoSoDAO().Get_HoSo_By_MaHoSo(SelectedNhanVien.maHoSo);
+                    var hs = new HoSoDAO().Get_HoSo_By_MaHoSo(SelectedNhanVien.maHoSo.Value);
                     if (hs != null)
                     {
                         MaHoSo = hs.maHoSo;
@@ -406,7 +408,7 @@ namespace HRMana.Main.ViewModel
         private void EmptyField()
         {
             SelectedNhanVien = null;
-            MaNhanVien = 0;
+            MaNhanVien = string.Empty;
             HoTen = string.Empty;
             MaChucVu = 0;
             MaPhong = 0;

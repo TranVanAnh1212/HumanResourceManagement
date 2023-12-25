@@ -15,7 +15,7 @@ namespace HRMana.Model.EF
     public partial class ChuyenCongTac_NhanVien
     {
         public string soQuyetDinh { get; set; }
-        public int maNhanVien { get; set; }
+        public string maNhanVien { get; set; }
         public Nullable<int> chucVuCu { get; set; }
         public Nullable<int> phongBanCu { get; set; }
         public Nullable<int> chucVuMoi { get; set; }

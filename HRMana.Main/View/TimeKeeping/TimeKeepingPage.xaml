@@ -7,7 +7,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       xmlns:local="clr-namespace:HRMana.Main.View.TimeKeeping"
-      mc:Ignorable="d" Background="White"
+      mc:Ignorable="d" 
       DataContext="{StaticResource timKeepingVM}"
       FontSize="14"
       x:Name="timeKeepingPage"
@@ -58,42 +58,69 @@
 
                 <GroupBox Margin="10" Header="Thông tin">
                     <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
 
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Mã nhân viên" Margin="249,0,0,0" ></TextBlock>
-                        <TextBox Text="{Binding MaNhanVien}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="178"
-                                 Margin="353,0,0,0" IsReadOnly="True"></TextBox>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="563,5,0,0" RenderTransformOrigin="0.572,1.096" Height="26"><Run Text="Tên nhân viên"/><LineBreak/><Run/></TextBlock>
-                        <TextBox Text="{Binding TenNhanVien}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" 
-                                 Margin="663,0,0,0" IsReadOnly="True"></TextBox>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Lương cơ bản" Margin="561,66,0,0"></TextBlock>
-                        <TextBox Text="{Binding LuongCoBan}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" 
-                                 VerticalAlignment="Top" Width="166" Margin="663,62,0,0" IsReadOnly="True"/>
-                        <TextBlock Text="Bậc lương" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="250,53,0,0" 
-                                   RenderTransformOrigin="0.556,0.668" Height="19" Width="62" />
-                        <ComboBox ItemsSource="{Binding DsBacLuong}" DisplayMemberPath="heSoLuong" SelectedItem="{Binding SelectedBacLuong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="343,52,386,0" VerticalAlignment="Top"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Mã nhân viên" 
+                                   Margin="10,10,10,10" ></TextBlock>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding MaNhanVien}" HorizontalAlignment="Stretch" 
+                                 VerticalAlignment="Top"
+                                 Margin="10,10,10,0" IsReadOnly="True"></TextBox>
+                        <TextBlock Grid.Row="0" Margin="10" Grid.Column="2" Text="Tên nhân viên"/>
 
+                        <TextBox Text="{Binding TenNhanVien}"
+                                 Margin="10,10,10,10" IsReadOnly="True" Grid.Row="0" Grid.Column="3"></TextBox>
+                        <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top" Text="Lương cơ bản" Margin="10"></TextBlock>
+                        <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding LuongCoBan}" TextChanged="Format_Salary_TextChanged" 
+                                 Margin="10" IsReadOnly="True"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Bậc lương" HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top" Margin="10" Height="19" Width="62" />
+                        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding DsBacLuong}" 
+                                  DisplayMemberPath="heSoLuong" 
+                                  SelectedItem="{Binding SelectedBacLuong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                  Margin="10" VerticalAlignment="Top"/>
                     </Grid>
                 </GroupBox>
 
                 <GroupBox Margin="10" Grid.Row="1" Header="Chấm công">
                     <Grid Margin="10">
-                        <TextBlock Text="Số ngày công" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="284,9,0,0" RenderTransformOrigin="0.317,0.737" Height="19" Width="84"/>
-                        <TextBox Text="{Binding SoNgayCong}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="117" Margin="386,5,0,0"/>
-                        <TextBlock Text="Số ngày tăng ca" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="283,59,0,0" RenderTransformOrigin="0.556,0.668" Height="19" Width="124"/>
-                        <TextBox Text="{Binding SoNgayTangCa}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="106" Margin="412,55,0,0"/>
-                        <TextBlock Text="Số ngày nghỉ phép" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="566,8,0,0" RenderTransformOrigin="0.556,0.668" Height="19" Width="116"/>
-                        <TextBox Text="{Binding SoNghiPhep}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="96" Margin="710,5,0,0"/>
-                        <ComboBox x:Name="OutlinedComboBox" Width="156" 
-                                    materialDesign:HintAssist.Hint="Tháng"
-                                    ItemsSource="{Binding DsThang}" SelectedItem="{Binding Thang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      HorizontalAlignment="Left" VerticalAlignment="Top"
-                                    Style="{StaticResource MaterialDesignOutlinedComboBox}" Height="27" Padding="2,2,2,2" Margin="21,4,0,0" />
-                        <ComboBox x:Name="OutlinedComboBox_Copy" Width="156"
-                                    materialDesign:HintAssist.Hint="Năm"
-                                    ItemsSource="{Binding DsNam}" SelectedItem="{Binding Nam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    HorizontalAlignment="Left" VerticalAlignment="Top"
-                                    Style="{StaticResource MaterialDesignOutlinedComboBox}" Height="27" Padding="2,2,2,2" Margin="21,59,0,0" />
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
 
+                        <ComboBox x:Name="OutlinedComboBox"
+                                materialDesign:HintAssist.Hint="Tháng"
+                                ItemsSource="{Binding DsThang}" SelectedItem="{Binding Thang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}" Height="27" Padding="2,2,2,2" Margin="5" />
+                        <ComboBox x:Name="OutlinedComboBox_Copy"
+                                    materialDesign:HintAssist.Hint="Năm" Grid.Row="1" Grid.Column="0"
+                                    ItemsSource="{Binding DsNam}" SelectedItem="{Binding Nam, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                    
+                                    Style="{StaticResource MaterialDesignOutlinedComboBox}" Height="27" Padding="2,2,2,2" Margin="5" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Số ngày công" 
+                                   Margin="15,5,10,5" Height="19"/>
+                        <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding SoNgayCong}" Margin="5,5,0,0"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="Số giờ tăng ca" Margin="15, 5, 10, 5" Height="19"/>
+                        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding SoGioTangCa}" Margin="5"/>
+                        <TextBlock Grid.Row="0" Grid.Column="3" Text="Số ngày nghỉ phép" 
+                                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15, 5, 10, 5" Height="19" Width="116"/>
+                        <TextBox Grid.Row="0" Grid.Column="4" Text="{Binding SoNghiPhep}" Margin="5,5,0,0"/>
                     </Grid>
                 </GroupBox>
 
@@ -101,12 +128,17 @@
                     <Grid Margin="10">
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,4,0,0" Height="24"><Run Text="Lương tăng ca"/><LineBreak/><Run/></TextBlock>
                         <TextBox Text="{Binding LuongTangCa}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="186" Margin="115,0,0,0"></TextBox>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Đã ứng trước" Margin="449,11,0,0"/>
-                        <TextBox Text="{Binding UngTruoc}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="162" Margin="546,2,0,0"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Đã ứng trước" Margin="324,59,0,0"/>
+                        <TextBox Text="{Binding UngTruoc}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="162" Margin="421,50,0,0"/>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Phụ cấp CV" Margin="3,53,0,0"/>
-                        <TextBox Text="{Binding PhuCapCongViec}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="186" Margin="115,49,0,0"/>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Còn lại" Margin="483,58,0,0"/>
-                        <TextBox Text="{Binding ConLai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="162" Margin="546,50,0,0"/>
+                        <TextBox Text="{Binding PhuCapCongViec}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="117" Margin="115,49,0,0"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Thực lĩnh" Margin="605,14,0,0"/>
+                        <TextBox Text="{Binding ConLai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="Format_Salary_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Width="162" Margin="677,6,0,0"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="332,10,0,0" TextWrapping="Wrap" Text="Tổng nhận" VerticalAlignment="Top"/>
+                        <TextBox HorizontalAlignment="Left" Text="{Binding TongLuong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="Format_Salary_TextChanged"
+                                 Margin="421,0,0,0" TextWrapping="Wrap" x:Name="txt_Total" VerticalAlignment="Top" Width="162"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" 
+                            Margin="243,53,0,0" Height="24" Width="58"><Run Text="/ Tháng"/><LineBreak/><Run/></TextBlock>
 
                     </Grid>
                 </GroupBox>

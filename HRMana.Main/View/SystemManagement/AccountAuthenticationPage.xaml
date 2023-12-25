@@ -8,7 +8,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
       mc:Ignorable="d" FontSize="14"
-      x:Name="accountAuthenPage"
+      x:Name="accountAuthenPage" 
       DataContext="{StaticResource accAuthenVM}"
       Title="AccountAuthenticationPage">
 

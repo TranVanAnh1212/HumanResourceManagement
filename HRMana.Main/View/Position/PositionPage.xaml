@@ -7,7 +7,7 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:local="clr-namespace:HRMana.Main.View.Position"
       xmlns:uc="clr-namespace:HRMana.Main.UserControls"
-      mc:Ignorable="d"  FontSize="14" Background="Wheat"
+      mc:Ignorable="d"  FontSize="14" 
       DataContext="{StaticResource positionVM}"
       x:Name="PositionPage_Name"
       Title="PositionPage">
@@ -67,7 +67,7 @@
                     <TextBox IsReadOnly="True" Text="{Binding MaChucVu, Mode=TwoWay}" HorizontalAlignment="Left" Margin="180,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450" Cursor="No"/>
                     <Label Content="Tên chức vụ" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Width="140"/>
                     <TextBox HorizontalAlignment="Left" Text="{Binding TenChucVu, Mode=TwoWay}" 
-                             Margin="180,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="450"/>
+                             Margin="180,87,0,0" TextChanged="UpperCaseFirstChar" TextWrapping="Wrap" VerticalAlignment="Top" Width="450"/>
                     <TextBlock Text="Tên chức vụ không được bỏ trống" HorizontalAlignment="Left" Foreground="Red" FontSize="10" VerticalAlignment="Top" Margin="180,120,0,0" x:Name="txtbl_TenChucVuValidate"/>
 
                     <Button Visibility="{Binding Permission_ADD}" Command="{Binding CreateNew_ChucVuCommand}" x:Name="btn_Add"
@@ -114,7 +114,8 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <ListView Margin="25,25,25,25" ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView Margin="10" ItemsSource="{Binding Positions}"
+                              SelectedItem="{Binding SelectedPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Mã chức vụ" DisplayMemberBinding="{Binding MaChucVu}"/>

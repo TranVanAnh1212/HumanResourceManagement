@@ -21,7 +21,8 @@ namespace HRMana.Model.DAO
 
                     return 1;
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return -1;
             }
@@ -61,29 +62,24 @@ namespace HRMana.Model.DAO
             }
         }
 
-        public bool Delete_ChuyenCongTacNhanVien(string soQuyetDinh, int maNhanVien)
+        public bool Delete_ChuyenCongTacNhanVien(string soQuyetDinh, string maNhanVien)
         {
-            try
+            if (soQuyetDinh != null && !string.IsNullOrEmpty(maNhanVien))
             {
-                if (soQuyetDinh != null && maNhanVien > 0)
-                {
-                    var result = DataProvider.Instance.DBContext.ChuyenCongTac_NhanVien.FirstOrDefault(x => x.soQuyetDinh.Equals(soQuyetDinh) && x.maNhanVien == maNhanVien);
+                var result = DataProvider.Instance.DBContext
+                    .ChuyenCongTac_NhanVien
+                    .FirstOrDefault(x => x.soQuyetDinh.Equals(soQuyetDinh) && x.maNhanVien.Equals(maNhanVien));
 
-                    if (result != null)
-                    {
-                        DataProvider.Instance.DBContext.ChuyenCongTac_NhanVien.Remove(result);
-                        DataProvider.Instance.DBContext.SaveChanges();
-
-                        return true;
-                    }
-                    else {  return false; }                    
-                }
-                else
+                if (result != null)
                 {
-                    return false;
+                    DataProvider.Instance.DBContext.ChuyenCongTac_NhanVien.Remove(result);
+                    DataProvider.Instance.DBContext.SaveChanges();
+
+                    return true;
                 }
+                else { return false; }
             }
-            catch (Exception ex)
+            else
             {
                 return false;
             }

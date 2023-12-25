@@ -21,27 +21,21 @@ namespace HRMana.Model.EF
             this.ChuyenCongTac_NhanVien = new HashSet<ChuyenCongTac_NhanVien>();
         }
     
-        public int maNhanVien { get; set; }
+        public string maNhanVien { get; set; }
         public string tenNhanVien { get; set; }
         public string gioiTinh { get; set; }
         public System.DateTime ngaySinh { get; set; }
-        public string noiSinh { get; set; }
         public string CCCD { get; set; }
         public string dienThoai { get; set; }
         public string noiOHienTai { get; set; }
         public string queQuan { get; set; }
-        public string emailCaNhan { get; set; }
-        public string emailNoiBo { get; set; }
-        public string coSoLamViec { get; set; }
-        public string loaiHinhLamViec { get; set; }
-        public Nullable<decimal> luongOffer { get; set; }
-        public int maHoSo { get; set; }
+        public Nullable<int> maHoSo { get; set; }
         public int maTrinhDo { get; set; }
         public int maTonGiao { get; set; }
         public int maChuyenMon { get; set; }
         public int maDanToc { get; set; }
         public int maChucVu { get; set; }
-        public int maHopDong { get; set; }
+        public Nullable<int> maHopDong { get; set; }
         public int maPhong { get; set; }
         public string anhThe { get; set; }
     
