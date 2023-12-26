@@ -1,0 +1,7 @@
+HƯỚNG DẪN CÀI ĐẶT ỨNG DỤNG QUẢN LÝ THÔNG TIN NHÂN VIÊN
+
+Bước 1: cài đặt SQL server express bản 2019 và ssms 
+Bước 2: Cài đặt Visual studio 2022
+Bước 3: Mở file script.sql và nhấn F5 để tiến hành tạo cơ sở dữ liệu
+Bước 4: mở file HRMana.msi và tiến hành cài đặt chương trình
+Bước 5: Mở chương trình và hoàn tất.

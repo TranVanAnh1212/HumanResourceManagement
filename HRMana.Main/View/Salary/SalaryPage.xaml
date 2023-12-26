@@ -35,9 +35,11 @@
             <GroupBox Header="Thông tin" Margin="10">
                 <Grid>
                     <TextBlock Text="Bậc lương" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="115,82,0,0"></TextBlock>
-                    <TextBox Width="336" Text="{Binding HeSoLuong}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="230,82,0,0"></TextBox>
+                    <TextBox Width="336" Text="{Binding HeSoLuong, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                             VerticalAlignment="Top" HorizontalAlignment="Left" Margin="230,82,0,0"></TextBox>
                     <TextBlock Text="Lương cơ bản" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="115,141,0,0"></TextBlock>
-                    <TextBox Width="336" Text="{Binding LuongCoBan}" TextChanged="Format_Salary_TextChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="230,141,0,0"/>
+                    <TextBox Width="336" Text="{Binding LuongCoBan, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                             TextChanged="Format_Salary_TextChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="230,141,0,0"/>
                     <Button Command="{Binding Create_BacLuongCommand}" HorizontalAlignment="Left" Margin="146,230,0,0" VerticalAlignment="Top" Width="125">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">

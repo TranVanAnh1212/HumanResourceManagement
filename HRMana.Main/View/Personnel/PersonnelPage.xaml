@@ -88,7 +88,7 @@
                 </Grid.RowDefinitions>
 
                 <ListView Margin="10,0,10,0" x:Name="NhanSu_Lv" ItemsSource="{Binding DsNhanVien}" 
-                          SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedValue="{Binding SelectedNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                           VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <ListView.View>
                         <GridView>

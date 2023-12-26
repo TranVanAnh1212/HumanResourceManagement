@@ -71,5 +71,17 @@ namespace HRMana.Common.Commons
             // Kiểm tra xem chuỗi có thể chuyển đổi thành số không
             return int.TryParse(input, out _);
         }
+
+        public static bool CheckStringContainsLetter(string input)
+        {
+            foreach (char c in input)
+            {
+                if (char.IsLetter(c))
+                {
+                    return false; // Nếu có ký tự chữ cái, trả về false
+                }
+            }
+            return true; // Nếu không có ký tự chữ cái, trả về true
+        }
     }
 }

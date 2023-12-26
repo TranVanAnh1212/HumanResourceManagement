@@ -91,7 +91,7 @@ namespace HRMana.Model.DAO
             }
         }
 
-        public bool Update_BacLuong(BacLuong bl)
+        public bool Update_BacLuong(decimal hsl, BacLuong bl)
         {
             try
             {
@@ -101,8 +101,8 @@ namespace HRMana.Model.DAO
                 }
                 else
                 {
-                    var result = DataProvider.Instance.DBContext.BacLuong.FirstOrDefault(x => x.heSoLuong == bl.heSoLuong);
-                    result.heSoLuong = bl.heSoLuong;
+                    var result = DataProvider.Instance.DBContext.BacLuong.FirstOrDefault(x => x.heSoLuong == hsl);
+                    //result.heSoLuong = bl.heSoLuong;
                     result.luongCoBan = bl.luongCoBan;
                     DataProvider.Instance.DBContext.SaveChanges();
                     return true;

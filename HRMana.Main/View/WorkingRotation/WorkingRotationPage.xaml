@@ -87,7 +87,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock HorizontalAlignment="Left" Margin="10,7,0,0" TextWrapping="Wrap" 
                                            Text="Số QĐ" VerticalAlignment="Top" TextAlignment="Right"/>
-                                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SoQuyetDinh}" HorizontalAlignment="Left" 
+                                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SoQuyetDinh, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" 
                                          Margin="5,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="177" Height="25"/>
                                 <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" 
                                            Margin="5,7,0,14" TextWrapping="Wrap" Text="Ngày QĐ" TextAlignment="Right"/>
@@ -117,32 +117,34 @@
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="1*"/>
                                     <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="1*"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock HorizontalAlignment="Left" Margin="7,5,10,0" TextWrapping="Wrap" Text="Chức vụ cũ" VerticalAlignment="Top" Width="72" TextAlignment="Right"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="7,5,10,0" TextWrapping="Wrap" 
+                                           Text="Chức vụ hiện tại" VerticalAlignment="Top" TextAlignment="Right"/>
                                 <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding DsChucVu}" 
                                           DisplayMemberPath="tenChucVu" 
-                                          SelectedItem="{Binding SelectedChucVuCu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" 
+                                          SelectedItem="{Binding SelectedChucVuCu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" 
                                           Margin="5,0,0,0" VerticalAlignment="Top" Width="258" Height="30"/>
                                 <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" IsEnabled="True" 
                                            Margin="2,10,0,0" TextWrapping="Wrap" Text="Chức vụ mới" 
                                            VerticalAlignment="Top" TextAlignment="Right"/>
                                 <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding DsChucVu}" 
                                           DisplayMemberPath="tenChucVu" 
-                                          SelectedItem="{Binding SelectedChucVuMoi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                          SelectedItem="{Binding SelectedChucVuMoi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  
                                           HorizontalAlignment="Left" Margin="5,5,0,0" IsEditable="True" VerticalAlignment="Top" Width="258" Height="30"/>
                                 <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" 
-                                           Margin="5,10,0,0" TextWrapping="Wrap" Text="Phòng ban cũ" VerticalAlignment="Top" Width="114" TextAlignment="Right"/>
+                                           Margin="5,10,0,0" TextWrapping="Wrap" Text="Phòng ban hiện tại" 
+                                           VerticalAlignment="Top" TextAlignment="Right"/>
                                 <ComboBox Grid.Row="0" Grid.Column="3" ItemsSource="{Binding DsPhongBan}" 
                                           DisplayMemberPath="tenPhong" 
-                                          SelectedItem="{Binding SelectedPhongBanCu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                                          SelectedItem="{Binding SelectedPhongBanCu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  
                                           IsEditable="True" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Width="258" Height="30"/>
                                 <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="5,10,0,0" 
                                            TextWrapping="Wrap" Text="Phòng ban mới" VerticalAlignment="Top" TextAlignment="Right" Width="114"/>
                                 <ComboBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding DsPhongBan}" 
-                                          DisplayMemberPath="tenPhong" SelectedItem="{Binding SelectedPhongBanMoi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                          DisplayMemberPath="tenPhong" SelectedItem="{Binding SelectedPhongBanMoi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
                                           HorizontalAlignment="Left" Margin="5,5,0,0" IsEditable="True" VerticalAlignment="Top" Width="258" Height="30"/>
 
                             </Grid>

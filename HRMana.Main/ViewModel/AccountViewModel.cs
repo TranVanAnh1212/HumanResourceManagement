@@ -84,7 +84,7 @@ namespace HRMana.Main.ViewModel
                     TenTaiKhoan = SelectedTaiKhoan.TenTaiKhoan;
                     MaQuyen = SelectedTaiKhoan.MaQuyen;
                     TrangThaiTaiKhoan = SelectedTaiKhoan.TrangThaiTaiKhoan;
-                    MatKhau = SelectedTaiKhoan.MatKhau;
+                    //MatKhau = SelectedTaiKhoan.MatKhau;
                     SelectedQuyen = ListQuyen.FirstOrDefault(x => x.maQuyen == SelectedTaiKhoan.MaQuyen);
                 }
             }

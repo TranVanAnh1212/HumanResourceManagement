@@ -6,6 +6,7 @@ using HRMana.Model.EF;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -16,7 +17,7 @@ using System.Windows.Media.Imaging;
 
 namespace HRMana.Main.ViewModel
 {
-    public class DepartmentViewModel : BaseViewModel
+    public class DepartmentViewModel : BaseViewModel, IDataErrorInfo
     {
         #region Khai báo biến
 
@@ -74,6 +75,26 @@ namespace HRMana.Main.ViewModel
         public int MaPhong { get => _maPhong; set { _maPhong = value; OnPropertyChanged(); } }
         public string TenPhong { get => _tenPhong; set { _tenPhong = value; OnPropertyChanged(); } }
         public string Sdt { get => _sdt; set { _sdt = value; OnPropertyChanged(); } }
+
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get
+            {
+                var err = "";
+
+                switch(columnName)
+                {
+                    case "TenPhong":
+                        if (string.IsNullOrEmpty(TenPhong))
+                            err = "Tên phòng không được bỏ trống";
+                        break;
+                }
+
+                return err;
+            }
+        }
 
         #endregion
 
@@ -313,7 +334,7 @@ namespace HRMana.Main.ViewModel
 
                             }
                         }
-                        catch (Exception ex) 
+                        catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message, "Thông báo lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                         }

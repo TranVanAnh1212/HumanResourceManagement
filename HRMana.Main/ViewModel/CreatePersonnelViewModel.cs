@@ -8,6 +8,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -20,7 +21,7 @@ using System.Windows.Input;
 
 namespace HRMana.Main.ViewModel
 {
-    public class CreatePersonnelViewModel : BaseViewModel
+    public class CreatePersonnelViewModel : BaseViewModel, IDataErrorInfo
     {
         #region Khai báo biến
         private string _maNhanVien;
@@ -90,7 +91,24 @@ namespace HRMana.Main.ViewModel
         public string NgaySinh { get => _ngaySinh; set { _ngaySinh = value; OnPropertyChanged(); } }
         public string Cccd { get => _cccd; set { _cccd = value; OnPropertyChanged(); } }
         public string DienThoai { get => _dienThoai; set { _dienThoai = value; OnPropertyChanged(); } }
-        public string NoiOHienTai { get => _noiOHienTai; set { _noiOHienTai = value; OnPropertyChanged(); } }
+        public string NoiOHienTai
+        {
+            get => _noiOHienTai;
+            set
+            {
+                // Lỗi này chỉ hiển thị lên giao diện khi có Material design library
+
+                //if (string.IsNullOrEmpty(value))
+                //{
+                //    throw new ArgumentException("Nơi ở hiện tại không được bỏ trống");
+                //}
+
+                _noiOHienTai = value; 
+                OnPropertyChanged();
+
+                
+            }
+        }
         public string QueQuan { get => _QueQuan; set { _QueQuan = value; OnPropertyChanged(); } }
         public int MaHoSo { get => _maHoSo; set { _maHoSo = value; OnPropertyChanged(); } }
         public int MaChucVu { get => _maChucVu; set { _maChucVu = value; OnPropertyChanged(); } }
@@ -208,15 +226,120 @@ namespace HRMana.Main.ViewModel
 
         public bool Nam_Checked { get => _Nam_Checked; set { _Nam_Checked = value; OnPropertyChanged(); } }
         public bool Nu_Checked { get => _Nu_Checked; set { _Nu_Checked = value; OnPropertyChanged(); } }
-
         public string Message { get => _message; set { _message = value; OnPropertyChanged(); } }
-
         public string Fill { get => _fill; set { _fill = value; OnPropertyChanged(); } }
+
+        #region Bắt lỗi
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get
+            {
+                var res = "";
+
+                switch(columnName)
+                {
+                    case "HoTen":
+                        if (string.IsNullOrEmpty(HoTen))
+                        {
+                            res = "Họ tên nhân viên không được bỏ trống";
+                        }
+                        break;
+                    case "NoiOHienTai":
+                        if (string.IsNullOrEmpty(NoiOHienTai))
+                        {
+                            res = "Nơi ở hiện tại không được bỏ trống";
+                        }
+                        break;
+                    case "Cccd":
+                        if (string.IsNullOrEmpty(Cccd))
+                        {
+                            res = "CCCD không được bỏ trống";
+                        }
+
+                        if (!string.IsNullOrEmpty(Cccd) && !StringHelper.CheckStringContainsLetter(Cccd))
+                        {
+                            res = "CCCD không thể chứa ký tự số.";
+                        }
+                        break;
+                    case "QueQuan":
+                        if (string.IsNullOrEmpty(QueQuan))
+                        {
+                            res = "Quê quán không được bỏ trống";
+                        }
+                        break;
+                    case "NgaySinh":
+                        if (NgaySinh == null )
+                        {
+                            res = "Ngày sinh không được bỏ trống";
+                        }
+
+                        if (!StringHelper.IsValidDate(NgaySinh, "dd/MM/yyyy"))
+                        {
+                            res = "Ngày sinh không đúng định dạng";
+                        }
+
+                        if (DateTime.TryParse(NgaySinh, out var ns) && DateTime.Now.Year - ns.Year < 18)
+                        {
+                            res = "Nhân viên phải có số tuổi lớn hơn 18.";
+                        }
+
+                        if (DateTime.TryParse(NgaySinh, out var checkTuoi) && DateTime.Now < checkTuoi)
+                        {
+                            res = "Ngày tháng năm sinh phải bé hơn ngày táng hiện tại.";
+                        }
+                        break;
+                    case "SelectedTonGiao":
+                        if (SelectedTonGiao == null)
+                        {
+                            res = "Tôn giáo chưa được chọn";
+                        }
+                        break;
+                    case "SelectedDanToc":
+                        if (SelectedDanToc == null)
+                        {
+                            res = "Dân tộc chưa được chọn";
+                        }
+                        break;
+                    case "SelectedTrinhDo":
+                        if (SelectedTrinhDo == null)
+                        {
+                            res = "Trình độ học vấn chưa được chọn";
+                        }
+                        break;
+                    case "SelectedChuyenMon":
+                        if (SelectedChuyenMon == null)
+                        {
+                            res = "Chuyên môn chưa được chọn";
+                        }
+                        break;
+                    case "SelectedChucVu":
+                        if (SelectedChucVu == null)
+                        {
+                            res = "Chức vụ chưa được chọn";
+                        }
+                        break;
+                    case "SelectedPhongBan":
+                        if (SelectedPhongBan == null)
+                        {
+                            res = "Phòng ban chưa được chọn";
+                        }
+                        break;
+
+                }
+
+                return res;
+            }
+        }
+        #endregion
 
         #endregion
 
         public CreatePersonnelViewModel()
         {
+            Nam_Checked = true;
+
             Initialized();
         }
 
@@ -244,7 +367,80 @@ namespace HRMana.Main.ViewModel
                 );
 
             CreateNewCommand = new RelayCommand<object>(
-                (param) => true,
+                (param) =>
+                {
+                    if (string.IsNullOrEmpty(NoiOHienTai))
+                    {
+                        return false;
+                    }
+
+                    if (string.IsNullOrEmpty(Cccd))
+                    {
+                        return false;
+                    }
+
+                    if (string.IsNullOrEmpty(NoiOHienTai))
+                    {
+                        return false;
+                    }
+
+                    if (string.IsNullOrEmpty(QueQuan))
+                    {
+                        return false;
+                    }
+
+                    if (NgaySinh == null)
+                    {
+                        return false;
+                    }
+
+                    if (!StringHelper.IsValidDate(NgaySinh, "dd/MM/yyyy"))
+                    {
+                        return false;
+                    }
+
+                    if (DateTime.Now.Year - Convert.ToDateTime(NgaySinh).Year < 18)
+                    {
+                        return false;
+                    }
+
+                    if (DateTime.Now < Convert.ToDateTime(NgaySinh))
+                    {
+                        return false;
+                    }
+
+                    if (SelectedTrinhDo == null)
+                    {
+                        return false;
+                    }
+
+                    if (SelectedPhongBan == null)
+                    {
+                        return false;
+                    }
+
+                    if (SelectedTonGiao == null)
+                    {
+                        return false;
+                    }
+
+                    if (SelectedChuyenMon == null)
+                    {
+                        return false; 
+                    }
+
+                    if (SelectedDanToc == null)
+                    {
+                        return false;
+                    }
+
+                    if (SelectedChucVu == null)
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
                 (param) =>
                 {
                     CreateNewPersonnel();
@@ -264,75 +460,9 @@ namespace HRMana.Main.ViewModel
         {
             try
             {
-                if (string.IsNullOrEmpty(HoTen))
-                {
-                    ShowNotification("Họ tên không được để trống.", "#FFFF5858");
-                    return;
-                }
-
                 if (Nam_Checked == false && Nu_Checked == false)
                 {
                     ShowNotification("Giới tính không được để trống.", "#FFFF5858");
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(NgaySinh))
-                {
-                    ShowNotification("Ngày sinh không được để trống.", "#FFFF5858");
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(Cccd))
-                {
-                    ShowNotification("Căn cước công dân không được để trống.", "#FFFF5858");
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(NoiOHienTai))
-                {
-                    ShowNotification("Nơi ở hiện tại không được để trống.", "#FFFF5858");
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(QueQuan))
-                {
-                    ShowNotification("Quê quán không được để trống.", "#FFFF5858");
-                    return;
-                }
-
-                if (SelectedTrinhDo == null)
-                {
-                    ShowNotification("Trình độ học vấn không được để trống.", "#FFFF5858");
-                    return;
-                }
-
-                if (SelectedPhongBan == null)
-                {
-                    ShowNotification("Phòng ban không được để trống.", "#FFFF5858");
-                    return;
-                }
-
-                if (SelectedTonGiao == null)
-                {
-                    ShowNotification("Tôn giáo không được để trống.", "#FFFF5858");
-                    return;
-                }
-
-                if (SelectedChuyenMon == null)
-                {
-                    ShowNotification("Chuyên môn không được để trống.", "#FFFF5858");
-                    return;
-                }
-
-                if (SelectedDanToc == null)
-                {
-                    ShowNotification("Dân tộc không được để trống.", "#FFFF5858");
-                    return;
-                }
-
-                if (SelectedChucVu == null)
-                {
-                    ShowNotification("Chức vụ không được để trống.", "#FFFF5858");
                     return;
                 }
 
@@ -453,7 +583,8 @@ namespace HRMana.Main.ViewModel
 
                 ListChuyenMon = new ObservableCollection<ChuyenMon>(result);
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message, "Thông báo lỗi!", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }

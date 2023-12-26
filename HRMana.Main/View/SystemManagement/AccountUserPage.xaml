@@ -59,7 +59,8 @@
         <Grid Grid.Row="1">
             <TextBlock HorizontalAlignment="Left" Height="25.067" Margin="92.067,36.939,0,0" TextWrapping="Wrap" Text="Tên người dùng" VerticalAlignment="Top" Width="200.8" TextAlignment="Right" FontSize="14"/>
             <TextBox Text="{Binding TenTaiKhoan}" HorizontalAlignment="Left" Height="25.067" Margin="314.8,36.939,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288.8"/>
-            <TextBlock HorizontalAlignment="Left" Height="25.067" Margin="92.067,77.072,0,0" TextWrapping="Wrap" Text="Mật khẩu" VerticalAlignment="Top" Width="200.8" TextAlignment="Right" FontSize="14"/>
+            <TextBlock HorizontalAlignment="Left" Height="25.067" Margin="92.067,77.072,0,0" TextWrapping="Wrap" 
+                       Text="Mật khẩu" VerticalAlignment="Top" Width="200.8" TextAlignment="Right" FontSize="14"/>
             <TextBox Text="{Binding MatKhau}" HorizontalAlignment="Left" Height="25.067" Margin="314.8,77.072,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="288.8"/>
             <TextBlock HorizontalAlignment="Left" Height="26" Margin="87,125,0,0" TextWrapping="Wrap" Text="Quyền hạn tài khoản" VerticalAlignment="Top" Width="201" TextAlignment="Right" FontSize="14"/>
             <ComboBox ItemsSource="{Binding ListQuyen}" SelectedItem="{Binding SelectedQuyen}" DisplayMemberPath="tenQuyen" HorizontalAlignment="Left" Height="26" Margin="310,125,0,0" VerticalAlignment="Top" Width="289"></ComboBox>

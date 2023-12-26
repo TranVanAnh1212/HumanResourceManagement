@@ -6,6 +6,7 @@ using HRMana.Model.EF;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -16,7 +17,7 @@ using System.Windows.Input;
 
 namespace HRMana.Main.ViewModel
 {
-    public class ContractViewModel : BaseViewModel
+    public class ContractViewModel : BaseViewModel, IDataErrorInfo
     {
         #region Khai báo biến
         private int _totalPage;
@@ -67,7 +68,21 @@ namespace HRMana.Main.ViewModel
         public int MaHopDong { get => _maHopDong; set { _maHopDong = value; OnPropertyChanged(); } }
         public string SoHopDong { get => _soHopDong; set { _soHopDong = value; OnPropertyChanged(); } }
         public DateTime? NgayKyHopDong { get => _ngayKyHopDong; set { _ngayKyHopDong = value; OnPropertyChanged(); } }
-        public DateTime? NgayKetThucHopDong { get => _ngayKetThucHopDong; set { _ngayKetThucHopDong = value; OnPropertyChanged(); } }
+        public DateTime? NgayKetThucHopDong
+        {
+            get => _ngayKetThucHopDong;
+            set
+            {
+                if (value != null && NgayKyHopDong != null)
+                {
+                    var thoiHan = value.Value.Year - NgayKyHopDong.Value.Year;
+
+                    ThoiHanHopDong = $"{thoiHan} năm";
+                }
+
+                _ngayKetThucHopDong = value; OnPropertyChanged();
+            }
+        }
         public string LoaiHopDong { get => _loaiHopDong; set { _loaiHopDong = value; OnPropertyChanged(); } }
         public string TinhTrangChuKy { get => _tinhTrangChuKy; set { _tinhTrangChuKy = value; OnPropertyChanged(); } }
         public string ThoiHanHopDong { get => _thoiHanHopDong; set { _thoiHanHopDong = value; OnPropertyChanged(); } }
@@ -111,6 +126,52 @@ namespace HRMana.Main.ViewModel
 
         public bool Rdb_CTHChecked { get => _rdb_CTHChecked; set { _rdb_CTHChecked = value; OnPropertyChanged(); } }
         public bool Rdb_KTHChecked { get => _rdb_KTHChecked; set { _rdb_KTHChecked = value; OnPropertyChanged(); } }
+
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get
+            {
+                var err = "";
+
+                switch(columnName)
+                {
+                    case "SoHopDong":
+                        if (string.IsNullOrEmpty(SoHopDong))
+                        {
+                            err = "Số hợp đồng không được để trống.";
+                        }
+                        break;
+                    case "NgayKetThucHopDong":
+                        if (NgayKetThucHopDong < NgayKyHopDong)
+                        {
+                            err = "Ngày hết hạn hợp đồng không được trước ngày ký hợp đồng";
+                        }
+
+                        if (Rdb_CTHChecked == true && NgayKetThucHopDong == null)
+                        {
+                            err = "Chọn ngày hết hạn hợp đồng .";
+                        }
+
+                        break;
+                    case "NgayKyHopDong":
+                        if (NgayKyHopDong == null)
+                        {
+                            err = "Chọn ngày ký hợp đồng.";
+                        }
+                        break;
+                    case "Rdb_CTHChecked":
+                        if (Rdb_CTHChecked == false && Rdb_KTHChecked == false)
+                        {
+                            err = "Chọn ngày ký hợp đồng.";
+                        }
+                        break;
+                }
+
+                return err;
+            }
+        }
         #endregion
 
         public ContractViewModel()
@@ -217,7 +278,22 @@ namespace HRMana.Main.ViewModel
             Create_HopDongCommand = new RelayCommand<object>(
                 (param) =>
                 {
-                    if (string.IsNullOrEmpty(SoHopDong) || NgayKyHopDong == null)
+                    if (string.IsNullOrEmpty(SoHopDong))
+                    {
+                        return false;
+                    }
+
+                    if (NgayKyHopDong == null)
+                    {
+                        return false;
+                    }
+
+                    if (NgayKetThucHopDong < NgayKyHopDong)
+                    {
+                        return false;
+                    }                    
+
+                    if (Rdb_CTHChecked == false && Rdb_KTHChecked == false)
                     {
                         return false;
                     }

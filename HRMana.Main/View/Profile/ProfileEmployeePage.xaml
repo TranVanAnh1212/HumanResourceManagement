@@ -181,10 +181,12 @@
                         <TextBlock HorizontalAlignment="Left" Margin="29,144,0,0" TextWrapping="Wrap" Text="Loại HĐ :" VerticalAlignment="Top" />
                         <TextBox Text="{Binding LoaiHopDong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" 
                                  Margin="109,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" />
-                        <TextBlock HorizontalAlignment="Left" Margin="12,198,0,0" TextWrapping="Wrap" Text="Ngày bắt đầu:" VerticalAlignment="Top"/>
-                        <TextBox Text="{Binding NgayBDHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" 
+                        <TextBlock HorizontalAlignment="Left" Margin="12,198,0,0" TextWrapping="Wrap" Text="Ngày bắt đầu:" 
+                                   VerticalAlignment="Top"/>
+                        <TextBox Text="{Binding NgayBDHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0: dd/MM/yyyy}}" HorizontalAlignment="Left" 
                                  Margin="109,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" />
-                        <TextBlock HorizontalAlignment="Left" Margin="38,245,0,0" TextWrapping="Wrap" Text="Thời hạn:" VerticalAlignment="Top"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="38,245,0,0" TextWrapping="Wrap" Text="Thời hạn:" 
+                                   VerticalAlignment="Top"/>
                         <TextBox Text="{Binding ThoiHanHD, StringFormat={}{0: dd/MM/yyyy}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" 
                                  Margin="109,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" />
                     </Grid>

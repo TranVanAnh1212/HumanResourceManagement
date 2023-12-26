@@ -15,11 +15,13 @@ namespace HRMana.Main.ViewModel
     {
         private string _maNhanVien;
         private string _hoTen;
-        private string _ngaySinh;
+        private DateTime? _ngaySinh;
         private string _gioiTinh;
         private string _queQuan;
         private string _soHopDong;
         private string _soCCCD;
+        private string _noiOHienTai;
+        private string _DanToc;
         private ObservableCollection<SearchViewModel> _dsSearchResult;
         private SearchViewModel _selectedSearchResult;
 
@@ -29,7 +31,7 @@ namespace HRMana.Main.ViewModel
 
         public string MaNhanVien { get => _maNhanVien; set { _maNhanVien = value; OnPropertyChanged(); } }
         public string HoTen { get => _hoTen; set { _hoTen = value; OnPropertyChanged(); } }
-        public string NgaySinh { get => _ngaySinh; set { _ngaySinh = value; OnPropertyChanged(); } }
+        public DateTime? NgaySinh { get => _ngaySinh; set { _ngaySinh = value; OnPropertyChanged(); } }
         public string QueQuan { get => _queQuan; set { _queQuan = value; OnPropertyChanged(); } }
         public string SoHopDong { get => _soHopDong; set { _soHopDong = value; OnPropertyChanged(); } }
         public string SoCCCD { get => _soCCCD; set { _soCCCD = value; OnPropertyChanged(); } }
@@ -54,6 +56,8 @@ namespace HRMana.Main.ViewModel
         }
 
         public string GioiTinh { get => _gioiTinh; set { _gioiTinh = value; OnPropertyChanged(); } }
+        public string NoiOHienTai { get => _noiOHienTai; set { _noiOHienTai = value; OnPropertyChanged(); } }
+        public string DanToc { get => _DanToc; set { _DanToc = value; OnPropertyChanged(); } }
 
         public SearchViewModel()
         {
@@ -70,9 +74,11 @@ namespace HRMana.Main.ViewModel
                                                MaNhanVien = nv.maNhanVien,
                                                HoTen = nv.tenNhanVien,
                                                GioiTinh = nv.gioiTinh,
-                                               NgaySinh = nv.ngaySinh.ToString(),
-                                               SoCCCD = nv.CCCD,
+                                               NgaySinh = nv.ngaySinh,
+                                               SoCCCD = nv.CCCD.Trim(),
                                                QueQuan = nv.queQuan,
+                                               NoiOHienTai = nv.noiOHienTai,
+                                               DanToc = nv.DanToc.tenDanToc
                                            };
 
                         if ( !string.IsNullOrEmpty(MaNhanVien))
@@ -107,7 +113,7 @@ namespace HRMana.Main.ViewModel
                      SelectedSearchResult = null;
                      MaNhanVien = string.Empty;
                      HoTen = string.Empty;
-                     NgaySinh = string.Empty;
+                     NgaySinh = null;
                      QueQuan = string.Empty;
                      SoHopDong = string.Empty;
                      SoCCCD = string.Empty;

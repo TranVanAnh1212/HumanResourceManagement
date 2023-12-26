@@ -14,16 +14,19 @@ using System.Windows;
 using HRMana.Common.Commons;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.ComponentModel;
 
 namespace HRMana.Main.ViewModel
 {
-    public class SalaryViewModel : BaseViewModel
+    public class SalaryViewModel : BaseViewModel, IDataErrorInfo
     {
+        BacLuong bl = new BacLuong();
+
         private string _permission_ADD;
         private string _permission_VIEW;
         private string _permission_EDIT;
         private string _permission_DEL;
-        private decimal _heSoLuong;
+        private double _heSoLuong;
         private string _luongCoBan;
         private ObservableCollection<BacLuong> _dsBacLuong;
         private BacLuong _selectedBacLuong;
@@ -51,7 +54,7 @@ namespace HRMana.Main.ViewModel
         public string Permission_VIEW { get => _permission_VIEW; set { _permission_VIEW = value; OnPropertyChanged(); } }
         public string Permission_EDIT { get => _permission_EDIT; set { _permission_EDIT = value; OnPropertyChanged(); } }
         public string Permission_DEL { get => _permission_DEL; set { _permission_DEL = value; OnPropertyChanged(); } }
-        public decimal HeSoLuong { get => _heSoLuong; set { _heSoLuong = value; OnPropertyChanged(); } }
+        public double HeSoLuong { get => _heSoLuong; set { _heSoLuong = value; OnPropertyChanged(); } }
         public string LuongCoBan { get => _luongCoBan; set { _luongCoBan = value; OnPropertyChanged(); } }
 
         public ObservableCollection<BacLuong> DsBacLuong { get => _dsBacLuong; set { _dsBacLuong = value; OnPropertyChanged(); } }
@@ -65,9 +68,36 @@ namespace HRMana.Main.ViewModel
 
                 if (SelectedBacLuong != null)
                 {
-                    HeSoLuong = SelectedBacLuong.heSoLuong;
+                    bl.heSoLuong = SelectedBacLuong.heSoLuong;
+                    bl.luongCoBan = SelectedBacLuong.luongCoBan;
+
+                    HeSoLuong = Convert.ToDouble(SelectedBacLuong.heSoLuong);
                     LuongCoBan = SelectedBacLuong.luongCoBan.ToString();
                 }
+            }
+        }
+
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get
+            {
+                var err = "";
+
+                switch (columnName)
+                {
+                    case "HeSoLuong":
+                        if (HeSoLuong == 0.0)
+                            err = "hệ số lương phải lớn hơn 0.";
+                        break;
+                    case "LuongCoBan":
+                        if (string.IsNullOrEmpty(LuongCoBan))
+                            err = "Lương cơ bản không được để trống.";
+                        break;
+                }
+
+                return err;
             }
         }
 
@@ -197,49 +227,48 @@ namespace HRMana.Main.ViewModel
                     if (SelectedBacLuong != null)
                         return false;
 
+                    if (string.IsNullOrEmpty(LuongCoBan))
+                        return false;
+
+                    if (HeSoLuong == 0.0)
+                        return false;
+
                     return true;
                 },
                 (param) =>
                 {
                     try
                     {
-                        if (!string.IsNullOrEmpty(LuongCoBan) && HeSoLuong > 0)
+                        var checkExist_BacLuong = new BacLuongDAO().Get_BacLuong_By_HeSoLuong(Convert.ToDecimal(HeSoLuong));
+
+                        if (checkExist_BacLuong != null)
                         {
-                            var checkExist_BacLuong = new BacLuongDAO().Get_BacLuong_By_HeSoLuong(HeSoLuong);
-
-                            if (checkExist_BacLuong != null)
-                            {
-                                ShowMessageBoxCustom("Bậc lương đã tồn tại.", CommonConstant.Error_ICon);
-                            }
-                            else
-                            {
-                                var cm = new BacLuong()
-                                {
-                                    heSoLuong = HeSoLuong,
-                                    luongCoBan = StringHelper.ConvertSalary(LuongCoBan),
-                                };
-
-                                var result = new BacLuongDAO().Create_BacLuong(cm);
-
-                                if (result < 0)
-                                {
-                                    ShowMessageBoxCustom("Có lỗi xảy ra ở máy chủ", CommonConstant.Error_ICon);
-                                }
-                                else if (result == 0)
-                                {
-                                    ShowMessageBoxCustom("Dữ liệu đang bị rỗng.", CommonConstant.Warning_ICon);
-                                }
-                                else
-                                {
-                                    ShowMessageBoxCustom("Thêm mới bậc lương thành công", CommonConstant.Success_ICon);
-                                    GetList_BacLuong();
-                                    EmptyField();
-                                }
-                            }
+                            ShowMessageBoxCustom("Bậc lương đã tồn tại.", CommonConstant.Error_ICon);
                         }
                         else
                         {
-                            ShowMessageBoxCustom("Hệ số lương và luong cơ bản không được bỏ trống.", CommonConstant.Warning_ICon);
+                            var cm = new BacLuong()
+                            {
+                                heSoLuong = Convert.ToDecimal(HeSoLuong),
+                                luongCoBan = StringHelper.ConvertSalary(LuongCoBan),
+                            };
+
+                            var result = new BacLuongDAO().Create_BacLuong(cm);
+
+                            if (result < 0)
+                            {
+                                ShowMessageBoxCustom("Có lỗi xảy ra ở máy chủ", CommonConstant.Error_ICon);
+                            }
+                            else if (result == 0)
+                            {
+                                ShowMessageBoxCustom("Dữ liệu đang bị rỗng.", CommonConstant.Warning_ICon);
+                            }
+                            else
+                            {
+                                ShowMessageBoxCustom("Thêm mới bậc lương thành công", CommonConstant.Success_ICon);
+                                GetList_BacLuong();
+                                EmptyField();
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -256,6 +285,12 @@ namespace HRMana.Main.ViewModel
                     if (SelectedBacLuong == null)
                         return false;
 
+                    if (string.IsNullOrEmpty(LuongCoBan))
+                        return false;
+
+                    if (HeSoLuong == 0.0)
+                        return false;
+
                     return true;
                 },
                 (param) =>
@@ -269,11 +304,11 @@ namespace HRMana.Main.ViewModel
                         {
                             var cm = new BacLuong()
                             {
-                                heSoLuong = HeSoLuong,
+                                heSoLuong = Convert.ToDecimal(HeSoLuong),
                                 luongCoBan = StringHelper.ConvertSalary(LuongCoBan),
                             };
 
-                            var result = new BacLuongDAO().Update_BacLuong(cm);
+                            var result = new BacLuongDAO().Update_BacLuong(bl.heSoLuong, cm);
 
                             if (!result)
                             {
@@ -312,14 +347,14 @@ namespace HRMana.Main.ViewModel
                     {
                         try
                         {
-                            var listNV_Constrain = new BacLuongDAO().GetCount_ChamCong_By_MaBacLuong(HeSoLuong);
+                            var listNV_Constrain = new BacLuongDAO().GetCount_ChamCong_By_MaBacLuong(bl.heSoLuong);
                             if (listNV_Constrain.Count > 0)
                             {
                                 MessageBox.Show($"Có {listNV_Constrain.Count} bảng chấm công đang sử dụng bậc lương {HeSoLuong}, \n Yêu cầu không có bảng chấm công nào đang sử dụng bậc lương {HeSoLuong}.", "Cảnh báo!", MessageBoxButton.OK, MessageBoxImage.Warning);
                             }
                             else
                             {
-                                var result = new BacLuongDAO().Delete_BacLuong(HeSoLuong);
+                                var result = new BacLuongDAO().Delete_BacLuong(bl.heSoLuong);
 
                                 if (!result)
                                 {

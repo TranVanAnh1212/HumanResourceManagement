@@ -28,7 +28,6 @@ namespace HRMana.Main.View.Personnel
             this.DataContext = new PersonnelDetailsViewModel(maNhanVien);
         }
 
-
         private void txt_PhoneNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox txt = sender as TextBox;
@@ -75,57 +74,61 @@ namespace HRMana.Main.View.Personnel
             }
         }
 
-
-
-        private void txt_Birthday_TextChanged(object sender, TextChangedEventArgs e)
+        private void PsnlDetailWindow_Closing(object sender, CancelEventArgs e)
         {
-            TextBox txt = sender as TextBox;
-
-            if (txt.Text.Length <= 0)
-            {
-                txtbl_BirthdayValidate.Visibility = Visibility.Visible;
-                txtbl_BirthdayValidate.Text = "Ngày sinh không được bỏ trống.";
-                txtbl_BirthdayValidate.Foreground = new SolidColorBrush(Colors.Red);
-                btn_Update.IsEnabled = false;
-            }
-            else
-            {
-                if (!StringHelper.IsValidDate(txt.Text, "dd/MM/yyyy"))
-                {
-                    txtbl_BirthdayValidate.Visibility = Visibility.Visible;
-                    txtbl_BirthdayValidate.Text = "Định dạng ngày tháng năm không đúng.";
-                    txtbl_BirthdayValidate.Foreground = new SolidColorBrush(Colors.Red);
-                    btn_Update.IsEnabled = false;
-                }
-                else
-                {
-
-                    if (DateTime.Now.Year - Convert.ToDateTime(txt.Text).Year < 18)
-                    {
-                        txtbl_BirthdayValidate.Visibility = Visibility.Visible;
-                        txtbl_BirthdayValidate.Text = "Nhân viên phải có số tuổi lớn hơn 18.";
-                        txtbl_BirthdayValidate.Foreground = new SolidColorBrush(Colors.Red);
-                        btn_Update.IsEnabled = false;
-
-                        return;
-                    }
-
-                    if (DateTime.Now < Convert.ToDateTime(txt.Text))
-                    {
-                        txtbl_BirthdayValidate.Visibility = Visibility.Visible;
-                        txtbl_BirthdayValidate.Text = "Ngày tháng năm sinh phải bé hơn ngày táng hiện tại.";
-                        txtbl_BirthdayValidate.Foreground = new SolidColorBrush(Colors.Red);
-                        btn_Update.IsEnabled = false;
-
-                        return;
-                    }
-
-
-                    btn_Update.IsEnabled = true;
-                    txtbl_BirthdayValidate.Visibility = Visibility.Collapsed;
-                }
-
-            }
+            PersonnelPage p = new PersonnelPage();
+            ((PersonnelViewModel)p.DataContext).SelectedNhanVien = null;
         }
+
+        //private void txt_Birthday_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    TextBox txt = sender as TextBox;
+
+        //    if (txt.Text.Length <= 0)
+        //    {
+        //        txtbl_BirthdayValidate.Visibility = Visibility.Visible;
+        //        txtbl_BirthdayValidate.Text = "Ngày sinh không được bỏ trống.";
+        //        txtbl_BirthdayValidate.Foreground = new SolidColorBrush(Colors.Red);
+        //        btn_Update.IsEnabled = false;
+        //    }
+        //    else
+        //    {
+        //        if (!StringHelper.IsValidDate(txt.Text, "dd/MM/yyyy"))
+        //        {
+        //            txtbl_BirthdayValidate.Visibility = Visibility.Visible;
+        //            txtbl_BirthdayValidate.Text = "Định dạng ngày tháng năm không đúng.";
+        //            txtbl_BirthdayValidate.Foreground = new SolidColorBrush(Colors.Red);
+        //            btn_Update.IsEnabled = false;
+        //        }
+        //        else
+        //        {
+
+        //            if (DateTime.Now.Year - Convert.ToDateTime(txt.Text).Year < 18)
+        //            {
+        //                txtbl_BirthdayValidate.Visibility = Visibility.Visible;
+        //                txtbl_BirthdayValidate.Text = "Nhân viên phải có số tuổi lớn hơn 18.";
+        //                txtbl_BirthdayValidate.Foreground = new SolidColorBrush(Colors.Red);
+        //                btn_Update.IsEnabled = false;
+
+        //                return;
+        //            }
+
+        //            if (DateTime.Now < Convert.ToDateTime(txt.Text))
+        //            {
+        //                txtbl_BirthdayValidate.Visibility = Visibility.Visible;
+        //                txtbl_BirthdayValidate.Text = "Ngày tháng năm sinh phải bé hơn ngày táng hiện tại.";
+        //                txtbl_BirthdayValidate.Foreground = new SolidColorBrush(Colors.Red);
+        //                btn_Update.IsEnabled = false;
+
+        //                return;
+        //            }
+
+
+        //            btn_Update.IsEnabled = true;
+        //            txtbl_BirthdayValidate.Visibility = Visibility.Collapsed;
+        //        }
+
+        //    }
+        //}
     }
 }

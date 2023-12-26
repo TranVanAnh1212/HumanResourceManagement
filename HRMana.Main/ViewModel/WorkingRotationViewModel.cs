@@ -15,10 +15,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.ComponentModel;
 
 namespace HRMana.Main.ViewModel
 {
-    internal class WorkingRotationViewModel : BaseViewModel
+    internal class WorkingRotationViewModel : BaseViewModel, IDataErrorInfo
     {
         private string _soQuyetDinh;
         private DateTime _ngayQuyetDinh;
@@ -211,6 +212,34 @@ namespace HRMana.Main.ViewModel
             }
 
         }
+
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName] { 
+        get
+            {
+                var err = "";
+
+                switch(columnName)
+                {
+                    case "SelectedChucVuMoi":
+                        if (SelectedChucVuMoi == null)
+                            err = "Chưa chọn chức vụ mới";
+                        break;
+                    case "SelectedPhongBanMoi":
+                        if (SelectedPhongBanMoi == null)
+                            err = "Chưa chọn phòng ban mới";
+                        break;
+                    case "SoQuyetDinh":
+                        if (string.IsNullOrEmpty(SoQuyetDinh))
+                            err = "Số quyết định không được bỏ trống";
+                        break;
+                }
+
+                return err;
+            }
+        }
+
 
         public WorkingRotationViewModel()
         {

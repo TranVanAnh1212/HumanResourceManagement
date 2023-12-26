@@ -25,7 +25,7 @@ namespace HRMana.Main.View.Contract
         public ContractPage()
         {
             InitializeComponent();
-            txtbl_SoHopDongValidate.Visibility = Visibility.Collapsed;
+            //txtbl_SoHopDongValidate.Visibility = Visibility.Collapsed;
 
 
             NotificationEvent.Instance.ShowNotificationRequested += async (sender, e) =>
@@ -56,21 +56,21 @@ namespace HRMana.Main.View.Contract
             }
         }
 
-        private void txt_SoHopDong_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox textBox = sender as TextBox;
+        //private void txt_SoHopDong_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    TextBox textBox = sender as TextBox;
 
-            if (textBox.Text.Length <= 0) 
-            {
-                txtbl_SoHopDongValidate.Visibility = Visibility.Visible;
-                btn_Add.IsEnabled = false;
-            }
-            else
-            {
-                txtbl_SoHopDongValidate.Visibility = Visibility.Collapsed;
-                btn_Add.IsEnabled = true;
-            }
-        }
+        //    if (textBox.Text.Length <= 0) 
+        //    {
+        //        txtbl_SoHopDongValidate.Visibility = Visibility.Visible;
+        //        btn_Add.IsEnabled = false;
+        //    }
+        //    else
+        //    {
+        //        txtbl_SoHopDongValidate.Visibility = Visibility.Collapsed;
+        //        btn_Add.IsEnabled = true;
+        //    }
+        //}
 
         private void cb_KhongThoiHan_Checked(object sender, RoutedEventArgs e)
         {

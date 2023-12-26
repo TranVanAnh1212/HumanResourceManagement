@@ -16,10 +16,13 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using HRMana.Common.Commons;
+using System.ComponentModel;
+using Microsoft.Win32;
+using HRMana.Common;
 
 namespace HRMana.Main.ViewModel
 {
-    public class PersonnelDetailsViewModel : BaseViewModel
+    public class PersonnelDetailsViewModel : BaseViewModel, IDataErrorInfo
     {
         #region Khai báo biến
 
@@ -228,6 +231,109 @@ namespace HRMana.Main.ViewModel
         public string Permission_EDIT { get => _permission_EDIT; set { _permission_EDIT = value; OnPropertyChanged(); } }
         public string Permission_DEL { get => _permission_DEL; set { _permission_DEL = value; OnPropertyChanged(); } }
 
+        public string Error => throw new NotImplementedException();
+
+        public string this[string columnName]
+        {
+            get
+            {
+                var res = "";
+
+                switch (columnName)
+                {
+                    case "HoTen":
+                        if (string.IsNullOrEmpty(HoTen))
+                        {
+                            res = "Họ tên nhân viên không được bỏ trống";
+                        }
+                        break;
+                    case "NoiOHienTai":
+                        if (string.IsNullOrEmpty(NoiOHienTai))
+                        {
+                            res = "Nơi ở hiện tại không được bỏ trống";
+                        }
+                        break;
+                    case "Cccd":
+                        if (string.IsNullOrEmpty(Cccd))
+                        {
+                            res = "CCCD không được bỏ trống";
+                        }
+
+                        if (!string.IsNullOrEmpty(Cccd) && !StringHelper.CheckStringContainsLetter(Cccd))
+                        {
+                            res = "CCCD không thể chứa ký tự số.";
+                        }
+                        break;
+                    case "QueQuan":
+                        if (string.IsNullOrEmpty(QueQuan))
+                        {
+                            res = "Quê quán không được bỏ trống";
+                        }
+                        break;
+                    case "NgaySinh":
+                        if (NgaySinh == null)
+                        {
+                            res = "Ngày sinh không được bỏ trống";
+                        }
+
+                        if (!StringHelper.IsValidDate(NgaySinh, "dd/MM/yyyy"))
+                        {
+                            res = "Ngày sinh không đúng định dạng";
+                        }
+
+                        if (DateTime.TryParse(NgaySinh, out var ns) && DateTime.Now.Year - ns.Year < 18)
+                        {
+                            res = "Nhân viên phải có số tuổi lớn hơn 18.";
+                        }
+
+                        if (DateTime.TryParse(NgaySinh, out var checkTuoi) && DateTime.Now < checkTuoi)
+                        {
+                            res = "Ngày tháng năm sinh phải bé hơn ngày táng hiện tại.";
+                        }
+                        break;
+                    case "SelectedTonGiao":
+                        if (SelectedTonGiao == null)
+                        {
+                            res = "Tôn giáo chưa được chọn";
+                        }
+                        break;
+                    case "SelectedDanToc":
+                        if (SelectedDanToc == null)
+                        {
+                            res = "Dân tộc chưa được chọn";
+                        }
+                        break;
+                    case "SelectedTrinhDo":
+                        if (SelectedTrinhDo == null)
+                        {
+                            res = "Trình độ học vấn chưa được chọn";
+                        }
+                        break;
+                    case "SelectedChuyenMon":
+                        if (SelectedChuyenMon == null)
+                        {
+                            res = "Chuyên môn chưa được chọn";
+                        }
+                        break;
+                    case "SelectedChucVu":
+                        if (SelectedChucVu == null)
+                        {
+                            res = "Chức vụ chưa được chọn";
+                        }
+                        break;
+                    case "SelectedPhongBan":
+                        if (SelectedPhongBan == null)
+                        {
+                            res = "Phòng ban chưa được chọn";
+                        }
+                        break;
+
+                }
+
+                return res;
+            }
+        }
+
         #endregion
 
 
@@ -364,6 +470,14 @@ namespace HRMana.Main.ViewModel
                     }
                 }
                 );
+
+            ChooseImageCommand = new RelayCommand<object>(
+                (param) => { return true; },
+                (param) =>
+                {
+                    AnhThe = FeatureHelper.ChooseImage();                    
+                }
+                );
         }
 
         private void CloseDetailWindow()
@@ -405,6 +519,7 @@ namespace HRMana.Main.ViewModel
                     SelectedChuyenMon = ListChuyenMon.SingleOrDefault(x => x.maChuyenMon == nv.maChuyenMon);
                     MaHopDong = (int)nv.maHopDong;
                     //SoHopDong = nv.HopDong.soHopDong;
+                    MaHoSo = (int)nv.maHoSo;
                     AnhThe = (nv.anhThe == null) ? "..\\..\\Assets\\NhanVien_Image\\DefaultAvatar.jpg" :
                         AppDomain.CurrentDomain.BaseDirectory + "NhanVien_Image\\" + nv.anhThe;
                 }

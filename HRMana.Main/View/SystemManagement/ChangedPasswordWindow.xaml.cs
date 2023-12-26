@@ -23,7 +23,7 @@ namespace HRMana.Main.View.SystemManagement
         {
             InitializeComponent();
 
-            txtbl_ConfirmPassword.Visibility = Visibility.Collapsed;
+            //txtbl_ConfirmPassword.Visibility = Visibility.Collapsed;
         }
 
         private void btn_Cancel_Click(object sender, RoutedEventArgs e)
@@ -31,40 +31,40 @@ namespace HRMana.Main.View.SystemManagement
             this.Close();
         }
 
-        private void txt_NewPass_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox txt = sender as TextBox;
+        //private void txt_NewPass_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    TextBox txt = sender as TextBox;
 
-            if (txt.Text.Length < 6)
-            {
-                // Đổi màu sắc thành màu đỏ (ví dụ: #FF0000 là mã HEX cho màu đỏ)
-                txtbl_passwordRule.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-            }
-            else
-            {
-                txtbl_passwordRule.Foreground = new SolidColorBrush(Color.FromRgb(42, 181, 45));
-            }
+        //    if (txt.Text.Length < 6)
+        //    {
+        //        // Đổi màu sắc thành màu đỏ (ví dụ: #FF0000 là mã HEX cho màu đỏ)
+        //        txtbl_passwordRule.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+        //    }
+        //    else
+        //    {
+        //        txtbl_passwordRule.Foreground = new SolidColorBrush(Color.FromRgb(42, 181, 45));
+        //    }
 
-        }
+        //}
 
-        private void txt_ConfirmPass_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox txt = sender as TextBox;
+        //private void txt_ConfirmPass_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    TextBox txt = sender as TextBox;
 
-            if (txt.Text.Length > 0)
-                txtbl_ConfirmPassword.Visibility = Visibility.Visible;
+        //    if (txt.Text.Length > 0)
+        //        txtbl_ConfirmPassword.Visibility = Visibility.Visible;
 
-            if (!txt_NewPass.Text.Equals(txt.Text))
-            {
-                txtbl_ConfirmPassword.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
-            }
-            else
-            {
-                txtbl_ConfirmPassword.Visibility = Visibility.Collapsed;
-                txtbl_ConfirmPassword.Foreground = new SolidColorBrush(Color.FromRgb(42, 181, 45));
-            }
+        //    if (!txt_NewPass.Text.Equals(txt.Text))
+        //    {
+        //        txtbl_ConfirmPassword.Foreground = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+        //    }
+        //    else
+        //    {
+        //        txtbl_ConfirmPassword.Visibility = Visibility.Collapsed;
+        //        txtbl_ConfirmPassword.Foreground = new SolidColorBrush(Color.FromRgb(42, 181, 45));
+        //    }
 
 
-        }
+        //}
     }
 }

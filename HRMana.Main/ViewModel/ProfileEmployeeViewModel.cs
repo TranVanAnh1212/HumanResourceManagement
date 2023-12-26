@@ -434,7 +434,6 @@ namespace HRMana.Main.ViewModel
                 GiayKhamSK = AnhThe = TinhTrangHoSo = HinhThucThanhToanLuong =
                 SoTkNganHang = NganHang = MaSoThue = MaSoBHXH = string.Empty;
             HeSoLuong = LuongCoBan = MaHopDong = 0;
-            SoHopDong = LoaiHopDong = ThoiHanHD = NgayBDHD = string.Empty;
         }
 
         private void EmptyHopDong()

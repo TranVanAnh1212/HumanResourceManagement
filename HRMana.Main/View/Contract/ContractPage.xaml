@@ -9,7 +9,7 @@
       xmlns:local="clr-namespace:HRMana.Main.View.Contract"
       mc:Ignorable="d" 
       DataContext="{StaticResource contractVM}" FontSize="14"
-      x:Name="contractPage" Background="White" Height="500"
+      x:Name="contractPage" Background="White"
       Title="ContractPage">
 
     <i:Interaction.Triggers>
@@ -91,16 +91,18 @@
 
                     <Grid Grid.Row="1">
                         <TextBlock HorizontalAlignment="Left" Height="26" Margin="138,14,10,10" TextWrapping="Wrap" Text="Số hợp đồng" VerticalAlignment="Top" Width="87" TextAlignment="Right" FontSize="14"/>
-                        <TextBox Text="{Binding SoHopDong}" x:Name="txt_SoHopDong" HorizontalAlignment="Left" Height="25" 
-                                 Margin="254,14,10,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" TextChanged="txt_SoHopDong_TextChanged"/>
-                        <TextBlock Text="Số hợp đồng không được bỏ trống" x:Name="txtbl_SoHopDongValidate" FontSize="10" Foreground="Red" Margin="254,44,10,0"/>
+                        <TextBox Text="{Binding SoHopDong, ValidatesOnDataErrors=True}" x:Name="txt_SoHopDong" HorizontalAlignment="Left" Height="25" 
+                                 Margin="254,14,10,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="284"/>
+                        <!--<TextBlock Text="Số hợp đồng không được bỏ trống" x:Name="txtbl_SoHopDongValidate" 
+                                   FontSize="10" Foreground="Red" Margin="254,44,10,0"/>-->
                     </Grid>
 
                     <Grid Grid.Row="0" Grid.Column="1">
 
                         <TextBlock Text="Ngày ký hợp đồng" HorizontalAlignment="Left" VerticalAlignment="Top" 
                                    Margin="10,14,0,0"></TextBlock>
-                        <DatePicker SelectedDate="{Binding NgayKyHopDong}" HorizontalAlignment="Left" 
+                        <DatePicker SelectedDate="{Binding NgayKyHopDong, ValidatesOnDataErrors=True}" 
+                                    HorizontalAlignment="Left" 
                                     Margin="147,14,0,0" VerticalAlignment="Top" Width="275"/>
                     </Grid>
 
@@ -108,7 +110,7 @@
 
                         <TextBlock Text="Ngày kết thúc hợp đồng" HorizontalAlignment="Left" VerticalAlignment="Top" 
                                    Margin="10,18,0,0"></TextBlock>
-                        <DatePicker SelectedDate="{Binding NgayKetThucHopDong}" HorizontalAlignment="Left" 
+                        <DatePicker SelectedDate="{Binding NgayKetThucHopDong, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" 
                                     VerticalAlignment="Top" Margin="191,10,0,0" Width="234" x:Name="dpNgayKTHD"></DatePicker>
                     </Grid>
 
@@ -119,7 +121,7 @@
                                  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="142,14,10,10"></TextBox>-->
 
                         <StackPanel Orientation="Horizontal"  Margin="250,0,0,0">
-                            <RadioButton Content="Có thời hạn" IsChecked="{Binding Rdb_CTHChecked}" Margin="0 0 15 0" Name="rdb_CoThoiHan" Checked="cb_KhongThoiHan_Checked"/>
+                            <RadioButton Content="Có thời hạn" IsChecked="{Binding Rdb_CTHChecked, ValidatesOnDataErrors=True}" Margin="0 0 15 0" Name="rdb_CoThoiHan" Checked="cb_KhongThoiHan_Checked"/>
                             <RadioButton Content="Không thời hạn" IsChecked="{Binding Rdb_KTHChecked}" x:Name="cb_KhongThoiHan" Checked="cb_KhongThoiHan_Checked"/>
                         </StackPanel>
                     </Grid>
